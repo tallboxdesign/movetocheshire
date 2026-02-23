@@ -1,55 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Calculator, MapPin, Home, ArrowRight, PoundSterling } from 'lucide-react';
-
-interface PropertyTier {
-    name: string;
-    towns: string;
-    avgPrice: number;
-    description: string;
-    getPropertyAtBudget: (budget: number) => string;
-}
-
-const tiers: PropertyTier[] = [
-    {
-        name: 'The Golden Triangle',
-        towns: 'Wilmslow, Alderley Edge, Prestbury',
-        avgPrice: 650000,
-        description: 'Ultra-premium commuter belt with top schools and direct London/Manchester rail links.',
-        getPropertyAtBudget: (budget) => {
-            if (budget < 350000) return '1-2 bed apartment or small terrace needing work';
-            if (budget < 600000) return '3-bed semi-detached or modernized terrace';
-            if (budget < 900000) return '4-bed detached family home';
-            if (budget < 1500000) return 'Substantial 5-bed detached with large garden';
-            return 'Luxury mansion or exclusive gated property';
-        }
-    },
-    {
-        name: 'The Balanced Middle',
-        towns: 'Knutsford, Macclesfield, Chester',
-        avgPrice: 380000,
-        description: 'Excellent value offering great schools, heritage, and strong amenities.',
-        getPropertyAtBudget: (budget) => {
-            if (budget < 250000) return '2-bed terrace or modern apartment';
-            if (budget < 450000) return '3-4 bed modern semi-detached';
-            if (budget < 700000) return 'Large 4-bed detached family home';
-            if (budget < 1000000) return 'Premium 5-bed detached or character property';
-            return 'Exceptional luxury estate or substantial period home';
-        }
-    },
-    {
-        name: 'The Accessible Tier',
-        towns: 'Northwich, Crewe, Winsford',
-        avgPrice: 220000,
-        description: 'High affordability with massive ongoing regeneration and great transport connectivity.',
-        getPropertyAtBudget: (budget) => {
-            if (budget < 150000) return '2-3 bed traditional terrace';
-            if (budget < 250000) return '3-bed modern semi-detached';
-            if (budget < 400000) return 'Substantial 4-bed detached family home';
-            if (budget < 600000) return 'Premium 5-bed modern detached executive home';
-            return 'The very top of the local market - exceptional space and land';
-        }
-    }
-];
+import { tiers } from '../data/areas';
 
 export default function PurchasingPowerCalculator() {
     const [budgetStr, setBudgetStr] = useState<string>('500000');
