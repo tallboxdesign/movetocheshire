@@ -1,0 +1,54 @@
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is the nicest village in Cheshire?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Prestbury and Tarporley consistently rank as the nicest villages in Cheshire. Prestbury averages £650,000+ (Rightmove, Q4 2025) with a 20-minute train to Manchester. Tarporley has an Outstanding secondary school and averages £380,000 (Rightmove, Q4 2025). The better choice depends on whether commute speed or value is the priority."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is Wilmslow or Alderley Edge better to live in?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "For most buyers, Wilmslow is the better practical choice: it offers a faster Manchester commute at 17 minutes versus 22 minutes (National Rail, 2025), and averages £490,000 versus £700,000+ in Alderley Edge (Rightmove, Q4 2025). Alderley Edge's advantage is its concentrated independent high street and address prestige."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Where do wealthy people live in Cheshire?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The highest concentration of high-net-worth households in Cheshire is in the Golden Triangle — Alderley Edge, Prestbury, and parts of Wilmslow. Alderley Edge averages £700,000+ and Prestbury £650,000+ (Rightmove, Q4 2025). Outside the Triangle, parts of Chester's rural fringe and the Tarporley area also carry high average prices."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What are the best schools in Cheshire?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Among state schools, Knutsford Academy and Tarporley High School both hold Outstanding Ofsted ratings. The King's School and Queen's School in Chester are established independents. For families in the Golden Triangle, Alderley Edge School for Girls is a well-known independent option."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is Knutsford a good place to live?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Knutsford is one of Cheshire's most well-rounded areas for families: an Outstanding state secondary in Knutsford Academy, an average price of £430,000 (Rightmove, Q4 2025), and a 35-minute train to Manchester (National Rail, 2025). The main limitation is lower train frequency on the Mid-Cheshire Line compared to the Wilmslow route."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the Golden Triangle in Cheshire?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The Cheshire Golden Triangle is an informal name for the affluent commuter belt roughly bounded by Wilmslow, Alderley Edge, and Prestbury in Cheshire East. Cheshire East averaged £306,000 in November 2025 (ONS), but properties within the Triangle frequently exceed £500,000–£700,000+. The term is sometimes extended to include Knutsford and Bramhall."
+      }
+    }
+  ]
+}

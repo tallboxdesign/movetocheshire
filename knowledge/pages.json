@@ -2,7 +2,7 @@
   "site": "movetocheshire.uk",
   "last_updated": "2026-02-23",
   "total_pages": 22,
-  "completed": 1,
+  "completed": 3,
   "note": "Agent reads this file first. Set status to in_progress before starting a page. Set to done only after SOP 4 checklist passes.",
   "pages": [
     {
@@ -40,7 +40,9 @@
       "hub": "where-to-live",
       "notebook": 2,
       "notebook_link": "https://notebooklm.google.com/notebook/004374b4-fd11-4bf1-a338-556ad619c0f0",
-      "status": "pending",
+      "status": "done",
+      "completed_date": "2026-02-23",
+      "verified_date": "2026-02-23",
       "priority": 3,
       "notes": "Write together with Page 15 — shared notebook. Hub intro only, no spoke detail.",
       "write_with": [15]
@@ -54,7 +56,9 @@
       "hub": "where-to-live",
       "notebook": 2,
       "notebook_link": "https://notebooklm.google.com/notebook/004374b4-fd11-4bf1-a338-556ad619c0f0",
-      "status": "pending",
+      "status": "done",
+      "completed_date": "2026-02-23",
+      "verified_date": "2026-02-23",
       "priority": 4,
       "notes": "Write together with Page 2 — shared notebook.",
       "write_with": [2]

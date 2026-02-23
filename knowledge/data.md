@@ -62,7 +62,9 @@
 
 | Figure | Value | Source | Date | Status |
 |--------|-------|--------|------|--------|
-| London average | ~£690,000 | ONS | VERIFY date | UNVERIFIED — fetch ONS |
+| London average | £551,294 | ONS / Land Registry UKHPI | December 2025 | VERIFIED |
+| London YoY change | -1.0% | ONS | December 2025 | VERIFIED |
+| London — lowest regional growth | Yes — lowest annual inflation of any English region | ONS | December 2025 | VERIFIED |
 
 **Source:** https://www.ons.gov.uk/peoplepopulationandcommunity/housing
 
@@ -146,6 +148,81 @@
 | Previous FTB zero-rate threshold (pre-April 2025) | £425,000 | HMRC | Pre-April 2025 | VERIFY |
 
 **Source:** https://www.gov.uk/stamp-duty-land-tax
+
+---
+
+## HOUSE PRICES — POYNTON
+
+| Figure | Value | Source | Date | Status |
+|--------|-------|--------|------|--------|
+| Poynton average | £444,312 | Rightmove | 12 months to early 2026 | VERIFIED |
+| Higher Poynton average | £496,296 | Rightmove | 12 months to early 2026 | VERIFIED |
+| Near Poynton Station average | £379,833 | Rightmove | 12 months to early 2026 | VERIFIED |
+| Poynton train to Manchester Piccadilly (fastest) | 20 minutes | Northern Trains | Current timetable | VERIFIED |
+| Poynton train to Manchester Piccadilly (avg) | 23 minutes | Northern Trains | Current timetable | VERIFIED |
+| Daily direct trains Poynton–Manchester | ~21 | Northern Trains | Current timetable | VERIFIED |
+| Poynton station | PYT, Northern Trains, Macclesfield corridor line | National Rail | Current | VERIFIED |
+
+**Sources:**
+- Rightmove: https://www.rightmove.co.uk/house-prices/poynton.html
+- Northern: https://www.northernrailway.co.uk/stations/poynton
+
+---
+
+## COUNCIL TAX
+
+| Figure | Value | Source | Date | Status |
+|--------|-------|--------|------|--------|
+| Cheshire East Band D | £2,332.61 | Cheshire East Council | 2025-26 | VERIFIED |
+| Cheshire West & Chester Band D | £1,978.09 | CW&C Council | 2025-26 | VERIFIED |
+| England average Band D | £2,280 | GOV.UK | 2025-26 | VERIFIED |
+| Cheshire East vs England | +£52.61 above average | Derived | 2025-26 | VERIFIED |
+| Cheshire West vs England | -£301.91 below average | Derived | 2025-26 | VERIFIED |
+
+**Sources:**
+- GOV.UK: https://www.gov.uk/government/statistics/council-tax-levels-set-by-local-authorities-in-england-2025-to-2026
+- Cheshire East: https://www.counciltax.info/council/cheshire_east
+- CW&C: https://www.cheshirewestandchester.gov.uk/residents/council-tax
+
+---
+
+## OFSTED SCHOOLS
+
+| Figure | Value | Source | Date | Status |
+|--------|-------|--------|------|--------|
+| Outstanding schools — Cheshire East (all types) | 39 | SNobe / Ofsted | 2024-25 | VERIFIED |
+| Outstanding primaries — Cheshire East | 17 | SNobe / Ofsted | 2024-25 | VERIFIED |
+| Outstanding secondaries — Cheshire East | 4 | SNobe / Ofsted | 2024-25 | VERIFIED |
+| Outstanding schools — CW&C (all types) | 37 | SNobe / Ofsted | 2024-25 | VERIFIED |
+| Outstanding primaries — CW&C | 14 | SNobe / Ofsted | 2024-25 | VERIFIED |
+| Outstanding secondaries — CW&C | 6 | SNobe / Ofsted | 2024-25 | VERIFIED |
+| Combined Outstanding schools | 76 | SNobe / Ofsted | 2024-25 | VERIFIED |
+| Combined Outstanding % | ~22% | Derived (76/346 schools) | 2024-25 | VERIFIED |
+| England Outstanding % (national benchmark) | 16% | GOV.UK / Ofsted | Aug 2025 | VERIFIED |
+
+**Note:** Ofsted replaced single-word grades with Report Card system from August 2025. Outstanding counts reflect last graded inspections under previous framework.
+
+**Sources:**
+- SNobe: https://snobe.co.uk/ofsted-outstanding-schools/cheshire
+- Ofsted: https://reports.ofsted.gov.uk
+- GOV.UK: https://www.gov.uk/government/statistics/state-funded-schools-inspections-and-outcomes-as-at-31-august-2025
+
+---
+
+## CREWE DEVELOPMENT & HS2
+
+| Figure | Value | Source | Date | Status |
+|--------|-------|--------|------|--------|
+| HS2 Phase 2a (Birmingham–Crewe) | Effectively cancelled — compulsory purchase powers lapsed Feb 2026 | Commons Library / Crewe Nub News | February 2026 | VERIFIED |
+| HS2 Phase 2a spend before cancellation | ~£900 million | Commons Library | October 2023 | VERIFIED |
+| Crewe town centre regeneration programme | £100m+ | Cheshire East Council | 2025-26 | VERIFIED |
+| The Dome Youth Zone | Opening spring 2026 | OnSide / Cheshire East Council | 2025-26 | VERIFIED |
+| Capital&Centric housing scheme | 300+ homes planned, pre-development phase | Cheshire East Council | September 2025 | VERIFIED |
+
+**Sources:**
+- Commons Library: https://commonslibrary.parliament.uk/what-next-for-hs2/
+- Cheshire East: https://www.cheshireeast.gov.uk/council_and_democracy/council_information/media_hub/media_releases/
+- Crewe Nub News: https://crewe.nub.news
 
 ---
 

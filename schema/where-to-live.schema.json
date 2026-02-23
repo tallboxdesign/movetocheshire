@@ -1,0 +1,54 @@
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Is Cheshire expensive to live in?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It depends which part. Cheshire East averages £306,000 across all property types (ONS, November 2025), but the range spans from Crewe at £175,000 to Alderley Edge above £700,000. Day-to-day costs outside premium towns are broadly in line with the national average."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is Cheshire a good place to raise a family?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Cheshire has a high density of Outstanding and Good Ofsted schools, particularly in Cheshire East, and most main towns have accessible parks, sports clubs, and youth facilities. The constraint is that outside larger towns, getting children to activities depends on car ownership."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the Golden Triangle in Cheshire?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The Golden Triangle refers to the area bounded by Wilmslow, Alderley Edge, and Prestbury — three towns in northeast Cheshire with the highest property prices, high-earning residents, and premium schools. Average prices exceed £490,000 in Wilmslow and £700,000 in Alderley Edge (Rightmove, Q4 2025)."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How long is the commute from Cheshire to Manchester?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It varies by town. The fastest is Wilmslow at 17 minutes to Manchester Piccadilly (National Rail, 2025). Prestbury and Alderley Edge are 20 and 22 minutes. Macclesfield is 25 minutes. Chester is approximately 50 minutes. Towns like Tarporley and Nantwich require indirect routes taking over an hour."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is it worth moving from London to Cheshire?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "For most households selling in inner or mid London, the equity released is substantial — a London flat that sold for £600,000 buys a four-bedroom detached house in Wilmslow with money left over. The trade-offs are London's cultural density and, for those still commuting to London, a significant journey time."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the cost of living in Cheshire compared to London?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Housing is the main difference — Cheshire East averages £306,000 (ONS, November 2025) versus significantly higher London averages. Groceries, utilities, and everyday services are broadly comparable. Private school fees and restaurant prices in premium towns are closer to London levels."
+      }
+    }
+  ]
+}
