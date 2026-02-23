@@ -1,17 +1,456 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import SpokeLayout from '../../components/SpokeLayout.astro';
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    { '@type': 'Question', name: 'What is the nicest village in Cheshire?', acceptedAnswer: { '@type': 'Answer', text: 'Prestbury and Tarporley consistently rank as the nicest villages in Cheshire. Prestbury averages £650,000+ (Rightmove, Q4 2025) with a 20-minute train to Manchester. Tarporley has an Outstanding secondary school and averages £380,000 (Rightmove, Q4 2025). The better choice depends on whether commute speed or value is the priority.' } },
+    { '@type': 'Question', name: 'Is Wilmslow or Alderley Edge better to live in?', acceptedAnswer: { '@type': 'Answer', text: 'For most buyers, Wilmslow is the better practical choice: it offers a faster Manchester commute at 17 minutes versus 22 minutes (National Rail, 2025), and averages £490,000 versus £700,000+ in Alderley Edge (Rightmove, Q4 2025). Alderley Edge\'s advantage is its concentrated independent high street and address prestige.' } },
+    { '@type': 'Question', name: 'Where do wealthy people live in Cheshire?', acceptedAnswer: { '@type': 'Answer', text: 'The highest concentration of high-net-worth households in Cheshire is in the Golden Triangle — Alderley Edge, Prestbury, and parts of Wilmslow. Alderley Edge averages £700,000+ and Prestbury £650,000+ (Rightmove, Q4 2025). Outside the Triangle, parts of Chester\'s rural fringe and the Tarporley area also carry high average prices.' } },
+    { '@type': 'Question', name: 'What are the best schools in Cheshire?', acceptedAnswer: { '@type': 'Answer', text: 'Among state schools, Knutsford Academy and Tarporley High School both hold Outstanding Ofsted ratings. The King\'s School and Queen\'s School in Chester are established independents. For families in the Golden Triangle, Alderley Edge School for Girls is a well-known independent option.' } },
+    { '@type': 'Question', name: 'Is Knutsford a good place to live?', acceptedAnswer: { '@type': 'Answer', text: 'Knutsford is one of Cheshire\'s most well-rounded areas for families: an Outstanding state secondary in Knutsford Academy, an average price of £430,000 (Rightmove, Q4 2025), and a 35-minute train to Manchester (National Rail, 2025). The main limitation is lower train frequency on the Mid-Cheshire Line compared to the Wilmslow route.' } },
+    { '@type': 'Question', name: 'What is the Golden Triangle in Cheshire?', acceptedAnswer: { '@type': 'Answer', text: 'The Cheshire Golden Triangle is an informal name for the affluent commuter belt roughly bounded by Wilmslow, Alderley Edge, and Prestbury in Cheshire East. Cheshire East averaged £306,000 in November 2025 (ONS), but properties within the Triangle frequently exceed £500,000–£700,000+. The term is sometimes extended to include Knutsford and Bramhall.' } },
+  ],
+};
+
+const areas = [
+  { area: 'Wilmslow', price: '£490,000', commute: '17 min', schools: 'Wilmslow High (Good)', bestFor: 'Families / commuters', tier: 'Premium' },
+  { area: 'Alderley Edge', price: '£700,000+', commute: '22 min', schools: 'Alderley Edge School for Girls', bestFor: 'Premium lifestyle', tier: 'Premium' },
+  { area: 'Prestbury', price: '£650,000+', commute: '20 min', schools: 'Nearby independent schools', bestFor: 'Premium village / quiet', tier: 'Premium' },
+  { area: 'Knutsford', price: '£430,000', commute: '35 min', schools: 'Knutsford Academy (Outstanding)', bestFor: 'Families / village feel', tier: 'Premium' },
+  { area: 'Chester', price: '£250,000', commute: '50 min', schools: "King's School / Queen's School", bestFor: 'First-time buyers / history', tier: 'Mid' },
+  { area: 'Macclesfield', price: '£280,000', commute: '25 min', schools: 'The Macclesfield Academy', bestFor: 'Value / Peak District access', tier: 'Mid' },
+  { area: 'Nantwich', price: '£295,000', commute: '60 min indirect', schools: 'Malbank School', bestFor: 'Market town / SW Cheshire', tier: 'Mid' },
+  { area: 'Tarporley', price: '£380,000', commute: '55 min indirect', schools: 'Tarporley High (Outstanding)', bestFor: 'Village life / families', tier: 'Mid' },
+  { area: 'Northwich', price: '£220,000', commute: '40 min', schools: 'Hartford High School', bestFor: 'Affordable / good links', tier: 'Budget' },
+  { area: 'Crewe', price: '£175,000', commute: '55 min', schools: 'Ruskin Academy', bestFor: 'Budget buyers / investors', tier: 'Budget' },
+];
+
+const quickRef = [
+  { priority: 'Families with school-age children', choices: 'Wilmslow, Knutsford' },
+  { priority: 'Commuters to Manchester', choices: 'Wilmslow (17 min), Prestbury (20 min)' },
+  { priority: 'First-time buyers', choices: 'Chester, Macclesfield' },
+  { priority: 'Village life', choices: 'Prestbury, Tarporley' },
+  { priority: 'Best value', choices: 'Crewe, Northwich' },
+  { priority: 'Lifestyle, culture, and independent shops', choices: 'Chester, Knutsford' },
+];
+
+const areaProfiles = [
+  {
+    name: 'Wilmslow',
+    intro: 'Wilmslow is the default choice for Manchester-based professionals who want the fastest possible commute with good state secondaries and access to a commercial high street. It is not a village — it has a Waitrose, a Booths, a gym quarter, and a main line station that puts Manchester Piccadilly at 17 minutes on the fastest services.',
+    price: '£490,000', priceSource: 'Rightmove, Q4 2025',
+    commute: '17 minutes (fastest service)', commuteSource: 'National Rail, 2025',
+    school: 'Wilmslow High School (Ofsted: Good)',
+    bestFor: 'Dual-income commuter households; families wanting state schooling with quick rail access',
+    downside: 'Wilmslow is not cheap relative to what you get architecturally — much of the housing stock is 1970s–1990s executive builds. Buyers expecting Cotswold-style character will be disappointed. The A34 corridor can be congested at peak times.',
+  },
+  {
+    name: 'Alderley Edge',
+    intro: "Alderley Edge is Cheshire's most recognisable postcode outside the county. A single main street of independent restaurants, wine bars, and a boutique cluster has made the village synonymous with Premier League footballers and high-net-worth relocators — a reputation that inflates prices well beyond neighbouring villages.",
+    price: '£700,000+', priceSource: 'Rightmove, Q4 2025',
+    commute: '22 minutes', commuteSource: 'National Rail, 2025',
+    school: 'Alderley Edge School for Girls (independent)',
+    bestFor: 'Buyers for whom address and lifestyle prestige are part of the purchase decision',
+    downside: "The lifestyle premium is real, but so is the exposure. If you are paying £900,000 for a four-bedroom detached and the area's cachet softens, you carry more downside risk than equivalent buyers in Wilmslow or Prestbury. The village has a narrow high street; day-to-day logistics require a car.",
+  },
+  {
+    name: 'Prestbury',
+    intro: 'Prestbury is quieter than Alderley Edge, smaller, and more genuinely village-like. It sits three miles north of Macclesfield and 20 minutes by train from Manchester. The village has a river, a cricket club, a high street of independent shops, and a density of large detached homes on generous plots.',
+    price: '£650,000+', priceSource: 'Rightmove, Q4 2025',
+    commute: '20 minutes from Prestbury station', commuteSource: 'National Rail, 2025',
+    school: 'Access to independent schools nearby; state provision via Macclesfield',
+    bestFor: 'Premium buyers prioritising quiet village character over social infrastructure',
+    downside: 'The village amenities are limited — school-age children will likely need transport to Macclesfield or nearby independents. There is essentially no evening economy within the village itself.',
+  },
+  {
+    name: 'Knutsford',
+    intro: "Knutsford is the rational premium choice. It has an Outstanding Ofsted secondary (Knutsford Academy), a well-regarded town centre with independent retail and cafes, and proximity to both Tatton Park and the M6.",
+    price: '£430,000', priceSource: 'Rightmove, Q4 2025',
+    commute: '35 minutes', commuteSource: 'National Rail, 2025',
+    school: 'Knutsford Academy (Ofsted: Outstanding)',
+    bestFor: 'Families where school quality is the lead criterion; buyers stepping out of the Golden Triangle bubble on price',
+    downside: 'The train frequency on the Mid-Cheshire Line is lower than the Wilmslow route. Peak-hour services can be infrequent; check current timetables at National Rail before committing.',
+  },
+  {
+    name: 'Macclesfield',
+    intro: 'Macclesfield is undervalued relative to its fundamentals. The train to Manchester takes 25 minutes, the town has genuine history as a former silk-weaving centre, and it sits on the edge of the Peak District National Park — meaning hiking and cycling access is immediate rather than a drive away.',
+    price: '£280,000', priceSource: 'Rightmove, Q4 2025',
+    commute: '25 minutes', commuteSource: 'National Rail, 2025',
+    school: 'The Macclesfield Academy',
+    bestFor: 'First-time buyers from London; value-conscious buyers who want fast commute times and outdoor access',
+    downside: "Macclesfield's town centre has gaps in its retail and evening offer compared to Wilmslow or Knutsford. Regeneration is ongoing but uneven. Some buyers find it lacks the polish they expected after viewing the premium tier.",
+  },
+  {
+    name: 'Chester',
+    intro: "Chester is the most distinctive city in Cheshire. Roman walls, a two-tier medieval shopping arcade (The Rows), a cathedral, and a racecourse combine to make it the only area in this guide that functions as a genuine destination city rather than a commuter base.",
+    price: '£250,000', priceSource: 'Rightmove, Q4 2025',
+    commute: '50 minutes', commuteSource: 'National Rail, 2025',
+    school: "The King's School (independent, selective); Queen's School (independent)",
+    bestFor: 'First-time buyers; history and culture-led buyers; those who value city infrastructure over commute speed',
+    downside: 'The commute to Manchester is the longest of any area in this guide at approximately 50 minutes. The city also has higher crime rates in the centre relative to rural Cheshire.',
+  },
+  {
+    name: 'Nantwich',
+    intro: 'Nantwich is a handsome, well-preserved market town in south-west Cheshire. The black-and-white timber-framed buildings around the market square are genuine Tudor, not reproduction. It has an annual food festival, an independent high street that has survived better than most, and a community feel that is harder to find in commuter-heavy Golden Triangle villages.',
+    price: '£295,000', priceSource: 'Rightmove, Q4 2025',
+    commute: '60 minutes indirect', commuteSource: 'National Rail, 2025',
+    school: 'Malbank School',
+    bestFor: 'Buyers prioritising market town character, lower prices, and who can tolerate or are indifferent to commute length',
+    downside: 'Buyers needing Manchester five days a week should look elsewhere. The indirect route via Crewe adds time and a change. Nantwich works best for hybrid workers or those whose work is local.',
+  },
+];
+
+const faqs = [
+  {
+    question: 'What is the nicest village in Cheshire?',
+    answer: 'Prestbury and Tarporley consistently appear at the top of village rankings for Cheshire. Prestbury offers premium housing, a riverside setting, and a fast Manchester commute at 20 minutes (National Rail, 2025); average prices exceed £650,000 (Rightmove, Q4 2025). Tarporley is a larger village with an Outstanding secondary school, an active high street, and strong community ties at an average of £380,000 (Rightmove, Q4 2025). Which ranks higher depends on whether commute speed or value is the priority.',
+  },
+  {
+    question: 'Is Wilmslow or Alderley Edge better to live in?',
+    answer: "For most buyers, Wilmslow is the better practical choice. It offers a faster Manchester commute (17 minutes vs 22 minutes, National Rail, 2025), a broader range of everyday retail, and a lower average price of £490,000 versus £700,000+ in Alderley Edge (both Rightmove, Q4 2025). Alderley Edge's edge is its concentrated independent village high street and its name recognition — which matters to some buyers and not at all to others.",
+  },
+  {
+    question: 'Where do wealthy people live in Cheshire?',
+    answer: "The highest concentration of high-net-worth households in Cheshire is in the Golden Triangle — specifically Alderley Edge, Prestbury, and parts of Wilmslow. Alderley Edge averages £700,000+ and Prestbury £650,000+ (Rightmove, Q4 2025). Outside the Golden Triangle, the wealthier end of Chester's rural fringe and parts of the Tarporley area also carry high average prices.",
+  },
+  {
+    question: 'What are the best schools in Cheshire?',
+    answer: "Among state schools, Knutsford Academy and Tarporley High School both hold Outstanding Ofsted ratings. The King's School and Queen's School in Chester are well-regarded independent schools. Alderley Edge School for Girls is a well-known independent in the Golden Triangle. For a full state secondary comparison by area, see Best Secondary Schools in Cheshire.",
+  },
+  {
+    question: 'Is Knutsford a good place to live?',
+    answer: "Knutsford is one of Cheshire's most objectively well-rounded areas for families: an Outstanding secondary in Knutsford Academy, an average price of £430,000 (Rightmove, Q4 2025), Tatton Park on its doorstep, and a 35-minute train to Manchester (National Rail, 2025). The main limitation is train frequency on the Mid-Cheshire Line. For buyers who can work around that, Knutsford consistently offers better value per point of quality than Alderley Edge or Prestbury.",
+  },
+  {
+    question: 'What is the Golden Triangle in Cheshire?',
+    answer: "The Cheshire Golden Triangle is an informal name for the area roughly bounded by Wilmslow, Alderley Edge, and Prestbury — a cluster of affluent commuter villages in Cheshire East with fast Manchester rail access and high average house prices. Cheshire East averaged £306,000 in November 2025 (ONS), but properties within the Triangle frequently exceed £500,000–£700,000+. The term is used loosely and sometimes extended to include Knutsford and Bramhall.",
+  },
+];
 ---
 
 <BaseLayout
   title="Best Places to Live in Cheshire | Area Guide | movetocheshire.uk"
   description="A data-led ranking of Cheshire's most desirable towns and villages, weighing schools, commute times, prices, and quality of life. Sourced from ONS, Ofsted, and National Rail."
 >
-  <SpokeLayout
-    tag="Area Guide"
-    hubLabel="Where to Live"
-    hubHref="/where-to-live"
-    title="Best Places to Live in Cheshire"
-    description="A data-led ranking of Cheshire's most desirable towns and villages, weighing schools, commute times, prices, and quality of life. Sourced from ONS, Ofsted, and National Rail."
-  />
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  </Fragment>
+
+  <div style="background-color: #F9F7F4;">
+
+    <!-- HEADER -->
+    <section class="section-pad" style="background-color: #F9F7F4; border-bottom: 1px solid #E5E0D8;">
+      <div class="section-inner">
+        <div style="margin-bottom: 8px;">
+          <a href="/" style="font-family: Inter, Arial, sans-serif; font-size: 13px; color: #888888; text-decoration: none;">Home</a>
+          <span style="color: #CCCCCC; margin: 0 8px;">/</span>
+          <a href="/where-to-live" style="font-family: Inter, Arial, sans-serif; font-size: 13px; color: #888888; text-decoration: none;">Where to Live</a>
+          <span style="color: #CCCCCC; margin: 0 8px;">/</span>
+          <span style="font-family: Inter, Arial, sans-serif; font-size: 13px; color: #444444;">Best Places</span>
+        </div>
+
+        <span style="font-family: Inter, Arial, sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: #3D5A3E; display: block; margin-bottom: 14px; margin-top: 28px;">
+          Area Guide
+        </span>
+
+        <h1 style="font-family: Georgia, serif; font-size: clamp(28px, 4.5vw, 46px); font-weight: 700; color: #1C1C1E; line-height: 1.12; letter-spacing: -0.02em; margin: 0 0 20px 0; max-width: 720px;">
+          What Are the Best Places to Live in Cheshire?
+        </h1>
+
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 18px; line-height: 1.7; color: #555555; max-width: 640px; margin: 0 0 12px 0;">
+          A data-led ranking of Cheshire's most desirable towns and villages, weighing schools, commute times, prices, and quality of life. Sourced from ONS, Ofsted, and National Rail.
+        </p>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 12px; color: #888888; margin: 0;">
+          Last updated: February 2026
+        </p>
+      </div>
+    </section>
+
+    <!-- STAT BAR -->
+    <section style="background-color: #FFFFFF; border-bottom: 1px solid #E5E0D8;">
+      <div style="max-width: 900px; margin: 0 auto; padding: 0 40px;">
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0;">
+          <div style="padding: 28px 20px; border-right: 1px solid #E5E0D8; text-align: center;">
+            <p style="font-family: Georgia, serif; font-size: clamp(24px, 3vw, 32px); font-weight: 700; color: #1C1C1E; margin: 0 0 4px 0;">10</p>
+            <p style="font-family: Inter, Arial, sans-serif; font-size: 13px; color: #555555; margin: 0;">Key areas compared</p>
+          </div>
+          <div style="padding: 28px 20px; border-right: 1px solid #E5E0D8; text-align: center;">
+            <p style="font-family: Georgia, serif; font-size: clamp(24px, 3vw, 32px); font-weight: 700; color: #1C1C1E; margin: 0 0 4px 0;">£175k – £700k+</p>
+            <p style="font-family: Inter, Arial, sans-serif; font-size: 13px; color: #555555; margin: 0;">Price range across areas</p>
+          </div>
+          <div style="padding: 28px 20px; text-align: center;">
+            <p style="font-family: Georgia, serif; font-size: clamp(24px, 3vw, 32px); font-weight: 700; color: #C4933F; margin: 0 0 4px 0;">17 – 60 min</p>
+            <p style="font-family: Inter, Arial, sans-serif; font-size: 13px; color: #555555; margin: 0;">Train commute to Manchester</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- INTRO + COMPARISON TABLE -->
+    <section class="section-pad" style="background-color: #FFFFFF; border-bottom: 1px solid #E5E0D8;">
+      <div class="section-inner">
+
+        <div style="max-width: 720px; margin-bottom: 40px;">
+          <p style="font-family: Inter, Arial, sans-serif; font-size: 17px; line-height: 1.75; color: #333333; margin: 0;">
+            The best place to live in Cheshire depends on what you are optimising for. If your priority is the fastest Manchester commute, Wilmslow wins outright at 17 minutes by train. If you want the strongest state secondary schools, Knutsford's Knutsford Academy holds an Outstanding Ofsted rating and costs roughly £270,000 less than Alderley Edge. If budget is the binding constraint, Crewe and Northwich sit at £175,000–£220,000 with improving infrastructure. There is no single answer — but there is a framework, and this guide applies it across 10 areas with verified figures so you can make the call yourself.
+          </p>
+        </div>
+
+        <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 28px); font-weight: 700; color: #1C1C1E; margin: 0 0 24px 0;">Cheshire Area Comparison Table</h2>
+        <div style="overflow-x: auto; margin-bottom: 16px;">
+          <table style="width: 100%; border-collapse: collapse; font-family: Inter, Arial, sans-serif; font-size: 14px;">
+            <thead>
+              <tr style="border-bottom: 2px solid #3D5A3E;">
+                <th style="text-align: left; padding: 12px 14px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #3D5A3E;">Area</th>
+                <th style="text-align: left; padding: 12px 14px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #3D5A3E;">Avg Price</th>
+                <th style="text-align: left; padding: 12px 14px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #3D5A3E;">Train to Manchester</th>
+                <th style="text-align: left; padding: 12px 14px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #3D5A3E;">Notable Schools</th>
+                <th style="text-align: left; padding: 12px 14px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #3D5A3E;">Best For</th>
+                <th style="text-align: left; padding: 12px 14px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #3D5A3E;">Tier</th>
+              </tr>
+            </thead>
+            <tbody>
+              {areas.map((row, i) => (
+                <tr style={`border-bottom: 1px solid #E5E0D8; ${i % 2 === 0 ? 'background-color: #FAFAF8;' : ''}`}>
+                  <td style="padding: 12px 14px; font-weight: 600; color: #1C1C1E;">{row.area}</td>
+                  <td style="padding: 12px 14px; color: #333333;">{row.price}</td>
+                  <td style="padding: 12px 14px; color: #333333;">{row.commute}</td>
+                  <td style="padding: 12px 14px; color: #555555;">{row.schools}</td>
+                  <td style="padding: 12px 14px; color: #555555;">{row.bestFor}</td>
+                  <td style="padding: 12px 14px;">
+                    <span style={`font-size: 11px; font-weight: 600; padding: 3px 8px; border-radius: 2px; ${row.tier === 'Premium' ? 'background-color: rgba(196,147,63,0.12); color: #9A7030;' : row.tier === 'Mid' ? 'background-color: rgba(61,90,62,0.08); color: #3D5A3E;' : 'background-color: rgba(0,0,0,0.05); color: #666666;'}`}>
+                      {row.tier}
+                    </span>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 12px; color: #999999; font-style: italic; margin: 0;">
+          Area average prices: Rightmove, Q4 2025. Train times: National Rail, 2025. School ratings: Ofsted, 2024–2025.
+        </p>
+      </div>
+    </section>
+
+    <!-- THREE-TIER FRAMEWORK -->
+    <section class="section-pad" style="background-color: #F2EFE9; border-bottom: 1px solid #E5E0D8;">
+      <div class="section-inner">
+        <span class="section-label">Framework</span>
+        <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 28px); font-weight: 700; color: #1C1C1E; margin: 0 0 36px 0;">A Framework for Choosing: Three Tiers</h2>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; color: #555555; margin: 0 0 36px 0; max-width: 720px;">
+          Cheshire's housing market splits clearly into three bands. Where you land within them depends on budget first, then commute tolerance and school preferences.
+        </p>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px;">
+          <!-- Premium -->
+          <div style="background-color: #FFFFFF; border: 1px solid #E5E0D8; padding: 28px;">
+            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 16px;">
+              <span style="font-size: 11px; font-weight: 600; padding: 3px 10px; background-color: rgba(196,147,63,0.12); color: #9A7030; border-radius: 2px;">Premium</span>
+            </div>
+            <h3 style="font-family: Georgia, serif; font-size: 20px; font-weight: 700; color: #1C1C1E; margin: 0 0 8px 0;">The Golden Triangle and Beyond</h3>
+            <p style="font-family: Inter, Arial, sans-serif; font-size: 13px; font-weight: 600; color: #888888; margin: 0 0 16px 0;">Wilmslow, Alderley Edge, Prestbury, Knutsford — £430,000 to £700,000+</p>
+            <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.7; color: #444444; margin: 0 0 16px 0;">
+              This is the executive belt of Cheshire East. These four areas share proximity to Manchester, strong school provision, and a density of detached family homes. Cheshire East as a whole averaged £306,000 in November 2025 (ONS), with year-on-year growth of +6.7%.
+            </p>
+            <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; line-height: 1.7; color: #555555; margin: 0;">
+              For buyers who want equivalent schools and a shorter commute at lower cost, Knutsford is the rational outlier at £430,000 with an Outstanding secondary.
+            </p>
+          </div>
+
+          <!-- Balanced -->
+          <div style="background-color: #FFFFFF; border: 1px solid #E5E0D8; padding: 28px;">
+            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 16px;">
+              <span style="font-size: 11px; font-weight: 600; padding: 3px 10px; background-color: rgba(61,90,62,0.08); color: #3D5A3E; border-radius: 2px;">Mid</span>
+            </div>
+            <h3 style="font-family: Georgia, serif; font-size: 20px; font-weight: 700; color: #1C1C1E; margin: 0 0 8px 0;">Balanced Middle Tier</h3>
+            <p style="font-family: Inter, Arial, sans-serif; font-size: 13px; font-weight: 600; color: #888888; margin: 0 0 16px 0;">Chester, Macclesfield, Nantwich, Tarporley — £250,000 to £380,000</p>
+            <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.7; color: #444444; margin: 0 0 16px 0;">
+              This tier offers the strongest combination of character, schooling, and price. Macclesfield is chronically underrated by London relocators. Chester brings architectural heritage at a price point almost £100,000 below the county premium.
+            </p>
+            <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; line-height: 1.7; color: #555555; margin: 0;">
+              The main downside is commute time. Chester to Manchester runs 50 minutes minimum; Nantwich can be 60 minutes or more via indirect rail.
+            </p>
+          </div>
+
+          <!-- Accessible -->
+          <div style="background-color: #FFFFFF; border: 1px solid #E5E0D8; padding: 28px;">
+            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 16px;">
+              <span style="font-size: 11px; font-weight: 600; padding: 3px 10px; background-color: rgba(0,0,0,0.05); color: #666666; border-radius: 2px;">Budget</span>
+            </div>
+            <h3 style="font-family: Georgia, serif; font-size: 20px; font-weight: 700; color: #1C1C1E; margin: 0 0 8px 0;">Accessible Tier</h3>
+            <p style="font-family: Inter, Arial, sans-serif; font-size: 13px; font-weight: 600; color: #888888; margin: 0 0 16px 0;">Northwich, Crewe — £175,000 to £220,000</p>
+            <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.7; color: #444444; margin: 0 0 16px 0;">
+              These are value propositions, not consolation prizes. Cheshire West and Chester averaged £265,000 in November 2025 (ONS), with +3.1% annual growth — and both sit well below even that figure.
+            </p>
+            <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; line-height: 1.7; color: #555555; margin: 0;">
+              Crewe's HS2 Phase 2a has effectively been cancelled, but a separate £100m+ regeneration programme is underway. <em style="font-size: 12px; color: #888888;">(Source: Cheshire East Council, 2025-26)</em>
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- AREA PROFILES -->
+    <section class="section-pad" style="background-color: #FFFFFF; border-bottom: 1px solid #E5E0D8;">
+      <div class="section-inner">
+        <span class="section-label">Area profiles</span>
+        <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 28px); font-weight: 700; color: #1C1C1E; margin: 0 0 40px 0;">Area-by-Area Breakdown</h2>
+
+        {areaProfiles.map((area, i) => (
+          <div style={`padding: 36px 0; ${i > 0 ? 'border-top: 1px solid #E5E0D8;' : ''}`}>
+            <h3 style="font-family: Georgia, serif; font-size: 24px; font-weight: 700; color: #1C1C1E; margin: 0 0 16px 0;">{area.name}</h3>
+            <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #333333; margin: 0 0 24px 0; max-width: 720px;">
+              {area.intro}
+            </p>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 20px;">
+              <div style="padding: 16px; background-color: #F9F7F4; border: 1px solid #E5E0D8;">
+                <p style="font-family: Inter, Arial, sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #888888; margin: 0 0 4px 0;">Avg Price</p>
+                <p style="font-family: Georgia, serif; font-size: 20px; font-weight: 700; color: #1C1C1E; margin: 0;">{area.price}</p>
+                <p style="font-family: Inter, Arial, sans-serif; font-size: 11px; color: #999999; font-style: italic; margin: 4px 0 0 0;">{area.priceSource}</p>
+              </div>
+              <div style="padding: 16px; background-color: #F9F7F4; border: 1px solid #E5E0D8;">
+                <p style="font-family: Inter, Arial, sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #888888; margin: 0 0 4px 0;">Train to Manchester</p>
+                <p style="font-family: Georgia, serif; font-size: 20px; font-weight: 700; color: #1C1C1E; margin: 0;">{area.commute}</p>
+                <p style="font-family: Inter, Arial, sans-serif; font-size: 11px; color: #999999; font-style: italic; margin: 4px 0 0 0;">{area.commuteSource}</p>
+              </div>
+              <div style="padding: 16px; background-color: #F9F7F4; border: 1px solid #E5E0D8;">
+                <p style="font-family: Inter, Arial, sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #888888; margin: 0 0 4px 0;">School Highlight</p>
+                <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; font-weight: 600; color: #1C1C1E; margin: 0;">{area.school}</p>
+              </div>
+            </div>
+            <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; color: #3D5A3E; font-weight: 600; margin: 0 0 8px 0;">Best for: {area.bestFor}</p>
+            <div style="border-left: 2px solid #C4933F; padding-left: 16px; margin-top: 16px;">
+              <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; line-height: 1.7; color: #666666; margin: 0;">
+                <strong style="color: #555555;">Honest downside:</strong> {area.downside}
+              </p>
+            </div>
+          </div>
+        ))}
+
+        <!-- Remaining three areas note -->
+        <div style="border-top: 1px solid #E5E0D8; padding-top: 36px;">
+          <h3 style="font-family: Georgia, serif; font-size: 20px; font-weight: 700; color: #1C1C1E; margin: 0 0 16px 0;">A Note on the Remaining Three Areas</h3>
+          <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.75; color: #444444; margin: 0;">
+            <strong>Northwich</strong> (£220,000, 40 min to Manchester) is a mid-sized town on the River Weaver with Hartford High School and good road links to both Manchester and Chester. It is affordable and underrated, though the town centre is still working through an uneven regeneration.
+            <strong>Tarporley</strong> (£380,000, 55 min indirect) is a desirable village with an Outstanding secondary and a loyal local community — it regularly appears in "best villages" lists, and the price reflects that.
+            <strong>Crewe</strong> (£175,000, 55 min) is the county's cheapest and most utilitarian option. Note that HS2's Phase 2a to Crewe has effectively been cancelled — compulsory purchase powers lapsed in February 2026. However, Crewe has a separate £100m+ regeneration programme underway, including a new Youth Zone opening spring 2026 and a 300+ home scheme with Capital&Centric in the pre-development phase. <em style="color: #888888; font-size: 13px;">(Source: Cheshire East Council, 2025-26; Commons Library, February 2026)</em>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- QUICK REFERENCE TABLE -->
+    <section class="section-pad" style="background-color: #F2EFE9; border-bottom: 1px solid #E5E0D8;">
+      <div class="section-inner">
+        <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 28px); font-weight: 700; color: #1C1C1E; margin: 0 0 24px 0;">Quick Reference: Best Area by Priority</h2>
+        <table style="width: 100%; max-width: 600px; border-collapse: collapse; font-family: Inter, Arial, sans-serif; font-size: 15px;">
+          <thead>
+            <tr style="border-bottom: 2px solid #3D5A3E;">
+              <th style="text-align: left; padding: 12px 16px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #3D5A3E;">Priority</th>
+              <th style="text-align: left; padding: 12px 16px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #3D5A3E;">Top Choices</th>
+            </tr>
+          </thead>
+          <tbody>
+            {quickRef.map((row, i) => (
+              <tr style={`border-bottom: 1px solid #E5E0D8; ${i % 2 === 0 ? 'background-color: rgba(255,255,255,0.5);' : ''}`}>
+                <td style="padding: 14px 16px; color: #333333; font-weight: 500;">{row.priority}</td>
+                <td style="padding: 14px 16px; color: #1C1C1E; font-weight: 600;">{row.choices}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- RELOCATOR QUESTIONS -->
+    <section class="section-pad" style="background-color: #FFFFFF; border-bottom: 1px solid #E5E0D8;">
+      <div class="section-inner">
+        <span class="section-label">Relocator questions</span>
+        <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 28px); font-weight: 700; color: #1C1C1E; margin: 0 0 32px 0;">Relocator Questions</h2>
+
+        <div style="border: 1px solid #E5E0D8; background-color: #F9F7F4; padding: 32px; margin-bottom: 24px;">
+          <p style="font-family: Inter, Arial, sans-serif; font-size: 13px; font-weight: 700; color: #3D5A3E; margin: 0 0 8px 0;">SP — Battersea, London</p>
+          <p style="font-family: Georgia, serif; font-size: 17px; font-style: italic; line-height: 1.5; color: #1C1C1E; margin: 0 0 20px 0;">
+            "We've sold in London for £850k and want a 4-bed detached near good state schools. Is the Golden Triangle the only option?"
+          </p>
+          <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.75; color: #444444; margin: 0;">
+            The Golden Triangle is the obvious starting point, but Knutsford makes a strong case at £430,000 with an Outstanding Ofsted secondary — you would have significant equity left after purchase. Macclesfield also delivers a 25-minute commute and far more interesting architecture at £280,000. The Golden Triangle premium is partly justified by address and commute speed; it is not fully explained by school quality alone.
+          </p>
+        </div>
+
+        <div style="border: 1px solid #E5E0D8; background-color: #F9F7F4; padding: 32px;">
+          <p style="font-family: Inter, Arial, sans-serif; font-size: 13px; font-weight: 700; color: #3D5A3E; margin: 0 0 8px 0;">AK — Sale, Manchester</p>
+          <p style="font-family: Georgia, serif; font-size: 17px; font-style: italic; line-height: 1.5; color: #1C1C1E; margin: 0 0 20px 0;">
+            "We want to step up from our Sale semi but can't stretch to Alderley Edge. Where should we look?"
+          </p>
+          <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.75; color: #444444; margin: 0;">
+            Knutsford at £430,000 gives you equivalent school quality and a market town feel at nearly half the Alderley Edge price. Poynton — averaging £444,312 with a 20-minute direct train to Manchester Piccadilly <em style="color: #888888; font-size: 13px;">(Source: Rightmove, 2025; Northern Trains)</em> — is also worth considering for buyers who want proximity to the Golden Triangle without the full premium.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PAA / FAQ -->
+    <section class="section-pad" style="background-color: #F9F7F4; border-bottom: 1px solid #E5E0D8;">
+      <div class="section-inner">
+        <span class="section-label">Common questions</span>
+        <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 28px); font-weight: 700; color: #1C1C1E; margin: 0 0 32px 0;">Questions People Ask Before Moving to Cheshire</h2>
+
+        {faqs.map((faq, index) => (
+          <div style={`border-top: ${index === 0 ? '2px solid #3D5A3E' : '1px solid #E5E0D8'}; padding: 28px 0;`}>
+            <div style="display: flex; gap: 16px; align-items: flex-start;">
+              <span style="font-family: Georgia, serif; font-size: 13px; font-weight: 700; color: #C4933F; flex-shrink: 0; margin-top: 3px; opacity: 0.7;">Q</span>
+              <div>
+                <h3 style="font-family: Inter, Arial, sans-serif; font-size: 18px; font-weight: 700; color: #1C1C1E; margin: 0 0 12px 0; line-height: 1.35;">{faq.question}</h3>
+                <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.75; color: #444444; margin: 0;">{faq.answer}</p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- GOOD TO KNOW -->
+    <section class="section-pad" style="background-color: #FFFFFF; border-bottom: 1px solid #E5E0D8;">
+      <div class="section-inner">
+        <div style="border-left: 3px solid #C4933F; background-color: rgba(196, 147, 63, 0.05); padding: 28px 32px; max-width: 720px;">
+          <h2 style="font-family: Inter, Arial, sans-serif; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #C4933F; margin: 0 0 16px 0;">Good to Know</h2>
+          <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.75; color: #444444; margin: 0;">
+            "Best area in Cheshire" is only a meaningful question once you have defined your criteria. A buyer optimising for a 20-minute Manchester commute and a quiet village should be in Prestbury. A buyer who needs an Outstanding state secondary and wants a market town feel should be in Knutsford. The Golden Triangle carries a premium that does not always correlate with school quality or rail times — in some cases you are paying for the postcode itself. Run the comparison table above against your specific constraints before visiting any of them.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- COMMUNITY QUOTE -->
+    <section class="section-pad" style="background-color: #F2EFE9; border-bottom: 1px solid #E5E0D8;">
+      <div class="section-inner">
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #888888; margin: 0 0 16px 0;">From the Community</p>
+        <blockquote style="border-left: 3px solid #3D5A3E; padding-left: 20px; margin: 0; max-width: 720px;">
+          <p style="font-family: Georgia, serif; font-size: 17px; font-style: italic; line-height: 1.65; color: #333333; margin: 0;">
+            "Most people who relocate to Cheshire end up choosing differently from where they first looked. The ones who come from London usually start with Alderley Edge, then discover Knutsford. The ones from Manchester usually start with Wilmslow, then find themselves drawn to Prestbury or Macclesfield when they work out their actual priorities."
+          </p>
+        </blockquote>
+      </div>
+    </section>
+
+    <!-- RELATED + BACK TO HUB -->
+    <section class="section-pad" style="background-color: #F9F7F4;">
+      <div class="section-inner">
+        <span class="section-label">Related guides</span>
+        <div style="display: flex; flex-wrap: wrap; gap: 12px; margin-top: 16px; margin-bottom: 32px;">
+          <a href="/where-to-live/cheshire-golden-triangle" style="font-family: Inter, Arial, sans-serif; font-size: 13px; font-weight: 600; color: #3D5A3E; border: 1px solid #3D5A3E; padding: 9px 18px; text-decoration: none;">The Cheshire Golden Triangle</a>
+          <a href="/where-to-live/chester" style="font-family: Inter, Arial, sans-serif; font-size: 13px; font-weight: 600; color: #3D5A3E; border: 1px solid #3D5A3E; padding: 9px 18px; text-decoration: none;">Living in Chester</a>
+          <a href="/house-prices/average-house-price-cheshire" style="font-family: Inter, Arial, sans-serif; font-size: 13px; font-weight: 600; color: #3D5A3E; border: 1px solid #3D5A3E; padding: 9px 18px; text-decoration: none;">Average House Prices in Cheshire</a>
+        </div>
+        <a href="/where-to-live" style="font-family: Inter, Arial, sans-serif; font-size: 14px; font-weight: 600; color: #3D5A3E; text-decoration: none; border-bottom: 1px solid rgba(61,90,62,0.3); padding-bottom: 2px;">
+          &larr; Back to Where to Live in Cheshire
+        </a>
+      </div>
+    </section>
+
+  </div>
 </BaseLayout>
