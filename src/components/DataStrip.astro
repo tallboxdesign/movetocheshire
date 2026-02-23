@@ -1,0 +1,54 @@
+---
+const dataTiles = [
+  { label: 'Cheshire East', sublabel: 'Average house price', value: '£306,000', source: 'ONS, Q4 2025', accent: false },
+  { label: 'Cheshire West', sublabel: 'Average house price', value: '£265,000', source: 'ONS, Q4 2025', accent: false },
+  { label: 'Manchester commute', sublabel: 'Wilmslow direct train', value: '17 mins', source: 'National Rail, 2025', accent: true },
+  { label: 'Outstanding schools', sublabel: 'Ofsted rated, in county', value: '47+', source: 'Ofsted, 2025', accent: false },
+  { label: 'Crime rate', sublabel: 'vs. England & Wales', value: 'Below avg.', source: 'Cheshire Constabulary, 2025', accent: false },
+];
+---
+
+<section
+  aria-label="Key Cheshire data at a glance"
+  style="background-color: #1A2332;"
+>
+  <div style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
+
+    <div class="grid grid-cols-2 md:grid-cols-5">
+      {dataTiles.map((tile) => (
+        <div
+          style="padding: 32px 20px 28px; border-right: 1px solid rgba(255,255,255,0.07); border-bottom: 1px solid rgba(255,255,255,0.07); position: relative;"
+        >
+          {tile.accent && (
+            <div style="position: absolute; top: 0; left: 0; right: 0; height: 2px; background-color: #C4933F;" />
+          )}
+          <p style="font-family: Inter, Arial, sans-serif; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #5A7080; margin: 0 0 4px 0;">
+            {tile.label}
+          </p>
+          <p style="font-family: Inter, Arial, sans-serif; font-size: 12px; color: #4A6070; margin: 0 0 16px 0; line-height: 1.4;">
+            {tile.sublabel}
+          </p>
+          <p
+            class="data-tile-value"
+            aria-label={`${tile.label}: ${tile.value}`}
+            style="margin: 0 0 8px 0; font-size: clamp(22px, 4vw, 36px);"
+          >
+            {tile.value}
+          </p>
+          <p style="font-family: Inter, Arial, sans-serif; font-size: 11px; color: #3D5060; font-style: italic; margin: 0;">
+            {tile.source}
+          </p>
+        </div>
+      ))}
+    </div>
+
+    <div style="border-top: 1px solid rgba(255,255,255,0.06); padding: 14px 0 18px;">
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 11.5px; color: #4A5E6E; margin: 0; line-height: 1.6;">
+        <strong style="color: #607D8B; font-weight: 600;">Last updated: February 2026.</strong>{' '}
+        Sources: ONS House Price Index, Ofsted, National Rail, Cheshire East Council,
+        Cheshire West and Chester Council, Cheshire Constabulary.{' '}
+        Next update due May 2026.
+      </p>
+    </div>
+  </div>
+</section>

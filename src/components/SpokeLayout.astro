@@ -1,0 +1,106 @@
+---
+interface Props {
+  tag: string;
+  hubLabel: string;
+  hubHref: string;
+  title: string;
+  description: string;
+  accentColor?: string;
+}
+
+const { tag, hubLabel, hubHref, title, description, accentColor = '#3D5A3E' } = Astro.props;
+---
+
+<div style="background-color: #F9F7F4;">
+    <section
+      class="section-pad"
+      style="background-color: #F9F7F4; border-bottom: 1px solid #E5E0D8;"
+    >
+      <div class="section-inner">
+        <div style="margin-bottom: 8px;">
+          <a
+            href="/"
+            style="font-family: Inter, Arial, sans-serif; font-size: 13px; color: #888888; text-decoration: none;"
+          >
+            Home
+          </a>
+          <span style="color: #CCCCCC; margin: 0 8px;">/</span>
+          <a
+            href={hubHref}
+            style="font-family: Inter, Arial, sans-serif; font-size: 13px; color: #888888; text-decoration: none;"
+          >
+            {hubLabel}
+          </a>
+          <span style="color: #CCCCCC; margin: 0 8px;">/</span>
+          <span style="font-family: Inter, Arial, sans-serif; font-size: 13px; color: #444444;">
+            {tag}
+          </span>
+        </div>
+
+        <span
+          style={`font-family: Inter, Arial, sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: ${accentColor}; display: block; margin-bottom: 14px; margin-top: 28px;`}
+        >
+          {tag}
+        </span>
+
+        <h1
+          style="font-family: Georgia, serif; font-size: clamp(28px, 4.5vw, 46px); font-weight: 700; color: #1C1C1E; line-height: 1.12; letter-spacing: -0.02em; margin: 0 0 20px 0; max-width: 720px;"
+        >
+          {title}
+        </h1>
+
+        <p
+          style="font-family: Inter, Arial, sans-serif; font-size: 18px; line-height: 1.7; color: #555555; max-width: 640px; margin: 0 0 40px 0;"
+        >
+          {description}
+        </p>
+
+        <div
+          style="border: 1px solid #E5E0D8; background-color: #FFFFFF; padding: 40px; max-width: 720px;"
+        >
+          <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+            <div
+              style={`width: 8px; height: 8px; border-radius: 50%; background-color: ${accentColor}; flex-shrink: 0;`}
+            />
+            <span
+              style={`font-family: Inter, Arial, sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: ${accentColor};`}
+            >
+              Coming soon
+            </span>
+          </div>
+          <h2
+            style="font-family: Georgia, serif; font-size: 22px; font-weight: 700; color: #1C1C1E; margin: 0 0 12px 0; line-height: 1.3;"
+          >
+            This guide is in preparation
+          </h2>
+          <p
+            style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.7; color: #666666; margin: 0 0 24px 0;"
+          >
+            We're building this guide now. It will include data sourced from ONS, Ofsted, National Rail,
+            and other primary sources &mdash; no estate agent spin. Check back soon, or{' '}
+            <a
+              href={hubHref}
+              style={`color: ${accentColor}; text-decoration: underline;`}
+            >
+              return to {hubLabel}
+            </a>{' '}
+            to browse available guides.
+          </p>
+          <div
+            style="display: flex; gap: 12px; align-items: center; border-top: 1px solid #F0EDE8; padding-top: 20px;"
+          >
+            <span style="font-family: Inter, Arial, sans-serif; font-size: 12px; color: #888888;">
+              Expected: Q2 2026
+            </span>
+            <span style="color: #DDDDDD;">&middot;</span>
+            <a
+              href="/"
+              style={`font-family: Inter, Arial, sans-serif; font-size: 12px; font-weight: 600; color: ${accentColor}; text-decoration: none; border-bottom: 1px solid ${accentColor}40; padding-bottom: 1px;`}
+            >
+              Back to homepage &rarr;
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+</div>

@@ -1,0 +1,143 @@
+---
+const faqs = [
+  {
+    question: 'What is the average house price in Cheshire?',
+    answer: `The average house price in Cheshire is approximately £285,000 across the county as a whole, though this varies significantly by district: Cheshire East averages £306,000 and Cheshire West and Chester averages £265,000 (ONS House Price Index, Q4 2025).
+
+Within those districts, variation is dramatic. Alderley Edge and Prestbury in Cheshire East average above £650,000 and £600,000 respectively (Rightmove, Q4 2025), driven by demand from Manchester-based professionals seeking countryside access. At the other end, Crewe averages approximately £175,000 and Northwich approximately £220,000  -  among the most affordable towns in the North West with good rail access.
+
+Detached properties in Cheshire East average around £490,000; semi-detached £280,000; terraced £210,000; flats £175,000 (ONS, Q4 2025). These averages are reviewed quarterly.`,
+  },
+  {
+    question: 'Which is the best area of Cheshire to live?',
+    answer: `There is no single "best" area  -  the right location depends entirely on budget, commute requirements, and lifestyle priorities. That said, data consistently places Wilmslow, Knutsford, and Alderley Edge as the most in-demand Cheshire locations for Manchester-connected families (Rightmove demand data, 2025).
+
+Wilmslow offers the fastest train to Manchester Piccadilly (17 minutes, National Rail 2025), strong school options including Wilmslow High (Ofsted: Good), and a broad housing stock averaging £490,000. Knutsford appeals to buyers prioritising village character and outstanding schools (Knutsford Academy, Ofsted: Outstanding 2024), with train times of approximately 35 minutes. Chester suits first-time buyers and buyers prioritising urban amenity on a tighter budget  -  averages around £250,000  -  though the Manchester commute exceeds 50 minutes.
+
+For buyers prioritising value, Macclesfield (£280,000 average, 25-minute train) or Northwich (£220,000, 40-minute train) offer materially better price-to-commute ratios than the Golden Triangle villages.`,
+  },
+  {
+    question: 'Is it cheaper to live in Cheshire than London?',
+    answer: `Yes, markedly so. The average house price in London is approximately £515,000 (ONS, Q4 2025), compared to £285,000 across Cheshire  -  a difference of around £230,000 or 45%. Even Cheshire's most expensive towns, such as Alderley Edge (£700,000+), are comparable in price to outer London boroughs rather than inner London, where one-bedroom flats routinely exceed £500,000.
+
+For buyers relocating from central London boroughs such as Islington, Hackney, or Lambeth  -  where average prices exceed £600,000  -  the gap is even larger. A detached family home in Wilmslow at £490,000 would cost £800,000 - £1.2 million in equivalent South East commuter locations such as Surrey or Hertfordshire (Rightmove, Q4 2025).
+
+The trade-off is a longer commute to London: there is no direct high-speed rail from Cheshire to London, and a typical Wilmslow-to-Euston journey involves a change at Crewe or Manchester, taking approximately 2 hours 15 minutes (National Rail, 2025). Cheshire is most suited to buyers working in Manchester, Liverpool, or remotely  -  not those commuting daily to London.`,
+  },
+  {
+    question: 'How long is the commute from Cheshire to Manchester?',
+    answer: `Commute times from Cheshire to Manchester Piccadilly range from 17 minutes (Wilmslow, direct) to approximately 55 minutes (Crewe, direct), depending on the town (National Rail timetable, 2025).
+
+Key rail journey times: Wilmslow 17 mins; Prestbury 20 mins; Alderley Edge 22 mins; Macclesfield 25 mins; Knutsford 35 mins (change at Altrincham); Northwich 40 mins; Chester 50 mins; Crewe 55 mins. Services on the Crewe-Manchester corridor via Stockport are frequent, with trains every 15-30 minutes during peak hours. The Knutsford line via Altrincham has less frequent services.
+
+Several western Cheshire areas  -  including Tarporley, Nantwich, and parts of rural Cheshire West  -  have no direct rail access to Manchester and require a car journey to a connecting station. The drive from Nantwich to Crewe station is approximately 15 minutes; from Tarporley to Chester, approximately 20 minutes. Buyers in these areas should factor in total door-to-door time rather than train time alone.`,
+  },
+  {
+    question: 'Are the schools good in Cheshire?',
+    answer: `Yes, school performance in Cheshire is above the national average across both primary and secondary sectors. Cheshire East had 47% of state schools rated Good or Outstanding by Ofsted as of the most recent inspection cycle (Ofsted, 2025), compared to a national average of approximately 44%. Several secondary schools hold Outstanding ratings, including Knutsford Academy and Tarporley High School.
+
+The county also has access to grammar school education. The Altrincham Grammar Schools (Trafford, bordering east Cheshire) and the King's School Chester and Queen's School Chester are selective schools within or near the county boundary. Independent school provision is strong, with Alderley Edge School for Girls, The King's School Macclesfield, and several prep schools serving the east Cheshire commuter belt.
+
+Catchment areas in high-demand towns such as Wilmslow and Alderley Edge are competitive, and proximity to a Good or Outstanding school is a significant driver of property prices in those areas. Buyers should verify current Ofsted ratings and catchment boundaries directly with Cheshire East or Cheshire West and Chester councils, as ratings and boundaries change.`,
+  },
+  {
+    question: 'Is Cheshire safe to live in?',
+    answer: `Yes, Cheshire's overall crime rate is below the national average for England and Wales. The county recorded 62.3 crimes per 1,000 population in 2024, compared to a national average of approximately 82 per 1,000 (Cheshire Constabulary Crime Statistics, 2024/25).
+
+Rural areas and market towns  -  including Knutsford, Tarporley, Nantwich, Alderley Edge, and Prestbury  -  consistently show very low crime rates, particularly for violent crime and burglary. The Golden Triangle area in east Cheshire is among the lowest-crime residential areas in the North West.
+
+As with any county, urban areas show higher rates. Chester and Crewe have crime profiles more typical of towns of their size: antisocial behaviour and vehicle crime are more prevalent than in rural Cheshire, though they remain at or below the median for comparable English towns (Cheshire Constabulary, 2025). Buyers considering Chester or Crewe should review ward-level data via the Police.uk crime map, which breaks down crime by street and category.`,
+  },
+];
+---
+
+<section
+  aria-labelledby="faq-heading"
+  style="background-color: #F9F7F4; padding: 96px 40px; border-top: 1px solid #E5E0D8;"
+>
+  <div style="max-width: 900px; margin: 0 auto;">
+
+    <div style="display: flex; gap: 64px; align-items: flex-start; margin-bottom: 56px; flex-wrap: wrap;">
+      <div style="flex: 1; min-width: 260px;">
+        <span class="section-label">Common questions</span>
+        <h2
+          id="faq-heading"
+          style="font-family: Georgia, serif; font-size: clamp(24px, 3.5vw, 34px); font-weight: 700; color: #1C1C1E; line-height: 1.2; margin: 0; letter-spacing: -0.01em;"
+        >
+          People also ask about Cheshire
+        </h2>
+      </div>
+      <div
+        style="padding: 18px 22px; background-color: rgba(61, 90, 62, 0.06); border-left: 2px solid #3D5A3E; max-width: 300px;"
+      >
+        <p
+          style="font-family: Inter, Arial, sans-serif; font-size: 13px; color: #3D5A3E; margin: 0; line-height: 1.6; font-weight: 500;"
+        >
+          All answers cite a named primary source and year. Sourcing reviewed quarterly.
+        </p>
+      </div>
+    </div>
+
+    <div
+      itemscope
+      itemtype="https://schema.org/FAQPage"
+    >
+      {faqs.map((faq, index) => (
+        <div
+          itemscope
+          itemprop="mainEntity"
+          itemtype="https://schema.org/Question"
+          style={`border-top: ${index === 0 ? '2px solid #3D5A3E' : '1px solid #E5E0D8'}; padding: 36px 0;`}
+        >
+          <div style="display: flex; gap: 20px; align-items: flex-start;">
+            <span
+              aria-hidden="true"
+              style="font-family: Georgia, serif; font-size: 13px; font-weight: 700; color: #C4933F; flex-shrink: 0; margin-top: 4px; opacity: 0.7; min-width: 20px;"
+            >
+              Q
+            </span>
+            <div style="flex: 1;">
+              <h3
+                itemprop="name"
+                style="font-family: Inter, Arial, sans-serif; font-size: 20px; font-weight: 700; color: #1C1C1E; margin: 0 0 16px 0; line-height: 1.35;"
+              >
+                {faq.question}
+              </h3>
+              <div
+                itemscope
+                itemprop="acceptedAnswer"
+                itemtype="https://schema.org/Answer"
+              >
+                <div
+                  itemprop="text"
+                  style="display: flex; flex-direction: column; gap: 14px;"
+                >
+                  {faq.answer.split('\n\n').map((para, i) => (
+                    <p
+                      style={`font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: ${i === 0 ? '#1C1C1E' : '#444444'}; margin: 0; font-weight: 400;`}
+                    >
+                      {para}
+                    </p>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <div
+      style="margin-top: 8px; padding-top: 28px; border-top: 1px solid #E5E0D8; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;"
+    >
+      <a href="#faq-full" class="green-cta-link" style="font-size: 15px;">
+        &rarr; See all 100 questions answered
+      </a>
+      <p
+        style="font-family: Inter, Arial, sans-serif; font-size: 12px; color: #AAAAAA; margin: 0;"
+      >
+        Last updated: Feb 2026 - ONS, Ofsted, National Rail, Rightmove, Cheshire Constabulary
+      </p>
+    </div>
+  </div>
+</section>

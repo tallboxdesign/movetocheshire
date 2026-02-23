@@ -1,0 +1,88 @@
+---
+const quickLinks = [
+  { label: 'Where to Live', href: '/where-to-live' },
+  { label: 'House Prices', href: '/house-prices' },
+  { label: 'Schools', href: '/schools' },
+  { label: 'Commuting', href: '/commuting' },
+  { label: 'Is It Worth It?', href: '/lifestyle' },
+  { label: 'Investment', href: '/investment', highlight: true },
+];
+---
+
+<section
+  aria-labelledby="hero-heading"
+  class="section-pad"
+  style="background-color: #F9F7F4;"
+>
+  <div style="max-width: 800px; margin: 0 auto; padding: 0 20px;">
+
+    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 32px;">
+      <div style="width: 28px; height: 2px; background-color: #3D5A3E; flex-shrink: 0;" />
+      <span
+        style="font-family: Inter, Arial, sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: #3D5A3E;"
+      >
+        Independent Relocation Intelligence &mdash; Cheshire, England
+      </span>
+    </div>
+
+    <h1
+      id="hero-heading"
+      style="font-family: Georgia, serif; font-size: clamp(32px, 5.5vw, 52px); font-weight: 700; line-height: 1.12; color: #1C1C1E; letter-spacing: -0.02em; margin-bottom: 28px; max-width: 720px;"
+    >
+      Moving to Cheshire?
+      <br />
+      <span style="color: #3D5A3E;">Here's everything you need to know.</span>
+    </h1>
+
+    <p
+      style="font-family: Inter, Arial, sans-serif; font-size: clamp(16px, 2vw, 19px); line-height: 1.7; color: #444444; max-width: 660px; margin-bottom: 36px;"
+    >
+      An independent guide to buying a home in Cheshire &mdash; covering house prices, schools,
+      commute times, area comparisons, and the honest case for and against relocating.
+      Updated quarterly from primary sources.
+    </p>
+
+    <div
+      style="border-left: 3px solid #3D5A3E; background-color: rgba(61, 90, 62, 0.04); padding: 16px 20px; margin-bottom: 44px;"
+    >
+      <p
+        style="font-family: Inter, Arial, sans-serif; font-size: 16px; font-weight: 600; color: #1C1C1E; margin: 0; margin-bottom: 4px;"
+      >
+        No estate agent spin. No sponsored content. Just answers.
+      </p>
+      <p
+        style="font-family: Inter, Arial, sans-serif; font-size: 14px; color: #777777; margin: 0;"
+      >
+        All data sourced from ONS, Ofsted, National Rail, and official council records.
+        Last updated: February 2026.
+      </p>
+    </div>
+
+    <nav aria-label="Page sections" style="display: flex; flex-wrap: wrap; gap: 10px;">
+      {quickLinks.map((link) => {
+        const isHighlight = 'highlight' in link && link.highlight;
+        return (
+          <a
+            href={link.href}
+            class={isHighlight ? 'hero-link hero-link--highlight' : 'hero-link'}
+            style={`font-family: Inter, Arial, sans-serif; font-size: 13px; font-weight: 600; color: ${isHighlight ? '#C4933F' : '#3D5A3E'}; border: 1px solid ${isHighlight ? 'rgba(196,147,63,0.5)' : '#3D5A3E'}; padding: 9px 18px; text-decoration: none; letter-spacing: 0.01em; transition: background-color 0.15s ease, color 0.15s ease; display: inline-block;`}
+          >
+            {link.label}
+          </a>
+        );
+      })}
+    </nav>
+
+  </div>
+</section>
+
+<style>
+  .hero-link:hover {
+    background-color: #3D5A3E !important;
+    color: #FFFFFF !important;
+  }
+  .hero-link--highlight:hover {
+    background-color: #C4933F !important;
+    color: #FFFFFF !important;
+  }
+</style>

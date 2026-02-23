@@ -1,0 +1,125 @@
+---
+const pillars = [
+  {
+    id: 'where-to-live',
+    tag: 'Area Guide',
+    title: 'Where to Live in Cheshire',
+    description: 'Area-by-area comparisons of every major town and village, covering the commuter belt, the Golden Triangle, family hotspots, and affordable options. Includes average prices, Ofsted school data, and commute times for each area.',
+    cta: '\u2192 Explore Where to Live',
+    href: '/where-to-live',
+  },
+  {
+    id: 'house-prices',
+    tag: 'Property Data',
+    title: 'House Prices in Cheshire',
+    description: 'Average prices by town and property type, updated quarterly from ONS and Rightmove. Includes year-on-year trends, price-per-square-foot data where available, and comparisons to the national average and Greater Manchester.',
+    cta: '\u2192 Explore House Prices',
+    href: '/house-prices',
+  },
+  {
+    id: 'schools',
+    tag: 'Education',
+    title: 'Schools in Cheshire',
+    description: 'Ofsted ratings for every state school in the county, with catchment area information, grammar school entry routes, and independent school options. Maps primary and secondary schools to specific postcodes and towns.',
+    cta: '\u2192 Explore Schools',
+    href: '/schools',
+  },
+  {
+    id: 'commuting',
+    tag: 'Transport',
+    title: 'Commuting from Cheshire',
+    description: 'Direct train times and driving routes to Manchester, Liverpool, Leeds, and London, mapped by town. Includes season ticket costs, frequency data, and an honest assessment of which areas offer viable commutes to which cities.',
+    cta: '\u2192 Explore Commuting',
+    href: '/commuting',
+  },
+  {
+    id: 'buying-guide',
+    tag: 'Process Guide',
+    title: 'Buying a Home in Cheshire',
+    description: 'A practical guide to the full purchase process: stamp duty calculations, survey types, local solicitors, and what to expect from conveyancing in a competitive market. Includes Cheshire-specific considerations and timelines.',
+    cta: '\u2192 Explore Buying Guide',
+    href: '/buying-guide',
+  },
+  {
+    id: 'is-it-worth-it-full',
+    tag: 'Honest Assessment',
+    title: 'Is Cheshire Worth It?',
+    description: 'An evidence-based analysis of the honest pros and cons of relocating to Cheshire. Who benefits most, who might be disappointed, and what the data says about quality of life, value retention, and long-term livability.',
+    cta: '\u2192 Explore Is It Worth It?',
+    href: '/lifestyle',
+  },
+  {
+    id: 'investment',
+    tag: 'Market Intelligence',
+    title: 'Is Now a Good Time to Buy in Cheshire?',
+    description: 'An independent assessment of Cheshire property market conditions: price trends, supply constraints, mortgage rate context, and the data-led case for and against buying in 2025-26. Distinct from lifestyle questions  -  this is about market timing and value.',
+    cta: '\u2192 Explore Investment',
+    href: '/investment',
+    highlight: true,
+  },
+];
+---
+
+<section
+  aria-labelledby="pillars-heading"
+  class="section-pad"
+  style="background-color: #F2EFE9; border-top: 1px solid #E5E0D8;"
+>
+  <div class="section-inner">
+
+    <div style="display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 48px; flex-wrap: wrap; gap: 16px;">
+      <div>
+        <span class="section-label">Full guides</span>
+        <h2
+          id="pillars-heading"
+          style="font-family: Georgia, serif; font-size: clamp(24px, 3.5vw, 34px); font-weight: 700; color: #1C1C1E; line-height: 1.2; margin: 0; letter-spacing: -0.01em;"
+        >
+          Cheshire relocation guides
+        </h2>
+      </div>
+      <p
+        style="font-family: Inter, Arial, sans-serif; font-size: 14px; color: #888888; margin: 0; max-width: 300px; text-align: right; line-height: 1.5;"
+      >
+        All guides updated quarterly from primary sources
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+      {pillars.map((pillar) => (
+        <article
+          id={pillar.id}
+          class="pillar-card"
+          style={pillar.highlight ? 'border-color: rgba(196,147,63,0.3); background-color: rgba(196,147,63,0.02);' : undefined}
+        >
+          <p
+            style={`font-family: Inter, Arial, sans-serif; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: ${pillar.highlight ? '#C4933F' : '#3D5A3E'}; margin: 0 0 14px 0;`}
+          >
+            {pillar.tag}
+          </p>
+          <h3
+            style="font-family: Inter, Arial, sans-serif; font-size: 18px; font-weight: 700; color: #1C1C1E; line-height: 1.3; margin: 0 0 12px 0;"
+          >
+            {pillar.title}
+          </h3>
+          <p
+            style="font-family: Inter, Arial, sans-serif; font-size: 14.5px; line-height: 1.65; color: #555555; margin: 0 0 24px 0; flex-grow: 1;"
+          >
+            {pillar.description}
+          </p>
+          {pillar.highlight ? (
+            <a
+              href={pillar.href}
+              style="display: inline-block; font-family: Inter, Arial, sans-serif; font-size: 14px; font-weight: 600; color: #C4933F; text-decoration: none; border-bottom: 1px solid rgba(196,147,63,0.4); padding-bottom: 1px; transition: border-color 0.2s ease, color 0.2s ease;"
+            >
+              {pillar.cta}
+            </a>
+          ) : (
+            <a href={pillar.href} class="green-cta-link">
+              {pillar.cta}
+            </a>
+          )}
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

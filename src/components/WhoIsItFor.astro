@@ -1,0 +1,97 @@
+---
+const audiences = [
+  {
+    icon: 'map-pin',
+    number: '01',
+    title: 'Moving from London or the South',
+    description: 'You want more space, a bigger garden, and a better school catchment  -  without moving somewhere that feels remote or poorly connected. This guide covers which Cheshire towns give you that balance, what you can realistically afford, and how the commute (or lack of one) changes the decision.',
+    cta: '\u2192 Start with: Is It Worth It?',
+    href: '#is-it-worth-it',
+  },
+  {
+    icon: 'graduation-cap',
+    number: '02',
+    title: 'Families prioritising schools',
+    description: 'School quality is your primary filter. This site maps Ofsted-rated Outstanding and Good schools to specific towns, postcodes, and catchment zones in Cheshire  -  so you can find the right street before you make an offer, not after.',
+    cta: '\u2192 Start with: Schools Guide',
+    href: '#schools',
+  },
+  {
+    icon: 'bar-chart',
+    number: '03',
+    title: 'Buyers who want the data',
+    description: 'You want average prices by town and property type, year-on-year trends, and honest comparisons against other regions  -  not marketing copy. Every statistic on this site carries a source and a date, and the data is reviewed quarterly.',
+    cta: '\u2192 Start with: House Prices',
+    href: '#house-prices',
+  },
+];
+---
+
+<section
+  aria-labelledby="who-heading"
+  class="section-pad"
+  style="background-color: #F2EFE9; border-top: 1px solid #E5E0D8;"
+>
+  <div class="section-inner">
+
+    <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 56px; flex-wrap: wrap; gap: 16px;">
+      <div>
+        <span class="section-label">About this resource</span>
+        <h2
+          id="who-heading"
+          style="font-family: Georgia, serif; font-size: clamp(24px, 3.5vw, 34px); font-weight: 700; color: #1C1C1E; line-height: 1.2; margin: 0; letter-spacing: -0.01em;"
+        >
+          Who is this site for?
+        </h2>
+      </div>
+      <p
+        style="font-family: Inter, Arial, sans-serif; font-size: 14px; color: #888888; margin: 0; max-width: 280px; line-height: 1.5;"
+      >
+        Not an estate agency. No sponsored content. No lead generation.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+      {audiences.map((audience) => (
+        <div class="audience-card">
+          <div style="display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 24px;">
+            <div
+              style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; background-color: rgba(61, 90, 62, 0.08);"
+            >
+              {audience.icon === 'map-pin' && (
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3D5A3E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              )}
+              {audience.icon === 'graduation-cap' && (
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3D5A3E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+              )}
+              {audience.icon === 'bar-chart' && (
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3D5A3E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+              )}
+            </div>
+            <span
+              style="font-family: Georgia, serif; font-size: 28px; font-weight: 700; color: #E5E0D8; line-height: 1;"
+            >
+              {audience.number}
+            </span>
+          </div>
+
+          <h3
+            style="font-family: Inter, Arial, sans-serif; font-size: 18px; font-weight: 700; color: #1C1C1E; line-height: 1.3; margin: 0 0 14px 0;"
+          >
+            {audience.title}
+          </h3>
+
+          <p
+            style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.65; color: #555555; margin: 0 0 28px 0;"
+          >
+            {audience.description}
+          </p>
+
+          <a href={audience.href} class="green-cta-link">
+            {audience.cta}
+          </a>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,30 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import HubLayout from '../../components/HubLayout.astro';
+
+const spokes = [
+  { label: 'Pros and Cons of Living in Cheshire', href: '/lifestyle/pros-cons-living-cheshire', description: 'An evidence-based, honest assessment of what life in Cheshire is actually like - covering community, amenities, cost, and who it suits.' },
+  { label: 'Moving from London to Cheshire', href: '/lifestyle/moving-london-cheshire', description: 'What Londoners should know before relocating. What changes, what surprises people, and what the data says about value for money.' },
+  { label: 'Is Cheshire Safe?', href: '/lifestyle/is-cheshire-safe', description: 'Crime rates by area sourced from Cheshire Constabulary and ONS. How Cheshire compares to Greater Manchester and England averages.' },
+  { label: 'Is Cheshire Worth It?', href: '/lifestyle/is-cheshire-worth-it', description: 'A direct answer to the most common question. Who benefits most from moving to Cheshire, and who might be disappointed.' },
+];
+
+const relatedHubs = [
+  { label: 'Where to Live', href: '/where-to-live' },
+  { label: 'Schools', href: '/schools' },
+  { label: 'Investment', href: '/investment' },
+];
+---
+
+<BaseLayout
+  title="Is Cheshire Worth It? | Lifestyle Guide | movetocheshire.uk"
+  description="An evidence-based analysis of the honest pros and cons of relocating to Cheshire. Who benefits most, who might be disappointed, and what the data says about quality of life."
+>
+  <HubLayout
+    tag="Honest Assessment"
+    title="Is Cheshire Worth It?"
+    description="An evidence-based analysis of the honest pros and cons of relocating to Cheshire. Who benefits most, who might be disappointed, and what the data says about quality of life, value retention, and long-term livability."
+    spokes={spokes}
+    relatedHubs={relatedHubs}
+  />
+</BaseLayout>

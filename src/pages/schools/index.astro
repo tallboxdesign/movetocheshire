@@ -1,0 +1,29 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import HubLayout from '../../components/HubLayout.astro';
+
+const spokes = [
+  { label: 'Best Primary Schools in Cheshire', href: '/schools/best-primary-schools', description: 'Ofsted Outstanding and Good primary schools ranked by area, with catchment guidance and notes on oversubscription.' },
+  { label: 'Best Secondary Schools in Cheshire', href: '/schools/best-secondary-schools', description: 'State secondary schools in Cheshire ranked by Ofsted rating, Progress 8, and Attainment 8. Includes grammar school options.' },
+  { label: 'Grammar Schools in Cheshire', href: '/schools/grammar-schools-cheshire', description: "Which grammar schools exist, how the 11+ works in this area, and what moving to a grammar school catchment actually means for your child." },
+  { label: 'Independent Schools in Cheshire', href: '/schools/independent-schools-cheshire', description: "Private school options in and around Cheshire, with fee ranges, locations, and how they compare to the county's strong state sector." },
+];
+
+const relatedHubs = [
+  { label: 'Where to Live', href: '/where-to-live' },
+  { label: 'Lifestyle', href: '/lifestyle' },
+];
+---
+
+<BaseLayout
+  title="Schools in Cheshire | Education Guide | movetocheshire.uk"
+  description="Ofsted ratings for every state school in Cheshire, with catchment area information, grammar school entry routes, and independent school options. Mapped to specific postcodes and towns."
+>
+  <HubLayout
+    tag="Education"
+    title="Schools in Cheshire"
+    description="Ofsted ratings for every state school in the county, with catchment area information, grammar school entry routes, and independent school options. Mapped to specific postcodes and towns."
+    spokes={spokes}
+    relatedHubs={relatedHubs}
+  />
+</BaseLayout>

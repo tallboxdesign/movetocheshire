@@ -1,0 +1,58 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import DataStrip from '../components/DataStrip.astro';
+import QuickAnswer from '../components/QuickAnswer.astro';
+import ContentPillars from '../components/ContentPillars.astro';
+import FAQBlock from '../components/FAQBlock.astro';
+import WhoIsItFor from '../components/WhoIsItFor.astro';
+import InvestmentSection from '../components/InvestmentSection.astro';
+import DataFreshness from '../components/DataFreshness.astro';
+import AreaTable from '../components/AreaTable.tsx';
+import TownQuiz from '../components/TownQuiz.tsx';
+import PurchasingPowerCalculator from '../components/PurchasingPowerCalculator.tsx';
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    { '@type': 'Question', name: 'What is the average house price in Cheshire?', acceptedAnswer: { '@type': 'Answer', text: 'The average house price in Cheshire is approximately £285,000 across the county as a whole.' } },
+    { '@type': 'Question', name: 'Which is the best area of Cheshire to live?', acceptedAnswer: { '@type': 'Answer', text: 'There is no single "best" area - the right location depends on budget, commute requirements, and lifestyle priorities.' } },
+    { '@type': 'Question', name: 'Is it cheaper to live in Cheshire than London?', acceptedAnswer: { '@type': 'Answer', text: 'Yes, markedly so. The average house price in London is approximately £515,000, compared to £285,000 across Cheshire.' } },
+    { '@type': 'Question', name: 'How long is the commute from Cheshire to Manchester?', acceptedAnswer: { '@type': 'Answer', text: 'Commute times range from 17 minutes (Wilmslow, direct) to approximately 55 minutes (Crewe, direct).' } },
+    { '@type': 'Question', name: 'Are the schools good in Cheshire?', acceptedAnswer: { '@type': 'Answer', text: 'Yes, school performance in Cheshire is above the national average across both primary and secondary sectors.' } },
+    { '@type': 'Question', name: 'Is Cheshire safe to live in?', acceptedAnswer: { '@type': 'Answer', text: 'Yes, Cheshire\'s overall crime rate is below the national average for England and Wales.' } },
+  ],
+};
+
+const websiteSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: 'movetocheshire.uk',
+  url: 'https://movetocheshire.uk',
+  description: 'Independent relocation intelligence for people considering buying a home in Cheshire.',
+  inLanguage: 'en-GB',
+};
+---
+
+<BaseLayout
+  title="Moving to Cheshire? Independent Relocation Guide | movetocheshire.uk"
+  description="Independent, data-led guide to moving to Cheshire. House prices, schools, commute times, and area comparisons - sourced from ONS, Ofsted, and National Rail. Updated quarterly. No estate agent spin."
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  </Fragment>
+
+  <Hero />
+  <DataStrip />
+  <PurchasingPowerCalculator client:load />
+  <TownQuiz client:load />
+  <QuickAnswer />
+  <ContentPillars />
+  <FAQBlock />
+  <AreaTable client:load />
+  <WhoIsItFor />
+  <InvestmentSection />
+  <DataFreshness />
+</BaseLayout>

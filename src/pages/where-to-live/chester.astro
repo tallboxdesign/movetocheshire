@@ -1,0 +1,236 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const faqs = [
+  { question: 'Is Chester a good place to live?', answer: 'Yes. Chester consistently ranks among the most desirable cities in the North West for quality of life. It combines a compact, walkable historic centre with access to open countryside within minutes. Crime rates are below the national average at 58 per 1,000 population (Cheshire Constabulary, 2024/25).' },
+  { question: 'What is the average house price in Chester?', answer: 'The average house price in Chester is approximately 266,000 (ONS House Price Index, Q4 2025). Detached properties average around 385,000, semi-detached 245,000, terraced 210,000, and flats 155,000.' },
+  { question: 'How long is the commute from Chester to Manchester?', answer: 'The train from Chester to Manchester Piccadilly takes approximately 50 minutes on a direct service, with trains running every 30 minutes during peak hours (National Rail, 2025).' },
+  { question: 'Are the schools good in Chester?', answer: "Yes. Chester has a strong mix of state, grammar, and independent schools. Notable state schools include Christleton High School (Ofsted: Outstanding) and The Bishop Heber High School (Ofsted: Good)." },
+  { question: 'Is Chester cheaper than Wilmslow?', answer: "Yes, significantly. Chester's average house price of 266,000 is approximately 45% lower than Wilmslow's 490,000 (ONS, Q4 2025)." },
+  { question: 'What are the best areas to live in Chester?', answer: 'The most sought-after residential areas include Hoole (popular with young professionals, 280,000 average), Christleton (village feel, Outstanding school, 350,000+), Upton (family-friendly, 240,000), and Westminster Park (larger detached homes, 400,000+).' },
+];
+
+const neighbourhoods = [
+  { name: 'Hoole', avgPrice: '280,000', type: 'Young professionals', station: '10 min walk' },
+  { name: 'Christleton', avgPrice: '350,000', type: 'Families', station: '10 min drive' },
+  { name: 'Upton', avgPrice: '240,000', type: 'Families', station: '15 min drive' },
+  { name: 'Westminster Park', avgPrice: '400,000', type: 'Established families', station: '10 min drive' },
+  { name: 'Boughton', avgPrice: '260,000', type: 'Mixed', station: '15 min walk' },
+  { name: 'City Centre', avgPrice: '195,000', type: 'Professionals / investors', station: '5 min walk' },
+];
+
+const relatedSpokes = [
+  { label: 'Best Places to Live in Cheshire', href: '/where-to-live/best-places-cheshire', tag: 'Area Guide' },
+  { label: 'The Cheshire Golden Triangle', href: '/where-to-live/cheshire-golden-triangle', tag: 'Area Guide' },
+  { label: 'Average House Price in Cheshire', href: '/house-prices/average-house-price-cheshire', tag: 'Prices' },
+];
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((faq) => ({
+    '@type': 'Question',
+    name: faq.question,
+    acceptedAnswer: { '@type': 'Answer', text: faq.answer },
+  })),
+};
+---
+
+<BaseLayout
+  title="Living in Chester | Area Guide | movetocheshire.uk"
+  description="A practical guide to Chester for buyers considering a move - house prices, neighbourhoods, schools, commute times, and what daily life actually looks like in this historic city."
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  </Fragment>
+
+  <!-- Breadcrumb -->
+  <div class="section-pad" style="padding-top: 20px; padding-bottom: 0;">
+    <div class="section-inner">
+      <nav aria-label="Breadcrumb" style="font-family: Inter, Arial, sans-serif; font-size: 13px; color: #999999;">
+        <a href="/" style="color: #999999; text-decoration: none;">Home</a>
+        <span style="margin: 0 8px;">/</span>
+        <a href="/where-to-live" style="color: #999999; text-decoration: none;">Where to Live</a>
+        <span style="margin: 0 8px;">/</span>
+        <span style="color: #1C1C1E;">Chester</span>
+      </nav>
+    </div>
+  </div>
+
+  <!-- Hero -->
+  <section class="section-pad" style="padding-top: 40px;">
+    <div class="section-inner" style="max-width: 720px;">
+      <span class="section-label">Area Guide</span>
+      <h1 style="font-family: Georgia, serif; font-size: clamp(28px, 4.5vw, 44px); font-weight: 700; color: #1C1C1E; line-height: 1.15; margin: 0 0 20px 0; letter-spacing: -0.02em;">Living in Chester</h1>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 18px; line-height: 1.7; color: #444444; margin: 0 0 24px 0;">
+        A practical guide to Chester for buyers considering a move - house prices, neighbourhoods, schools, commute times, and what daily life actually looks like in this historic city.
+      </p>
+      <span style="display: inline-block; font-family: Inter, Arial, sans-serif; font-size: 12px; font-weight: 600; color: #3D5A3E; background-color: rgba(61, 90, 62, 0.08); padding: 6px 12px; letter-spacing: 0.02em;">Last updated: February 2026</span>
+    </div>
+  </section>
+
+  <!-- Stat Bar -->
+  <section class="section-pad" style="padding-top: 0;">
+    <div class="section-inner">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px;">
+        {[
+          { value: '266k', label: 'Average house price', source: 'ONS, Q4 2025' },
+          { value: '50 min', label: 'Train to Manchester', source: 'National Rail, 2025' },
+          { value: '58/1k', label: 'Crime rate (below avg)', source: 'Cheshire Constabulary, 2024' },
+        ].map((stat) => (
+          <div style="background-color: #FFFFFF; border: 1px solid #E5E0D8; padding: 28px 24px;">
+            <p class="data-tile-value" style="margin: 0 0 8px 0;">{stat.value}</p>
+            <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; font-weight: 600; color: #1C1C1E; margin: 0 0 4px 0;">{stat.label}</p>
+            <p style="font-family: Inter, Arial, sans-serif; font-size: 12px; color: #999999; margin: 0;">{stat.source}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Answer Block -->
+  <section class="section-pad">
+    <div class="section-inner" style="max-width: 720px;">
+      <span class="section-label">The short answer</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 24px 0;">
+        Chester is Cheshire's most accessible city for first-time buyers and relocators
+      </h2>
+      <div style="display: flex; flex-direction: column; gap: 16px;">
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #1C1C1E; margin: 0;">Chester offers something genuinely different from the east Cheshire commuter belt. Where Wilmslow and Alderley Edge are priced for established professionals (490k+ average), Chester sits at 266k - roughly half the cost - with a broader range of property types and a city lifestyle that Cheshire's villages simply cannot match.</p>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0;">The city has a compact, walkable centre with independent restaurants, a well-preserved Roman and medieval heritage, and direct rail links to both Manchester and Liverpool. It suits a different buyer profile: first-time buyers stepping onto the ladder, remote workers who prioritise lifestyle over commute speed, and families who want urban amenity without London prices.</p>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0;">The trade-off is the Manchester commute. At 50 minutes by train, Chester is materially slower than Wilmslow (17 minutes) or Macclesfield (25 minutes). For daily office commuters into Manchester, this is a real consideration. For hybrid workers doing two or three days a week, or those working in Liverpool (45 minutes) or remotely, it is less of a constraint.</p>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0;">Schools are strong, crime is low, and the surrounding villages - Christleton, Tattenhall, Waverton - offer rural living within 10 minutes of the city centre. Chester is not the cheapest place in Cheshire (Crewe and Northwich are lower), but it offers the best combination of price, amenity, and quality of life outside the Golden Triangle.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Relocator Questions -->
+  <section class="section-pad" style="background-color: #FFFFFF; border-top: 1px solid #E5E0D8; border-bottom: 1px solid #E5E0D8;">
+    <div class="section-inner">
+      <span class="section-label">From the community</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 32px 0;">Questions real relocators are asking</h2>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px;">
+        {[
+          { initials: 'JM', name: 'James M.', location: 'Moving from London', question: "We're a young family on a 300k budget. Is Chester realistic for a 3-bed semi with a garden, or are we looking at Upton / Blacon?", colour: '#3D5A3E' },
+          { initials: 'SR', name: 'Sarah R.', location: 'Moving from Birmingham', question: 'I work remotely three days a week and need Manchester once or twice. Is the Chester commute manageable, or should I look at Northwich instead?', colour: '#C4933F' },
+        ].map((card) => (
+          <div style={`background-color: #F9F7F4; border-left: 3px solid ${card.colour}; padding: 28px 24px;`}>
+            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+              <div style={`width: 40px; height: 40px; border-radius: 50%; background-color: ${card.colour}; display: flex; align-items: center; justify-content: center; font-family: Inter, Arial, sans-serif; font-size: 14px; font-weight: 700; color: #FFFFFF; flex-shrink: 0;`}>{card.initials}</div>
+              <div>
+                <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; font-weight: 600; color: #1C1C1E; margin: 0;">{card.name}</p>
+                <span style={`font-family: Inter, Arial, sans-serif; font-size: 11px; font-weight: 600; color: ${card.colour}; background-color: ${card.colour}15; padding: 2px 8px; letter-spacing: 0.02em;`}>{card.location}</span>
+              </div>
+            </div>
+            <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.65; color: #444444; margin: 0; font-style: italic;">"{card.question}"</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Neighbourhood Table -->
+  <section class="section-pad">
+    <div class="section-inner">
+      <span class="section-label">Neighbourhoods</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 28px 0;">Chester's key areas compared</h2>
+      <div style="overflow-x: auto;">
+        <table style="width: 100%; border-collapse: collapse; font-family: Inter, Arial, sans-serif; font-size: 14px; min-width: 540px;">
+          <thead>
+            <tr style="border-bottom: 2px solid #3D5A3E;">
+              <th style="text-align: left; padding: 12px 16px; font-weight: 700; color: #1C1C1E;">Area</th>
+              <th style="text-align: left; padding: 12px 16px; font-weight: 700; color: #1C1C1E;">Avg. Price</th>
+              <th style="text-align: left; padding: 12px 16px; font-weight: 700; color: #1C1C1E;">Buyer Type</th>
+              <th style="text-align: left; padding: 12px 16px; font-weight: 700; color: #1C1C1E;">To Station</th>
+            </tr>
+          </thead>
+          <tbody>
+            {neighbourhoods.map((n, i) => (
+              <tr style={`background-color: ${i % 2 === 0 ? '#FFFFFF' : '#F9F7F4'}; border-bottom: 1px solid #E5E0D8;`}>
+                <td style="padding: 14px 16px; font-weight: 600; color: #1C1C1E;">{n.name}</td>
+                <td style="padding: 14px 16px; color: #C4933F; font-weight: 600;">{n.avgPrice}</td>
+                <td style="padding: 14px 16px; color: #444444;">{n.type}</td>
+                <td style="padding: 14px 16px; color: #444444;">{n.station}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 12px; color: #999999; margin: 12px 0 0 0;">Prices: Rightmove averages, Q4 2025. Station distances are approximate walking/driving times to Chester station.</p>
+    </div>
+  </section>
+
+  <!-- FAQ Accordion -->
+  <section class="section-pad" style="background-color: #FFFFFF; border-top: 1px solid #E5E0D8; border-bottom: 1px solid #E5E0D8;">
+    <div class="section-inner" style="max-width: 800px;">
+      <span class="section-label">Common questions</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 32px 0;">People also ask about Chester</h2>
+      <div>
+        {faqs.map((faq, index) => (
+          <details style={`border-top: ${index === 0 ? '2px solid #3D5A3E' : '1px solid #E5E0D8'};`}>
+            <summary style="padding: 20px 0; cursor: pointer; font-family: Inter, Arial, sans-serif; font-size: 16px; font-weight: 600; color: #1C1C1E; line-height: 1.4; list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 16px;">
+              {faq.question}
+              <span style="font-family: Georgia, serif; font-size: 20px; color: #C4933F; flex-shrink: 0;">+</span>
+            </summary>
+            <div style="padding-bottom: 24px;">
+              <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.75; color: #444444; margin: 0;">{faq.answer}</p>
+            </div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Good to Know -->
+  <section class="section-pad">
+    <div class="section-inner" style="max-width: 720px;">
+      <div style="border-left: 3px solid #3D5A3E; background-color: rgba(61, 90, 62, 0.04); padding: 24px 28px;">
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; font-weight: 700; color: #3D5A3E; margin: 0 0 8px 0; text-transform: uppercase; letter-spacing: 0.05em;">Good to know</p>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.7; color: #444444; margin: 0;">
+          Chester is one of the few Cheshire locations with direct rail services to both Manchester and Liverpool, making it a strong option for households with split commuting needs. The city also benefits from proximity to North Wales for outdoor recreation - Snowdonia is under 90 minutes by car.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Community Strip -->
+  <section style="background-color: #F2EFE9; border-top: 1px solid #E5E0D8; border-bottom: 1px solid #E5E0D8;">
+    <div class="section-pad">
+      <div class="section-inner" style="max-width: 720px; text-align: center;">
+        <blockquote style="font-family: Georgia, serif; font-size: clamp(18px, 2.5vw, 22px); line-height: 1.6; color: #1C1C1E; margin: 0 0 16px 0; font-style: italic;">
+          "We looked at Wilmslow first but realised we could get twice the house in Chester for the same budget. The commute is longer, but we only go into Manchester twice a week now."
+        </blockquote>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 13px; color: #999999; margin: 0;">Relocator, via movetocheshire.uk community</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Handoff Block -->
+  <section class="section-pad">
+    <div class="section-inner" style="max-width: 720px;">
+      <div style="background-color: rgba(61, 90, 62, 0.04); border: 1px solid rgba(61, 90, 62, 0.15); padding: 28px;">
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.7; color: #1C1C1E; margin: 0 0 12px 0;">
+          For deeper Chester-specific content - street-level guides, local agent reviews, and monthly market updates - visit
+          <a href="https://movetochester.co.uk" target="_blank" rel="noopener noreferrer" class="green-cta-link">movetochester.co.uk</a>
+        </p>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 12px; color: #999999; margin: 0;">movetochester.co.uk is a partner site operated independently. movetocheshire.uk is not responsible for its content.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Related Spokes -->
+  <section class="section-pad" style="border-top: 1px solid #E5E0D8;">
+    <div class="section-inner">
+      <span class="section-label">Related guides</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 28px 0;">Continue your research</h2>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px;">
+        {relatedSpokes.map((spoke) => (
+          <a href={spoke.href} class="pillar-card" style="text-decoration: none; display: block;">
+            <span style="font-family: Inter, Arial, sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #3D5A3E; margin-bottom: 10px; display: block;">{spoke.tag}</span>
+            <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; font-weight: 600; color: #1C1C1E; margin: 0; line-height: 1.4;">{spoke.label}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,108 @@
+---
+const fastFacts = [
+  { label: 'Population', value: 'Approx. 1.06 million', source: 'ONS, 2021 Census' },
+  { label: 'Cheshire East avg. price', value: '£306,000', source: 'ONS, Q4 2025' },
+  { label: 'Cheshire West avg. price', value: '£265,000', source: 'ONS, Q4 2025' },
+  { label: 'UK average house price', value: '£285,000', source: 'ONS, Q4 2025' },
+  { label: 'Fastest Manchester commute', value: '17 mins (Wilmslow)', source: 'National Rail, 2025' },
+  { label: 'Nearest major city', value: 'Manchester (16-30 miles)', source: 'Geographic' },
+  { label: 'International airport', value: 'Manchester Airport (in county)', source: 'MAG, 2025' },
+  { label: 'Outstanding schools', value: '47+ Ofsted Outstanding', source: 'Ofsted, 2025' },
+  { label: 'County crime rate', value: 'Below national average', source: 'Cheshire Constabulary, 2025' },
+  { label: 'Top commuter towns', value: 'Wilmslow, Alderley Edge, Knutsford, Prestbury', source: 'National Rail, 2025' },
+];
+---
+
+<section
+  id="is-it-worth-it"
+  aria-labelledby="quick-answer-heading"
+  class="section-pad"
+  style="background-color: #F9F7F4;"
+>
+  <div class="section-inner">
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
+      <div>
+        <span class="section-label">The central question</span>
+
+        <h2
+          id="quick-answer-heading"
+          style="font-family: Georgia, serif; font-size: clamp(26px, 3.5vw, 34px); font-weight: 700; color: #1C1C1E; line-height: 1.2; margin-bottom: 28px; letter-spacing: -0.01em;"
+        >
+          Is Cheshire worth moving to?
+        </h2>
+
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 17px; line-height: 1.75; color: #333333; margin-bottom: 20px;">
+          Yes &mdash; for most buyers, Cheshire offers strong schools, sub-20-minute commutes to
+          Manchester from key stations, and substantial countryside access at materially lower
+          prices than comparable Home Counties commuter belt locations (ONS, Q4 2025).
+        </p>
+
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 17px; line-height: 1.75; color: #333333; margin-bottom: 20px;">
+          However, "Cheshire" is not a uniform market. The county spans a wide spectrum of
+          price points and character: Alderley Edge and Prestbury average above £650,000 and
+          operate more like luxury Surrey villages than typical northern commuter towns.
+          Crewe and Northwich remain genuinely affordable at below £220,000 &mdash; though they
+          involve longer commutes and different lifestyle trade-offs. The difference in average
+          house price between the county's most and least expensive areas exceeds £500,000.
+        </p>
+
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 17px; line-height: 1.75; color: #333333; margin-bottom: 32px;">
+          Cheshire may not suit buyers who prioritise city proximity on foot, require direct
+          links to London (most routes involve a change), or are relocating on a budget under
+          £175,000. Rural western areas around Tarporley and Nantwich also offer limited
+          public transport.
+        </p>
+
+        <blockquote
+          style="border-left: 3px solid #C4933F; background-color: rgba(196, 147, 63, 0.05); padding: 18px 20px; margin: 0;"
+        >
+          <p
+            style="font-family: Georgia, serif; font-size: 18px; font-style: italic; line-height: 1.6; color: #1C1C1E; margin: 0;"
+          >
+            "The right question is not whether to move to Cheshire, but where in Cheshire suits
+            your budget, lifestyle, and commute."
+          </p>
+        </blockquote>
+      </div>
+
+      <div>
+        <div style="border: 1px solid #E5E0D8; background-color: #FFFFFF;">
+          <div
+            style="padding: 20px 28px; border-bottom: 2px solid #3D5A3E; background-color: #F9F7F4;"
+          >
+            <h3
+              style="font-family: Inter, Arial, sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #3D5A3E; margin: 0;"
+            >
+              Cheshire &mdash; fast facts
+            </h3>
+          </div>
+
+          <dl style="margin: 0; padding: 0 28px;">
+            {fastFacts.map((fact, i) => (
+              <div
+                style={`padding: 13px 0; border-bottom: ${i < fastFacts.length - 1 ? '1px solid #EEEAE5' : 'none'}; display: flex; flex-direction: column; gap: 2px;`}
+              >
+                <dt
+                  style="font-family: Inter, Arial, sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #999999;"
+                >
+                  {fact.label}
+                </dt>
+                <dd
+                  style="font-family: Inter, Arial, sans-serif; font-size: 15px; font-weight: 600; color: #1C1C1E; margin: 0;"
+                >
+                  {fact.value}
+                  <span
+                    style="font-family: Inter, Arial, sans-serif; font-size: 11px; font-weight: 400; color: #AAAAAA; margin-left: 8px;"
+                  >
+                    {fact.source}
+                  </span>
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

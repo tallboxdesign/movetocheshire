@@ -1,0 +1,29 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import HubLayout from '../../components/HubLayout.astro';
+
+const spokes = [
+  { label: 'Commuting from Cheshire to Manchester', href: '/commuting/cheshire-manchester-commute', description: 'Train times, frequencies, and season ticket costs from every Cheshire town to Manchester city centre and Piccadilly.' },
+  { label: 'Wilmslow to Manchester Train', href: '/commuting/wilmslow-manchester-train', description: 'The most popular commuter route in Cheshire. Journey times, platforms, peak vs off-peak, and what the commute is actually like.' },
+  { label: 'Commuting from Cheshire to Liverpool', href: '/commuting/cheshire-liverpool-commute', description: 'Train and road options to Liverpool from Chester, Frodsham, and Northwich. Which areas offer the most viable Liverpool commute?' },
+  { label: 'Commuting from Cheshire to London', href: '/commuting/cheshire-london-commute', description: 'Intercity options from Crewe, Macclesfield, and Wilmslow to London Euston. Season ticket costs and realistic journey times.' },
+];
+
+const relatedHubs = [
+  { label: 'Where to Live', href: '/where-to-live' },
+  { label: 'House Prices', href: '/house-prices' },
+];
+---
+
+<BaseLayout
+  title="Commuting from Cheshire | Transport Guide | movetocheshire.uk"
+  description="Direct train times and driving routes from Cheshire to Manchester, Liverpool, Leeds, and London. Season ticket costs, frequency data, and honest assessments of commute viability."
+>
+  <HubLayout
+    tag="Transport"
+    title="Commuting from Cheshire"
+    description="Direct train times and driving routes to Manchester, Liverpool, Leeds, and London, mapped by town. Season ticket costs, frequency data, and an honest assessment of which areas offer viable commutes to which cities."
+    spokes={spokes}
+    relatedHubs={relatedHubs}
+  />
+</BaseLayout>

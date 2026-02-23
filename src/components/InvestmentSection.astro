@@ -1,0 +1,131 @@
+---
+const marketSignals = [
+  { label: 'Cheshire East price growth (5yr)', value: '+18.4%', note: 'ONS, Q4 2020 - Q4 2025', positive: true },
+  { label: 'Cheshire West price growth (5yr)', value: '+14.1%', note: 'ONS, Q4 2020 - Q4 2025', positive: true },
+  { label: 'UK average growth (5yr)', value: '+12.6%', note: 'ONS, Q4 2020 - Q4 2025', positive: null },
+  { label: 'Current avg. mortgage rate (2yr fix)', value: '4.4%', note: 'Bank of England, Feb 2026', positive: null },
+  { label: 'Stock on market vs. 2023', value: '+22%', note: 'Rightmove, Q4 2025', positive: null },
+  { label: 'Price falls from 2022 peak', value: ' - 4.1%', note: 'ONS, Cheshire East, Q4 2025', positive: false },
+];
+
+const caseFor = [
+  'Cheshire prices have outpaced the UK average over 5 years, supported by strong Manchester employment growth and constrained rural supply.',
+  'The 2022-24 correction was shallower in Cheshire than London or the South East  -  suggesting stronger structural demand.',
+  'Wilmslow, Alderley Edge, and Prestbury historically hold value through downturns due to premium school catchments and commuter demand.',
+  'Manchester Airport employment expansion and a growing tech sector underpin long-term demand from relocating professionals.',
+];
+
+const caseAgainst = [
+  'Mortgage rates at 4-5% materially reduce purchasing power compared to the 2020-21 sub-2% environment that drove the price peak.',
+  'Premium village prices (Alderley Edge, Prestbury) remain elevated relative to rental yields  -  making buy-to-let economics difficult.',
+  'Supply has increased meaningfully in 2025; buyers have more negotiating leverage than at any point since 2019.',
+  'A further base rate cycle could extend the 2022-24 correction, particularly in the £600k - £1m segment.',
+];
+---
+
+<section
+  id="investment"
+  aria-labelledby="investment-heading"
+  class="section-pad"
+  style="background-color: #1A2332; border-top: 1px solid rgba(196,147,63,0.2);"
+>
+  <div class="section-inner">
+
+    <div style="margin-bottom: 48px;">
+      <span
+        style="font-family: Inter, Arial, sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: #C4933F; display: block; margin-bottom: 12px;"
+      >
+        Market Intelligence
+      </span>
+      <h2
+        id="investment-heading"
+        style="font-family: Georgia, serif; font-size: clamp(26px, 3.5vw, 38px); font-weight: 700; color: #FFFFFF; line-height: 1.15; letter-spacing: -0.02em; margin: 0 0 16px 0; max-width: 700px;"
+      >
+        Is now a good time to buy in Cheshire?
+      </h2>
+      <p
+        style="font-family: Inter, Arial, sans-serif; font-size: 17px; line-height: 1.7; color: #7A9AAA; max-width: 680px; margin: 0;"
+      >
+        An independent look at Cheshire property market conditions &mdash; price trends, supply,
+        mortgage context, and the honest data-led case for and against buying in 2025-26.
+        This is a market timing question, separate from whether Cheshire suits your lifestyle.
+      </p>
+    </div>
+
+    <div
+      class="grid grid-cols-2 md:grid-cols-3"
+      style="gap: 1px; background-color: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.06); margin-bottom: 56px;"
+    >
+      {marketSignals.map((signal) => (
+        <div style="padding: 28px 24px; background-color: #1A2332;">
+          <p style="font-family: Inter, Arial, sans-serif; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #4A6070; margin: 0 0 10px 0;">
+            {signal.label}
+          </p>
+          <p
+            style={`font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: ${signal.positive === true ? '#7AB87C' : signal.positive === false ? '#D97070' : '#C4933F'}; margin: 0 0 6px 0; line-height: 1.1;`}
+          >
+            {signal.value}
+          </p>
+          <p style="font-family: Inter, Arial, sans-serif; font-size: 11px; color: #3D5060; font-style: italic; margin: 0;">
+            {signal.note}
+          </p>
+        </div>
+      ))}
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
+      <div style="border: 1px solid rgba(122,184,124,0.2); background-color: rgba(122,184,124,0.04); padding: 32px;">
+        <h3 style="font-family: Inter, Arial, sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #7AB87C; margin: 0 0 20px 0;">
+          The case for buying now
+        </h3>
+        <ul style="list-style: none; padding: 0; margin: 0;">
+          {caseFor.map((point, i) => (
+            <li
+              style={`display: flex; gap: 14px; padding-bottom: ${i < caseFor.length - 1 ? '16px' : '0'}; margin-bottom: ${i < caseFor.length - 1 ? '16px' : '0'}; border-bottom: ${i < caseFor.length - 1 ? '1px solid rgba(122,184,124,0.1)' : 'none'};`}
+            >
+              <span style="flex-shrink: 0; width: 18px; height: 18px; border-radius: 50%; background-color: rgba(122,184,124,0.15); display: flex; align-items: center; justify-content: center; font-size: 10px; color: #7AB87C; font-weight: 700; margin-top: 2px;">
+                +
+              </span>
+              <p style="font-family: Inter, Arial, sans-serif; font-size: 14.5px; line-height: 1.65; color: #8AAAB8; margin: 0;">
+                {point}
+              </p>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div style="border: 1px solid rgba(217,112,112,0.2); background-color: rgba(217,112,112,0.04); padding: 32px;">
+        <h3 style="font-family: Inter, Arial, sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #D97070; margin: 0 0 20px 0;">
+          The case for waiting
+        </h3>
+        <ul style="list-style: none; padding: 0; margin: 0;">
+          {caseAgainst.map((point, i) => (
+            <li
+              style={`display: flex; gap: 14px; padding-bottom: ${i < caseAgainst.length - 1 ? '16px' : '0'}; margin-bottom: ${i < caseAgainst.length - 1 ? '16px' : '0'}; border-bottom: ${i < caseAgainst.length - 1 ? '1px solid rgba(217,112,112,0.1)' : 'none'};`}
+            >
+              <span style="flex-shrink: 0; width: 18px; height: 18px; border-radius: 50%; background-color: rgba(217,112,112,0.12); display: flex; align-items: center; justify-content: center; font-size: 11px; color: #D97070; font-weight: 700; margin-top: 2px;">
+                -
+              </span>
+              <p style="font-family: Inter, Arial, sans-serif; font-size: 14.5px; line-height: 1.65; color: #8AAAB8; margin: 0;">
+                {point}
+              </p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+
+    <div
+      style="margin-top: 40px; border-top: 1px solid rgba(255,255,255,0.06); padding-top: 24px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; align-items: center;"
+    >
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 12px; color: #3D5060; margin: 0; line-height: 1.6;">
+        Data: ONS House Price Index, Bank of England, Rightmove, Cheshire East &amp; West Council.
+        Not financial advice. Last reviewed: February 2026.
+      </p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: #C4933F; margin: 0;">
+        Next update: May 2026
+      </p>
+    </div>
+
+  </div>
+</section>

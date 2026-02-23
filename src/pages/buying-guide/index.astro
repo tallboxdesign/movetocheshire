@@ -1,0 +1,29 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import HubLayout from '../../components/HubLayout.astro';
+
+const spokes = [
+  { label: 'Stamp Duty in Cheshire', href: '/buying-guide/stamp-duty-cheshire', description: "Stamp Duty Land Tax calculations for typical Cheshire purchase prices. Includes first-time buyer relief and second home surcharge scenarios." },
+  { label: 'Survey Types Explained', href: '/buying-guide/survey-types-cheshire', description: "RICS Level 1, 2, and 3 surveys - which type is appropriate for Cheshire's housing stock, and what typical survey costs look like locally." },
+  { label: 'Conveyancing in Cheshire', href: '/buying-guide/conveyancing-cheshire', description: 'What to expect from the conveyancing process in a competitive Cheshire market, with realistic timelines and notes on local solicitors.' },
+  { label: 'Making an Offer in Cheshire', href: '/buying-guide/making-offer-cheshire', description: "How Cheshire's property market works: sealed bids, asking price competition, and when offers below asking are realistic." },
+];
+
+const relatedHubs = [
+  { label: 'House Prices', href: '/house-prices' },
+  { label: 'Investment', href: '/investment' },
+];
+---
+
+<BaseLayout
+  title="Buying a Home in Cheshire | Process Guide | movetocheshire.uk"
+  description="A practical guide to buying property in Cheshire: stamp duty, survey types, conveyancing, and what to expect from the purchase process. Cheshire-specific timelines and considerations."
+>
+  <HubLayout
+    tag="Process Guide"
+    title="Buying a Home in Cheshire"
+    description="A practical guide to the full purchase process: stamp duty, survey types, local solicitors, and what to expect from conveyancing in a competitive market. Includes Cheshire-specific timelines and considerations."
+    spokes={spokes}
+    relatedHubs={relatedHubs}
+  />
+</BaseLayout>

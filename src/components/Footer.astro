@@ -1,0 +1,170 @@
+---
+const currentPath = Astro.url.pathname;
+
+const whereToLiveLinks = [
+  { label: 'Wilmslow', href: '/where-to-live/wilmslow' },
+  { label: 'Knutsford', href: '/where-to-live/knutsford' },
+  { label: 'Alderley Edge', href: '/where-to-live/alderley-edge' },
+  { label: 'Chester', href: '/where-to-live/chester' },
+  { label: 'Macclesfield', href: '/where-to-live/macclesfield' },
+  { label: 'Prestbury', href: '/where-to-live/prestbury' },
+  { label: 'Northwich', href: '/where-to-live/northwich' },
+  { label: 'All areas →', href: '/where-to-live' },
+];
+
+const guideLinks = [
+  { label: 'House Prices', href: '/house-prices' },
+  { label: 'Schools', href: '/schools' },
+  { label: 'Commuting', href: '/commuting' },
+  { label: 'Buying Process', href: '/buying-guide' },
+  { label: 'Is It Worth It?', href: '/lifestyle' },
+  { label: 'Investment', href: '/investment' },
+];
+
+const dataSources = [
+  { label: 'ONS House Price Index', href: 'https://www.ons.gov.uk/economy/inflationandpriceindices/bulletins/housepriceindex/latest' },
+  { label: 'Ofsted', href: 'https://www.ofsted.gov.uk' },
+  { label: 'National Rail', href: 'https://www.nationalrail.co.uk' },
+  { label: 'Cheshire East Council', href: 'https://www.cheshireeast.gov.uk' },
+  { label: 'Rightmove', href: 'https://www.rightmove.co.uk' },
+  { label: 'Cheshire Constabulary', href: 'https://www.cheshire.police.uk' },
+];
+---
+
+<footer
+  style="background-color: #1A2332; padding: 56px 20px 32px;"
+  aria-label="Site footer"
+>
+  <div class="section-inner">
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-14">
+      <div>
+        <a
+          href="/"
+          style="text-decoration: none; display: inline-flex; align-items: baseline; margin-bottom: 16px;"
+        >
+          <span style="font-family: Georgia, serif; font-size: 17px; font-weight: 700; color: #FFFFFF; letter-spacing: -0.02em;">
+            movetocheshire
+          </span>
+          <span style="font-family: Georgia, serif; font-size: 17px; font-weight: 700; color: #3D5A3E; letter-spacing: -0.02em;">
+            .uk
+          </span>
+        </a>
+
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 13.5px; color: #4A6070; line-height: 1.7; margin: 0 0 20px 0;">
+          Independent Cheshire relocation guide. Not an estate agency. No sponsored content.
+          Data reviewed quarterly from primary sources.
+        </p>
+
+        <div
+          style="display: inline-flex; align-items: center; gap: 8px; padding: 8px 12px; border: 1px solid rgba(61, 90, 62, 0.3); background-color: rgba(61, 90, 62, 0.08);"
+        >
+          <span style="display: block; width: 7px; height: 7px; background-color: #3D5A3E; border-radius: 50%;" />
+          <span style="font-family: Inter, Arial, sans-serif; font-size: 11px; color: #3D5A3E; font-weight: 600;">
+            Updated February 2026
+          </span>
+        </div>
+
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 12px; color: #344A58; margin-top: 20px;">
+          &copy; 2026 movetocheshire.uk
+        </p>
+      </div>
+
+      <div>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #FFFFFF; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,0.07);">
+          Where to Live
+        </p>
+        <nav aria-label="Where to live links">
+          {whereToLiveLinks.map((link) => (
+            <a
+              href={link.href}
+              class="footer-internal-link"
+              style="display: block; font-family: Inter, Arial, sans-serif; font-size: 14px; color: #5A7080; text-decoration: none; line-height: 1.4; padding: 4px 0; transition: color 0.15s ease;"
+            >
+              {link.label}
+            </a>
+          ))}
+        </nav>
+      </div>
+
+      <div>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #FFFFFF; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,0.07);">
+          Guides
+        </p>
+        <nav aria-label="Guide links">
+          {guideLinks.map((link) => (
+            <a
+              href={link.href}
+              class="footer-internal-link"
+              style="display: block; font-family: Inter, Arial, sans-serif; font-size: 14px; color: #5A7080; text-decoration: none; line-height: 1.4; padding: 4px 0; transition: color 0.15s ease;"
+            >
+              {link.label}
+            </a>
+          ))}
+        </nav>
+      </div>
+
+      <div>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #FFFFFF; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,0.07);">
+          Data Sources
+        </p>
+        <nav aria-label="Data source links">
+          {dataSources.map((source) => (
+            <a
+              href={source.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="footer-external-link"
+              style="display: block; font-family: Inter, Arial, sans-serif; font-size: 14px; color: #5A7080; text-decoration: none; line-height: 1.4; padding: 4px 0; transition: color 0.15s ease;"
+            >
+              {source.label}
+            </a>
+          ))}
+        </nav>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 12px; color: #344A58; margin-top: 20px; line-height: 1.55;">
+          All data independently sourced. Not affiliated with any estate agent, portal, or property business.
+        </p>
+        <div style="margin-top: 24px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.06);">
+          <p style="font-family: Inter, Arial, sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #FFFFFF; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,0.07);">
+            Contact
+          </p>
+          <a
+            href="/contact"
+            class="footer-internal-link"
+            style="display: block; font-family: Inter, Arial, sans-serif; font-size: 14px; color: #5A7080; text-decoration: none; line-height: 1.4; padding: 4px 0; transition: color 0.15s ease;"
+          >
+            Get in Touch
+          </a>
+          <a
+            href="/contact"
+            class="footer-contact-btn"
+            style="display: inline-flex; align-items: center; gap: 6px; margin-top: 10px; padding: 9px 18px; background-color: #2d7a4f; color: #ffffff; font-family: Inter, Arial, sans-serif; font-size: 13px; font-weight: 600; text-decoration: none; border-radius: 3px; transition: background-color 0.15s ease;"
+          >
+            Contact us
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div
+      style="border-top: 1px solid rgba(255,255,255,0.06); padding-top: 24px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; align-items: center;"
+    >
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 12px; color: #344A58; margin: 0;">
+        Data last reviewed: February 2026. Next update: May 2026.
+      </p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 12px; color: #344A58; margin: 0;">
+        This site does not collect or sell personal data.
+      </p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer-internal-link:hover,
+  .footer-external-link:hover {
+    color: #A0B4C0 !important;
+  }
+  .footer-contact-btn:hover {
+    background-color: #235f3d !important;
+  }
+</style>

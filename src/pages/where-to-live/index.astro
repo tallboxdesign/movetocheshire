@@ -1,0 +1,32 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import HubLayout from '../../components/HubLayout.astro';
+
+const spokes = [
+  { label: 'Best Places to Live in Cheshire', href: '/where-to-live/best-places-cheshire', description: "A data-led ranking of Cheshire's most desirable towns and villages, weighing schools, commute times, prices, and quality of life." },
+  { label: 'The Cheshire Golden Triangle', href: '/where-to-live/cheshire-golden-triangle', description: "Wilmslow, Alderley Edge, and Prestbury - what makes the Golden Triangle different, who lives there, and whether the premium is justified." },
+  { label: 'Wilmslow Area Guide', href: '/where-to-live/wilmslow', description: "Schools, prices, commute times, and local character. Cheshire's most popular commuter town." },
+  { label: 'Knutsford Area Guide', href: '/where-to-live/knutsford', description: 'Georgian market town with strong schools and direct trains to Manchester. A quieter alternative to Wilmslow.' },
+  { label: 'Alderley Edge Area Guide', href: '/where-to-live/alderley-edge', description: "The most expensive village in Cheshire. What the price premium buys you - and what it doesn't." },
+  { label: 'Chester Area Guide', href: '/where-to-live/chester', description: "The county's historic city - different character, different buyer profile, and a different value proposition." },
+];
+
+const relatedHubs = [
+  { label: 'House Prices', href: '/house-prices' },
+  { label: 'Schools', href: '/schools' },
+  { label: 'Commuting', href: '/commuting' },
+];
+---
+
+<BaseLayout
+  title="Where to Live in Cheshire | Area Guides | movetocheshire.uk"
+  description="Area-by-area comparisons of every major Cheshire town and village. Covering the commuter belt, the Golden Triangle, family hotspots, and affordable options - with average prices, Ofsted school data, and commute times."
+>
+  <HubLayout
+    tag="Area Guide"
+    title="Where to Live in Cheshire"
+    description="Area-by-area comparisons of every major town and village. Covering the commuter belt, the Golden Triangle, family hotspots, and affordable options - with average prices, Ofsted school data, and commute times for each."
+    spokes={spokes}
+    relatedHubs={relatedHubs}
+  />
+</BaseLayout>

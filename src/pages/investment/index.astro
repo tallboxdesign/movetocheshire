@@ -1,0 +1,30 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import HubLayout from '../../components/HubLayout.astro';
+
+const spokes = [
+  { label: 'Is Now a Good Time to Buy in Cheshire?', href: '/investment/good-time-buy-cheshire', description: 'An independent assessment of Cheshire property market conditions: price trends, supply constraints, mortgage rate context, and the data-led case for and against buying in 2025-26.' },
+  { label: 'Cheshire House Price Trends 2024-26', href: '/investment/cheshire-price-trends', description: 'How have Cheshire prices moved since the 2022 peak? An honest analysis of the correction depth, current momentum, and what forward indicators suggest.' },
+  { label: 'Best Value Areas in Cheshire', href: '/investment/best-value-areas-cheshire', description: 'Which Cheshire towns offer the strongest combination of price, yield potential, commuter demand, and school quality? A data-led view.' },
+];
+
+const relatedHubs = [
+  { label: 'House Prices', href: '/house-prices' },
+  { label: 'Buying Guide', href: '/buying-guide' },
+  { label: 'Where to Live', href: '/where-to-live' },
+];
+---
+
+<BaseLayout
+  title="Cheshire Property Investment | Market Intelligence | movetocheshire.uk"
+  description="An independent assessment of Cheshire market conditions - price trends, supply constraints, mortgage rate context, and the data-led case for and against buying in 2025-26."
+>
+  <HubLayout
+    tag="Market Intelligence"
+    title="Cheshire Property Investment"
+    description="An independent assessment of Cheshire market conditions - price trends, supply constraints, mortgage rate context, and the data-led case for and against buying in 2025-26. Separate from lifestyle questions: this is about market timing and value."
+    spokes={spokes}
+    relatedHubs={relatedHubs}
+    accentColor="#C4933F"
+  />
+</BaseLayout>
