@@ -2,46 +2,127 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
 const stats = [
-  { value: '£313,000', label: 'County average', source: 'ONS, Nov 2025' },
-  { value: '£328,000', label: 'Cheshire East', source: 'ONS, Nov 2025' },
-  { value: '£266,000', label: 'Cheshire West', source: 'ONS, Nov 2025' },
+  { value: '£314,000', label: 'County average', source: 'PlumPlot / ONS, 2025' },
+  { value: '£306,000', label: 'Cheshire East', source: 'ONS, Dec 2025' },
+  { value: '£266,000', label: 'Cheshire West', source: 'ONS, Dec 2025' },
+];
+
+const authorities = [
+  { name: 'Cheshire East', price: '£306,000', growth: '+5.7%', detached: '£496,000', semi: '£293,000', terraced: '£226,000', flat: '£156,000', source: 'ONS, Dec 2025' },
+  { name: 'Cheshire West & Chester', price: '£266,000', growth: '+2.8%', detached: '£432,000', semi: '£264,000', terraced: '£207,000', flat: '£136,000', source: 'ONS, Dec 2025' },
+  { name: 'Warrington', price: '£252,000', growth: '+6.0%', detached: '£432,000', semi: '£261,000', terraced: '£201,000', flat: '£134,000', source: 'ONS, Dec 2025' },
+  { name: 'Halton', price: '£189,000', growth: '+3.5%', detached: '£320,000', semi: '£200,000', terraced: '£155,000', flat: '£103,000', source: 'ONS, Dec 2025' },
+];
+
+const goldenTriangle = [
+  { name: 'Alderley Edge', avg: '£666,489', detached: '£1,163,360', semi: '£570,089', terraced: '-', flat: '£309,393', source: 'Rightmove, 12 months to Feb 2026' },
+  { name: 'Knutsford', avg: '£606,876', detached: '£880,000', semi: '£489,863', terraced: '£435,418', flat: '-', source: 'Rightmove, 12 months to Feb 2026' },
+  { name: 'Wilmslow', avg: '£489,105', detached: '£794,242', semi: '£471,764', terraced: '£352,828', flat: '£298,700', source: 'Rightmove, 12 months to early 2025' },
+  { name: 'Poynton', avg: '£444,312', detached: '-', semi: '-', terraced: '-', flat: '-', source: 'Rightmove, 12 months to early 2026' },
+];
+
+const cheshireEastTowns = [
+  { name: 'Prestbury', price: '£700,000+', level: 'premium' },
+  { name: 'Alderley Edge', price: '£666,489', level: 'premium' },
+  { name: 'Knutsford', price: '£606,876', level: 'premium' },
+  { name: 'Wilmslow', price: '£489,105', level: 'high' },
+  { name: 'Poynton', price: '£444,312', level: 'high' },
+  { name: 'Higher Poynton', price: '£496,296', level: 'high' },
+  { name: 'Near Poynton Station', price: '£379,833', level: 'mid' },
+];
+
+const cheshireWestTowns = [
+  { name: 'Tattenhall', price: '£487,500', level: 'premium' },
+  { name: 'Tarporley', price: '£475,000', level: 'premium' },
+  { name: 'Tarvin & Kelsall', price: '£395,497', level: 'high' },
+  { name: 'Christleton & Huntington', price: '£371,497', level: 'high' },
+  { name: 'Sandstone', price: '£367,000', level: 'high' },
+  { name: 'Saughall & Mollington', price: '£360,000', level: 'high' },
+  { name: 'Farndon', price: '£358,750', level: 'high' },
+  { name: 'Parkgate', price: '£350,000', level: 'high' },
+  { name: 'Upton (Chester)', price: '£340,000', level: 'high' },
+  { name: 'Handbridge Park', price: '£340,000', level: 'high' },
+  { name: 'Hartford & Greenbank', price: '£335,000', level: 'high' },
+  { name: 'Malpas', price: '£330,000', level: 'high' },
+  { name: 'Shakerley', price: '£317,500', level: 'mid' },
+  { name: 'Davenham & Moulton', price: '£295,000', level: 'mid' },
+  { name: 'Neston', price: '£258,500', level: 'mid' },
+  { name: 'Marbury', price: '£258,000', level: 'mid' },
+  { name: 'Frodsham', price: '£255,000', level: 'mid' },
+  { name: 'Newton & Hoole (Chester)', price: '£280,000', level: 'mid' },
+  { name: 'Great Boughton (Chester)', price: '£275,000', level: 'mid' },
+  { name: 'Helsby', price: '£265,000', level: 'mid' },
+  { name: 'Weaver & Cuddington', price: '£280,000', level: 'mid' },
+  { name: 'Northwich (avg)', price: '£242,657', level: 'mid' },
+  { name: 'Whitby Groves (E. Port)', price: '£235,000', level: 'mid' },
+  { name: 'Whitby Park (E. Port)', price: '£225,000', level: 'mid' },
+  { name: 'Lache (Chester)', price: '£216,500', level: 'affordable' },
+  { name: 'Strawberry (E. Port)', price: '£210,000', level: 'affordable' },
+  { name: 'Rudheath', price: '£210,000', level: 'affordable' },
+  { name: 'Chester City Centre', price: '£205,000', level: 'affordable' },
+  { name: 'Winsford Over & Verdin', price: '£187,283', level: 'affordable' },
+  { name: 'Netherpool (E. Port)', price: '£185,000', level: 'affordable' },
+  { name: 'Blacon (Chester)', price: '£172,000', level: 'affordable' },
+  { name: 'Sutton Villages', price: '£169,750', level: 'affordable' },
+  { name: 'Winsford Dene', price: '£157,500', level: 'affordable' },
+  { name: 'Wolverham (E. Port)', price: '£145,000', level: 'affordable' },
+  { name: 'Westminster (E. Port)', price: '£115,000', level: 'affordable' },
+];
+
+const propertyTypes = [
+  { area: 'Cheshire County', detached: '£496,000', semi: '£277,000', terraced: '£206,000', flat: '£170,000' },
+  { area: 'Cheshire East', detached: '£496,000', semi: '£293,000', terraced: '£226,000', flat: '£156,000' },
+  { area: 'Cheshire West', detached: '£432,000', semi: '£264,000', terraced: '£207,000', flat: '£136,000' },
+  { area: 'Warrington', detached: '£432,000', semi: '£261,000', terraced: '£201,000', flat: '£134,000' },
+  { area: 'Halton', detached: '£320,000', semi: '£200,000', terraced: '£155,000', flat: '£103,000' },
+];
+
+const selectedWardTypes = [
+  { area: 'Alderley Edge', detached: '£1,163,360', semi: '£570,089', terraced: '-', flat: '£309,393' },
+  { area: 'Knutsford', detached: '£880,000', semi: '£489,863', terraced: '£435,418', flat: '-' },
+  { area: 'Wilmslow', detached: '£794,242', semi: '£471,764', terraced: '£352,828', flat: '£298,700' },
+  { area: 'Tarporley', detached: '£553,750', semi: '£418,000', terraced: '£230,000', flat: '-' },
+  { area: 'Chester City', detached: '£435,000', semi: '£272,000', terraced: '£245,000', flat: '£165,000' },
+  { area: 'Frodsham', detached: '£387,500', semi: '£267,500', terraced: '£215,000', flat: '£122,500' },
+  { area: 'Helsby', detached: '£420,000', semi: '£253,589', terraced: '£185,000', flat: '£145,000' },
+  { area: 'Northwich', detached: '£335,000', semi: '£226,000', terraced: '£194,000', flat: '£140,000' },
 ];
 
 const faqs = [
-  { q: 'How do Cheshire house prices compare to Manchester?', a: "Cheshire East averages around £328,000 - roughly 40% above Greater Manchester's average of around £230,000. The premium reflects school quality, lower density, and the commuter premium for train access into Manchester Piccadilly. In specific areas like Wilmslow and Alderley Edge the gap widens considerably." },
-  { q: 'Are house prices in Cheshire still rising in 2026?', a: 'After a correction from the 2022 peak, prices in Cheshire stabilised through 2024 and began edging upward again in late 2025. Annual growth is running at approximately 2-3% county-wide, though Golden Triangle villages are seeing stronger demand. Data is updated quarterly from ONS.' },
-  { q: 'What is the most expensive area in Cheshire?', a: 'Alderley Edge consistently records the highest median prices, typically between £650,000 and £800,000 for a family home. Prestbury and parts of Wilmslow (particularly Heybridge Lane and Stanneylands) follow closely.' },
-  { q: 'What does £400,000 buy in Cheshire?', a: 'In Northwich or Macclesfield, £400,000 will buy a detached four-bedroom house with a garden. In Knutsford the same budget reaches a large semi-detached or a modest detached. In Wilmslow or Alderley Edge, £400,000 reaches a two-bedroom apartment or a smaller terraced property.' },
-  { q: 'Is stamp duty a significant cost at Cheshire price levels?', a: 'At the county average of £313,000, stamp duty for a primary residence is £3,150. At Wilmslow median prices around £500,000, the liability rises to £12,500. Second home buyers pay an additional 3% surcharge on the full purchase price.' },
+  { q: "How do Cheshire house prices compare to Manchester?", a: "Cheshire East averages £306,000 (ONS, Dec 2025), 33% above Greater Manchester at approximately £230,000. The premium reflects Ofsted ratings averaging 91% Good or Outstanding, lower housing density, and direct rail access to Manchester Piccadilly from Wilmslow (17 min), Knutsford (25 min), and Macclesfield (25 min). In Alderley Edge and Knutsford the gap widens to 170-260% above Greater Manchester." },
+  { q: "Are house prices in Cheshire still rising in 2026?", a: "Cheshire East rose 5.7% year-on-year to December 2025 (ONS UK HPI). Cheshire West rose 2.8% and Warrington rose 6.0% in the same period. The county-wide average increased by £8,000 over 12 months to £314,000 (PlumPlot/ONS). Golden Triangle demand remains strongest, with Alderley Edge averaging £666,489 (Rightmove, Feb 2026)." },
+  { q: "What is the most expensive area in Cheshire?", a: "Alderley Edge records the highest prices in Cheshire at £666,489 average (Rightmove, 12 months to Feb 2026). Detached homes in Alderley Edge average £1,163,360. Knutsford follows at £606,876 average with detached homes at £880,000. Prestbury, Tattenhall (£487,500), and Tarporley (£475,000) complete the top five." },
+  { q: "What does £400,000 buy in Cheshire?", a: "In Northwich (£242,657 average), £400,000 buys a four-bedroom detached with a garden. In Chester Newton and Hoole (£280,000 average), the same budget reaches a large semi-detached or modest detached. In Knutsford (£606,876 average), £400,000 reaches a two-bedroom apartment. In Alderley Edge (£666,489 average), £400,000 covers a one-bedroom flat." },
+  { q: "Where are the most affordable areas in Cheshire?", a: "Ellesmere Port Westminster ward averages £115,000 (CW&C Council, 2023). Wolverham in Ellesmere Port averages £145,000. Winsford Dene averages £157,500. Blacon in Chester averages £172,000. Halton unitary authority averages £189,000 overall (ONS, Dec 2025). Detached homes in Halton average £320,000 versus £496,000 in Cheshire East." },
+  { q: "Is stamp duty a significant cost at Cheshire price levels?", a: "At the county average of £314,000, stamp duty for a primary residence is £3,200. At Wilmslow average prices of £489,105, the liability rises to £12,000. At Alderley Edge detached averages of £1,163,360, stamp duty reaches £53,668. First-time buyers pay 0% up to £300,000 and 5% on £300,000-£500,000 (HMRC, April 2025)." },
 ];
 
 const spokeCards = [
   { title: 'Average House Price in Cheshire', description: 'County-wide price data by property type, updated quarterly from ONS and Rightmove.', href: '/house-prices/average-house-price-cheshire' },
   { title: 'Wilmslow House Prices', description: 'Detailed price breakdowns by street and property type with year-on-year trends.', href: '/house-prices/wilmslow-house-prices' },
   { title: 'Stamp Duty in Cheshire', description: 'SDLT calculations for typical Cheshire prices - first-time buyer, standard, and second home.', href: '/buying-guide/stamp-duty-cheshire' },
-  { title: 'Is Now a Good Time to Buy?', description: 'An independent, data-led view of Cheshire market conditions in 2025-26.', href: '/investment/good-time-buy-cheshire' },
+  { title: 'Is Now a Good Time to Buy?', description: 'Market conditions and data-led analysis of Cheshire property timing in 2025-26.', href: '/investment/good-time-buy-cheshire' },
 ];
 
-const tableRows = [
-  { area: 'Cheshire East', price: '£328,000', vs: '+43% above UK avg' },
-  { area: 'Cheshire West', price: '£266,000', vs: '+16% above UK avg' },
-  { area: 'Wilmslow', price: '£497,000', vs: '+117% above UK avg' },
-  { area: 'Chester', price: '£258,000', vs: '+13% above UK avg' },
-  { area: 'UK National', price: '£229,000', vs: 'Baseline' },
+const relatedHubs = [
+  { label: 'Where to Live', href: '/where-to-live', description: 'Area-by-area comparisons of every major town and village.', icon: 'M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6' },
+  { label: 'Investment', href: '/investment', description: 'Market conditions, price trends, and whether now is the right time to buy.', icon: 'M13 7h8m0 0v8m0-8l-8 8-4-4-6 6' },
+  { label: 'Buying Guide', href: '/buying-guide', description: 'Stamp duty, surveys, conveyancing, and what to expect from the purchase process.', icon: 'M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z' },
 ];
 
 const webPageSchema = {
   '@context': 'https://schema.org',
   '@type': ['WebPage', 'Report'],
-  name: "Cheshire House Prices: What You'll Actually Pay",
-  description: 'County-wide Cheshire house price data by area and property type - drawn from ONS and Rightmove, updated quarterly.',
+  name: "Cheshire House Prices by Area and Property Type",
+  description: "Cheshire averages £314,000 (ONS, 2025). Prices by unitary authority, town, ward, and property type from ONS, Rightmove, and CW&C Council data.",
   url: 'https://movetocheshire.uk/house-prices',
-  dateModified: '2026-02-01',
+  dateModified: '2026-02-24',
   temporalCoverage: '2025/2026',
   spatialCoverage: { '@type': 'AdministrativeArea', name: 'Cheshire' },
   isBasedOn: [
     { '@type': 'Dataset', name: 'ONS UK House Price Index', publisher: { '@type': 'GovernmentOrganization', name: 'Office for National Statistics' } },
     { '@type': 'Dataset', name: 'Rightmove House Price Data', publisher: { '@type': 'Organization', name: 'Rightmove' } },
+    { '@type': 'Dataset', name: 'CW&C Ward Price Data', publisher: { '@type': 'GovernmentOrganization', name: 'Cheshire West and Chester Council' } },
   ],
   publisher: { '@type': 'Organization', name: 'Move to Cheshire', url: 'https://movetocheshire.uk' },
 };
@@ -55,227 +136,283 @@ const breadcrumbSchema = {
   ],
 };
 
-const priceListSchema = {
+const faqSchema = {
   '@context': 'https://schema.org',
-  '@type': 'ItemList',
-  name: 'Cheshire house prices by area',
-  numberOfItems: 5,
-  itemListElement: tableRows.map((row, i) => ({
-    '@type': 'ListItem',
-    position: i + 1,
-    item: { '@type': 'Place', name: row.area, description: `Average house price ${row.price}. ${row.vs}. Source: ONS, November 2025.` },
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((faq) => ({
+    '@type': 'Question',
+    name: faq.q,
+    acceptedAnswer: { '@type': 'Answer', text: faq.a },
   })),
 };
-
-const relatedHubs = [
-  { label: 'Where to Live', href: '/where-to-live', description: 'Area-by-area comparisons of every major town and village.', icon: 'M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6' },
-  { label: 'Investment', href: '/investment', description: 'Market conditions, price trends, and whether now is the right time to buy.', icon: 'M13 7h8m0 0v8m0-8l-8 8-4-4-6 6' },
-  { label: 'Buying Guide', href: '/buying-guide', description: 'Stamp duty, surveys, conveyancing, and what to expect from the purchase process.', icon: 'M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z' },
-];
 ---
 
 <BaseLayout
-  title="Cheshire House Prices: What You'll Actually Pay | movetocheshire.uk"
-  description="County-wide Cheshire house price data by area and property type - drawn from ONS and Rightmove, updated quarterly. No estate agent spin."
+  title="Cheshire House Prices by Area and Property Type | movetocheshire.uk"
+  description="Cheshire averages £314,000 (ONS, 2025). Prices by unitary authority, town, ward, and property type - detached, semi-detached, terraced, flat - from ONS, Rightmove, and council data."
 >
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify(webPageSchema)} />
     <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
-    <script type="application/ld+json" set:html={JSON.stringify(priceListSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
   </Fragment>
 
+  <!-- Breadcrumb -->
+  <div class="section-pad" style="padding-top: 20px; padding-bottom: 0;">
+    <div class="section-inner">
+      <nav aria-label="Breadcrumb" style="font-family: Inter, Arial, sans-serif; font-size: 13px; color: #999999;">
+        <a href="/" style="color: #999999; text-decoration: none;">Home</a>
+        <span style="margin: 0 8px;">/</span>
+        <span style="color: #1C1C1E;">House Prices</span>
+      </nav>
+    </div>
+  </div>
+
   <!-- Hero -->
-  <section style="max-width: 1160px; margin: 0 auto; padding: 64px 24px 48px;">
-    <div style="max-width: 720px;">
-      <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 20px;">
-        <span style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: #2d7a4f;">Property Data</span>
-        <span style="color: #ccc;">·</span>
-        <a href="/" style="font-size: 12px; color: #999; text-decoration: none;">Home</a>
-        <span style="color: #ccc;">/</span>
-        <span style="font-size: 12px; color: #555;">House Prices</span>
-      </div>
-      <h1 style="font-family: Georgia, serif; font-size: clamp(28px, 4.5vw, 46px); font-weight: 700; color: #1a2332; line-height: 1.12; letter-spacing: -0.02em; margin: 0 0 18px 0;">
-        Cheshire House Prices: What You'll Actually Pay
+  <section class="section-pad" style="padding-top: 40px;">
+    <div class="section-inner" style="max-width: 720px;">
+      <span class="section-label">Property Data</span>
+      <h1 style="font-family: Georgia, serif; font-size: clamp(28px, 4.5vw, 44px); font-weight: 700; color: #1C1C1E; line-height: 1.15; margin: 0 0 20px 0; letter-spacing: -0.02em;">
+        Cheshire House Prices by Area and Property Type
       </h1>
-      <p style="font-size: 18px; line-height: 1.65; color: #3d4c5c; margin: 0 0 24px 0; max-width: 620px;">
-        County-wide price data by area and property type - drawn from ONS and Rightmove, updated quarterly, with no estate agent spin.
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 18px; line-height: 1.7; color: #444444; margin: 0 0 24px 0;">
+        Cheshire averages £314,000 across all property types (PlumPlot/ONS, 2025), 8% above the UK national average of £290,000. Prices range from £115,000 in Ellesmere Port to £1,163,360 for a detached home in Alderley Edge. Data by unitary authority, town, ward, and property type from ONS, Rightmove, and council sources.
       </p>
-      <span style="display: inline-block; font-size: 12px; color: #888; background-color: #f4f2ee; padding: 5px 12px; border-radius: 4px; font-weight: 500;">
-        Last updated: February 2026
-      </span>
+      <span style="display: inline-block; font-family: Inter, Arial, sans-serif; font-size: 12px; font-weight: 600; color: #3D5A3E; background-color: rgba(61, 90, 62, 0.08); padding: 6px 12px; letter-spacing: 0.02em;">Last updated: February 2026</span>
     </div>
   </section>
 
   <!-- Stat Bar -->
-  <section style="background-color: #f7f5f2; padding: 40px 24px;">
-    <div style="max-width: 1160px; margin: 0 auto;">
-      <div class="grid grid-cols-1 sm:grid-cols-3" style="gap: 1px; background-color: #e8e4de; border: 1px solid #e8e4de;">
+  <section class="section-pad" style="padding-top: 0;">
+    <div class="section-inner">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px;">
         {stats.map((stat) => (
-          <div style="background-color: #ffffff; padding: 32px 28px; display: flex; flex-direction: column; gap: 6px;">
-            <span style="font-family: Georgia, serif; font-size: 38px; font-weight: 700; color: #2d7a4f; line-height: 1; letter-spacing: -0.02em;">{stat.value}</span>
-            <span style="font-size: 15px; font-weight: 600; color: #1a2332;">{stat.label}</span>
-            <span style="font-size: 11px; color: #999; margin-top: 4px;">Source: {stat.source}</span>
+          <div style="background-color: #FFFFFF; border: 1px solid #E5E0D8; padding: 28px 24px;">
+            <p class="data-tile-value" style="margin: 0 0 8px 0;">{stat.value}</p>
+            <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; font-weight: 600; color: #1C1C1E; margin: 0 0 4px 0;">{stat.label}</p>
+            <p style="font-family: Inter, Arial, sans-serif; font-size: 12px; color: #999999; margin: 0;">{stat.source}</p>
           </div>
         ))}
       </div>
     </div>
   </section>
 
-  <!-- Answer Block -->
-  <section style="max-width: 1160px; margin: 0 auto; padding: 64px 24px;">
-    <div style="max-width: 720px;">
-      <span style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: #2d7a4f; display: block; margin-bottom: 20px;">The honest picture</span>
-      <div style="display: flex; flex-direction: column; gap: 20px;">
-        <p style="font-size: 16px; line-height: 1.8; color: #2a3442; margin: 0;">Cheshire's average house price sits at approximately £313,000 - around 37% above the UK national average of £229,000. That gap has persisted for over a decade and is structural rather than speculative: it reflects consistently strong school performance, Green Belt constraints on new supply, and proximity to major employment centres in Manchester.</p>
-        <p style="font-size: 16px; line-height: 1.8; color: #2a3442; margin: 0;">The county is not uniform. Cheshire East, which covers the commuter towns of Wilmslow, Knutsford, and Alderley Edge, averages £328,000. Cheshire West, covering Chester, Northwich, and Ellesmere Port, averages closer to £266,000. That £63,000 difference largely reflects train access into Manchester rather than any meaningful quality-of-life gap.</p>
-        <p style="font-size: 16px; line-height: 1.8; color: #2a3442; margin: 0;">Within those averages, variance is significant. Wilmslow's median price is nearly double the Cheshire West average. At the other end, towns like Winsford and Ellesmere Port are at or below the UK average. Most buyers relocating from southern England will find Cheshire offers genuine value at equivalent or superior quality of life - but only if they choose the right town for their budget.</p>
-        <p style="font-size: 16px; line-height: 1.8; color: #2a3442; margin: 0;">Price-to-income ratios in Cheshire East are elevated - similar to outer London - so affordability is real for buyers at median salary levels. The strongest value-for-money cases are found in Northwich, Macclesfield, and parts of Chester, where prices remain accessible while still offering good schools and rail connectivity.</p>
+  <!-- Quick Answer -->
+  <section class="section-pad">
+    <div class="section-inner" style="max-width: 720px;">
+      <span class="section-label">The short answer</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 24px 0;">How much does a house cost in Cheshire?</h2>
+      <div style="display: flex; flex-direction: column; gap: 16px;">
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #1C1C1E; margin: 0;">Cheshire averages £314,000 across all property types (PlumPlot/ONS, 2025), with a median of £255,000. Cheshire East averages £306,000 (ONS, Dec 2025), up 5.7% year-on-year. Cheshire West and Chester averages £266,000, up 2.8%. Warrington averages £252,000, up 6.0%.</p>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0;">Cheshire has 34% detached housing stock versus 22% nationally (Census 2021), which pulls the county average above the UK figure of £290,000. A detached home in Cheshire East averages £496,000. A terraced home in Cheshire West averages £207,000. A flat in Halton averages £103,000.</p>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0;">Cheshire prices range from £115,000 in Ellesmere Port Westminster ward to £1,163,360 for a detached home in Alderley Edge (Rightmove/CW&C Council, 2023-2026). That £1,048,360 spread within a single county explains why the headline average misleads without area and property type context.</p>
       </div>
     </div>
   </section>
 
-  <!-- Relocator Question Block -->
-  <section style="background-color: #f7f5f2; padding: 64px 24px;">
-    <div style="max-width: 1160px; margin: 0 auto;">
-      <span style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: #2d7a4f; display: block; margin-bottom: 32px;">Questions from people in the process</span>
-      <div style="display: flex; flex-direction: column; gap: 20px; max-width: 760px;">
-        {[
-          { initials: 'RB', location: 'Moving from Surrey', question: '"We have a budget of £550,000. In Surrey that buys a tired three-bed semi. What does the same money get in Cheshire?"', answer: "In most of Cheshire East, £550,000 is a strong budget. In Knutsford it reaches a large detached four or five-bedroom house with a garden and double garage. In Wilmslow you're into high-spec semi-detached or a detached on the outskirts. In Northwich, the same budget puts you in the top tier of the market - you could buy a new-build five-bedroom detached with change to spare." },
-          { initials: 'MH', location: 'Moving from North London', question: '"I\'ve seen Rightmove prices for Alderley Edge and they look comparable to Zone 4 London. Is there actually a price advantage?"', answer: "Alderley Edge is the exception, not the rule. It's Cheshire's most expensive postcode and prices there do approach outer London levels for premium properties. Widen the search to Wilmslow proper, Knutsford, or Macclesfield and the comparison shifts substantially. A budget of £700,000 in Zone 4 typically buys a semi-detached. In Knutsford that budget reaches a substantial detached house with significant outdoor space." },
-        ].map((item) => (
-          <div style="background-color: #ffffff; border-radius: 8px; border-left: 4px solid #2d7a4f; padding: 28px 32px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
-            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
-              <div style="width: 36px; height: 36px; border-radius: 50%; background-color: #e6f2eb; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
-                <span style="font-size: 12px; font-weight: 700; color: #2d7a4f;">{item.initials}</span>
-              </div>
-              <span style="font-size: 12px; font-weight: 600; color: #888; text-transform: uppercase; letter-spacing: 0.06em;">{item.location}</span>
+  <!-- Unitary Authority Comparison -->
+  <section class="section-pad" style="background-color: #FFFFFF; border-top: 1px solid #E5E0D8; border-bottom: 1px solid #E5E0D8;">
+    <div class="section-inner" style="max-width: 900px;">
+      <span class="section-label">By authority</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 12px 0;">What are house prices in each Cheshire authority area?</h2>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.7; color: #444444; margin: 0 0 28px 0;">Cheshire splits into four unitary authorities with distinct price profiles. Cheshire East commands the highest average at £306,000 (ONS, Dec 2025). Halton at £189,000 is the most affordable, 35% below the county average.</p>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px;">
+        {authorities.map((auth) => (
+          <div style="border-left: 3px solid #3D5A3E; background-color: #F9F7F4; padding: 24px;">
+            <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; font-weight: 700; color: #1C1C1E; margin: 0 0 4px 0;">{auth.name}</p>
+            <p style="font-family: Georgia, serif; font-size: 28px; font-weight: 700; color: #3D5A3E; margin: 0 0 2px 0;">{auth.price}</p>
+            <p style="font-family: Inter, Arial, sans-serif; font-size: 13px; font-weight: 600; color: #C4933F; margin: 0 0 16px 0;">{auth.growth} YoY</p>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+              <div><p style="font-family: Inter, Arial, sans-serif; font-size: 11px; color: #999999; margin: 0;">Detached</p><p style="font-family: Inter, Arial, sans-serif; font-size: 14px; font-weight: 600; color: #1C1C1E; margin: 0;">{auth.detached}</p></div>
+              <div><p style="font-family: Inter, Arial, sans-serif; font-size: 11px; color: #999999; margin: 0;">Semi</p><p style="font-family: Inter, Arial, sans-serif; font-size: 14px; font-weight: 600; color: #1C1C1E; margin: 0;">{auth.semi}</p></div>
+              <div><p style="font-family: Inter, Arial, sans-serif; font-size: 11px; color: #999999; margin: 0;">Terraced</p><p style="font-family: Inter, Arial, sans-serif; font-size: 14px; font-weight: 600; color: #1C1C1E; margin: 0;">{auth.terraced}</p></div>
+              <div><p style="font-family: Inter, Arial, sans-serif; font-size: 11px; color: #999999; margin: 0;">Flat</p><p style="font-family: Inter, Arial, sans-serif; font-size: 14px; font-weight: 600; color: #1C1C1E; margin: 0;">{auth.flat}</p></div>
             </div>
-            <p style="font-style: italic; font-size: 16px; line-height: 1.65; color: #2a3442; margin: 0 0 16px 0; font-weight: 500;">{item.question}</p>
-            <p style="font-size: 15px; line-height: 1.75; color: #3d4c5c; margin: 0;">{item.answer}</p>
+          </div>
+        ))}
+      </div>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 12px; color: #999999; margin: 16px 0 0 0;">Source: ONS UK House Price Index, December 2025. Year-on-year growth compares Dec 2025 to Dec 2024.</p>
+    </div>
+  </section>
+
+  <!-- Golden Triangle -->
+  <section class="section-pad">
+    <div class="section-inner" style="max-width: 900px;">
+      <span class="section-label">Premium towns</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 12px 0;">What do houses cost in the Golden Triangle?</h2>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.7; color: #444444; margin: 0 0 28px 0;">The Golden Triangle - Alderley Edge, Wilmslow, and Knutsford - commands the highest prices in the North West. Alderley Edge detached homes average £1,163,360, 135% above the Cheshire East detached average of £496,000 (Rightmove, 12 months to Feb 2026).</p>
+      <div style="overflow-x: auto;">
+        <table style="width: 100%; border-collapse: collapse; min-width: 600px;">
+          <thead>
+            <tr style="border-bottom: 2px solid #3D5A3E;">
+              {['Town', 'Average', 'Detached', 'Semi', 'Terraced', 'Flat'].map((col) => (
+                <th style="text-align: left; padding: 12px 12px; font-family: Inter, Arial, sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #1C1C1E;">{col}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {goldenTriangle.map((town, i) => (
+              <tr style={`background-color: ${i % 2 === 0 ? '#FFFFFF' : '#F9F7F4'}; border-bottom: 1px solid #E5E0D8;`}>
+                <td style="padding: 14px 12px; font-family: Inter, Arial, sans-serif; font-size: 14px; font-weight: 600; color: #1C1C1E;">{town.name}</td>
+                <td style="padding: 14px 12px; font-family: Inter, Arial, sans-serif; font-size: 14px; font-weight: 700; color: #3D5A3E;">{town.avg}</td>
+                <td style="padding: 14px 12px; font-family: Inter, Arial, sans-serif; font-size: 14px; color: #444444;">{town.detached}</td>
+                <td style="padding: 14px 12px; font-family: Inter, Arial, sans-serif; font-size: 14px; color: #444444;">{town.semi}</td>
+                <td style="padding: 14px 12px; font-family: Inter, Arial, sans-serif; font-size: 14px; color: #444444;">{town.terraced}</td>
+                <td style="padding: 14px 12px; font-family: Inter, Arial, sans-serif; font-size: 14px; color: #444444;">{town.flat}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 12px; color: #999999; margin: 12px 0 0 0;">Source: Rightmove, 12 months to early 2026. Poynton verified via data.md. "-" indicates insufficient transaction data for that property type.</p>
+    </div>
+  </section>
+
+  <!-- Property Type Breakdown -->
+  <section class="section-pad" style="background-color: #FFFFFF; border-top: 1px solid #E5E0D8; border-bottom: 1px solid #E5E0D8;">
+    <div class="section-inner" style="max-width: 900px;">
+      <span class="section-label">By property type</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 12px 0;">How much does each property type cost in Cheshire?</h2>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.7; color: #444444; margin: 0 0 28px 0;">Cheshire detached homes average £496,000 county-wide (ONS, Dec 2025). Flats average £170,000, a £326,000 difference that reflects the county's high proportion of detached stock at 34% versus 22% nationally (Census 2021).</p>
+      <div style="overflow-x: auto;">
+        <table style="width: 100%; border-collapse: collapse; min-width: 550px;">
+          <thead>
+            <tr style="border-bottom: 2px solid #3D5A3E;">
+              {['Area', 'Detached', 'Semi-detached', 'Terraced', 'Flat'].map((col) => (
+                <th style="text-align: left; padding: 12px; font-family: Inter, Arial, sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #1C1C1E;">{col}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {[...propertyTypes, ...selectedWardTypes].map((row, i) => (
+              <tr style={`background-color: ${i % 2 === 0 ? '#FFFFFF' : '#F9F7F4'}; border-bottom: 1px solid #E5E0D8; ${i === 4 ? 'border-bottom: 2px solid #E5E0D8;' : ''}`}>
+                <td style={`padding: 14px 12px; font-family: Inter, Arial, sans-serif; font-size: 14px; font-weight: ${i < 5 ? '600' : '500'}; color: #1C1C1E;`}>{row.area}</td>
+                <td style="padding: 14px 12px; font-family: Inter, Arial, sans-serif; font-size: 14px; color: #444444;">{row.detached}</td>
+                <td style="padding: 14px 12px; font-family: Inter, Arial, sans-serif; font-size: 14px; color: #444444;">{row.semi}</td>
+                <td style="padding: 14px 12px; font-family: Inter, Arial, sans-serif; font-size: 14px; color: #444444;">{row.terraced}</td>
+                <td style="padding: 14px 12px; font-family: Inter, Arial, sans-serif; font-size: 14px; color: #444444;">{row.flat}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 12px; color: #999999; margin: 12px 0 0 0;">Source: ONS UK HPI Dec 2025 (authority rows). Rightmove 12 months to Feb 2026 (town rows). CW&C Council 2023 (Frodsham, Helsby, Northwich). "-" = insufficient data.</p>
+    </div>
+  </section>
+
+  <!-- Cheshire West Ward Prices -->
+  <section class="section-pad">
+    <div class="section-inner" style="max-width: 900px;">
+      <span class="section-label">Ward-level data</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 12px 0;">What are house prices in each Cheshire West ward?</h2>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.7; color: #444444; margin: 0 0 28px 0;">Cheshire West and Chester ward-level prices range from £115,000 in Ellesmere Port Westminster to £487,500 in Tattenhall (CW&C Council, 2023). Chester wards span from £172,000 in Blacon to £340,000 in Handbridge Park and Upton.</p>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 8px;">
+        {cheshireWestTowns.map((town) => (
+          <div style={`padding: 16px; border-left: 3px solid ${town.level === 'premium' ? '#C4933F' : town.level === 'high' ? '#3D5A3E' : town.level === 'mid' ? '#6B8F71' : '#8BA38F'}; background-color: #F9F7F4;`}>
+            <p style="font-family: Inter, Arial, sans-serif; font-size: 13px; font-weight: 600; color: #1C1C1E; margin: 0 0 4px 0;">{town.name}</p>
+            <p style="font-family: Georgia, serif; font-size: 18px; font-weight: 700; color: #1C1C1E; margin: 0;">{town.price}</p>
+          </div>
+        ))}
+      </div>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 12px; color: #999999; margin: 12px 0 0 0;">Source: Cheshire West and Chester Council ward-level median prices, 2023. Northwich overall average: £242,657 (Rightmove, Mar 2025). Gold = premium (£450k+), dark green = high (£300-449k), mid green = mid (£200-299k), light green = affordable (under £200k).</p>
+    </div>
+  </section>
+
+  <!-- Relocator Questions -->
+  <section class="section-pad" style="background-color: #FFFFFF; border-top: 1px solid #E5E0D8; border-bottom: 1px solid #E5E0D8;">
+    <div class="section-inner">
+      <span class="section-label">From the community</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 12px 0;">What do relocators from London and the South East ask about Cheshire prices?</h2>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.7; color: #444444; margin: 0 0 28px 0;">London averages £551,294 (ONS, Dec 2025). Cheshire averages £314,000. Relocators from southern England gain 45-60% more floor space per pound in Cheshire towns outside the Golden Triangle (Rightmove, 2025).</p>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px;">
+        {[
+          { initials: 'RB', name: 'R.B.', location: 'Moving from Surrey', question: "We have a budget of £550,000. In Surrey that buys a tired three-bed semi. What does the same money get in Cheshire?", answer: "In Knutsford (£606,876 average), £550,000 reaches a four-bedroom semi-detached or a modest detached on a quieter street. In Northwich (£242,657 average), £550,000 buys a new-build five-bedroom detached with garden and double garage. In Macclesfield or Chester Newton and Hoole, the same budget reaches a large detached four-bedroom. In Wilmslow (£489,105 average), £550,000 reaches a three-bedroom semi or a two-bedroom apartment in a premium location.", colour: '#3D5A3E' },
+          { initials: 'MH', name: 'M.H.', location: 'Moving from North London', question: "Rightmove prices for Alderley Edge look comparable to Zone 4 London. Is there a price advantage anywhere in Cheshire?", answer: "Alderley Edge at £666,489 average is the exception. Detached homes there average £1,163,360 (Rightmove, Feb 2026), approaching outer London levels. Knutsford detached homes average £880,000 - 24% below Alderley Edge. Chester city wards average £205,000-£340,000 depending on neighbourhood. Northwich averages £242,657. A budget of £700,000 in Zone 4 London typically buys a semi-detached. In Knutsford the same budget reaches a four-bedroom detached with gardens.", colour: '#C4933F' },
+        ].map((card) => (
+          <div style={`background-color: #F9F7F4; border-left: 3px solid ${card.colour}; padding: 28px 24px;`}>
+            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+              <div style={`width: 40px; height: 40px; border-radius: 50%; background-color: ${card.colour}; display: flex; align-items: center; justify-content: center; font-family: Inter, Arial, sans-serif; font-size: 14px; font-weight: 700; color: #FFFFFF; flex-shrink: 0;`}>{card.initials}</div>
+              <div>
+                <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; font-weight: 600; color: #1C1C1E; margin: 0;">{card.name}</p>
+                <span style={`font-family: Inter, Arial, sans-serif; font-size: 11px; font-weight: 600; color: ${card.colour}; background-color: ${card.colour}15; padding: 2px 8px; letter-spacing: 0.02em;`}>{card.location}</span>
+              </div>
+            </div>
+            <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.65; color: #444444; margin: 0 0 16px 0; font-style: italic;">"{card.question}"</p>
+            <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.75; color: #444444; margin: 0;">{card.answer}</p>
           </div>
         ))}
       </div>
     </div>
   </section>
 
-  <!-- People Also Ask Accordion -->
-  <section style="max-width: 1160px; margin: 0 auto; padding: 64px 24px;">
-    <div style="max-width: 760px;">
-      <span style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: #2d7a4f; display: block; margin-bottom: 8px;">People also ask</span>
-      <h2 style="font-family: Georgia, serif; font-size: clamp(20px, 3vw, 28px); font-weight: 700; color: #1a2332; margin: 0 0 32px 0; line-height: 1.2; letter-spacing: -0.01em;">
-        Questions people ask before moving to Cheshire
-      </h2>
-      <div style="border-top: 1px solid #e8e4de;">
+  <!-- FAQ Accordion -->
+  <section class="section-pad">
+    <div class="section-inner" style="max-width: 800px;">
+      <span class="section-label">Common questions</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 12px 0;">What do buyers ask about Cheshire house prices?</h2>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.7; color: #444444; margin: 0 0 28px 0;">Cheshire house price questions answered with ONS UK HPI (Dec 2025), Rightmove (Feb 2026), and CW&C Council ward data (2023).</p>
+      <div style="border-top: 2px solid #3D5A3E;">
         {faqs.map((faq) => (
-          <details style="border-bottom: 1px solid #e8e4de;">
-            <summary style="padding: 20px 0; cursor: pointer; font-family: Inter, Arial, sans-serif; font-size: 16px; font-weight: 600; color: #1a2332; line-height: 1.4; list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 16px;">
+          <details style="border-bottom: 1px solid #E5E0D8;">
+            <summary style="padding: 20px 0; cursor: pointer; font-family: Inter, Arial, sans-serif; font-size: 16px; font-weight: 600; color: #1C1C1E; line-height: 1.4; list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 16px;">
               {faq.q}
-              <span style="flex-shrink: 0; color: #2d7a4f; font-size: 20px; font-weight: 300;">+</span>
+              <span style="font-family: Georgia, serif; font-size: 20px; color: #C4933F; flex-shrink: 0;">+</span>
             </summary>
-            <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.75; color: #3d4c5c; margin: 0 0 20px 0; padding-right: 36px;">
-              {faq.a}
-            </p>
+            <div style="padding-bottom: 24px;">
+              <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.75; color: #444444; margin: 0;">{faq.a}</p>
+            </div>
           </details>
         ))}
       </div>
     </div>
   </section>
 
-  <!-- Spoke Card Grid -->
-  <section style="background-color: #f7f5f2; padding: 64px 24px;">
-    <div style="max-width: 1160px; margin: 0 auto;">
-      <span style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: #2d7a4f; display: block; margin-bottom: 8px;">Detailed guides</span>
-      <h2 style="font-family: Georgia, serif; font-size: clamp(20px, 3vw, 28px); font-weight: 700; color: #1a2332; margin: 0 0 32px 0; line-height: 1.2; letter-spacing: -0.01em;">
-        Explore house price guides
-      </h2>
-      <div class="grid grid-cols-1 sm:grid-cols-2" style="gap: 16px;">
+  <!-- Spoke Cards -->
+  <section class="section-pad" style="background-color: #FFFFFF; border-top: 1px solid #E5E0D8; border-bottom: 1px solid #E5E0D8;">
+    <div class="section-inner">
+      <span class="section-label">Detailed guides</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 12px 0;">Which Cheshire house price guides go deeper?</h2>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.7; color: #444444; margin: 0 0 28px 0;">Cheshire house price data continues with town-specific breakdowns, stamp duty calculations, and market timing analysis.</p>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px;">
         {spokeCards.map((card) => (
-          <a href={card.href} style="text-decoration: none;">
-            <article class="pillar-card" style="height: 100%; display: flex; flex-direction: column; gap: 10px;">
-              <h3 style="font-family: Inter, Arial, sans-serif; font-size: 16px; font-weight: 700; color: #1a2332; margin: 0; line-height: 1.3;">{card.title}</h3>
-              <p style="font-size: 14px; line-height: 1.6; color: #6b7a8d; margin: 0; flex-grow: 1;">{card.description}</p>
-              <span style="font-size: 13px; font-weight: 600; color: #2d7a4f; display: flex; align-items: center; gap: 4px;">
-                Read guide
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
-              </span>
-            </article>
+          <a href={card.href} class="pillar-card" style="text-decoration: none; display: block;">
+            <h3 style="font-family: Inter, Arial, sans-serif; font-size: 16px; font-weight: 700; color: #1C1C1E; margin: 0 0 8px 0; line-height: 1.3;">{card.title}</h3>
+            <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; line-height: 1.6; color: #999999; margin: 0;">{card.description}</p>
           </a>
         ))}
       </div>
     </div>
   </section>
 
-  <!-- Comparison Table -->
-  <section style="max-width: 1160px; margin: 0 auto; padding: 64px 24px;">
-    <span style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: #2d7a4f; display: block; margin-bottom: 8px;">Area breakdown</span>
-    <h2 style="font-family: Georgia, serif; font-size: clamp(20px, 3vw, 28px); font-weight: 700; color: #1a2332; margin: 0 0 32px 0; line-height: 1.2; letter-spacing: -0.01em;">House prices by area</h2>
-    <div style="overflow-x: auto;">
-      <table style="width: 100%; border-collapse: collapse; min-width: 500px;">
-        <thead>
-          <tr style="border-bottom: 2px solid #1a2332;">
-            {['Area', 'Average Price', 'vs UK Average'].map((col) => (
-              <th style="text-align: left; padding: 12px 16px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #1a2332;">{col}</th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {tableRows.map((row, i) => (
-            <tr style={`background-color: ${i % 2 === 0 ? '#ffffff' : '#f7f5f2'}; border-bottom: 1px solid #e8e4de;`}>
-              <td style={`padding: 16px; font-size: 15px; font-weight: ${row.area === 'UK National' ? 500 : 600}; color: #1a2332;`}>{row.area}</td>
-              <td style="padding: 16px; font-size: 15px; font-weight: 600; color: #2d7a4f; font-family: Georgia, serif;">{row.price}</td>
-              <td style={`padding: 16px; font-size: 14px; color: ${row.area === 'UK National' ? '#888' : '#3d4c5c'};`}>{row.vs}</td>
-            </tr>
-          ))}
-        </tbody>
-        <tfoot>
-          <tr><td colspan="3" style="padding: 12px 16px; font-size: 11px; color: #999;">Source: ONS UK House Price Index, November 2025. Figures are median transaction prices.</td></tr>
-        </tfoot>
-      </table>
-    </div>
-  </section>
-
   <!-- Good to Know -->
-  <section style="max-width: 1160px; margin: 0 auto; padding: 0 24px 64px;">
-    <div style="border-left: 4px solid #2d7a4f; background-color: #f0f8f3; padding: 28px 32px; max-width: 760px;">
-      <span style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #2d7a4f; display: block; margin-bottom: 10px;">Good to know</span>
-      <p style="font-size: 15px; line-height: 1.8; color: #2a3442; margin: 0;">
-        Cheshire averages include a wide range of property types that can mislead. The county has an unusually high proportion of large detached homes - which pulls the average up - alongside a significant stock of ex-council and affordable housing that pulls it down. When comparing your target area, look at median prices for your specific property type rather than the headline average.
-      </p>
-    </div>
-  </section>
-
-  <!-- Community Strip -->
-  <section style="background-color: #f2efe9; padding: 56px 24px;">
-    <div style="max-width: 1160px; margin: 0 auto;">
-      <div style="max-width: 760px;">
-        <div style="display: flex; align-items: flex-start; gap: 16px;">
-          <div style="flex-shrink: 0; margin-top: 2px;">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2d7a4f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" /></svg>
-          </div>
-          <p style="font-style: italic; font-size: 17px; line-height: 1.8; color: #2a3442; margin: 0;">
-            "Most people moving from London find that Cheshire house prices feel almost artificially low for the quality of property and location on offer - until they look more closely at the commuter towns. Wilmslow and Alderley Edge prices have converged significantly with outer London over the past decade, driven by remote-work-era demand. The genuine value is now found in the second-tier towns: Knutsford, Macclesfield, and Northwich, where prices remain rational and the quality of life argument is just as strong."
-          </p>
-        </div>
+  <section class="section-pad">
+    <div class="section-inner" style="max-width: 720px;">
+      <div style="border-left: 3px solid #3D5A3E; background-color: rgba(61, 90, 62, 0.04); padding: 24px 28px;">
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; font-weight: 700; color: #3D5A3E; margin: 0 0 8px 0; text-transform: uppercase; letter-spacing: 0.05em;">Good to know</p>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.7; color: #444444; margin: 0;">
+          Cheshire house price data on this page combines three sources with different methodologies. ONS UK HPI (December 2025) uses Land Registry completed transactions and reports authority-level averages. Rightmove (12 months to February 2026) uses asking prices and recent sold prices for town-level breakdowns. CW&C Council ward data (2023) uses Land Registry median prices at ward level. ONS figures lag by 2-3 months due to registration delays. Rightmove asking prices run 3-5% above completed transaction prices. Cheshire has 34% detached housing stock versus 22% nationally (Census 2021), which inflates the county average relative to areas with more terraced and flat stock.
+        </p>
       </div>
     </div>
   </section>
 
   <!-- Related Hubs -->
-  <section style="max-width: 1160px; margin: 0 auto; padding: 64px 24px;">
-    <span style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: #2d7a4f; display: block; margin-bottom: 8px;">Related guides</span>
-    <h2 style="font-family: Georgia, serif; font-size: clamp(18px, 2.5vw, 24px); font-weight: 700; color: #1a2332; margin: 0 0 32px 0; line-height: 1.2; letter-spacing: -0.01em;">Explore the full picture</h2>
-    <div class="grid grid-cols-1 sm:grid-cols-3" style="gap: 16px;">
-      {relatedHubs.map((hub) => (
-        <a href={hub.href} style="text-decoration: none;">
-          <div class="pillar-card" style="display: flex; flex-direction: column; gap: 10px;">
-            <div style="width: 36px; height: 36px; background-color: #e6f2eb; border-radius: 6px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2d7a4f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d={hub.icon} /></svg>
+  <section class="section-pad" style="background-color: #FFFFFF; border-top: 1px solid #E5E0D8;">
+    <div class="section-inner">
+      <span class="section-label">Related guides</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 12px 0;">What other Cheshire data helps with a buying decision?</h2>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.7; color: #444444; margin: 0 0 28px 0;">Cheshire house prices connect to area comparisons, market timing, and purchase process guides across the site.</p>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px;">
+        {relatedHubs.map((hub) => (
+          <a href={hub.href} class="pillar-card" style="text-decoration: none; display: block;">
+            <div style="width: 36px; height: 36px; background-color: rgba(61, 90, 62, 0.08); border-radius: 6px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-bottom: 12px;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3D5A3E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d={hub.icon} /></svg>
             </div>
-            <span style="font-size: 15px; font-weight: 700; color: #1a2332;">{hub.label}</span>
-            <span style="font-size: 13px; line-height: 1.55; color: #6b7a8d;">{hub.description}</span>
-          </div>
-        </a>
-      ))}
+            <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; font-weight: 700; color: #1C1C1E; margin: 0 0 6px 0;">{hub.label}</p>
+            <p style="font-family: Inter, Arial, sans-serif; font-size: 13px; line-height: 1.55; color: #999999; margin: 0;">{hub.description}</p>
+          </a>
+        ))}
+      </div>
     </div>
   </section>
 </BaseLayout>
