@@ -1,12 +1,49 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ContactForm from '../components/ContactForm.tsx';
+
+const contactPageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ContactPage',
+  url: 'https://movetocheshire.uk/contact',
+  name: 'Contact Us | movetocheshire.uk',
+  description: 'Get in touch with movetocheshire.uk. Data corrections, area questions, press enquiries welcome.',
+  inLanguage: 'en-GB',
+  isPartOf: { '@type': 'WebSite', name: 'movetocheshire.uk', url: 'https://movetocheshire.uk' },
+  mainEntity: { '@id': 'https://movetocheshire.uk/#person-tom-cairns' },
+};
+
+const personSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  '@id': 'https://movetocheshire.uk/#person-tom-cairns',
+  name: 'Tom Cairns',
+  description: 'Independent researcher specialising in Cheshire relocation data. Based in the North West, researching since 2023.',
+  url: 'https://movetocheshire.uk/contact',
+  areaServed: { '@type': 'AdministrativeArea', name: 'Cheshire' },
+  knowsAbout: ['Cheshire property market', 'Cheshire town comparisons', 'North West relocation', 'School catchment areas in Cheshire'],
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://movetocheshire.uk' },
+    { '@type': 'ListItem', position: 2, name: 'Contact', item: 'https://movetocheshire.uk/contact' },
+  ],
+};
 ---
 
 <BaseLayout
   title="Contact Us | movetocheshire.uk"
   description="Get in touch with movetocheshire.uk. Data corrections, area questions, press enquiries welcome. Independent Cheshire relocation research."
 >
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(contactPageSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+  </Fragment>
+
   <!-- Hero -->
   <section style="max-width: 1200px; margin: 0 auto; padding: 52px 24px 36px; width: 100%;">
     <div style="max-width: 640px;">

@@ -8,6 +8,31 @@ const spokes = [
   { label: 'Best Value Areas in Cheshire', href: '/investment/best-value-areas-cheshire', description: 'Which Cheshire towns offer the strongest combination of price, yield potential, commuter demand, and school quality? A data-led view.' },
 ];
 
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://movetocheshire.uk' },
+    { '@type': 'ListItem', position: 2, name: 'Cheshire Property Investment', item: 'https://movetocheshire.uk/investment' },
+  ],
+};
+
+const collectionPageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: 'Cheshire Property Investment',
+  description: 'An independent assessment of Cheshire market conditions - price trends, supply constraints, mortgage rate context, and the data-led case for and against buying in 2025-26.',
+  url: 'https://movetocheshire.uk/investment',
+  mainEntity: {
+    '@type': 'ItemList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Is Now a Good Time to Buy in Cheshire?', url: 'https://movetocheshire.uk/investment/good-time-buy-cheshire' },
+      { '@type': 'ListItem', position: 2, name: 'Cheshire House Price Trends 2024-26', url: 'https://movetocheshire.uk/investment/cheshire-price-trends' },
+      { '@type': 'ListItem', position: 3, name: 'Best Value Areas in Cheshire', url: 'https://movetocheshire.uk/investment/best-value-areas-cheshire' },
+    ],
+  },
+};
+
 const relatedHubs = [
   { label: 'House Prices', href: '/house-prices' },
   { label: 'Buying Guide', href: '/buying-guide' },
@@ -19,6 +44,10 @@ const relatedHubs = [
   title="Cheshire Property Investment | Market Intelligence | movetocheshire.uk"
   description="An independent assessment of Cheshire market conditions - price trends, supply constraints, mortgage rate context, and the data-led case for and against buying in 2025-26."
 >
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(collectionPageSchema)} />
+  </Fragment>
   <HubLayout
     tag="Market Intelligence"
     title="Cheshire Property Investment"

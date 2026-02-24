@@ -2,6 +2,30 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import HubLayout from '../../components/HubLayout.astro';
 
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://movetocheshire.uk' },
+    { '@type': 'ListItem', position: 2, name: 'Cheshire Schools Guide', item: 'https://movetocheshire.uk/schools' },
+  ],
+};
+
+const collectionPageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: 'Cheshire Schools Guide',
+  description: 'Ofsted ratings for every state school in Cheshire, with catchment area information, grammar school entry routes, and independent school options.',
+  url: 'https://movetocheshire.uk/schools',
+  mainEntity: {
+    '@type': 'ItemList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Best Primary Schools in Cheshire', url: 'https://movetocheshire.uk/schools/best-primary-schools' },
+      { '@type': 'ListItem', position: 2, name: 'Best Secondary Schools in Cheshire', url: 'https://movetocheshire.uk/schools/best-secondary-schools' },
+    ],
+  },
+};
+
 const spokes = [
   { label: 'Best Primary Schools in Cheshire', href: '/schools/best-primary-schools', description: 'Ofsted Outstanding and Good primary schools ranked by area, with catchment guidance and notes on oversubscription.' },
   { label: 'Best Secondary Schools in Cheshire', href: '/schools/best-secondary-schools', description: 'State secondary schools in Cheshire ranked by Ofsted rating, Progress 8, and Attainment 8. Includes grammar school options.' },
@@ -19,6 +43,10 @@ const relatedHubs = [
   title="Schools in Cheshire | Education Guide | movetocheshire.uk"
   description="Ofsted ratings for every state school in Cheshire, with catchment area information, grammar school entry routes, and independent school options. Mapped to specific postcodes and towns."
 >
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(collectionPageSchema)} />
+  </Fragment>
   <HubLayout
     tag="Education"
     title="Schools in Cheshire"

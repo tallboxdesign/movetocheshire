@@ -9,6 +9,32 @@ const spokes = [
   { label: 'Commuting from Cheshire to London', href: '/commuting/cheshire-london-commute', description: 'Intercity options from Crewe, Macclesfield, and Wilmslow to London Euston. Season ticket costs and realistic journey times.' },
 ];
 
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://movetocheshire.uk' },
+    { '@type': 'ListItem', position: 2, name: 'Commuting from Cheshire', item: 'https://movetocheshire.uk/commuting' },
+  ],
+};
+
+const collectionPageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: 'Commuting from Cheshire',
+  description: 'Direct train times and driving routes from Cheshire to Manchester, Liverpool, Leeds, and London. Season ticket costs, frequency data, and honest assessments of commute viability.',
+  url: 'https://movetocheshire.uk/commuting',
+  mainEntity: {
+    '@type': 'ItemList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Commuting from Cheshire to Manchester', url: 'https://movetocheshire.uk/commuting/cheshire-manchester-commute' },
+      { '@type': 'ListItem', position: 2, name: 'Wilmslow to Manchester Train', url: 'https://movetocheshire.uk/commuting/wilmslow-manchester-train' },
+      { '@type': 'ListItem', position: 3, name: 'Commuting from Cheshire to Liverpool', url: 'https://movetocheshire.uk/commuting/cheshire-liverpool-commute' },
+      { '@type': 'ListItem', position: 4, name: 'Commuting from Cheshire to London', url: 'https://movetocheshire.uk/commuting/cheshire-london-commute' },
+    ],
+  },
+};
+
 const relatedHubs = [
   { label: 'Where to Live', href: '/where-to-live' },
   { label: 'House Prices', href: '/house-prices' },
@@ -19,6 +45,10 @@ const relatedHubs = [
   title="Commuting from Cheshire | Transport Guide | movetocheshire.uk"
   description="Direct train times and driving routes from Cheshire to Manchester, Liverpool, Leeds, and London. Season ticket costs, frequency data, and honest assessments of commute viability."
 >
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(collectionPageSchema)} />
+  </Fragment>
   <HubLayout
     tag="Transport"
     title="Commuting from Cheshire"

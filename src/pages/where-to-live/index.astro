@@ -28,6 +28,46 @@ const faqSchema = {
   ],
 };
 
+const webPageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: 'Where to Live in Cheshire: A Straight Guide to Every Area',
+  description: 'Area-by-area comparisons of every major Cheshire town and village, with average prices, school data, and commute times.',
+  url: 'https://movetocheshire.uk/where-to-live',
+  dateModified: '2026-02-01',
+  inLanguage: 'en-GB',
+  spatialCoverage: { '@type': 'Place', name: 'Cheshire' },
+  isPartOf: { '@type': 'WebSite', name: 'Move to Cheshire', url: 'https://movetocheshire.uk' },
+};
+
+const areaListSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: 'Cheshire residential areas compared',
+  numberOfItems: 10,
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, item: { '@type': 'Place', name: 'Alderley Edge', description: 'Average price above £700,000. Train to Manchester: 22 minutes.', containedInPlace: { '@type': 'AdministrativeArea', name: 'Cheshire East' } } },
+    { '@type': 'ListItem', position: 2, item: { '@type': 'Place', name: 'Prestbury', description: 'Average price above £650,000. Train to Manchester: 20 minutes.', containedInPlace: { '@type': 'AdministrativeArea', name: 'Cheshire East' } } },
+    { '@type': 'ListItem', position: 3, item: { '@type': 'Place', name: 'Wilmslow', description: 'Average price £490,000. Train to Manchester: 17 minutes.', containedInPlace: { '@type': 'AdministrativeArea', name: 'Cheshire East' } } },
+    { '@type': 'ListItem', position: 4, item: { '@type': 'Place', name: 'Knutsford', description: 'Average price £430,000. Train to Manchester: 35 minutes.', containedInPlace: { '@type': 'AdministrativeArea', name: 'Cheshire East' } } },
+    { '@type': 'ListItem', position: 5, item: { '@type': 'Place', name: 'Tarporley', description: 'Average price £380,000. Train to Manchester: 55 minutes (indirect).', containedInPlace: { '@type': 'AdministrativeArea', name: 'Cheshire West and Chester' } } },
+    { '@type': 'ListItem', position: 6, item: { '@type': 'Place', name: 'Nantwich', description: 'Average price £295,000. Train to Manchester: 60 minutes (indirect).', containedInPlace: { '@type': 'AdministrativeArea', name: 'Cheshire East' } } },
+    { '@type': 'ListItem', position: 7, item: { '@type': 'Place', name: 'Macclesfield', description: 'Average price £280,000. Train to Manchester: 25 minutes.', containedInPlace: { '@type': 'AdministrativeArea', name: 'Cheshire East' } } },
+    { '@type': 'ListItem', position: 8, item: { '@type': 'Place', name: 'Chester', description: 'Average price £250,000. Train to Manchester: 50 minutes.', containedInPlace: { '@type': 'AdministrativeArea', name: 'Cheshire West and Chester' } } },
+    { '@type': 'ListItem', position: 9, item: { '@type': 'Place', name: 'Northwich', description: 'Average price £220,000. Train to Manchester: 40 minutes.', containedInPlace: { '@type': 'AdministrativeArea', name: 'Cheshire West and Chester' } } },
+    { '@type': 'ListItem', position: 10, item: { '@type': 'Place', name: 'Crewe', description: 'Average price £175,000. Train to Manchester: 55 minutes.', containedInPlace: { '@type': 'AdministrativeArea', name: 'Cheshire East' } } },
+  ],
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://movetocheshire.uk' },
+    { '@type': 'ListItem', position: 2, name: 'Where to Live', item: 'https://movetocheshire.uk/where-to-live' },
+  ],
+};
+
 const areas = [
   { area: 'Alderley Edge', price: '£700,000+', commute: '22 min', bestFor: 'Premium schools, Manchester exec commute' },
   { area: 'Prestbury', price: '£650,000+', commute: '20 min', bestFor: 'Village character, Golden Triangle access' },
@@ -75,6 +115,9 @@ const faqs = [
 >
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(webPageSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(areaListSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
   </Fragment>
 
   <HubLayout

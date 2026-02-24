@@ -9,6 +9,32 @@ const spokes = [
   { label: 'Making an Offer in Cheshire', href: '/buying-guide/making-offer-cheshire', description: "How Cheshire's property market works: sealed bids, asking price competition, and when offers below asking are realistic." },
 ];
 
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://movetocheshire.uk' },
+    { '@type': 'ListItem', position: 2, name: 'Buying a Home in Cheshire', item: 'https://movetocheshire.uk/buying-guide' },
+  ],
+};
+
+const collectionPageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: 'Buying a Home in Cheshire',
+  description: 'A practical guide to buying property in Cheshire: stamp duty, survey types, conveyancing, and what to expect from the purchase process.',
+  url: 'https://movetocheshire.uk/buying-guide',
+  mainEntity: {
+    '@type': 'ItemList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Stamp Duty in Cheshire', url: 'https://movetocheshire.uk/buying-guide/stamp-duty-cheshire' },
+      { '@type': 'ListItem', position: 2, name: 'Survey Types Explained', url: 'https://movetocheshire.uk/buying-guide/survey-types-cheshire' },
+      { '@type': 'ListItem', position: 3, name: 'Conveyancing in Cheshire', url: 'https://movetocheshire.uk/buying-guide/conveyancing-cheshire' },
+      { '@type': 'ListItem', position: 4, name: 'Making an Offer in Cheshire', url: 'https://movetocheshire.uk/buying-guide/making-offer-cheshire' },
+    ],
+  },
+};
+
 const relatedHubs = [
   { label: 'House Prices', href: '/house-prices' },
   { label: 'Investment', href: '/investment' },
@@ -19,6 +45,10 @@ const relatedHubs = [
   title="Buying a Home in Cheshire | Process Guide | movetocheshire.uk"
   description="A practical guide to buying property in Cheshire: stamp duty, survey types, conveyancing, and what to expect from the purchase process. Cheshire-specific timelines and considerations."
 >
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(collectionPageSchema)} />
+  </Fragment>
   <HubLayout
     tag="Process Guide"
     title="Buying a Home in Cheshire"

@@ -128,6 +128,56 @@ const faqs = [
     answer: "The Cheshire Golden Triangle is an informal name for the area roughly bounded by Wilmslow, Alderley Edge, and Prestbury - a cluster of affluent commuter villages in Cheshire East with fast Manchester rail access and high average house prices. Cheshire East averaged £306,000 in November 2025 (ONS), but properties within the Triangle frequently exceed £500,000–£700,000+. The term is used loosely and sometimes extended to include Knutsford and Bramhall.",
   },
 ];
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'AnalysisNewsArticle',
+  headline: 'What Are the Best Places to Live in Cheshire?',
+  description: "A data-led ranking of Cheshire's most desirable towns and villages, weighing schools, commute times, prices, and quality of life.",
+  url: 'https://movetocheshire.uk/where-to-live/best-places-cheshire',
+  datePublished: '2025-10-01',
+  dateModified: '2026-02-24',
+  author: { '@type': 'Organization', name: 'Move to Cheshire', url: 'https://movetocheshire.uk' },
+  spatialCoverage: {
+    '@type': 'Place',
+    name: 'Cheshire, England',
+    containsPlace: [
+      { '@type': 'City', name: 'Wilmslow' },
+      { '@type': 'City', name: 'Alderley Edge' },
+      { '@type': 'City', name: 'Prestbury' },
+      { '@type': 'City', name: 'Knutsford' },
+      { '@type': 'City', name: 'Macclesfield' },
+      { '@type': 'City', name: 'Chester' },
+      { '@type': 'City', name: 'Nantwich' },
+    ],
+  },
+};
+
+const areaItemListSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: 'Best Places to Live in Cheshire',
+  numberOfItems: 7,
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, item: { '@type': 'City', name: 'Wilmslow', description: 'Fastest Manchester commute at 17 minutes, average price £490,000.', containedInPlace: { '@type': 'AdministrativeArea', name: 'Cheshire East' }, geo: { '@type': 'GeoCoordinates', latitude: 53.3297, longitude: -2.2309 } } },
+    { '@type': 'ListItem', position: 2, item: { '@type': 'City', name: 'Alderley Edge', description: 'Premium lifestyle village, average price £700,000+, 22-minute train.', containedInPlace: { '@type': 'AdministrativeArea', name: 'Cheshire East' }, geo: { '@type': 'GeoCoordinates', latitude: 53.3041, longitude: -2.2313 } } },
+    { '@type': 'ListItem', position: 3, item: { '@type': 'City', name: 'Prestbury', description: 'Quiet premium village, average £650,000+, 20-minute train.', containedInPlace: { '@type': 'AdministrativeArea', name: 'Cheshire East' }, geo: { '@type': 'GeoCoordinates', latitude: 53.2978, longitude: -2.1411 } } },
+    { '@type': 'ListItem', position: 4, item: { '@type': 'City', name: 'Knutsford', description: 'Outstanding secondary school, average £430,000, 35-minute train.', containedInPlace: { '@type': 'AdministrativeArea', name: 'Cheshire East' }, geo: { '@type': 'GeoCoordinates', latitude: 53.3027, longitude: -2.3714 } } },
+    { '@type': 'ListItem', position: 5, item: { '@type': 'City', name: 'Macclesfield', description: 'Market town, average £280,000, 25-minute train, Peak District access.', containedInPlace: { '@type': 'AdministrativeArea', name: 'Cheshire East' }, geo: { '@type': 'GeoCoordinates', latitude: 53.2594, longitude: -2.1270 } } },
+    { '@type': 'ListItem', position: 6, item: { '@type': 'City', name: 'Chester', description: 'Historic city, average £250,000, 50-minute train to Manchester.', containedInPlace: { '@type': 'AdministrativeArea', name: 'Cheshire West and Chester' }, geo: { '@type': 'GeoCoordinates', latitude: 53.1905, longitude: -2.8910 } } },
+    { '@type': 'ListItem', position: 7, item: { '@type': 'City', name: 'Nantwich', description: 'Tudor market town, average £295,000, 60-minute indirect train.', containedInPlace: { '@type': 'AdministrativeArea', name: 'Cheshire East' }, geo: { '@type': 'GeoCoordinates', latitude: 53.0671, longitude: -2.5224 } } },
+  ],
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://movetocheshire.uk' },
+    { '@type': 'ListItem', position: 2, name: 'Where to Live', item: 'https://movetocheshire.uk/where-to-live' },
+    { '@type': 'ListItem', position: 3, name: 'Best Places to Live in Cheshire', item: 'https://movetocheshire.uk/where-to-live/best-places-cheshire' },
+  ],
+};
 ---
 
 <BaseLayout
@@ -136,6 +186,9 @@ const faqs = [
 >
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(areaItemListSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
   </Fragment>
 
   <div style="background-color: #F9F7F4;">

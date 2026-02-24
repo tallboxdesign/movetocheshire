@@ -9,6 +9,32 @@ const spokes = [
   { label: 'Is Cheshire Worth It?', href: '/lifestyle/is-cheshire-worth-it', description: 'A direct answer to the most common question. Who benefits most from moving to Cheshire, and who might be disappointed.' },
 ];
 
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://movetocheshire.uk' },
+    { '@type': 'ListItem', position: 2, name: 'Is Cheshire Worth It?', item: 'https://movetocheshire.uk/lifestyle' },
+  ],
+};
+
+const collectionPageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: 'Is Cheshire Worth It?',
+  description: 'An evidence-based analysis of the honest pros and cons of relocating to Cheshire. Who benefits most, who might be disappointed, and what the data says about quality of life.',
+  url: 'https://movetocheshire.uk/lifestyle',
+  mainEntity: {
+    '@type': 'ItemList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Pros and Cons of Living in Cheshire', url: 'https://movetocheshire.uk/lifestyle/pros-cons-living-cheshire' },
+      { '@type': 'ListItem', position: 2, name: 'Moving from London to Cheshire', url: 'https://movetocheshire.uk/lifestyle/moving-london-cheshire' },
+      { '@type': 'ListItem', position: 3, name: 'Is Cheshire Safe?', url: 'https://movetocheshire.uk/lifestyle/is-cheshire-safe' },
+      { '@type': 'ListItem', position: 4, name: 'Is Cheshire Worth It?', url: 'https://movetocheshire.uk/lifestyle/is-cheshire-worth-it' },
+    ],
+  },
+};
+
 const relatedHubs = [
   { label: 'Where to Live', href: '/where-to-live' },
   { label: 'Schools', href: '/schools' },
@@ -20,6 +46,10 @@ const relatedHubs = [
   title="Is Cheshire Worth It? | Lifestyle Guide | movetocheshire.uk"
   description="An evidence-based analysis of the honest pros and cons of relocating to Cheshire. Who benefits most, who might be disappointed, and what the data says about quality of life."
 >
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(collectionPageSchema)} />
+  </Fragment>
   <HubLayout
     tag="Honest Assessment"
     title="Is Cheshire Worth It?"
