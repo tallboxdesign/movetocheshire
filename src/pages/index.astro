@@ -33,6 +33,134 @@ const websiteSchema = {
   description: 'Independent relocation intelligence for people considering buying a home in Cheshire.',
   inLanguage: 'en-GB',
 };
+
+const webPageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: 'Moving to Cheshire? Independent Relocation Guide',
+  description: 'Independent, data-led guide to moving to Cheshire. House prices, schools, commute times, and area comparisons.',
+  url: 'https://movetocheshire.uk/',
+  inLanguage: 'en-GB',
+  dateModified: '2026-02-24',
+  isPartOf: { '@type': 'WebSite', name: 'movetocheshire.uk', url: 'https://movetocheshire.uk' },
+  about: {
+    '@type': 'AdministrativeArea',
+    name: 'Cheshire',
+    containedInPlace: { '@type': 'Country', name: 'England' },
+    containsPlace: [
+      { '@type': 'City', name: 'Wilmslow' },
+      { '@type': 'City', name: 'Alderley Edge' },
+      { '@type': 'City', name: 'Knutsford' },
+      { '@type': 'City', name: 'Chester' },
+      { '@type': 'City', name: 'Macclesfield' },
+      { '@type': 'City', name: 'Crewe' },
+      { '@type': 'City', name: 'Northwich' },
+      { '@type': 'City', name: 'Nantwich' },
+      { '@type': 'City', name: 'Prestbury' },
+      { '@type': 'City', name: 'Tarporley' },
+    ],
+  },
+  mainEntity: {
+    '@type': 'AdministrativeArea',
+    name: 'Cheshire',
+    description: 'County in North West England covering Cheshire East, Cheshire West and Chester, Halton, and Warrington.',
+    containedInPlace: { '@type': 'Country', name: 'England' },
+  },
+};
+
+const calculatorSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  additionalType: 'https://schema.org/FinancialProduct',
+  name: 'Cheshire Purchasing Power Calculator',
+  description: 'Enter a property budget in GBP to see what you can buy across three Cheshire price tiers: Golden Triangle (premium), Balanced Middle, and Accessible Tier.',
+  applicationCategory: 'FinanceApplication',
+  operatingSystem: 'Web browser',
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'GBP' },
+  areaServed: {
+    '@type': 'AdministrativeArea',
+    name: 'Cheshire',
+    containedInPlace: { '@type': 'Country', name: 'England' },
+  },
+  audience: { '@type': 'Audience', audienceType: 'Home buyers considering Cheshire' },
+  potentialAction: {
+    '@type': 'UseAction',
+    name: 'Calculate purchasing power across Cheshire',
+    target: 'https://movetocheshire.uk/#purchasing-power',
+  },
+  isPartOf: { '@type': 'WebPage', url: 'https://movetocheshire.uk/' },
+};
+
+const quizSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  additionalType: 'https://schema.org/ChooseAction',
+  name: 'Cheshire Town Finder Quiz',
+  description: 'Answer five questions about your priorities - schools, commute, budget, space, lifestyle - to find which Cheshire town matches your requirements.',
+  applicationCategory: 'LifestyleApplication',
+  operatingSystem: 'Web browser',
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'GBP' },
+  areaServed: {
+    '@type': 'AdministrativeArea',
+    name: 'Cheshire',
+    containedInPlace: { '@type': 'Country', name: 'England' },
+  },
+  audience: { '@type': 'Audience', audienceType: 'Families and professionals relocating to Cheshire' },
+  potentialAction: {
+    '@type': 'ChooseAction',
+    name: 'Find your ideal Cheshire town',
+    target: 'https://movetocheshire.uk/#town-quiz',
+  },
+  isPartOf: { '@type': 'WebPage', url: 'https://movetocheshire.uk/' },
+};
+
+const areaTableSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: 'Cheshire Areas Compared',
+  description: 'Sortable comparison of 10 Cheshire areas by average house price, train commute time to Manchester, notable schools, and lifestyle fit.',
+  numberOfItems: 10,
+  itemListOrder: 'https://schema.org/ItemListUnordered',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, item: { '@type': 'Place', additionalType: 'https://schema.org/Residence', name: 'Wilmslow', description: 'Premium commuter town, 17 min train to Manchester, avg price £490,000' } },
+    { '@type': 'ListItem', position: 2, item: { '@type': 'Place', additionalType: 'https://schema.org/Residence', name: 'Alderley Edge', description: 'Premium lifestyle village, 22 min train to Manchester, avg price £700,000+' } },
+    { '@type': 'ListItem', position: 3, item: { '@type': 'Place', additionalType: 'https://schema.org/Residence', name: 'Knutsford', description: 'Family-friendly market town, 35 min train to Manchester, avg price £430,000' } },
+    { '@type': 'ListItem', position: 4, item: { '@type': 'Place', additionalType: 'https://schema.org/Residence', name: 'Chester', description: 'Historic city, 50 min train to Manchester, avg price £250,000' } },
+    { '@type': 'ListItem', position: 5, item: { '@type': 'Place', additionalType: 'https://schema.org/Residence', name: 'Macclesfield', description: 'Value commuter town with Peak District access, 25 min train to Manchester, avg price £280,000' } },
+    { '@type': 'ListItem', position: 6, item: { '@type': 'Place', additionalType: 'https://schema.org/Residence', name: 'Tarporley', description: 'Rural village life, 55 min indirect to Manchester, avg price £380,000' } },
+    { '@type': 'ListItem', position: 7, item: { '@type': 'Place', additionalType: 'https://schema.org/Residence', name: 'Crewe', description: 'Budget-friendly rail hub, 55 min train to Manchester, avg price £175,000' } },
+    { '@type': 'ListItem', position: 8, item: { '@type': 'Place', additionalType: 'https://schema.org/Residence', name: 'Northwich', description: 'Affordable with good links, 40 min train to Manchester, avg price £220,000' } },
+    { '@type': 'ListItem', position: 9, item: { '@type': 'Place', additionalType: 'https://schema.org/Residence', name: 'Nantwich', description: 'Market town in SW Cheshire, 60 min indirect to Manchester, avg price £295,000' } },
+    { '@type': 'ListItem', position: 10, item: { '@type': 'Place', additionalType: 'https://schema.org/Residence', name: 'Prestbury', description: 'Premium quiet village, 20 min train to Manchester, avg price £650,000+' } },
+  ],
+  isPartOf: { '@type': 'WebPage', url: 'https://movetocheshire.uk/' },
+};
+
+const investmentSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Report',
+  name: 'Cheshire Property Market Analysis: Is Now a Good Time to Buy?',
+  description: 'Data-led analysis of Cheshire property market conditions - price trends, supply levels, mortgage context, and the case for and against buying in 2025-26.',
+  temporalCoverage: '2020/2026',
+  dateModified: '2026-02-24',
+  spatialCoverage: {
+    '@type': 'AdministrativeArea',
+    name: 'Cheshire',
+    containedInPlace: { '@type': 'Country', name: 'England' },
+  },
+  about: {
+    '@type': 'Product',
+    additionalType: 'https://schema.org/RealEstateListing',
+    name: 'Cheshire residential property market',
+  },
+  isBasedOn: [
+    { '@type': 'Dataset', name: 'ONS House Price Index', url: 'https://www.ons.gov.uk/economy/inflationandpriceindices/bulletins/housepriceindex/latest' },
+    { '@type': 'Dataset', name: 'Bank of England Mortgage Data' },
+    { '@type': 'Dataset', name: 'Rightmove Market Data, Q4 2025' },
+  ],
+  audience: { '@type': 'Audience', audienceType: 'Property buyers and investors considering Cheshire' },
+  isPartOf: { '@type': 'WebPage', url: 'https://movetocheshire.uk/' },
+};
 ---
 
 <BaseLayout
@@ -41,7 +169,12 @@ const websiteSchema = {
 >
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(webPageSchema)} />
     <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(calculatorSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(quizSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(areaTableSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(investmentSchema)} />
   </Fragment>
 
   <Hero />
