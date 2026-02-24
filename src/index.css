@@ -163,4 +163,116 @@
       padding: 96px 40px;
     }
   }
+
+  /* Responsive table columns - hide less critical data on small screens */
+  @media (max-width: 600px) {
+    .hide-mobile {
+      display: none !important;
+    }
+  }
+  @media (max-width: 480px) {
+    .hide-narrow {
+      display: none !important;
+    }
+  }
+
+  /* Scroll hint for horizontally scrollable tables */
+  .scroll-hint-label {
+    display: none;
+  }
+  @media (max-width: 767px) {
+    .scroll-hint-label {
+      display: block;
+      font-family: Inter, Arial, sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      color: #999999;
+      text-align: right;
+      margin-bottom: 4px;
+      transition: opacity 0.3s;
+    }
+    .scroll-hint-label.hidden {
+      opacity: 0;
+    }
+  }
+
+  /* Ward filter controls */
+  .ward-filter-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+  .ward-search {
+    flex: 1 1 200px;
+    padding: 10px 14px;
+    font-family: Inter, Arial, sans-serif;
+    font-size: 14px;
+    border: 1px solid #E5E0D8;
+    background: #FFFFFF;
+    color: #1C1C1E;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .ward-search:focus {
+    border-color: #3D5A3E;
+  }
+  .ward-search::placeholder {
+    color: #AAAAAA;
+  }
+  .ward-range-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 0 0 auto;
+  }
+  .ward-range-label {
+    font-family: Inter, Arial, sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #999999;
+    white-space: nowrap;
+  }
+  .ward-range {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 120px;
+    height: 4px;
+    background: #E5E0D8;
+    border-radius: 2px;
+    outline: none;
+  }
+  .ward-range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    background: #3D5A3E;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+  .ward-range::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    background: #3D5A3E;
+    border-radius: 50%;
+    cursor: pointer;
+    border: none;
+  }
+  .ward-range-value {
+    font-family: Inter, Arial, sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: #1C1C1E;
+    min-width: 55px;
+  }
+  .ward-count {
+    font-family: Inter, Arial, sans-serif;
+    font-size: 12px;
+    color: #999999;
+    margin-top: 4px;
+  }
 }

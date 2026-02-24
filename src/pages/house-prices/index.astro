@@ -2,9 +2,9 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
 const stats = [
-  { value: '£314,000', label: 'County average', source: 'PlumPlot / ONS, 2025' },
-  { value: '£306,000', label: 'Cheshire East', source: 'ONS, Dec 2025' },
-  { value: '£266,000', label: 'Cheshire West', source: 'ONS, Dec 2025' },
+  { value: '£314,000', label: 'Cheshire house price average', source: 'PlumPlot / ONS, 2025' },
+  { value: '£306,000', label: 'Cheshire East house price average', source: 'ONS, Dec 2025' },
+  { value: '£266,000', label: 'Cheshire West house price average', source: 'ONS, Dec 2025' },
 ];
 
 const authorities = [
@@ -152,16 +152,16 @@ const faqs = [
 ];
 
 const spokeCards = [
-  { title: 'Average House Price in Cheshire', description: 'County-wide price data by property type, updated quarterly from ONS and Rightmove.', href: '/house-prices/average-house-price-cheshire' },
-  { title: 'Wilmslow House Prices', description: 'Detailed price breakdowns by street and property type with year-on-year trends.', href: '/house-prices/wilmslow-house-prices' },
-  { title: 'Stamp Duty in Cheshire', description: 'SDLT calculations for typical Cheshire prices - first-time buyer, standard, and second home.', href: '/buying-guide/stamp-duty-cheshire' },
-  { title: 'Is Now a Good Time to Buy?', description: 'Market conditions and data-led analysis of Cheshire property timing in 2025-26.', href: '/investment/good-time-buy-cheshire' },
+  { title: 'Average House Price in Cheshire', description: 'Cheshire house price averages by authority and property type - detached £496k, semi £277k, terraced £215k, flat £170k (ONS, Dec 2025).', href: '/house-prices/average-house-price-cheshire' },
+  { title: 'Wilmslow House Prices', description: 'Wilmslow averages £489,105 - Cheshire house prices at street level with detached, semi, terraced, and flat breakdowns.', href: '/house-prices/wilmslow-house-prices' },
+  { title: 'Stamp Duty in Cheshire', description: 'SDLT on Cheshire house prices: £0 at £250k, £3,200 at the £314k county average, £53,668 at Alderley Edge detached levels.', href: '/buying-guide/stamp-duty-cheshire' },
+  { title: 'Is Now a Good Time to Buy in Cheshire?', description: 'Cheshire house prices rose 4.5% YoY to Dec 2025. Mortgage rates, supply levels, and the case for and against buying in 2026.', href: '/investment/good-time-buy-cheshire' },
 ];
 
 const relatedHubs = [
-  { label: 'Where to Live', href: '/where-to-live', description: 'Area-by-area comparisons of every major town and village.', icon: 'M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6' },
-  { label: 'Investment', href: '/investment', description: 'Market conditions, price trends, and whether now is the right time to buy.', icon: 'M13 7h8m0 0v8m0-8l-8 8-4-4-6 6' },
-  { label: 'Buying Guide', href: '/buying-guide', description: 'Stamp duty, surveys, conveyancing, and what to expect from the purchase process.', icon: 'M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z' },
+  { label: 'Where to Live in Cheshire', href: '/where-to-live', description: 'Wilmslow at £489k, Knutsford at £607k, or Chester at £250k - each town has different schools, commute times, and character. Compare them side by side.', icon: 'M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6' },
+  { label: 'Cheshire Property Investment', href: '/investment', description: 'Cheshire prices rose 4.5% YoY to December 2025 (ONS). Mortgage rates, supply levels, and the case for and against buying in 2026.', icon: 'M13 7h8m0 0v8m0-8l-8 8-4-4-6 6' },
+  { label: 'Cheshire Buying Guide', href: '/buying-guide', description: 'Stamp duty on a £314,000 Cheshire average is £5,700 for a standard buyer. Surveys, conveyancing, and the full purchase timeline.', icon: 'M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z' },
 ];
 
 const webPageSchema = {
@@ -279,8 +279,8 @@ const faqSchema = {
 ---
 
 <BaseLayout
-  title="Cheshire House Prices by Area and Property Type | movetocheshire.uk"
-  description="Cheshire averages £314,000 (ONS, 2025). Prices by unitary authority, town, ward, and property type - detached, semi-detached, terraced, flat - from ONS, Rightmove, and council data."
+  title="Cheshire House Prices 2025 | £115k to £666k"
+  description="Cheshire house prices average £314,000 (ONS, 2025). Compare 41 towns and 35 wards from £115,000 to £666,000 with data from ONS, Rightmove, and council sources."
 >
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify(webPageSchema)} />
@@ -305,14 +305,22 @@ const faqSchema = {
   <!-- Hero -->
   <section class="section-pad" style="padding-top: 40px;">
     <div class="section-inner" style="max-width: 720px;">
-      <span class="section-label">Property Data</span>
+      <span class="section-label">Cheshire house prices</span>
       <h1 style="font-family: Georgia, serif; font-size: clamp(28px, 4.5vw, 44px); font-weight: 700; color: #1C1C1E; line-height: 1.15; margin: 0 0 20px 0; letter-spacing: -0.02em;">
-        Cheshire House Prices by Area and Property Type
+        Cheshire House Prices: £115k to £666k Across 41 Towns
       </h1>
       <p style="font-family: Inter, Arial, sans-serif; font-size: 18px; line-height: 1.7; color: #444444; margin: 0 0 24px 0;">
         Cheshire averages £314,000 across all property types (PlumPlot/ONS, 2025), 8% above the UK national average of £290,000. Prices range from £115,000 in Ellesmere Port Westminster ward to £1,163,360 for a detached home in Alderley Edge (CW&C Council 2023, Rightmove Feb 2026).
       </p>
       <span style="display: inline-block; font-family: Inter, Arial, sans-serif; font-size: 12px; font-weight: 600; color: #3D5A3E; background-color: rgba(61, 90, 62, 0.08); padding: 6px 12px; letter-spacing: 0.02em;">Last updated: February 2026</span>
+      <nav aria-label="Jump to price data" style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px;">
+        <a href="#by-authority" style="font-family: Inter, Arial, sans-serif; font-size: 13px; font-weight: 600; color: #3D5A3E; text-decoration: none; border: 1px solid #E5E0D8; padding: 6px 14px; background-color: #FFFFFF; transition: border-color 0.2s, background-color 0.2s;">By authority</a>
+        <a href="#golden-triangle" style="font-family: Inter, Arial, sans-serif; font-size: 13px; font-weight: 600; color: #3D5A3E; text-decoration: none; border: 1px solid #E5E0D8; padding: 6px 14px; background-color: #FFFFFF; transition: border-color 0.2s, background-color 0.2s;">Golden Triangle</a>
+        <a href="#by-property-type" style="font-family: Inter, Arial, sans-serif; font-size: 13px; font-weight: 600; color: #3D5A3E; text-decoration: none; border: 1px solid #E5E0D8; padding: 6px 14px; background-color: #FFFFFF; transition: border-color 0.2s, background-color 0.2s;">By property type</a>
+        <a href="#ward-prices" style="font-family: Inter, Arial, sans-serif; font-size: 13px; font-weight: 600; color: #3D5A3E; text-decoration: none; border: 1px solid #E5E0D8; padding: 6px 14px; background-color: #FFFFFF; transition: border-color 0.2s, background-color 0.2s;">35 ward prices</a>
+        <a href="#towns-ranked" style="font-family: Inter, Arial, sans-serif; font-size: 13px; font-weight: 600; color: #3D5A3E; text-decoration: none; border: 1px solid #E5E0D8; padding: 6px 14px; background-color: #FFFFFF; transition: border-color 0.2s, background-color 0.2s;">41 towns ranked</a>
+        <a href="#vs-neighbours" style="font-family: Inter, Arial, sans-serif; font-size: 13px; font-weight: 600; color: #3D5A3E; text-decoration: none; border: 1px solid #E5E0D8; padding: 6px 14px; background-color: #FFFFFF; transition: border-color 0.2s, background-color 0.2s;">vs neighbours</a>
+      </nav>
     </div>
   </section>
 
@@ -331,6 +339,15 @@ const faqSchema = {
     </div>
   </section>
 
+  <!-- Data Sources Explainer -->
+  <section style="padding: 0 20px 0 20px;">
+    <div class="section-inner" style="max-width: 720px;">
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 13px; line-height: 1.65; color: #999999; margin: 0; padding: 16px 0; border-top: 1px solid #E5E0D8;">
+        <strong style="color: #444444;">How we built this data.</strong> Move to Cheshire cross-references three sources to create a single county-wide view that no individual source provides. ONS UK HPI (Dec 2025) supplies authority-level averages from Land Registry completed transactions. Rightmove (12 months to Feb 2026) supplies town-level asking and sold prices. CW&C Council (2023) supplies 35 ward-level medians. Where sources diverge, we show ranges and cite both figures. <a href="#methodology" style="color: #3D5A3E; text-decoration: underline;">Full methodology below.</a>
+      </p>
+    </div>
+  </section>
+
   <!-- Quick Answer -->
   <section class="section-pad">
     <div class="section-inner" style="max-width: 720px;">
@@ -345,7 +362,7 @@ const faqSchema = {
   </section>
 
   <!-- Unitary Authority Comparison -->
-  <section class="section-pad" style="background-color: #FFFFFF; border-top: 1px solid #E5E0D8; border-bottom: 1px solid #E5E0D8;">
+  <section id="by-authority" class="section-pad" style="background-color: #FFFFFF; border-top: 1px solid #E5E0D8; border-bottom: 1px solid #E5E0D8;">
     <div class="section-inner" style="max-width: 900px;">
       <span class="section-label">By authority</span>
       <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 12px 0;">What are house prices in each Cheshire authority area?</h2>
@@ -370,29 +387,33 @@ const faqSchema = {
   </section>
 
   <!-- Golden Triangle -->
-  <section class="section-pad">
+  <section id="golden-triangle" class="section-pad">
     <div class="section-inner" style="max-width: 900px;">
       <span class="section-label">Premium towns</span>
       <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 12px 0;">What do houses cost in the Golden Triangle?</h2>
       <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.7; color: #444444; margin: 0 0 28px 0;">Golden Triangle houses cost £489,105 in Wilmslow, £606,876 in Knutsford, and £666,489 in Alderley Edge (Rightmove, 12 months to Feb 2026). Alderley Edge detached homes average £1,163,360, 135% above the Cheshire East detached average of £496,000.</p>
-      <div style="overflow-x: auto;">
-        <table style="width: 100%; border-collapse: collapse; min-width: 600px;">
+      <span class="scroll-hint-label">&larr; &rarr; Scroll for more columns</span>
+      <div class="scroll-wrap" style="overflow-x: auto; -webkit-overflow-scrolling: touch; margin-bottom: 28px;">
+        <table style="width: 100%; border-collapse: collapse; min-width: 520px;">
           <thead>
-            <tr style="border-bottom: 2px solid #3D5A3E;">
-              {['Town', 'Average', 'Detached', 'Semi', 'Terraced', 'Flat'].map((col) => (
-                <th style="text-align: left; padding: 12px 12px; font-family: Inter, Arial, sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #1C1C1E;">{col}</th>
-              ))}
+            <tr style="border-bottom: 2px solid #3D5A3E; background-color: #F9F7F4;">
+              <th style="text-align: left; padding: 10px 8px; font-family: Inter, Arial, sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #1C1C1E; position: sticky; left: 0; background-color: #F9F7F4; z-index: 1;">Town</th>
+              <th style="text-align: right; padding: 10px 8px; font-family: Inter, Arial, sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #1C1C1E;">Average</th>
+              <th style="text-align: right; padding: 10px 8px; font-family: Inter, Arial, sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #1C1C1E;">Detached</th>
+              <th style="text-align: right; padding: 10px 8px; font-family: Inter, Arial, sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #1C1C1E;">Semi</th>
+              <th style="text-align: right; padding: 10px 8px; font-family: Inter, Arial, sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #1C1C1E;">Terraced</th>
+              <th style="text-align: right; padding: 10px 8px; font-family: Inter, Arial, sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #1C1C1E;">Flat</th>
             </tr>
           </thead>
           <tbody>
             {goldenTriangle.map((town, i) => (
               <tr style={`background-color: ${i % 2 === 0 ? '#FFFFFF' : '#F9F7F4'}; border-bottom: 1px solid #E5E0D8;`}>
-                <td style="padding: 14px 12px; font-family: Inter, Arial, sans-serif; font-size: 14px; font-weight: 600; color: #1C1C1E;">{town.name}</td>
-                <td style="padding: 14px 12px; font-family: Inter, Arial, sans-serif; font-size: 14px; font-weight: 700; color: #3D5A3E;">{town.avg}</td>
-                <td style="padding: 14px 12px; font-family: Inter, Arial, sans-serif; font-size: 14px; color: #444444;">{town.detached}</td>
-                <td style="padding: 14px 12px; font-family: Inter, Arial, sans-serif; font-size: 14px; color: #444444;">{town.semi}</td>
-                <td style="padding: 14px 12px; font-family: Inter, Arial, sans-serif; font-size: 14px; color: #444444;">{town.terraced}</td>
-                <td style="padding: 14px 12px; font-family: Inter, Arial, sans-serif; font-size: 14px; color: #444444;">{town.flat}</td>
+                <td style={`padding: 10px 8px; font-family: Inter, Arial, sans-serif; font-size: 14px; font-weight: 600; color: #1C1C1E; position: sticky; left: 0; background-color: ${i % 2 === 0 ? '#FFFFFF' : '#F9F7F4'}; z-index: 1; white-space: nowrap;`}>{town.name}</td>
+                <td style="padding: 10px 8px; font-family: Inter, Arial, sans-serif; font-size: 14px; font-weight: 700; color: #3D5A3E; text-align: right; white-space: nowrap;">{town.avg}</td>
+                <td style="padding: 10px 8px; font-family: Inter, Arial, sans-serif; font-size: 14px; color: #444444; text-align: right; white-space: nowrap;">{town.detached}</td>
+                <td style="padding: 10px 8px; font-family: Inter, Arial, sans-serif; font-size: 14px; color: #444444; text-align: right; white-space: nowrap;">{town.semi}</td>
+                <td style="padding: 10px 8px; font-family: Inter, Arial, sans-serif; font-size: 14px; color: #444444; text-align: right; white-space: nowrap;">{town.terraced}</td>
+                <td style="padding: 10px 8px; font-family: Inter, Arial, sans-serif; font-size: 14px; color: #444444; text-align: right; white-space: nowrap;">{town.flat}</td>
               </tr>
             ))}
           </tbody>
@@ -403,15 +424,16 @@ const faqSchema = {
   </section>
 
   <!-- Property Type Breakdown -->
-  <section class="section-pad" style="background-color: #FFFFFF; border-top: 1px solid #E5E0D8; border-bottom: 1px solid #E5E0D8;">
+  <section id="by-property-type" class="section-pad" style="background-color: #FFFFFF; border-top: 1px solid #E5E0D8; border-bottom: 1px solid #E5E0D8;">
     <div class="section-inner" style="max-width: 900px;">
       <span class="section-label">By property type</span>
       <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 12px 0;">How much does each property type cost in Cheshire?</h2>
       <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.7; color: #444444; margin: 0 0 28px 0;">Cheshire detached homes average £496,000 county-wide (ONS, Dec 2025). Flats average £170,000, a £326,000 difference that reflects the county's high proportion of detached stock at 34% versus 22% nationally (Census 2021).</p>
-      <div style="overflow-x: auto;">
+      <span class="scroll-hint-label">&larr; &rarr; Scroll for more columns</span>
+      <div class="scroll-wrap" style="overflow-x: auto; -webkit-overflow-scrolling: touch; margin-bottom: 28px;">
         <table style="width: 100%; border-collapse: collapse; min-width: 550px;">
           <thead>
-            <tr style="border-bottom: 2px solid #3D5A3E;">
+            <tr style="border-bottom: 2px solid #3D5A3E; background-color: #FFFFFF;">
               {['Area', 'Detached', 'Semi-detached', 'Terraced', 'Flat'].map((col) => (
                 <th style="text-align: left; padding: 12px; font-family: Inter, Arial, sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #1C1C1E;">{col}</th>
               ))}
@@ -435,58 +457,74 @@ const faqSchema = {
   </section>
 
   <!-- Cheshire West Ward Prices -->
-  <section class="section-pad">
+  <section id="ward-prices" class="section-pad">
     <div class="section-inner" style="max-width: 900px;">
       <span class="section-label">Ward-level data</span>
       <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 12px 0;">What are house prices in each Cheshire West ward?</h2>
-      <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.7; color: #444444; margin: 0 0 28px 0;">Cheshire West and Chester ward-level prices range from £115,000 in Ellesmere Port Westminster to £487,500 in Tattenhall (CW&C Council, 2023). Chester wards span from £172,000 in Blacon to £340,000 in Handbridge Park and Upton.</p>
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 10px;">
-        {cheshireWestTowns.map((town) => (
-          <article style={`padding: 16px; border-left: 3px solid ${town.level === 'premium' ? '#C4933F' : town.level === 'high' ? '#3D5A3E' : town.level === 'mid' ? '#6B8F71' : '#8BA38F'}; background-color: #F9F7F4;`}>
-            <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; font-weight: 700; color: #1C1C1E; margin: 0 0 4px 0;">{town.name}</p>
-            <p style="font-family: Georgia, serif; font-size: 20px; font-weight: 700; color: #1C1C1E; margin: 0 0 8px 0;">{town.price}</p>
-            <p style="display: flex; flex-wrap: wrap; gap: 4px; margin: 0;">
-              <span style="font-family: Inter, Arial, sans-serif; font-size: 11px; color: #3D5A3E; background-color: rgba(61, 90, 62, 0.08); padding: 2px 7px; white-space: nowrap;">Pop. {town.pop}</span>
-              <span style="font-family: Inter, Arial, sans-serif; font-size: 11px; color: #1C1C1E; background-color: rgba(28, 28, 30, 0.05); padding: 2px 7px; white-space: nowrap;">{town.type}</span>
-              <span style="font-family: Inter, Arial, sans-serif; font-size: 11px; color: #444444; background-color: rgba(28, 28, 30, 0.04); padding: 2px 7px;">{town.attr}</span>
-            </p>
-          </article>
-        ))}
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.7; color: #444444; margin: 0 0 20px 0;">Cheshire West and Chester ward-level prices range from £115,000 in Ellesmere Port Westminster to £487,500 in Tattenhall (CW&C Council, 2023). Chester wards span from £172,000 in Blacon to £340,000 in Handbridge Park and Upton.</p>
+
+      <!-- Filter controls -->
+      <div class="ward-filter-bar" id="ward-filters">
+        <input type="text" class="ward-search" id="ward-search" placeholder="Search ward name or type..." autocomplete="off" />
+        <div class="ward-range-group">
+          <span class="ward-range-label">Max price</span>
+          <input type="range" class="ward-range" id="ward-price-range" min="100000" max="500000" step="10000" value="500000" />
+          <span class="ward-range-value" id="ward-price-label">£500k</span>
+        </div>
+      </div>
+      <p class="ward-count" id="ward-count">Showing 35 of 35 wards</p>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 10px;" id="ward-grid">
+        {cheshireWestTowns.map((town) => {
+          const numPrice = parseInt(town.price.replace(/[£,]/g, ''));
+          return (
+            <article class="ward-card" data-price={numPrice} data-name={town.name.toLowerCase()} data-type={town.type.toLowerCase()} style={`padding: 16px; border-left: 3px solid ${town.level === 'premium' ? '#C4933F' : town.level === 'high' ? '#3D5A3E' : town.level === 'mid' ? '#6B8F71' : '#8BA38F'}; background-color: #F9F7F4;`}>
+              <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; font-weight: 700; color: #1C1C1E; margin: 0 0 4px 0;">{town.name}</p>
+              <p style="font-family: Georgia, serif; font-size: 20px; font-weight: 700; color: #1C1C1E; margin: 0 0 8px 0;">{town.price}</p>
+              <p style="display: flex; flex-wrap: wrap; gap: 4px; margin: 0;">
+                <span style="font-family: Inter, Arial, sans-serif; font-size: 11px; color: #3D5A3E; background-color: rgba(61, 90, 62, 0.08); padding: 2px 7px; white-space: nowrap;">Pop. {town.pop}</span>
+                <span style="font-family: Inter, Arial, sans-serif; font-size: 11px; color: #1C1C1E; background-color: rgba(28, 28, 30, 0.05); padding: 2px 7px; white-space: nowrap;">{town.type}</span>
+                <span style="font-family: Inter, Arial, sans-serif; font-size: 11px; color: #444444; background-color: rgba(28, 28, 30, 0.04); padding: 2px 7px;">{town.attr}</span>
+              </p>
+            </article>
+          );
+        })}
       </div>
       <p style="font-family: Inter, Arial, sans-serif; font-size: 12px; color: #999999; margin: 12px 0 0 0;">Source: CW&C Council ward-level median prices, 2023. Population: ONS Census 2021. Northwich combines Leftwich (4,785), Winnington & Castle (9,226), and Witton (5,116) wards. Gold = premium (£450k+), dark green = high (£300-449k), mid green = mid (£200-299k), light = under £200k.</p>
     </div>
   </section>
 
   <!-- Cross-Cheshire Comparison with Tabs -->
-  <section class="section-pad" style="background-color: #FFFFFF; border-top: 1px solid #E5E0D8; border-bottom: 1px solid #E5E0D8;">
+  <section id="towns-ranked" class="section-pad" style="background-color: #FFFFFF; border-top: 1px solid #E5E0D8; border-bottom: 1px solid #E5E0D8;">
     <div class="section-inner" style="max-width: 900px;">
       <span class="section-label">All areas ranked</span>
       <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 12px 0;">How do Cheshire towns compare to each other by price?</h2>
       <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.7; color: #444444; margin: 0 0 20px 0;">Cheshire town prices range from £115,000 in Ellesmere Port Westminster to £666,489 in Alderley Edge, a £551,489 spread across a single county (CW&C Council 2023, Rightmove Feb 2026). Cheshire East dominates the top of the table. CW&C wards span the full spectrum from premium rural villages to affordable urban areas.</p>
 
       <!-- Tab buttons -->
-      <div style="display: flex; gap: 0; margin-bottom: 0; border-bottom: 2px solid #E5E0D8;" id="area-tabs">
-        <button class="area-tab area-tab--active" data-filter="all" style="padding: 10px 20px; font-family: Inter, Arial, sans-serif; font-size: 13px; font-weight: 600; color: #3D5A3E; background: #F9F7F4; border: 1px solid #E5E0D8; border-bottom: 2px solid #3D5A3E; margin-bottom: -2px; cursor: pointer;">All Cheshire</button>
-        <button class="area-tab" data-filter="Cheshire East" style="padding: 10px 20px; font-family: Inter, Arial, sans-serif; font-size: 13px; font-weight: 600; color: #999999; background: transparent; border: 1px solid transparent; border-bottom: 2px solid transparent; margin-bottom: -2px; cursor: pointer;">Cheshire East</button>
-        <button class="area-tab" data-filter="CW&C" style="padding: 10px 20px; font-family: Inter, Arial, sans-serif; font-size: 13px; font-weight: 600; color: #999999; background: transparent; border: 1px solid transparent; border-bottom: 2px solid transparent; margin-bottom: -2px; cursor: pointer;">Cheshire West</button>
+      <div style="display: flex; gap: 0; margin-bottom: 0; border-bottom: 2px solid #E5E0D8; overflow-x: auto;" id="area-tabs">
+        <button class="area-tab area-tab--active" data-filter="all" style="padding: 14px 20px; font-family: Inter, Arial, sans-serif; font-size: 14px; font-weight: 600; color: #3D5A3E; background: #F9F7F4; border: 1px solid #E5E0D8; border-bottom: 2px solid #3D5A3E; margin-bottom: -2px; cursor: pointer; white-space: nowrap;">All Cheshire</button>
+        <button class="area-tab" data-filter="Cheshire East" style="padding: 14px 20px; font-family: Inter, Arial, sans-serif; font-size: 14px; font-weight: 600; color: #999999; background: transparent; border: 1px solid transparent; border-bottom: 2px solid transparent; margin-bottom: -2px; cursor: pointer; white-space: nowrap;">Cheshire East</button>
+        <button class="area-tab" data-filter="CW&C" style="padding: 14px 20px; font-family: Inter, Arial, sans-serif; font-size: 14px; font-weight: 600; color: #999999; background: transparent; border: 1px solid transparent; border-bottom: 2px solid transparent; margin-bottom: -2px; cursor: pointer; white-space: nowrap;">Cheshire West</button>
       </div>
 
-      <div style="overflow-x: auto; max-height: 600px; overflow-y: auto; border: 1px solid #E5E0D8; border-top: 0;">
-        <table style="width: 100%; border-collapse: collapse; min-width: 500px;" id="ranked-table">
-          <thead style="position: sticky; top: 0; z-index: 1;">
+      <div style="max-height: 600px; overflow-y: auto; -webkit-overflow-scrolling: touch; border: 1px solid #E5E0D8; border-top: 0;">
+        <table style="width: 100%; border-collapse: collapse;" id="ranked-table">
+          <thead style="position: sticky; top: 0; z-index: 2;">
             <tr style="border-bottom: 2px solid #3D5A3E; background-color: #F9F7F4;">
-              {['#', 'Town / Ward', 'Authority', 'Average Price'].map((col) => (
-                <th style="text-align: left; padding: 12px; font-family: Inter, Arial, sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #1C1C1E;">{col}</th>
-              ))}
+              <th class="ranked-num-col" style="text-align: left; padding: 10px 8px; font-family: Inter, Arial, sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #1C1C1E; width: 36px; position: sticky; left: 0; background-color: #F9F7F4; z-index: 1;">#</th>
+              <th style="text-align: left; padding: 10px 8px; font-family: Inter, Arial, sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #1C1C1E;">Town / Ward</th>
+              <th class="hide-mobile" style="text-align: left; padding: 10px 8px; font-family: Inter, Arial, sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #1C1C1E;">Authority</th>
+              <th style="text-align: right; padding: 10px 8px; font-family: Inter, Arial, sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #1C1C1E;">Price</th>
             </tr>
           </thead>
           <tbody>
             {allTownsRanked.map((town, i) => (
               <tr data-authority={town.authority} style={`background-color: ${i % 2 === 0 ? '#FFFFFF' : '#F9F7F4'}; border-bottom: 1px solid #E5E0D8;`}>
-                <td class="row-num" style="padding: 10px 12px; font-family: Inter, Arial, sans-serif; font-size: 13px; color: #999999; width: 40px;">{i + 1}</td>
-                <td style="padding: 10px 12px; font-family: Inter, Arial, sans-serif; font-size: 14px; font-weight: 600; color: #1C1C1E;">{town.name}</td>
-                <td style="padding: 10px 12px; font-family: Inter, Arial, sans-serif; font-size: 13px; color: #444444;">{town.authority}</td>
-                <td style={`padding: 10px 12px; font-family: Inter, Arial, sans-serif; font-size: 14px; font-weight: 600; color: ${town.level === 'premium' ? '#C4933F' : town.level === 'high' ? '#3D5A3E' : town.level === 'mid' ? '#6B8F71' : '#8BA38F'};`}>{town.price}</td>
+                <td class="row-num ranked-num-col" style={`padding: 8px; font-family: Inter, Arial, sans-serif; font-size: 12px; color: #999999; width: 36px; position: sticky; left: 0; background-color: ${i % 2 === 0 ? '#FFFFFF' : '#F9F7F4'}; z-index: 1;`}>{i + 1}</td>
+                <td style="padding: 8px; font-family: Inter, Arial, sans-serif; font-size: 14px; font-weight: 600; color: #1C1C1E;">{town.name}</td>
+                <td class="hide-mobile" style="padding: 8px; font-family: Inter, Arial, sans-serif; font-size: 13px; color: #444444;">{town.authority}</td>
+                <td style={`padding: 8px; font-family: Inter, Arial, sans-serif; font-size: 14px; font-weight: 600; text-align: right; color: ${town.level === 'premium' ? '#C4933F' : town.level === 'high' ? '#3D5A3E' : town.level === 'mid' ? '#6B8F71' : '#8BA38F'};`}>{town.price}</td>
               </tr>
             ))}
           </tbody>
@@ -534,22 +572,81 @@ const faqSchema = {
         }
       });
     });
+
+    // Ward filter: search + price slider
+    const wardSearch = document.getElementById('ward-search') as HTMLInputElement;
+    const wardRange = document.getElementById('ward-price-range') as HTMLInputElement;
+    const wardLabel = document.getElementById('ward-price-label');
+    const wardCount = document.getElementById('ward-count');
+    const wardCards = document.querySelectorAll('.ward-card');
+    const totalWards = wardCards.length;
+
+    function formatPrice(v: number) {
+      return v >= 500000 ? '£500k+' : '£' + Math.round(v / 1000) + 'k';
+    }
+
+    function filterWards() {
+      const q = wardSearch?.value.toLowerCase() || '';
+      const maxPrice = parseInt(wardRange?.value || '500000');
+      if (wardLabel) wardLabel.textContent = formatPrice(maxPrice);
+      let shown = 0;
+      wardCards.forEach(card => {
+        const el = card as HTMLElement;
+        const price = parseInt(el.dataset.price || '0');
+        const name = el.dataset.name || '';
+        const type = el.dataset.type || '';
+        const matchText = !q || name.includes(q) || type.includes(q);
+        const matchPrice = maxPrice >= 500000 || price <= maxPrice;
+        if (matchText && matchPrice) {
+          el.style.display = '';
+          shown++;
+        } else {
+          el.style.display = 'none';
+        }
+      });
+      if (wardCount) wardCount.textContent = `Showing ${shown} of ${totalWards} wards`;
+    }
+
+    wardSearch?.addEventListener('input', filterWards);
+    wardRange?.addEventListener('input', filterWards);
+
+    // Scroll hint: hide label when scrolled to end or no overflow
+    document.querySelectorAll('.scroll-wrap').forEach(wrapper => {
+      const el = wrapper as HTMLElement;
+      const label = el.previousElementSibling as HTMLElement;
+      if (!label || !label.classList.contains('scroll-hint-label')) return;
+      el.addEventListener('scroll', () => {
+        if (el.scrollLeft + el.clientWidth >= el.scrollWidth - 8) {
+          label.classList.add('hidden');
+        } else {
+          label.classList.remove('hidden');
+        }
+      });
+      requestAnimationFrame(() => {
+        if (el.scrollWidth <= el.clientWidth + 2) {
+          label.classList.add('hidden');
+        }
+      });
+    });
   </script>
 
   <!-- Neighbouring Counties Comparison -->
-  <section class="section-pad">
+  <section id="vs-neighbours" class="section-pad">
     <div class="section-inner" style="max-width: 900px;">
       <span class="section-label">Regional context</span>
       <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 12px 0;">How do Cheshire house prices compare to neighbouring counties?</h2>
       <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.7; color: #444444; margin: 0 0 16px 0;">Cheshire averages £314,000 (PlumPlot/ONS, 2025), £92,000 above Merseyside at £222,000 and £105,000 above Lancashire at £209,000. Cheshire ranks 26th of 55 English and Welsh counties by average price (PlumPlot, 2025). Move to Cheshire calculates a population-weighted authority average of £274,250 for the four Cheshire unitary authorities (ONS Dec 2025, Census 2021 populations), which sits between the PlumPlot aggregate and the individual ONS figures.</p>
       <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.7; color: #444444; margin: 0 0 28px 0;">Two neighbouring areas exceed the Cheshire county average: Trafford in Greater Manchester at £378,094 (ONS, Aug 2025) and Derbyshire Dales at £339,448. Both are localised premiums within otherwise cheaper counties. Even using the lower population-weighted figure of £274,250, Cheshire remains £52,000 above Merseyside, £65,000 above Lancashire, and £40,000 above Derbyshire overall. Cheshire East at £302,000-£306,000 (ONS Aug-Dec 2025) is the most consistently expensive authority across the North West and bordering Midlands.</p>
-      <div style="overflow-x: auto;">
-        <table style="width: 100%; border-collapse: collapse; min-width: 650px;">
+      <span class="scroll-hint-label">&larr; &rarr; Scroll for more columns</span>
+      <div class="scroll-wrap" style="overflow-x: auto; -webkit-overflow-scrolling: touch; margin-bottom: 28px;">
+        <table class="neighbours-table" style="width: 100%; border-collapse: collapse; min-width: 420px;">
           <thead>
             <tr style="border-bottom: 2px solid #3D5A3E;">
-              {['County / Region', 'Average', 'Range (min-max)', 'Premium Area', 'Source'].map((col) => (
-                <th style="text-align: left; padding: 12px; font-family: Inter, Arial, sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #1C1C1E;">{col}</th>
-              ))}
+              <th style="text-align: left; padding: 12px; font-family: Inter, Arial, sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #1C1C1E;">County / Region</th>
+              <th style="text-align: left; padding: 12px; font-family: Inter, Arial, sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #1C1C1E;">Average</th>
+              <th style="text-align: left; padding: 12px; font-family: Inter, Arial, sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #1C1C1E;" class="hide-mobile">Range</th>
+              <th style="text-align: left; padding: 12px; font-family: Inter, Arial, sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #1C1C1E;" class="hide-mobile">Premium Area</th>
+              <th style="text-align: left; padding: 12px; font-family: Inter, Arial, sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #1C1C1E;" class="hide-narrow">Source</th>
             </tr>
           </thead>
           <tbody>
@@ -557,9 +654,9 @@ const faqSchema = {
               <tr style={`background-color: ${i % 2 === 0 ? '#FFFFFF' : '#F9F7F4'}; border-bottom: 1px solid #E5E0D8; ${i === 0 ? 'border-left: 3px solid #3D5A3E;' : ''}`}>
                 <td style={`padding: 14px 12px; font-family: Inter, Arial, sans-serif; font-size: 14px; font-weight: ${i === 0 ? '700' : '600'}; color: #1C1C1E;`}>{n.name}</td>
                 <td style={`padding: 14px 12px; font-family: Inter, Arial, sans-serif; font-size: 14px; font-weight: 700; color: ${i === 0 ? '#3D5A3E' : '#444444'};`}>{n.avg}</td>
-                <td style="padding: 14px 12px; font-family: Inter, Arial, sans-serif; font-size: 13px; color: #444444;">{n.range}</td>
-                <td style="padding: 14px 12px; font-family: Inter, Arial, sans-serif; font-size: 13px; color: #444444;">{n.premium}</td>
-                <td style="padding: 14px 12px; font-family: Inter, Arial, sans-serif; font-size: 12px; color: #999999;">{n.source}</td>
+                <td style="padding: 14px 12px; font-family: Inter, Arial, sans-serif; font-size: 13px; color: #444444;" class="hide-mobile">{n.range}</td>
+                <td style="padding: 14px 12px; font-family: Inter, Arial, sans-serif; font-size: 13px; color: #444444;" class="hide-mobile">{n.premium}</td>
+                <td style="padding: 14px 12px; font-family: Inter, Arial, sans-serif; font-size: 12px; color: #999999;" class="hide-narrow">{n.source}</td>
               </tr>
             ))}
           </tbody>
@@ -626,9 +723,9 @@ const faqSchema = {
   <!-- Spoke Cards -->
   <section class="section-pad" style="background-color: #FFFFFF; border-top: 1px solid #E5E0D8; border-bottom: 1px solid #E5E0D8;">
     <div class="section-inner">
-      <span class="section-label">Detailed guides</span>
-      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 12px 0;">Which Cheshire house price guides go deeper?</h2>
-      <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.7; color: #444444; margin: 0 0 28px 0;">Wilmslow house prices average £489,105 with street-level detail. Stamp duty at Cheshire price points ranges from £0 to £53,668. Market timing analysis covers 2025-26 conditions.</p>
+      <span class="section-label">Cheshire house price guides</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 12px 0;">Where can I find more detailed Cheshire house price data?</h2>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.7; color: #444444; margin: 0 0 28px 0;">Cheshire house prices on this page cover four authorities, 41 towns, and 35 wards. Four deeper guides break down individual Cheshire house price topics - town-level street data, property type splits, stamp duty calculations at Cheshire price points, and whether 2026 market conditions favour buying.</p>
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px;">
         {spokeCards.map((card) => (
           <a href={card.href} class="pillar-card" style="text-decoration: none; display: block;">
@@ -643,10 +740,19 @@ const faqSchema = {
   <!-- Good to Know -->
   <section class="section-pad">
     <div class="section-inner" style="max-width: 720px;">
-      <div style="border-left: 3px solid #3D5A3E; background-color: rgba(61, 90, 62, 0.04); padding: 24px 28px;">
-        <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; font-weight: 700; color: #3D5A3E; margin: 0 0 8px 0; text-transform: uppercase; letter-spacing: 0.05em;">Good to know</p>
+      <div id="methodology" style="border-left: 3px solid #3D5A3E; background-color: rgba(61, 90, 62, 0.04); padding: 24px 28px;">
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; font-weight: 700; color: #3D5A3E; margin: 0 0 12px 0; text-transform: uppercase; letter-spacing: 0.05em;">How did Move to Cheshire build this Cheshire house price page?</p>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.7; color: #444444; margin: 0 0 12px 0;">
+          <strong>Move to Cheshire cross-references three Cheshire house price sources that no single provider combines.</strong> ONS reports authority-level averages but publishes no Cheshire county figure. Rightmove covers individual Cheshire towns but uses asking prices. CW&C Council ward data captures hyper-local Cheshire West medians but lags by two years. This page merges all three into a single verifiable view - from the £314,000 county average down to £115,000 in Ellesmere Port Westminster ward.
+        </p>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.7; color: #444444; margin: 0 0 12px 0;">
+          <strong>Three sources, structured by geographic level.</strong> ONS UK HPI (December 2025) provides the four authority averages: Cheshire East £306,000, Cheshire West £266,000, Warrington £252,000, Halton £189,000. Rightmove (12 months to February 2026) provides Golden Triangle and Cheshire East town prices. CW&C Council (2023) provides the 35 ward-level medians. ONS figures lag 2-3 months due to Land Registry registration delays. Rightmove asking prices run 3-5% above completed transaction prices.
+        </p>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.7; color: #444444; margin: 0 0 12px 0;">
+          <strong>Cheshire's housing stock skews the average upward.</strong> Detached homes represent 34% of Cheshire housing stock versus 22% nationally (Census 2021). Cheshire detached homes average £496,000 (ONS, Dec 2025), pulling the county mean above areas with higher terraced and flat proportions.
+        </p>
         <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.7; color: #444444; margin: 0;">
-          Cheshire house price data on this page combines three sources with different methodologies. ONS UK HPI (December 2025) uses Land Registry completed transactions and reports authority-level averages. Rightmove (12 months to February 2026) uses asking prices and recent sold prices for town-level breakdowns. CW&C Council ward data (2023) uses Land Registry median prices at ward level. ONS figures lag by 2-3 months due to registration delays. Rightmove asking prices run 3-5% above completed transaction prices. Cheshire has 34% detached housing stock versus 22% nationally (Census 2021), which inflates the county average relative to areas with more terraced and flat stock.
+          <strong>Price alone does not determine value.</strong> Cheshire house prices vary by <a href="/where-to-live/best-places-cheshire/" class="green-cta-link">area character and lifestyle fit</a>, proximity to <a href="/schools/" class="green-cta-link">Outstanding-rated schools</a> (112 across the county, Ofsted 2024/25), and <a href="/commuting/" class="green-cta-link">Manchester commute time</a> (17-55 minutes by rail). Buyers weighing Cheshire against other regions can compare <a href="/lifestyle/pros-cons-living-cheshire/" class="green-cta-link">pros and cons of living in Cheshire</a> and <a href="/lifestyle/is-cheshire-safe/" class="green-cta-link">Cheshire crime rates</a> alongside price data.
         </p>
       </div>
     </div>
@@ -655,9 +761,9 @@ const faqSchema = {
   <!-- Related Hubs -->
   <section class="section-pad" style="background-color: #FFFFFF; border-top: 1px solid #E5E0D8;">
     <div class="section-inner">
-      <span class="section-label">Related guides</span>
-      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 12px 0;">What other Cheshire data helps with a buying decision?</h2>
-      <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.7; color: #444444; margin: 0 0 28px 0;">Cheshire house prices depend on location (69 wards across four authorities), property type (34% detached vs 22% nationally), and market timing (county up 4.5% YoY to Dec 2025). Three related hubs cover each factor.</p>
+      <span class="section-label">Beyond price data</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 12px 0;">What else affects where to buy in Cheshire?</h2>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.7; color: #444444; margin: 0 0 28px 0;">Cheshire house prices range from £115,000 to £666,000 across the county, but the right purchase depends on more than price. School catchments add 10-20% to property values in Wilmslow and Knutsford. A 17-minute commute from Wilmslow commands a £230,000 premium over a 55-minute commute from Crewe. Three guides cover the factors that shape where the price data points you.</p>
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px;">
         {relatedHubs.map((hub) => (
           <a href={hub.href} class="pillar-card" style="text-decoration: none; display: block;">
