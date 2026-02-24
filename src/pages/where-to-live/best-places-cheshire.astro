@@ -7,7 +7,7 @@ const faqSchema = {
   mainEntity: [
     { '@type': 'Question', name: 'What is the nicest village in Cheshire?', acceptedAnswer: { '@type': 'Answer', text: 'Prestbury and Tarporley consistently rank as the nicest villages in Cheshire. Prestbury averages £650,000+ (Rightmove, Q4 2025) with a 20-minute train to Manchester. Tarporley has an Outstanding secondary school and averages £380,000 (Rightmove, Q4 2025). The better choice depends on whether commute speed or value is the priority.' } },
     { '@type': 'Question', name: 'Is Wilmslow or Alderley Edge better to live in?', acceptedAnswer: { '@type': 'Answer', text: 'For most buyers, Wilmslow is the better practical choice: it offers a faster Manchester commute at 17 minutes versus 22 minutes (National Rail, 2025), and averages £490,000 versus £700,000+ in Alderley Edge (Rightmove, Q4 2025). Alderley Edge\'s advantage is its concentrated independent high street and address prestige.' } },
-    { '@type': 'Question', name: 'Where do wealthy people live in Cheshire?', acceptedAnswer: { '@type': 'Answer', text: 'The highest concentration of high-net-worth households in Cheshire is in the Golden Triangle — Alderley Edge, Prestbury, and parts of Wilmslow. Alderley Edge averages £700,000+ and Prestbury £650,000+ (Rightmove, Q4 2025). Outside the Triangle, parts of Chester\'s rural fringe and the Tarporley area also carry high average prices.' } },
+    { '@type': 'Question', name: 'Where do wealthy people live in Cheshire?', acceptedAnswer: { '@type': 'Answer', text: 'The highest concentration of high-net-worth households in Cheshire is in the Golden Triangle - Alderley Edge, Prestbury, and parts of Wilmslow. Alderley Edge averages £700,000+ and Prestbury £650,000+ (Rightmove, Q4 2025). Outside the Triangle, parts of Chester\'s rural fringe and the Tarporley area also carry high average prices.' } },
     { '@type': 'Question', name: 'What are the best schools in Cheshire?', acceptedAnswer: { '@type': 'Answer', text: 'Among state schools, Knutsford Academy and Tarporley High School both hold Outstanding Ofsted ratings. The King\'s School and Queen\'s School in Chester are established independents. For families in the Golden Triangle, Alderley Edge School for Girls is a well-known independent option.' } },
     { '@type': 'Question', name: 'Is Knutsford a good place to live?', acceptedAnswer: { '@type': 'Answer', text: 'Knutsford is one of Cheshire\'s most well-rounded areas for families: an Outstanding state secondary in Knutsford Academy, an average price of £430,000 (Rightmove, Q4 2025), and a 35-minute train to Manchester (National Rail, 2025). The main limitation is lower train frequency on the Mid-Cheshire Line compared to the Wilmslow route.' } },
     { '@type': 'Question', name: 'What is the Golden Triangle in Cheshire?', acceptedAnswer: { '@type': 'Answer', text: 'The Cheshire Golden Triangle is an informal name for the affluent commuter belt roughly bounded by Wilmslow, Alderley Edge, and Prestbury in Cheshire East. Cheshire East averaged £306,000 in November 2025 (ONS), but properties within the Triangle frequently exceed £500,000–£700,000+. The term is sometimes extended to include Knutsford and Bramhall.' } },
@@ -19,7 +19,7 @@ const areas = [
   { area: 'Alderley Edge', price: '£700,000+', commute: '22 min', schools: 'Alderley Edge School for Girls', bestFor: 'Premium lifestyle', tier: 'Premium' },
   { area: 'Prestbury', price: '£650,000+', commute: '20 min', schools: 'Nearby independent schools', bestFor: 'Premium village / quiet', tier: 'Premium' },
   { area: 'Knutsford', price: '£430,000', commute: '35 min', schools: 'Knutsford Academy (Outstanding)', bestFor: 'Families / village feel', tier: 'Premium' },
-  { area: 'Chester', price: '£250,000', commute: '50 min', schools: "King's School / Queen's School", bestFor: 'First-time buyers / history', tier: 'Mid' },
+  { area: 'Chester', price: '£250,000', commute: '50 min', schools: "King's School / Queen's School", bestFor: 'First-time buyers / city living', tier: 'Mid' },
   { area: 'Macclesfield', price: '£280,000', commute: '25 min', schools: 'The Macclesfield Academy', bestFor: 'Value / Peak District access', tier: 'Mid' },
   { area: 'Nantwich', price: '£295,000', commute: '60 min indirect', schools: 'Malbank School', bestFor: 'Market town / SW Cheshire', tier: 'Mid' },
   { area: 'Tarporley', price: '£380,000', commute: '55 min indirect', schools: 'Tarporley High (Outstanding)', bestFor: 'Village life / families', tier: 'Mid' },
@@ -39,16 +39,16 @@ const quickRef = [
 const areaProfiles = [
   {
     name: 'Wilmslow',
-    intro: 'Wilmslow is the default choice for Manchester-based professionals who want the fastest possible commute with good state secondaries and access to a commercial high street. It is not a village — it has a Waitrose, a Booths, a gym quarter, and a main line station that puts Manchester Piccadilly at 17 minutes on the fastest services.',
+    intro: 'Wilmslow is the default choice for Manchester-based professionals who want the fastest possible commute with good state secondaries and access to a commercial high street. It is not a village - it has a Waitrose, a Booths, a gym quarter, and a main line station that puts Manchester Piccadilly at 17 minutes on the fastest services.',
     price: '£490,000', priceSource: 'Rightmove, Q4 2025',
     commute: '17 minutes (fastest service)', commuteSource: 'National Rail, 2025',
     school: 'Wilmslow High School (Ofsted: Good)',
     bestFor: 'Dual-income commuter households; families wanting state schooling with quick rail access',
-    downside: 'Wilmslow is not cheap relative to what you get architecturally — much of the housing stock is 1970s–1990s executive builds. Buyers expecting Cotswold-style character will be disappointed. The A34 corridor can be congested at peak times.',
+    downside: 'Wilmslow is not cheap relative to what you get architecturally - much of the housing stock is 1970s–1990s executive builds. Buyers expecting Cotswold-style character will be disappointed. The A34 corridor can be congested at peak times.',
   },
   {
     name: 'Alderley Edge',
-    intro: "Alderley Edge is Cheshire's most recognisable postcode outside the county. A single main street of independent restaurants, wine bars, and a boutique cluster has made the village synonymous with Premier League footballers and high-net-worth relocators — a reputation that inflates prices well beyond neighbouring villages.",
+    intro: "Alderley Edge is Cheshire's most recognisable postcode outside the county. A single main street of independent restaurants, wine bars, and a boutique cluster has made the village synonymous with Premier League footballers and high-net-worth relocators - a reputation that inflates prices well beyond neighbouring villages.",
     price: '£700,000+', priceSource: 'Rightmove, Q4 2025',
     commute: '22 minutes', commuteSource: 'National Rail, 2025',
     school: 'Alderley Edge School for Girls (independent)',
@@ -62,7 +62,7 @@ const areaProfiles = [
     commute: '20 minutes from Prestbury station', commuteSource: 'National Rail, 2025',
     school: 'Access to independent schools nearby; state provision via Macclesfield',
     bestFor: 'Premium buyers prioritising quiet village character over social infrastructure',
-    downside: 'The village amenities are limited — school-age children will likely need transport to Macclesfield or nearby independents. There is essentially no evening economy within the village itself.',
+    downside: 'The village amenities are limited - school-age children will likely need transport to Macclesfield or nearby independents. There is essentially no evening economy within the village itself.',
   },
   {
     name: 'Knutsford',
@@ -75,11 +75,11 @@ const areaProfiles = [
   },
   {
     name: 'Macclesfield',
-    intro: 'Macclesfield is undervalued relative to its fundamentals. The train to Manchester takes 25 minutes, the town has genuine history as a former silk-weaving centre, and it sits on the edge of the Peak District National Park — meaning hiking and cycling access is immediate rather than a drive away.',
+    intro: 'Macclesfield is undervalued relative to its fundamentals. The train to Manchester takes 25 minutes, the town has genuine history as a former silk-weaving centre, and it sits on the edge of the Peak District National Park - meaning hiking and cycling access is immediate rather than a drive away.',
     price: '£280,000', priceSource: 'Rightmove, Q4 2025',
     commute: '25 minutes', commuteSource: 'National Rail, 2025',
     school: 'The Macclesfield Academy',
-    bestFor: 'First-time buyers from London; value-conscious buyers who want fast commute times and outdoor access',
+    bestFor: 'First-time buyers from London; value-conscious commuter town buyers who want fast commute times and outdoor access',
     downside: "Macclesfield's town centre has gaps in its retail and evening offer compared to Wilmslow or Knutsford. Regeneration is ongoing but uneven. Some buyers find it lacks the polish they expected after viewing the premium tier.",
   },
   {
@@ -88,7 +88,7 @@ const areaProfiles = [
     price: '£250,000', priceSource: 'Rightmove, Q4 2025',
     commute: '50 minutes', commuteSource: 'National Rail, 2025',
     school: "The King's School (independent, selective); Queen's School (independent)",
-    bestFor: 'First-time buyers; history and culture-led buyers; those who value city infrastructure over commute speed',
+    bestFor: 'First-time buyers stepping onto the Cheshire ladder; history and culture-led buyers; those who value city infrastructure over commute speed',
     downside: 'The commute to Manchester is the longest of any area in this guide at approximately 50 minutes. The city also has higher crime rates in the centre relative to rural Cheshire.',
   },
   {
@@ -98,7 +98,7 @@ const areaProfiles = [
     commute: '60 minutes indirect', commuteSource: 'National Rail, 2025',
     school: 'Malbank School',
     bestFor: 'Buyers prioritising market town character, lower prices, and who can tolerate or are indifferent to commute length',
-    downside: 'Buyers needing Manchester five days a week should look elsewhere. The indirect route via Crewe adds time and a change. Nantwich works best for hybrid workers or those whose work is local.',
+    downside: 'Buyers needing Manchester five days a week should look elsewhere. The indirect route via Crewe adds time and a change. Nantwich works best for hybrid working households or those whose work is local.',
   },
 ];
 
@@ -109,11 +109,11 @@ const faqs = [
   },
   {
     question: 'Is Wilmslow or Alderley Edge better to live in?',
-    answer: "For most buyers, Wilmslow is the better practical choice. It offers a faster Manchester commute (17 minutes vs 22 minutes, National Rail, 2025), a broader range of everyday retail, and a lower average price of £490,000 versus £700,000+ in Alderley Edge (both Rightmove, Q4 2025). Alderley Edge's edge is its concentrated independent village high street and its name recognition — which matters to some buyers and not at all to others.",
+    answer: "For most buyers, Wilmslow is the better practical choice. It offers a faster Manchester commute (17 minutes vs 22 minutes, National Rail, 2025), a broader range of everyday retail, and a lower average price of £490,000 versus £700,000+ in Alderley Edge (both Rightmove, Q4 2025). Alderley Edge's edge is its concentrated independent village high street and its name recognition - which matters to some buyers and not at all to others.",
   },
   {
     question: 'Where do wealthy people live in Cheshire?',
-    answer: "The highest concentration of high-net-worth households in Cheshire is in the Golden Triangle — specifically Alderley Edge, Prestbury, and parts of Wilmslow. Alderley Edge averages £700,000+ and Prestbury £650,000+ (Rightmove, Q4 2025). Outside the Golden Triangle, the wealthier end of Chester's rural fringe and parts of the Tarporley area also carry high average prices.",
+    answer: "The highest concentration of high-net-worth households in Cheshire is in the Golden Triangle - specifically Alderley Edge, Prestbury, and parts of Wilmslow. Alderley Edge averages £700,000+ and Prestbury £650,000+ (Rightmove, Q4 2025). Outside the Golden Triangle, the wealthier end of Chester's rural fringe and parts of the Tarporley area also carry high average prices.",
   },
   {
     question: 'What are the best schools in Cheshire?',
@@ -125,7 +125,7 @@ const faqs = [
   },
   {
     question: 'What is the Golden Triangle in Cheshire?',
-    answer: "The Cheshire Golden Triangle is an informal name for the area roughly bounded by Wilmslow, Alderley Edge, and Prestbury — a cluster of affluent commuter villages in Cheshire East with fast Manchester rail access and high average house prices. Cheshire East averaged £306,000 in November 2025 (ONS), but properties within the Triangle frequently exceed £500,000–£700,000+. The term is used loosely and sometimes extended to include Knutsford and Bramhall.",
+    answer: "The Cheshire Golden Triangle is an informal name for the area roughly bounded by Wilmslow, Alderley Edge, and Prestbury - a cluster of affluent commuter villages in Cheshire East with fast Manchester rail access and high average house prices. Cheshire East averaged £306,000 in November 2025 (ONS), but properties within the Triangle frequently exceed £500,000–£700,000+. The term is used loosely and sometimes extended to include Knutsford and Bramhall.",
   },
 ];
 ---
@@ -194,11 +194,14 @@ const faqs = [
 
         <div style="max-width: 720px; margin-bottom: 40px;">
           <p style="font-family: Inter, Arial, sans-serif; font-size: 17px; line-height: 1.75; color: #333333; margin: 0;">
-            The best place to live in Cheshire depends on what you are optimising for. If your priority is the fastest Manchester commute, Wilmslow wins outright at 17 minutes by train. If you want the strongest state secondary schools, Knutsford's Knutsford Academy holds an Outstanding Ofsted rating and costs roughly £270,000 less than Alderley Edge. If budget is the binding constraint, Crewe and Northwich sit at £175,000–£220,000 with improving infrastructure. There is no single answer — but there is a framework, and this guide applies it across 10 areas with verified figures so you can make the call yourself.
+            The best place to live in Cheshire - particularly for families - depends on what you are optimising for. If your priority is the fastest Manchester commute, Wilmslow wins outright at 17 minutes by train. If you want the strongest state secondary schools, Knutsford's Knutsford Academy holds an Outstanding Ofsted rating and costs roughly £270,000 less than Alderley Edge. If budget is the binding constraint, Crewe and Northwich sit at £175,000–£220,000 with improving infrastructure. There is no single answer - but there is a framework, and this guide applies it across 10 areas with verified figures so you can make the call yourself.
           </p>
         </div>
 
-        <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 28px); font-weight: 700; color: #1C1C1E; margin: 0 0 24px 0;">Cheshire Area Comparison Table</h2>
+        <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 28px); font-weight: 700; color: #1C1C1E; margin: 0 0 12px 0;">Cheshire Area Comparison Table</h2>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; color: #555555; margin: 0 0 24px 0;">
+          All ten Cheshire areas compared by average price, train commute to Manchester Piccadilly, school provision, and buyer fit - from Wilmslow at £490,000 and 17 minutes to Crewe at £175,000 and 55 minutes.
+        </p>
         <div style="overflow-x: auto; margin-bottom: 16px;">
           <table style="width: 100%; border-collapse: collapse; font-family: Inter, Arial, sans-serif; font-size: 14px;">
             <thead>
@@ -241,7 +244,7 @@ const faqs = [
         <span class="section-label">Framework</span>
         <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 28px); font-weight: 700; color: #1C1C1E; margin: 0 0 36px 0;">A Framework for Choosing: Three Tiers</h2>
         <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; color: #555555; margin: 0 0 36px 0; max-width: 720px;">
-          Cheshire's housing market splits clearly into three bands. Where you land within them depends on budget first, then commute tolerance and school preferences.
+          Cheshire's housing market splits clearly into three bands. Where you land within them depends on budget first, then commute tolerance and school catchment preferences. Hybrid working has shifted the balance - buyers who only commute two or three days a week can reach deeper into the county for better value.
         </p>
 
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px;">
@@ -251,7 +254,7 @@ const faqs = [
               <span style="font-size: 11px; font-weight: 600; padding: 3px 10px; background-color: rgba(196,147,63,0.12); color: #9A7030; border-radius: 2px;">Premium</span>
             </div>
             <h3 style="font-family: Georgia, serif; font-size: 20px; font-weight: 700; color: #1C1C1E; margin: 0 0 8px 0;">The Golden Triangle and Beyond</h3>
-            <p style="font-family: Inter, Arial, sans-serif; font-size: 13px; font-weight: 600; color: #888888; margin: 0 0 16px 0;">Wilmslow, Alderley Edge, Prestbury, Knutsford — £430,000 to £700,000+</p>
+            <p style="font-family: Inter, Arial, sans-serif; font-size: 13px; font-weight: 600; color: #888888; margin: 0 0 16px 0;">Wilmslow, Alderley Edge, Prestbury, Knutsford - £430,000 to £700,000+</p>
             <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.7; color: #444444; margin: 0 0 16px 0;">
               This is the executive belt of Cheshire East. These four areas share proximity to Manchester, strong school provision, and a density of detached family homes. Cheshire East as a whole averaged £306,000 in November 2025 (ONS), with year-on-year growth of +6.7%.
             </p>
@@ -266,7 +269,7 @@ const faqs = [
               <span style="font-size: 11px; font-weight: 600; padding: 3px 10px; background-color: rgba(61,90,62,0.08); color: #3D5A3E; border-radius: 2px;">Mid</span>
             </div>
             <h3 style="font-family: Georgia, serif; font-size: 20px; font-weight: 700; color: #1C1C1E; margin: 0 0 8px 0;">Balanced Middle Tier</h3>
-            <p style="font-family: Inter, Arial, sans-serif; font-size: 13px; font-weight: 600; color: #888888; margin: 0 0 16px 0;">Chester, Macclesfield, Nantwich, Tarporley — £250,000 to £380,000</p>
+            <p style="font-family: Inter, Arial, sans-serif; font-size: 13px; font-weight: 600; color: #888888; margin: 0 0 16px 0;">Chester, Macclesfield, Nantwich, Tarporley - £250,000 to £380,000</p>
             <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.7; color: #444444; margin: 0 0 16px 0;">
               This tier offers the strongest combination of character, schooling, and price. Macclesfield is chronically underrated by London relocators. Chester brings architectural heritage at a price point almost £100,000 below the county premium.
             </p>
@@ -281,9 +284,9 @@ const faqs = [
               <span style="font-size: 11px; font-weight: 600; padding: 3px 10px; background-color: rgba(0,0,0,0.05); color: #666666; border-radius: 2px;">Budget</span>
             </div>
             <h3 style="font-family: Georgia, serif; font-size: 20px; font-weight: 700; color: #1C1C1E; margin: 0 0 8px 0;">Accessible Tier</h3>
-            <p style="font-family: Inter, Arial, sans-serif; font-size: 13px; font-weight: 600; color: #888888; margin: 0 0 16px 0;">Northwich, Crewe — £175,000 to £220,000</p>
+            <p style="font-family: Inter, Arial, sans-serif; font-size: 13px; font-weight: 600; color: #888888; margin: 0 0 16px 0;">Northwich, Crewe - £175,000 to £220,000</p>
             <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.7; color: #444444; margin: 0 0 16px 0;">
-              These are value propositions, not consolation prizes. Cheshire West and Chester averaged £265,000 in November 2025 (ONS), with +3.1% annual growth — and both sit well below even that figure.
+              These are value propositions, not consolation prizes. Cheshire West and Chester averaged £265,000 in November 2025 (ONS), with +3.1% annual growth - and both sit well below even that figure.
             </p>
             <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; line-height: 1.7; color: #555555; margin: 0;">
               Crewe's HS2 Phase 2a has effectively been cancelled, but a separate £100m+ regeneration programme is underway. <em style="font-size: 12px; color: #888888;">(Source: Cheshire East Council, 2025-26)</em>
@@ -335,8 +338,8 @@ const faqs = [
           <h3 style="font-family: Georgia, serif; font-size: 20px; font-weight: 700; color: #1C1C1E; margin: 0 0 16px 0;">A Note on the Remaining Three Areas</h3>
           <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.75; color: #444444; margin: 0;">
             <strong>Northwich</strong> (£220,000, 40 min to Manchester) is a mid-sized town on the River Weaver with Hartford High School and good road links to both Manchester and Chester. It is affordable and underrated, though the town centre is still working through an uneven regeneration.
-            <strong>Tarporley</strong> (£380,000, 55 min indirect) is a desirable village with an Outstanding secondary and a loyal local community — it regularly appears in "best villages" lists, and the price reflects that.
-            <strong>Crewe</strong> (£175,000, 55 min) is the county's cheapest and most utilitarian option. Note that HS2's Phase 2a to Crewe has effectively been cancelled — compulsory purchase powers lapsed in February 2026. However, Crewe has a separate £100m+ regeneration programme underway, including a new Youth Zone opening spring 2026 and a 300+ home scheme with Capital&Centric in the pre-development phase. <em style="color: #888888; font-size: 13px;">(Source: Cheshire East Council, 2025-26; Commons Library, February 2026)</em>
+            <strong>Tarporley</strong> (£380,000, 55 min indirect) is a desirable village with an Outstanding secondary and a loyal local community - it regularly appears in "best villages" lists, and the price reflects that.
+            <strong>Crewe</strong> (£175,000, 55 min) is the county's cheapest and most utilitarian option. Note that HS2's Phase 2a to Crewe has effectively been cancelled - compulsory purchase powers lapsed in February 2026. However, Crewe has a separate £100m+ regeneration programme underway, including a new Youth Zone opening spring 2026 and a 300+ home scheme with Capital&Centric in the pre-development phase. <em style="color: #888888; font-size: 13px;">(Source: Cheshire East Council, 2025-26; Commons Library, February 2026)</em>
           </p>
         </div>
       </div>
@@ -345,7 +348,10 @@ const faqs = [
     <!-- QUICK REFERENCE TABLE -->
     <section class="section-pad" style="background-color: #F2EFE9; border-bottom: 1px solid #E5E0D8;">
       <div class="section-inner">
-        <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 28px); font-weight: 700; color: #1C1C1E; margin: 0 0 24px 0;">Quick Reference: Best Area by Priority</h2>
+        <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 28px); font-weight: 700; color: #1C1C1E; margin: 0 0 12px 0;">Quick Reference: Best Area by Priority</h2>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; color: #555555; margin: 0 0 24px 0;">
+          The right Cheshire area depends on your lead priority - families, commute speed, budget, or lifestyle. This table maps each priority to a shortlist.
+        </p>
         <table style="width: 100%; max-width: 600px; border-collapse: collapse; font-family: Inter, Arial, sans-serif; font-size: 15px;">
           <thead>
             <tr style="border-bottom: 2px solid #3D5A3E;">
@@ -372,22 +378,22 @@ const faqs = [
         <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 28px); font-weight: 700; color: #1C1C1E; margin: 0 0 32px 0;">Relocator Questions</h2>
 
         <div style="border: 1px solid #E5E0D8; background-color: #F9F7F4; padding: 32px; margin-bottom: 24px;">
-          <p style="font-family: Inter, Arial, sans-serif; font-size: 13px; font-weight: 700; color: #3D5A3E; margin: 0 0 8px 0;">SP — Battersea, London</p>
+          <p style="font-family: Inter, Arial, sans-serif; font-size: 13px; font-weight: 700; color: #3D5A3E; margin: 0 0 8px 0;">SP - Battersea, London</p>
           <p style="font-family: Georgia, serif; font-size: 17px; font-style: italic; line-height: 1.5; color: #1C1C1E; margin: 0 0 20px 0;">
             "We've sold in London for £850k and want a 4-bed detached near good state schools. Is the Golden Triangle the only option?"
           </p>
           <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.75; color: #444444; margin: 0;">
-            The Golden Triangle is the obvious starting point, but Knutsford makes a strong case at £430,000 with an Outstanding Ofsted secondary — you would have significant equity left after purchase. Macclesfield also delivers a 25-minute commute and far more interesting architecture at £280,000. The Golden Triangle premium is partly justified by address and commute speed; it is not fully explained by school quality alone.
+            The Golden Triangle is the obvious starting point, but Knutsford makes a strong case at £430,000 with an Outstanding Ofsted secondary - you would have significant equity left after purchase. Macclesfield also delivers a 25-minute commute and far more interesting architecture at £280,000. The Golden Triangle premium is partly justified by address and commute speed; it is not fully explained by school quality alone.
           </p>
         </div>
 
         <div style="border: 1px solid #E5E0D8; background-color: #F9F7F4; padding: 32px;">
-          <p style="font-family: Inter, Arial, sans-serif; font-size: 13px; font-weight: 700; color: #3D5A3E; margin: 0 0 8px 0;">AK — Sale, Manchester</p>
+          <p style="font-family: Inter, Arial, sans-serif; font-size: 13px; font-weight: 700; color: #3D5A3E; margin: 0 0 8px 0;">AK - Sale, Manchester</p>
           <p style="font-family: Georgia, serif; font-size: 17px; font-style: italic; line-height: 1.5; color: #1C1C1E; margin: 0 0 20px 0;">
             "We want to step up from our Sale semi but can't stretch to Alderley Edge. Where should we look?"
           </p>
           <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.75; color: #444444; margin: 0;">
-            Knutsford at £430,000 gives you equivalent school quality and a market town feel at nearly half the Alderley Edge price. Poynton — averaging £444,312 with a 20-minute direct train to Manchester Piccadilly <em style="color: #888888; font-size: 13px;">(Source: Rightmove, 2025; Northern Trains)</em> — is also worth considering for buyers who want proximity to the Golden Triangle without the full premium.
+            Knutsford at £430,000 gives you equivalent school quality and a market town feel at nearly half the Alderley Edge price. Poynton - averaging £444,312 with a 20-minute direct train to Manchester Piccadilly <em style="color: #888888; font-size: 13px;">(Source: Rightmove, 2025; Northern Trains)</em> - is also worth considering for buyers who want proximity to the Golden Triangle without the full premium.
           </p>
         </div>
       </div>
@@ -419,7 +425,7 @@ const faqs = [
         <div style="border-left: 3px solid #C4933F; background-color: rgba(196, 147, 63, 0.05); padding: 28px 32px; max-width: 720px;">
           <h2 style="font-family: Inter, Arial, sans-serif; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #C4933F; margin: 0 0 16px 0;">Good to Know</h2>
           <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.75; color: #444444; margin: 0;">
-            "Best area in Cheshire" is only a meaningful question once you have defined your criteria. A buyer optimising for a 20-minute Manchester commute and a quiet village should be in Prestbury. A buyer who needs an Outstanding state secondary and wants a market town feel should be in Knutsford. The Golden Triangle carries a premium that does not always correlate with school quality or rail times — in some cases you are paying for the postcode itself. Run the comparison table above against your specific constraints before visiting any of them.
+            "Best area in Cheshire" is only a meaningful question once you have defined your criteria. A buyer optimising for a 20-minute Manchester commute and a quiet village should be in Prestbury. A buyer who needs an Outstanding state secondary and wants a market town feel should be in Knutsford. The Golden Triangle carries a premium that does not always correlate with school quality or rail times - in some cases you are paying for the postcode itself. Run the comparison table above against your specific constraints before visiting any of them.
           </p>
         </div>
       </div>
