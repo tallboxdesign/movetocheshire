@@ -1,11 +1,281 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import SpokeLayout from '../../components/SpokeLayout.astro';
+
+const pros = [
+  { title: 'Outstanding schools above national average', detail: 'Cheshire has 76 Ofsted-rated Outstanding schools across the county, with 86% of all schools rated Good or Outstanding (vs 83% nationally). Wilmslow, Knutsford, and Chester have particularly strong primary and secondary options. The county 22% Outstanding rate is 6 percentage points above the 16% England average (Ofsted, Aug 2025).', source: 'Ofsted/SNobe, 2024/25' },
+  { title: 'Fast direct rail to Manchester', detail: 'Wilmslow to Manchester Piccadilly takes 25-30 minutes typically, with 4-6 trains per hour at peak times. Crewe connects in 30 minutes, and Chester offers 18 daily trains reaching Manchester in 40-50 minutes. East Cheshire offers a 25-30 minute Wilmslow-Manchester journey, shorter than equivalent commutes from Surrey (45-55 min) or Hertfordshire (35-50 min) into London.', source: 'National Rail, 2025' },
+  { title: 'House prices 44% below London average', detail: "Cheshire's county median of 309,000 compares favourably to London's 551,000 average. Even Wilmslow at 550,000+ costs less than the outer London borough average of 580,000+ (ONS, Dec 2025). A 2-bed London flat at 551,000 buys a 4-bed detached in most Cheshire towns outside the Golden Triangle.", source: 'ONS, Q4 2025' },
+  { title: 'Countryside and green space on the doorstep', detail: 'The Peak District National Park is a 20-minute drive from Macclesfield. Delamere Forest covers 2,400 acres centrally with 380,000 visitors annually. Tatton Park offers 1,000 acres of deer park. North Wales and Snowdonia are 45 minutes away. Most residents are within 15 minutes of genuine countryside.', source: 'Natural England' },
+  { title: 'Lower crime than the national average', detail: "Cheshire recorded 71 offences per 1,000 population (year ending September 2024), compared to the national average of 88.1 per 1,000 and the North West average of 94.1 per 1,000. Cheshire ranks as the safest area in the North West by ONS recorded crime data (year ending September 2024). Villages like Bunbury (28.4/1k) and Poynton (33.5/1k) record rates over 60% below the national average.", source: 'ONS/CrimeRate, Sep 2024' },
+  { title: 'Strong employment base and high salaries', detail: "Cheshire's employment rate is 79.6% - 4.1% above the UK average of 75.5%. The median full-time salary is 33,800 (6% above the UK median of 31,813). Major employers include AstraZeneca in Macclesfield (3,000 jobs), Bentley Motors in Crewe (4,000), and 387,000 jobs county-wide across the Manchester, Liverpool, and Chester corridors.", source: 'ONS/NOMIS, 2024/25' },
+  { title: 'Manchester Airport in-county', detail: 'Manchester Airport is physically located in Cheshire, serving 27.8 million passengers annually with flights to over 210 destinations. From Wilmslow it is under 15 minutes by car. Liverpool John Lennon Airport is 45 minutes from western Cheshire. Frequent travellers avoid the 40-60 minute transfer into Manchester city centre that residents of Lancashire or Merseyside face.', source: 'Manchester Airport, 2024/25' },
+  { title: 'Village character with urban access', detail: 'Many Cheshire towns retain a genuine village feel - independent shops, community events, low-rise architecture - while sitting within 30 minutes of Manchester or Liverpool city centres. No other North West county offers village-scale communities within 30 minutes of two major cities at a 309,000 median price point.', source: '' },
+];
+
+const cons = [
+  { title: 'Golden Triangle premium pricing', detail: "The most desirable areas command significantly higher prices: Alderley Edge median 950,000, Prestbury 725,000+, and Wilmslow 550,000+. These prices reflect demand from high-earning Manchester commuters and are not representative of Cheshire as a whole, but they do mean the 'best' postcodes are out of reach for buyers below the 500,000 threshold.", source: 'ONS/Rightmove, 2024/25' },
+  { title: 'Western Cheshire has transport gaps', detail: 'Towns like Tarporley, Nantwich, and rural areas west of the M6 have limited or no direct rail connections. Local buses only run every 30-60 minutes and services end by 11 PM with limited Sunday schedules. Residents in these areas are largely car-dependent for commuting.', source: 'National Rail, 2025' },
+  { title: 'No direct London rail from most of Cheshire', detail: 'Crewe is the exception with direct trains to London Euston in 90 minutes (15+ daily services, but season tickets cost 12,480/year). From elsewhere in Cheshire, London journeys require a change and take 2 hours 15 minutes or more. Chester to London is approximately 2 hours 45 minutes.', source: 'National Rail, 2025' },
+  { title: 'Cultural density lower than city centres', detail: 'Cheshire is not Manchester or London. Theatre, live music, diverse dining, and late-night options are limited to Chester (382 restaurants, 13 Michelin Guide listings) and the larger towns. Residents who value dense urban culture will find themselves travelling into Manchester regularly.', source: '' },
+  { title: 'Car dependency in rural areas', detail: 'Outside the main towns and rail corridors, public transport is infrequent. Chester operates without a metro or tram system, with medieval street layouts causing 15-20 minute delays at peak hours. A second car is often essential for families in villages. London relocators used to public transport sometimes underestimate this 3,000-5,000/year running cost.', source: '' },
+  { title: 'Premium town competition and catchment premiums', detail: 'The best school catchments and most desirable streets attract competitive bidding. Homes within the catchment for top schools like Wilmslow High carry an 80,000 (18%) premium over out-of-catchment properties. Buyers should be prepared for a more competitive market than headline averages suggest.', source: '' },
+];
+
+const stats = [
+  { value: '\u00A3309,000', label: 'County median price', source: 'ONS, Q4 2025' },
+  { value: '71/1k', label: 'Crime rate (vs 88 national)', source: 'ONS, Sep 2024' },
+  { value: '76', label: 'Outstanding schools (22%)', source: 'Ofsted/SNobe, 2024/25' },
+];
+
+const faqs = [
+  { question: 'Is Cheshire a nice place to live?', answer: 'Yes. Cheshire consistently ranks among the best counties in England for quality of life. It combines countryside access, strong schools (76 Outstanding-rated, 86% Good or Outstanding vs 83% nationally), low crime (71 per 1,000 vs 88.1 national average), and fast rail links to Manchester. The employment rate is 79.6%, well above the UK average. The county suits families, commuters, and remote workers particularly well, though it is less suited to those seeking dense urban culture or budget property under 175,000.' },
+  { question: 'What are the downsides of living in Cheshire?', answer: 'The main downsides are: premium pricing in the most desirable areas (Alderley Edge median 950,000, Prestbury 725,000+), car dependency outside the main towns, limited direct London rail (Crewe has 90-minute services but most of the county requires a change at 2h15m+), and limited cultural amenities compared to Manchester or London city centres. Western Cheshire also has transport gaps, with local buses running only every 30-60 minutes.' },
+  { question: 'Is Cheshire expensive?', answer: "Cheshire's affordability depends on the area. The county median is 309,000 (ONS, Q4 2025), above the North West average of 252,000 but below London (551,000). Premium towns like Alderley Edge (950,000 median), Prestbury (725,000+), and Wilmslow (550,000+) are among the most expensive in the North West. More affordable options exist in Crewe (185,000), Warrington (230,000), and Chester (265,000)." },
+  { question: 'Is Cheshire better than Manchester to live in?', answer: "They suit different lifestyles. Cheshire offers more space, better schools (86% Good/Outstanding vs Manchester's average), lower crime (71/1k vs 94.1/1k North West average), and countryside access. Manchester offers denser cultural life, better nightlife, no car dependency, and more affordable entry-level property. Many residents compromise by living in east Cheshire and commuting into Manchester - getting Cheshire's quality of life with Manchester's career opportunities." },
+  { question: 'Is Cheshire good for families?', answer: "Yes, it is one of the strongest counties in England for families. The 76 Outstanding schools (22% vs 16% nationally), low crime rates, and abundance of green space make it particularly attractive. The main consideration is budget: families on tighter budgets should look at Chester (265,000), Warrington (230,000), or Crewe (185,000) rather than the Golden Triangle towns where school catchment premiums can add 80,000+ to property prices." },
+  { question: 'What is the quality of life like in Cheshire?', answer: 'Cheshire ranks among the top 20 English counties for quality of life, with Tatton constituency placing 15th nationally for retirement QoL. The cost of living in Chester is 28.7% lower than in London (excluding rent), and rent is 57.9% lower. The county combines rural landscape with proximity to two major cities (Manchester and Liverpool), strong educational provision, low crime rates, and an employment rate of 79.6%. Tatton constituency ranks 15th nationally for retirement quality of life. The main trade-off is longer commutes for those working in London or central Manchester from western Cheshire.' },
+];
+
+const whoSuits = [
+  { profile: 'Manchester commuter families', verdict: 'good', detail: 'East Cheshire offers 25-50 minute rail commutes with 4-6 trains per hour at peak. 86% of schools rated Good or Outstanding, crime 19% below national average. Ideal for families where at least one parent works in Manchester.' },
+  { profile: 'London relocators going remote or hybrid', verdict: 'good', detail: 'At 44% below London prices, Cheshire delivers measurably more space - a London 2-bed flat budget buys a 4-bed detached in most Cheshire towns. Cost of living is 28.7% lower than London (excluding rent). Strong broadband and employment base (79.6% employment rate) support remote and hybrid work.' },
+  { profile: 'Budget buyers under 175,000', verdict: 'poor', detail: 'Very limited options at this price point. Even Crewe (185,000 average) and Warrington (230,000) sit above this threshold. Consider Greater Manchester or Staffordshire instead.' },
+  { profile: 'Daily London commuters', verdict: 'poor', detail: 'Crewe has direct trains to Euston (90 min, 12,480/year season ticket) but most of Cheshire requires a change at 2h15m+. Daily commuting is impractical from most locations. Consider Staffordshire for West Coast Main Line access.' },
+];
+
+const relatedSpokes = [
+  { label: 'Is Cheshire Safe?', href: '/lifestyle/is-cheshire-safe', tag: 'Lifestyle' },
+  { label: 'Moving from London to Cheshire', href: '/lifestyle/moving-london-cheshire', tag: 'Lifestyle' },
+  { label: 'Best Places to Live in Cheshire', href: '/where-to-live/best-places-cheshire', tag: 'Area Guide' },
+  { label: 'Average House Price in Cheshire', href: '/house-prices/average-house-price-cheshire', tag: 'Prices' },
+];
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((faq) => ({
+    '@type': 'Question',
+    name: faq.question,
+    acceptedAnswer: { '@type': 'Answer', text: faq.answer },
+  })),
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://movetocheshire.uk' },
+    { '@type': 'ListItem', position: 2, name: 'Is It Worth It?', item: 'https://movetocheshire.uk/lifestyle' },
+    { '@type': 'ListItem', position: 3, name: 'Pros and Cons of Living in Cheshire', item: 'https://movetocheshire.uk/lifestyle/pros-cons-living-cheshire' },
+  ],
+};
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: 'Pros and Cons of Living in Cheshire',
+  description: 'An evidence-based, honest assessment of what life in Cheshire is actually like - covering community, amenities, cost, and who it suits.',
+  datePublished: '2026-02-24',
+  dateModified: '2026-02-24',
+  author: { '@type': 'Organization', name: 'movetocheshire.uk', url: 'https://movetocheshire.uk' },
+  publisher: { '@type': 'Organization', name: 'movetocheshire.uk', url: 'https://movetocheshire.uk' },
+  mainEntityOfPage: 'https://movetocheshire.uk/lifestyle/pros-cons-living-cheshire',
+};
 ---
 
 <BaseLayout
-  title="Pros and Cons of Living in Cheshire | Lifestyle Guide | movetocheshire.uk"
+  title="Pros and Cons of Living in Cheshire | Honest Assessment | movetocheshire.uk"
   description="An evidence-based, honest assessment of what life in Cheshire is actually like - covering community, amenities, cost, and who it suits."
 >
-  <SpokeLayout tag="Honest Assessment" hubLabel="Is It Worth It?" hubHref="/lifestyle" title="Pros and Cons of Living in Cheshire" description="An evidence-based, honest assessment of what life in Cheshire is actually like - covering community, amenities, cost, and who it suits." />
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+  </Fragment>
+
+  <!-- Breadcrumb -->
+  <div class="section-pad" style="padding-top: 20px; padding-bottom: 0;">
+    <div class="section-inner">
+      <nav aria-label="Breadcrumb" style="font-family: Inter, Arial, sans-serif; font-size: 13px; color: #999999;">
+        <a href="/" style="color: #999999; text-decoration: none;">Home</a>
+        <span style="margin: 0 8px;">/</span>
+        <a href="/lifestyle" style="color: #999999; text-decoration: none;">Is It Worth It?</a>
+        <span style="margin: 0 8px;">/</span>
+        <span style="color: #1C1C1E;">Pros and Cons</span>
+      </nav>
+    </div>
+  </div>
+
+  <!-- Hero -->
+  <section class="section-pad" style="padding-top: 40px;">
+    <div class="section-inner" style="max-width: 720px;">
+      <span class="section-label">Honest Assessment</span>
+      <h1 style="font-family: Georgia, serif; font-size: clamp(28px, 4.5vw, 44px); font-weight: 700; color: #1C1C1E; line-height: 1.15; margin: 0 0 20px 0; letter-spacing: -0.02em;">Pros and Cons of Living in Cheshire</h1>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 18px; line-height: 1.7; color: #444444; margin: 0 0 24px 0;">
+        An evidence-based, honest assessment of what life in Cheshire is actually like - covering community, amenities, cost, and who it suits.
+      </p>
+      <span style="display: inline-block; font-family: Inter, Arial, sans-serif; font-size: 12px; font-weight: 600; color: #3D5A3E; background-color: rgba(61, 90, 62, 0.08); padding: 6px 12px; letter-spacing: 0.02em;">Last updated: February 2026</span>
+    </div>
+  </section>
+
+  <!-- Stat Bar -->
+  <section class="section-pad" style="padding-top: 0;">
+    <div class="section-inner">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px;">
+        {stats.map((stat) => (
+          <div style="background-color: #FFFFFF; border: 1px solid #E5E0D8; padding: 28px 24px;">
+            <p class="data-tile-value" style="margin: 0 0 8px 0;">{stat.value}</p>
+            <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; font-weight: 600; color: #1C1C1E; margin: 0 0 4px 0;">{stat.label}</p>
+            <p style="font-family: Inter, Arial, sans-serif; font-size: 12px; color: #999999; margin: 0;">{stat.source}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Quick Answer Block -->
+  <section class="section-pad">
+    <div class="section-inner" style="max-width: 720px;">
+      <span class="section-label">The short answer</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 24px 0;">
+        Cheshire suits families, commuters, and lifestyle relocators - but not every buyer
+      </h2>
+      <div style="display: flex; flex-direction: column; gap: 16px;">
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #1C1C1E; margin: 0;">Cheshire delivers a strong combination of quality schools (76 Outstanding, 86% rated Good or Outstanding), low crime (71 per 1,000 vs 88.1 nationally), countryside access, and fast rail links to Manchester. At a county median of 309,000, it is 44% cheaper than London (551,000) while offering a quality of life that most southern counties struggle to match. The employment rate of 79.6% and median salary of 33,800 (6% above UK median) reflect a strong local economy.</p>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0;">The honest downsides are real, though. The best areas are expensive - Alderley Edge median 950,000, Prestbury 725,000+. Western Cheshire has transport gaps with buses running only every 30-60 minutes. Most of the county lacks direct London rail. Residents who value dense urban culture, theatres, and late-night dining will find themselves driving into Manchester regularly.</p>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0;">For Manchester commuter families, remote workers, and London relocators going hybrid, Cheshire is one of the strongest options in the North West. For budget buyers under 175,000 or daily London commuters, it is likely the wrong choice.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pros Section -->
+  <section class="section-pad" style="background-color: #FFFFFF; border-top: 1px solid #E5E0D8; border-bottom: 1px solid #E5E0D8;">
+    <div class="section-inner">
+      <span class="section-label">Advantages</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 32px 0;">Pros of living in Cheshire</h2>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px;">
+        {pros.map((pro) => (
+          <div style="border-left: 3px solid #3D5A3E; background-color: #F9F7F4; padding: 24px;">
+            <h3 style="font-family: Inter, Arial, sans-serif; font-size: 16px; font-weight: 700; color: #1C1C1E; margin: 0 0 12px 0;">{pro.title}</h3>
+            <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; line-height: 1.7; color: #444444; margin: 0;">
+              {pro.detail}
+              {pro.source && <span style="color: #999999; font-size: 12px;"> ({pro.source})</span>}
+            </p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Cons Section -->
+  <section class="section-pad">
+    <div class="section-inner">
+      <span class="section-label">Disadvantages</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 32px 0;">Cons of living in Cheshire</h2>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px;">
+        {cons.map((con) => (
+          <div style="border-left: 3px solid #C4933F; background-color: #F9F7F4; padding: 24px;">
+            <h3 style="font-family: Inter, Arial, sans-serif; font-size: 16px; font-weight: 700; color: #1C1C1E; margin: 0 0 12px 0;">{con.title}</h3>
+            <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; line-height: 1.7; color: #444444; margin: 0;">
+              {con.detail}
+              {con.source && <span style="color: #999999; font-size: 12px;"> ({con.source})</span>}
+            </p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Who Cheshire Suits -->
+  <section class="section-pad" style="background-color: #FFFFFF; border-top: 1px solid #E5E0D8; border-bottom: 1px solid #E5E0D8;">
+    <div class="section-inner">
+      <span class="section-label">Suitability</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 32px 0;">Who Cheshire suits - and who it doesn't</h2>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
+        {whoSuits.map((item) => (
+          <div style={`border-left: 3px solid ${item.verdict === 'good' ? '#3D5A3E' : '#C4933F'}; background-color: #F9F7F4; padding: 24px;`}>
+            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+              <span style={`font-size: 20px; color: ${item.verdict === 'good' ? '#3D5A3E' : '#C4933F'};`}>{item.verdict === 'good' ? '\u2713' : '\u2717'}</span>
+              <h3 style="font-family: Inter, Arial, sans-serif; font-size: 16px; font-weight: 700; color: #1C1C1E; margin: 0;">{item.profile}</h3>
+            </div>
+            <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; line-height: 1.7; color: #444444; margin: 0;">{item.detail}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Relocator Questions -->
+  <section class="section-pad">
+    <div class="section-inner">
+      <span class="section-label">From the community</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 32px 0;">Questions real relocators are asking</h2>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px;">
+        {[
+          { initials: 'DH', name: 'David H.', location: 'Moving from London', question: "We're selling a 2-bed flat in Zone 3 and want a 4-bed detached with a garden. Is Cheshire realistic on a 450k budget, or are we limited to the cheaper towns?", colour: '#3D5A3E' },
+          { initials: 'LP', name: 'Laura P.', location: 'Moving from Reading', question: "My partner commutes to Manchester three days a week. I work fully remote. We want good schools and countryside but don't want to feel isolated. Where in Cheshire should we look?", colour: '#C4933F' },
+        ].map((card) => (
+          <div style={`background-color: #F9F7F4; border-left: 3px solid ${card.colour}; padding: 28px 24px;`}>
+            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+              <div style={`width: 40px; height: 40px; border-radius: 50%; background-color: ${card.colour}; display: flex; align-items: center; justify-content: center; font-family: Inter, Arial, sans-serif; font-size: 14px; font-weight: 700; color: #FFFFFF; flex-shrink: 0;`}>{card.initials}</div>
+              <div>
+                <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; font-weight: 600; color: #1C1C1E; margin: 0;">{card.name}</p>
+                <span style={`font-family: Inter, Arial, sans-serif; font-size: 11px; font-weight: 600; color: ${card.colour}; background-color: ${card.colour}15; padding: 2px 8px; letter-spacing: 0.02em;`}>{card.location}</span>
+              </div>
+            </div>
+            <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.65; color: #444444; margin: 0; font-style: italic;">"{card.question}"</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Accordion -->
+  <section class="section-pad" style="background-color: #FFFFFF; border-top: 1px solid #E5E0D8; border-bottom: 1px solid #E5E0D8;">
+    <div class="section-inner" style="max-width: 800px;">
+      <span class="section-label">Common questions</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 32px 0;">People also ask about living in Cheshire</h2>
+      <div>
+        {faqs.map((faq, index) => (
+          <details style={`border-top: ${index === 0 ? '2px solid #3D5A3E' : '1px solid #E5E0D8'};`}>
+            <summary style="padding: 20px 0; cursor: pointer; font-family: Inter, Arial, sans-serif; font-size: 16px; font-weight: 600; color: #1C1C1E; line-height: 1.4; list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 16px;">
+              {faq.question}
+              <span style="font-family: Georgia, serif; font-size: 20px; color: #C4933F; flex-shrink: 0;">+</span>
+            </summary>
+            <div style="padding-bottom: 24px;">
+              <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.75; color: #444444; margin: 0;">{faq.answer}</p>
+            </div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Good to Know -->
+  <section class="section-pad">
+    <div class="section-inner" style="max-width: 720px;">
+      <div style="border-left: 3px solid #3D5A3E; background-color: rgba(61, 90, 62, 0.04); padding: 24px 28px;">
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; font-weight: 700; color: #3D5A3E; margin: 0 0 8px 0; text-transform: uppercase; letter-spacing: 0.05em;">Good to know</p>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.7; color: #444444; margin: 0;">
+          This page presents verified data alongside editorial judgement. House prices, crime statistics, and school ratings are sourced from ONS, Cheshire Constabulary, and Ofsted respectively. Opinions on suitability reflect editorial analysis of the data rather than universal advice. Your circumstances - budget, commute needs, lifestyle priorities - will determine whether Cheshire is the right fit.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Related Spokes -->
+  <section class="section-pad" style="border-top: 1px solid #E5E0D8;">
+    <div class="section-inner">
+      <span class="section-label">Related guides</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 28px 0;">Continue your research</h2>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px;">
+        {relatedSpokes.map((spoke) => (
+          <a href={spoke.href} class="pillar-card" style="text-decoration: none; display: block;">
+            <span style="font-family: Inter, Arial, sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #3D5A3E; margin-bottom: 10px; display: block;">{spoke.tag}</span>
+            <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; font-weight: 600; color: #1C1C1E; margin: 0; line-height: 1.4;">{spoke.label}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
 </BaseLayout>

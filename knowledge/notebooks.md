@@ -22,6 +22,7 @@
 | 12 | Wilmslow House Prices | Page 17 | https://notebooklm.google.com/notebook/beed6456-f97a-44c7-a997-4713bc258572 |
 | 13 | Wilmslow to Manchester Train | Page 18 | https://notebooklm.google.com/notebook/b6224576-a6e8-46f4-9e9c-e80b1b5a6486 |
 | 14 | Is Cheshire Safe to Live In? | Page 20 | https://notebooklm.google.com/notebook/cf340b66-4ee6-4d6f-a5d6-f2551139e2ee |
+| 15 | Living in Cheshire - Extended Data | Supplementary (property, crime, health, transport, QoL rankings) | https://notebooklm.google.com/notebook/40a6ffac-c53e-4a54-9b3e-04853bf12e68 |
 
 ---
 
@@ -50,6 +51,7 @@
 | 19 — Best Secondary Schools | /schools/best-secondary-schools | 5 | Same notebook as Pages 5 + 12 |
 | 20 — Is Cheshire Safe | /lifestyle/is-cheshire-safe | 14 | Standalone |
 | 21 — Contact | /contact/ | — | No notebook needed |
+| — — Supplementary Data | Cross-page reference | 15 | Extended property, crime, health, transport, QoL data |
 | 22 — Chester Bridge | /where-to-live/chester | — | Research from movetochester.co.uk + Notebook 2 for area context |
 
 ---
@@ -137,3 +139,8 @@ Cross-check: data.md → transport section
 Query focus: crime rate breakdown, Cheshire East vs West, Chester vs rural
 Key data: all crime rate figures, trend direction, vs national average
 Cross-check: data.md → safety & crime section
+
+### Notebook 15 — Living in Cheshire Extended Data
+Query focus: supplementary data across all topics - property market detail, crime profiles, health inequalities, transport congestion, QoL rankings
+Key data: Golden Triangle prices (Alderley Edge 950k median, Prestbury 725k), employment (79.6% rate, 387k jobs, 33.8k median salary), crime detail (71/1k vs 88.1 national), cost of living (Chester 28.7% lower than London), catchment premiums (80k/18%), bus frequency, Chester restaurant count, Delamere/Tatton visitor numbers, rental data
+Cross-check: data.md → all sections; overlaps with Notebooks 7 and 14 but provides additional granularity
