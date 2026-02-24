@@ -168,17 +168,28 @@ const webPageSchema = {
   '@context': 'https://schema.org',
   '@type': ['WebPage', 'Report'],
   name: "Cheshire House Prices by Area and Property Type",
-  description: "Cheshire averages £314,000 (ONS, 2025). Prices by unitary authority, town, ward, and property type from ONS, Rightmove, and CW&C Council data.",
+  description: "Cheshire averages £314,000 (ONS, 2025). Population-weighted authority average: £274,250. Prices by unitary authority, town, ward, and property type from ONS, Rightmove, and CW&C Council data.",
   url: 'https://movetocheshire.uk/house-prices',
   dateModified: '2026-02-24',
-  temporalCoverage: '2025/2026',
-  spatialCoverage: { '@type': 'AdministrativeArea', name: 'Cheshire' },
+  temporalCoverage: '2023/2026',
+  spatialCoverage: { '@type': 'AdministrativeArea', name: 'Cheshire', containedInPlace: { '@type': 'Country', name: 'England' } },
+  mainEntity: { '@type': 'AdministrativeArea', name: 'Cheshire', description: 'Ceremonial county in North West England comprising Cheshire East, Cheshire West and Chester, Warrington, and Halton.' },
+  audience: { '@type': 'Audience', audienceType: 'Home buyers and relocators considering Cheshire' },
   isBasedOn: [
-    { '@type': 'Dataset', name: 'ONS UK House Price Index', publisher: { '@type': 'GovernmentOrganization', name: 'Office for National Statistics' } },
-    { '@type': 'Dataset', name: 'Rightmove House Price Data', publisher: { '@type': 'Organization', name: 'Rightmove' } },
-    { '@type': 'Dataset', name: 'CW&C Ward Price Data', publisher: { '@type': 'GovernmentOrganization', name: 'Cheshire West and Chester Council' } },
+    { '@type': 'Dataset', name: 'ONS UK House Price Index', url: 'https://www.ons.gov.uk/economy/inflationandpriceindices/bulletins/housepriceindex/latest', publisher: { '@type': 'GovernmentOrganization', name: 'Office for National Statistics' }, temporalCoverage: '2025-12' },
+    { '@type': 'Dataset', name: 'Rightmove House Price Data', publisher: { '@type': 'Organization', name: 'Rightmove' }, temporalCoverage: '2025-03/2026-02' },
+    { '@type': 'Dataset', name: 'CW&C Ward Median Price Data', publisher: { '@type': 'GovernmentOrganization', name: 'Cheshire West and Chester Council' }, temporalCoverage: '2023' },
+    { '@type': 'Dataset', name: 'Census 2021 Ward Populations', publisher: { '@type': 'GovernmentOrganization', name: 'Office for National Statistics' }, temporalCoverage: '2021' },
+    { '@type': 'Dataset', name: 'PlumPlot County Averages', publisher: { '@type': 'Organization', name: 'PlumPlot' }, temporalCoverage: '2025' },
   ],
   publisher: { '@type': 'Organization', name: 'Move to Cheshire', url: 'https://movetocheshire.uk' },
+  hasPart: [
+    { '@type': 'ItemList', name: 'Cheshire Unitary Authority Price Comparison', url: 'https://movetocheshire.uk/house-prices#authority-comparison' },
+    { '@type': 'ItemList', name: 'Golden Triangle House Prices', url: 'https://movetocheshire.uk/house-prices#golden-triangle' },
+    { '@type': 'ItemList', name: 'Cheshire Towns Ranked by Price', url: 'https://movetocheshire.uk/house-prices#ranked-table' },
+    { '@type': 'ItemList', name: 'Cheshire West Ward Prices', url: 'https://movetocheshire.uk/house-prices#ward-prices' },
+    { '@type': 'ItemList', name: 'Neighbouring County Comparison', url: 'https://movetocheshire.uk/house-prices#neighbouring-counties' },
+  ],
 };
 
 const breadcrumbSchema = {
@@ -188,6 +199,72 @@ const breadcrumbSchema = {
     { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://movetocheshire.uk' },
     { '@type': 'ListItem', position: 2, name: 'House Prices', item: 'https://movetocheshire.uk/house-prices' },
   ],
+};
+
+const authorityListSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: 'Cheshire Unitary Authority House Prices',
+  description: 'Average house prices for all four Cheshire unitary authorities by property type, with year-on-year growth rates.',
+  numberOfItems: 4,
+  itemListOrder: 'https://schema.org/ItemListOrderDescending',
+  isPartOf: { '@type': 'WebPage', url: 'https://movetocheshire.uk/house-prices' },
+  itemListElement: authorities.map((auth, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    item: {
+      '@type': 'Observation',
+      name: `${auth.name} average house price`,
+      observationAbout: { '@type': 'AdministrativeArea', name: auth.name, containedInPlace: { '@type': 'AdministrativeArea', name: 'Cheshire' } },
+      observationDate: '2025-12',
+      measuredProperty: { '@type': 'Property', name: 'averageHousePrice' },
+      value: parseInt(auth.price.replace(/[£,]/g, '')),
+      unitCode: 'GBP',
+    },
+  })),
+};
+
+const neighboursListSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: 'Cheshire vs Neighbouring County House Prices',
+  description: 'Average house prices for Cheshire and six neighbouring counties with min-max ranges and premium areas.',
+  numberOfItems: neighbours.length,
+  itemListOrder: 'https://schema.org/ItemListOrderDescending',
+  isPartOf: { '@type': 'WebPage', url: 'https://movetocheshire.uk/house-prices' },
+  itemListElement: neighbours.map((n, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    item: {
+      '@type': 'Observation',
+      name: `${n.name} average house price`,
+      observationAbout: { '@type': 'AdministrativeArea', name: n.name, containedInPlace: { '@type': 'Country', name: 'England' } },
+      observationDate: '2025',
+      measuredProperty: { '@type': 'Property', name: 'averageHousePrice' },
+      description: n.note,
+    },
+  })),
+};
+
+const wardListSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: 'Cheshire West and Chester Ward House Prices',
+  description: 'Median house prices for 35 wards in Cheshire West and Chester with population (Census 2021), settlement type, and key attributes.',
+  numberOfItems: cheshireWestTowns.length,
+  itemListOrder: 'https://schema.org/ItemListOrderDescending',
+  isPartOf: { '@type': 'WebPage', url: 'https://movetocheshire.uk/house-prices' },
+  itemListElement: cheshireWestTowns.map((town, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    item: {
+      '@type': 'Place',
+      additionalType: 'https://schema.org/Residence',
+      name: town.name,
+      description: `${town.type} in Cheshire West and Chester. Population ${town.pop} (Census 2021). ${town.attr}. Median house price ${town.price} (CW&C Council, 2023).`,
+      containedInPlace: { '@type': 'AdministrativeArea', name: 'Cheshire West and Chester' },
+    },
+  })),
 };
 
 const faqSchema = {
@@ -208,6 +285,9 @@ const faqSchema = {
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify(webPageSchema)} />
     <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(authorityListSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(neighboursListSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(wardListSchema)} />
     <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
   </Fragment>
 
