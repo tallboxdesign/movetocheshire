@@ -1,11 +1,325 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import SpokeLayout from '../../components/SpokeLayout.astro';
+
+const stats = [
+  { value: '69.8/1k', label: 'County crime rate', source: 'ONS, Mar 2025' },
+  { value: '87.2/1k', label: 'National average', source: 'ONS, Mar 2025' },
+  { value: '-1.7%', label: 'Year-on-year change', source: 'Cheshire Constabulary, Apr 2025' },
+];
+
+const townRates = [
+  { name: 'Great Boughton', rate: '25.61', level: 'low' },
+  { name: 'Birchwood', rate: '26.55', level: 'low' },
+  { name: 'Bollington', rate: '26.88', level: 'low' },
+  { name: 'Lymm', rate: '29.53', level: 'low' },
+  { name: 'Knutsford', rate: '33.97', level: 'low' },
+  { name: 'Poynton', rate: '33.51', level: 'low' },
+  { name: 'Wilmslow', rate: '37.01', level: 'low' },
+  { name: 'Macclesfield', rate: '66.17', level: 'mid' },
+  { name: 'Nantwich', rate: '71.14', level: 'mid' },
+  { name: 'Ellesmere Port', rate: '74.65', level: 'mid' },
+  { name: 'Northwich', rate: '80.84', level: 'high' },
+  { name: 'Chester', rate: '87.06', level: 'high' },
+  { name: 'Crewe', rate: '97.58', level: 'high' },
+  { name: 'Warrington', rate: '98.99', level: 'high' },
+];
+
+const crimeTypes = [
+  { type: 'Violence and sexual offences', rate: '29.44', vsNational: '0.94x' },
+  { type: 'Public order', rate: '6.97', vsNational: '1.16x' },
+  { type: 'Anti-social behaviour', rate: '5.79', vsNational: '0.39x' },
+  { type: 'Criminal damage and arson', rate: '4.19', vsNational: '0.65x' },
+  { type: 'Shoplifting', rate: '4.03', vsNational: '0.55x' },
+  { type: 'Other theft', rate: '3.66', vsNational: '0.62x' },
+  { type: 'Burglary', rate: '1.99', vsNational: '0.61x' },
+  { type: 'Vehicle crime', rate: '1.64', vsNational: '0.36x' },
+];
+
+const yearTrend = [
+  { year: '2025', rate: '57.97' },
+  { year: '2024', rate: '59.14' },
+  { year: '2023', rate: '61.96' },
+  { year: '2022', rate: '64.82' },
+  { year: '2021', rate: '63.16' },
+  { year: '2020', rate: '63.99' },
+  { year: '2019', rate: '69.49' },
+];
+
+const faqs = [
+  { question: 'Is Cheshire a safe place to live?', answer: "Cheshire recorded 69.8 offences per 1,000 population in the year ending March 2025 (ONS), 20% below the national average of 87.2. The county is the safest area in the North West, where the regional average is 91.9 per 1,000. Crime has fallen for three consecutive years, with a 1.7% decrease in the year ending April 2025 (Cheshire Constabulary)." },
+  { question: 'What are the safest areas in Cheshire?', answer: "Great Boughton (25.61/1k), Birchwood (26.55/1k), Bollington (26.88/1k), and Lymm (29.53/1k) record the lowest crime rates in Cheshire (CrimeRate, Nov 2025). These rates are 63-71% below the national average. Knutsford (33.97/1k) and Wilmslow (37.01/1k) combine low crime with strong schools and rail links." },
+  { question: 'What are the least safe areas in Cheshire?', answer: "Warrington (98.99/1k), Crewe (97.58/1k), and Chester city centre (87.06/1k) record the highest crime rates in Cheshire (CrimeRate, Nov 2025). These rates are elevated by urban nightlife and retail crime. Chester city centre holds Purple Flag accreditation for safe evening entertainment management." },
+  { question: 'Is Cheshire safer than Manchester?', answer: "Cheshire recorded 69.8 offences per 1,000 (ONS, Mar 2025), compared to the North West regional average of 91.9 per 1,000. Greater Manchester Police Force area recorded 113.4 offences per 1,000 (ONS, Mar 2025), 63% above the Cheshire rate. Cheshire Constabulary ranks in the top 5 nationally for charge/summonsed outcome rates across all crimes." },
+  { question: 'Is burglary a problem in Cheshire?', answer: "Cheshire recorded 1.99 burglaries per 1,000 population in the 12 months ending November 2025, 39% below the national average (CrimeRate). Burglary fell 12.7% year-on-year in the period ending April 2025 (Cheshire Constabulary). Vehicle crime fell 14.7% in the same period." },
+  { question: 'How good is Cheshire Police?', answer: "Cheshire Constabulary ranks in the top 5 police forces nationally for charge/summonsed outcome rates. The force has the 2nd highest charge rate for sexual offences in the UK. 93% of 999 calls are answered within 10 seconds. 92% of emergency incidents are attended within 15 minutes. The percentage of offenders brought to justice reached 20% in 2024/25." },
+];
+
+const relatedSpokes = [
+  { label: 'Pros and Cons of Living in Cheshire', href: '/lifestyle/pros-cons-living-cheshire', tag: 'Lifestyle' },
+  { label: 'Moving from London to Cheshire', href: '/lifestyle/moving-london-cheshire', tag: 'Lifestyle' },
+  { label: 'Best Places to Live in Cheshire', href: '/where-to-live/best-places-cheshire', tag: 'Area Guide' },
+  { label: 'Average House Price in Cheshire', href: '/house-prices/average-house-price-cheshire', tag: 'Prices' },
+];
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((faq) => ({
+    '@type': 'Question',
+    name: faq.question,
+    acceptedAnswer: { '@type': 'Answer', text: faq.answer },
+  })),
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://movetocheshire.uk' },
+    { '@type': 'ListItem', position: 2, name: 'Is It Worth It?', item: 'https://movetocheshire.uk/lifestyle' },
+    { '@type': 'ListItem', position: 3, name: 'Is Cheshire Safe?', item: 'https://movetocheshire.uk/lifestyle/is-cheshire-safe' },
+  ],
+};
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: 'Is Cheshire Safe? Crime Rates by Area',
+  description: 'Cheshire recorded 69.8 offences per 1,000 population in 2025, 20% below the national average. Town-by-town breakdown with ONS and police data.',
+  datePublished: '2026-02-24',
+  dateModified: '2026-02-24',
+  author: { '@type': 'Organization', name: 'movetocheshire.uk', url: 'https://movetocheshire.uk' },
+  publisher: { '@type': 'Organization', name: 'movetocheshire.uk', url: 'https://movetocheshire.uk' },
+  mainEntityOfPage: 'https://movetocheshire.uk/lifestyle/is-cheshire-safe',
+};
 ---
 
 <BaseLayout
-  title="Is Cheshire Safe? | Crime Data | movetocheshire.uk"
-  description="Crime rates by area sourced from Cheshire Constabulary and ONS. How Cheshire compares to Greater Manchester and England averages."
+  title="Is Cheshire Safe? | Crime Rates by Area | movetocheshire.uk"
+  description="Cheshire recorded 69.8 offences per 1,000 population in 2025, 20% below the national average. Town-by-town crime breakdown with ONS and police data."
 >
-  <SpokeLayout tag="Honest Assessment" hubLabel="Is It Worth It?" hubHref="/lifestyle" title="Is Cheshire Safe?" description="Crime rates by area sourced from Cheshire Constabulary and ONS. How Cheshire compares to Greater Manchester and England averages." />
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+  </Fragment>
+
+  <!-- Breadcrumb -->
+  <div class="section-pad" style="padding-top: 20px; padding-bottom: 0;">
+    <div class="section-inner">
+      <nav aria-label="Breadcrumb" style="font-family: Inter, Arial, sans-serif; font-size: 13px; color: #999999;">
+        <a href="/" style="color: #999999; text-decoration: none;">Home</a>
+        <span style="margin: 0 8px;">/</span>
+        <a href="/lifestyle" style="color: #999999; text-decoration: none;">Is It Worth It?</a>
+        <span style="margin: 0 8px;">/</span>
+        <span style="color: #1C1C1E;">Is Cheshire Safe?</span>
+      </nav>
+    </div>
+  </div>
+
+  <!-- Hero -->
+  <section class="section-pad" style="padding-top: 40px;">
+    <div class="section-inner" style="max-width: 720px;">
+      <span class="section-label">Crime Data</span>
+      <h1 style="font-family: Georgia, serif; font-size: clamp(28px, 4.5vw, 44px); font-weight: 700; color: #1C1C1E; line-height: 1.15; margin: 0 0 20px 0; letter-spacing: -0.02em;">Is Cheshire Safe?</h1>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 18px; line-height: 1.7; color: #444444; margin: 0 0 24px 0;">
+        Cheshire is the safest county in the North West with 69.8 offences per 1,000 population (ONS, March 2025), 20% below the national average. Town-by-town crime rates, type breakdowns, and police performance data from ONS, Cheshire Constabulary, and CrimeRate.
+      </p>
+      <span style="display: inline-block; font-family: Inter, Arial, sans-serif; font-size: 12px; font-weight: 600; color: #3D5A3E; background-color: rgba(61, 90, 62, 0.08); padding: 6px 12px; letter-spacing: 0.02em;">Last updated: February 2026</span>
+    </div>
+  </section>
+
+  <!-- Stat Bar -->
+  <section class="section-pad" style="padding-top: 0;">
+    <div class="section-inner">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px;">
+        {stats.map((stat) => (
+          <div style="background-color: #FFFFFF; border: 1px solid #E5E0D8; padding: 28px 24px;">
+            <p class="data-tile-value" style="margin: 0 0 8px 0;">{stat.value}</p>
+            <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; font-weight: 600; color: #1C1C1E; margin: 0 0 4px 0;">{stat.label}</p>
+            <p style="font-family: Inter, Arial, sans-serif; font-size: 12px; color: #999999; margin: 0;">{stat.source}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Quick Answer -->
+  <section class="section-pad">
+    <div class="section-inner" style="max-width: 720px;">
+      <span class="section-label">The short answer</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 24px 0;">
+        How safe is Cheshire compared to the rest of England?
+      </h2>
+      <div style="display: flex; flex-direction: column; gap: 16px;">
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #1C1C1E; margin: 0;">Cheshire recorded 69.8 offences per 1,000 population in the year ending March 2025 (ONS), 20% below the national average of 87.2 per 1,000 and 24% below the North West regional average of 91.9 per 1,000. Cheshire is the safest county in the North West.</p>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0;">Crime in Cheshire has fallen for three consecutive years (Cheshire Constabulary, Apr 2025). The year ending April 2025 recorded a 1.7% decrease in total crime (Cheshire Constabulary). Burglary fell 12.7%, vehicle crime fell 14.7%, and criminal damage fell 11.2% in the same period.</p>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0;">Cheshire crime rates vary by 73 percentage points across the county. Villages like Great Boughton (25.61/1k) and Birchwood (26.55/1k) record rates 70% below the national average. Urban centres like Warrington (98.99/1k) and Crewe (97.58/1k) sit above the national average due to nightlife and retail crime.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Town-by-Town Crime Rates -->
+  <section class="section-pad" style="background-color: #FFFFFF; border-top: 1px solid #E5E0D8; border-bottom: 1px solid #E5E0D8;">
+    <div class="section-inner">
+      <span class="section-label">By area</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 12px 0;">What is the crime rate in each Cheshire town?</h2>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.7; color: #444444; margin: 0 0 28px 0;">Cheshire crime rates range from 25.61 per 1,000 in Great Boughton to 98.99 per 1,000 in Warrington (CrimeRate, 12 months ending November 2025). The national average is 74.32 per 1,000 (CrimeRate, Nov 2025).</p>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px;">
+        {townRates.map((town) => (
+          <div style={`padding: 20px; border-left: 3px solid ${town.level === 'low' ? '#3D5A3E' : town.level === 'mid' ? '#C4933F' : '#B85C3A'}; background-color: #F9F7F4;`}>
+            <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; font-weight: 700; color: #1C1C1E; margin: 0 0 4px 0;">{town.name}</p>
+            <p style="font-family: Inter, Arial, sans-serif; font-size: 22px; font-weight: 700; color: #1C1C1E; margin: 0 0 4px 0;">{town.rate}<span style="font-size: 13px; font-weight: 400; color: #999999;">/1k</span></p>
+            <p style={`font-family: Inter, Arial, sans-serif; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; margin: 0; color: ${town.level === 'low' ? '#3D5A3E' : town.level === 'mid' ? '#C4933F' : '#B85C3A'};`}>
+              {town.level === 'low' ? 'Below average' : town.level === 'mid' ? 'Near average' : 'Above average'}
+            </p>
+          </div>
+        ))}
+      </div>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 12px; color: #999999; margin: 16px 0 0 0;">Source: CrimeRate.co.uk, 12 months ending November 2025. National average: 74.32/1k.</p>
+    </div>
+  </section>
+
+  <!-- Crime Type Breakdown -->
+  <section class="section-pad">
+    <div class="section-inner" style="max-width: 800px;">
+      <span class="section-label">By crime type</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 12px 0;">What types of crime occur in Cheshire?</h2>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.7; color: #444444; margin: 0 0 28px 0;">Cheshire records below-national-average rates for 13 of 14 crime categories (CrimeRate, 12 months ending November 2025). The only exception is public order offences at 1.16x the national rate (CrimeRate, 12 months ending November 2025).</p>
+      <div style="display: flex; flex-direction: column; gap: 0;">
+        {crimeTypes.map((crime, index) => (
+          <div style={`display: grid; grid-template-columns: 1fr 80px 80px; gap: 16px; align-items: center; padding: 16px 0; border-top: ${index === 0 ? '2px solid #3D5A3E' : '1px solid #E5E0D8'};`}>
+            <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; font-weight: 600; color: #1C1C1E; margin: 0;">{crime.type}</p>
+            <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; font-weight: 700; color: #1C1C1E; margin: 0; text-align: right;">{crime.rate}/1k</p>
+            <p style={`font-family: Inter, Arial, sans-serif; font-size: 12px; font-weight: 600; margin: 0; text-align: right; color: ${parseFloat(crime.vsNational) > 1 ? '#B85C3A' : '#3D5A3E'};`}>{crime.vsNational} national</p>
+          </div>
+        ))}
+      </div>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 12px; color: #999999; margin: 16px 0 0 0;">Source: CrimeRate.co.uk, 12 months ending November 2025. Multiplier shows Cheshire rate relative to national average (below 1.0 = lower than national).</p>
+    </div>
+  </section>
+
+  <!-- Year-on-Year Trend -->
+  <section class="section-pad" style="background-color: #FFFFFF; border-top: 1px solid #E5E0D8; border-bottom: 1px solid #E5E0D8;">
+    <div class="section-inner" style="max-width: 720px;">
+      <span class="section-label">Trend</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 12px 0;">Is crime in Cheshire going up or down?</h2>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.7; color: #444444; margin: 0 0 28px 0;">Crime in Cheshire has fallen from 69.49 per 1,000 in 2019 to 57.97 per 1,000 in 2025, a 17% reduction over six years (CrimeRate). The CrimeRate risk index for Cheshire fell from 78 to 58 between 2020 and 2025.</p>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(85px, 1fr)); gap: 12px;">
+        {yearTrend.map((year) => (
+          <div style="background-color: #F9F7F4; padding: 16px 12px; text-align: center;">
+            <p style="font-family: Inter, Arial, sans-serif; font-size: 12px; font-weight: 600; color: #999999; margin: 0 0 6px 0;">{year.year}</p>
+            <p style="font-family: Inter, Arial, sans-serif; font-size: 18px; font-weight: 700; color: #1C1C1E; margin: 0;">{year.rate}</p>
+            <p style="font-family: Inter, Arial, sans-serif; font-size: 11px; color: #999999; margin: 2px 0 0 0;">/1k</p>
+          </div>
+        ))}
+      </div>
+      <div style="margin-top: 24px; display: flex; flex-direction: column; gap: 12px;">
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.7; color: #444444; margin: 0;">Cheshire Constabulary recorded the steepest annual falls in property crime: residential burglary down 12.7%, vehicle offences down 14.7%, and criminal damage down 11.2% in the year ending April 2025. Violent crime fell 3.2% in the same period.</p>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.7; color: #444444; margin: 0;">The one category trending upward is public order offences, which increased 2.67% over the past three years. Shoplifting fell 23% and criminal damage fell 17% over the same three-year period.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Police Performance -->
+  <section class="section-pad">
+    <div class="section-inner" style="max-width: 720px;">
+      <span class="section-label">Policing</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 12px 0;">How does Cheshire Constabulary perform nationally?</h2>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.7; color: #444444; margin: 0 0 28px 0;">Cheshire Constabulary ranks in the top 5 police forces nationally for charge/summonsed outcome rates across all crime categories (PCC Performance Report, 2024/25).</p>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px;">
+        {[
+          { metric: 'Charge rate ranking', value: 'Top 5 nationally', detail: 'Across all crime categories' },
+          { metric: 'Sexual offences charge rate', value: '2nd highest in UK', detail: '3rd highest for other sexual offences' },
+          { metric: '999 call answer time', value: '93% within 10 seconds', detail: 'Emergency call handling' },
+          { metric: 'Emergency response', value: '92% within 15 minutes', detail: 'Emergency incident attendance' },
+          { metric: 'Offenders brought to justice', value: '20%', detail: '2024/25 financial year' },
+        ].map((item) => (
+          <div style="border-left: 3px solid #3D5A3E; background-color: #F9F7F4; padding: 20px;">
+            <p style="font-family: Inter, Arial, sans-serif; font-size: 12px; font-weight: 600; color: #999999; text-transform: uppercase; letter-spacing: 0.05em; margin: 0 0 6px 0;">{item.metric}</p>
+            <p style="font-family: Inter, Arial, sans-serif; font-size: 18px; font-weight: 700; color: #1C1C1E; margin: 0 0 4px 0;">{item.value}</p>
+            <p style="font-family: Inter, Arial, sans-serif; font-size: 13px; color: #444444; margin: 0;">{item.detail}</p>
+          </div>
+        ))}
+      </div>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 12px; color: #999999; margin: 16px 0 0 0;">Source: Cheshire Constabulary and PCC Performance Report, 2024/25.</p>
+    </div>
+  </section>
+
+  <!-- Relocator Questions -->
+  <section class="section-pad" style="background-color: #FFFFFF; border-top: 1px solid #E5E0D8; border-bottom: 1px solid #E5E0D8;">
+    <div class="section-inner">
+      <span class="section-label">From the community</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 12px 0;">How does Cheshire crime compare to where relocators move from?</h2>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.7; color: #444444; margin: 0 0 28px 0;">Cheshire relocators from London and the North of England raise two recurring safety concerns: how suburban crime rates compare to inner-city areas, and whether lower-priced Cheshire towns carry higher risk.</p>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px;">
+        {[
+          { initials: 'SM', name: 'Sarah M.', location: 'Moving from South London', question: "We have two young children and safety is our top priority. We are looking at Knutsford and Wilmslow. How do their crime rates compare to where we are now in Brixton?", colour: '#3D5A3E' },
+          { initials: 'JR', name: 'James R.', location: 'Moving from Leeds', question: "I work night shifts and my wife would be home alone. We are considering Crewe because of the house prices, but the crime stats look higher than the rest of Cheshire. Is it a concern?", colour: '#C4933F' },
+        ].map((card) => (
+          <div style={`background-color: #F9F7F4; border-left: 3px solid ${card.colour}; padding: 28px 24px;`}>
+            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+              <div style={`width: 40px; height: 40px; border-radius: 50%; background-color: ${card.colour}; display: flex; align-items: center; justify-content: center; font-family: Inter, Arial, sans-serif; font-size: 14px; font-weight: 700; color: #FFFFFF; flex-shrink: 0;`}>{card.initials}</div>
+              <div>
+                <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; font-weight: 600; color: #1C1C1E; margin: 0;">{card.name}</p>
+                <span style={`font-family: Inter, Arial, sans-serif; font-size: 11px; font-weight: 600; color: ${card.colour}; background-color: ${card.colour}15; padding: 2px 8px; letter-spacing: 0.02em;`}>{card.location}</span>
+              </div>
+            </div>
+            <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.65; color: #444444; margin: 0; font-style: italic;">"{card.question}"</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Accordion -->
+  <section class="section-pad">
+    <div class="section-inner" style="max-width: 800px;">
+      <span class="section-label">Common questions</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 12px 0;">What else do people ask about Cheshire safety?</h2>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.7; color: #444444; margin: 0 0 28px 0;">Cheshire safety questions answered with ONS, Cheshire Constabulary, and CrimeRate data from 2024/25.</p>
+      <div>
+        {faqs.map((faq, index) => (
+          <details style={`border-top: ${index === 0 ? '2px solid #3D5A3E' : '1px solid #E5E0D8'};`}>
+            <summary style="padding: 20px 0; cursor: pointer; font-family: Inter, Arial, sans-serif; font-size: 16px; font-weight: 600; color: #1C1C1E; line-height: 1.4; list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 16px;">
+              {faq.question}
+              <span style="font-family: Georgia, serif; font-size: 20px; color: #C4933F; flex-shrink: 0;">+</span>
+            </summary>
+            <div style="padding-bottom: 24px;">
+              <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.75; color: #444444; margin: 0;">{faq.answer}</p>
+            </div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Good to Know -->
+  <section class="section-pad" style="background-color: #FFFFFF; border-top: 1px solid #E5E0D8; border-bottom: 1px solid #E5E0D8;">
+    <div class="section-inner" style="max-width: 720px;">
+      <div style="border-left: 3px solid #3D5A3E; background-color: rgba(61, 90, 62, 0.04); padding: 24px 28px;">
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; font-weight: 700; color: #3D5A3E; margin: 0 0 8px 0; text-transform: uppercase; letter-spacing: 0.05em;">Good to know</p>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.7; color: #444444; margin: 0;">
+          Crime statistics on this page use two sources with different reporting periods. ONS data (year ending March 2025) covers police-recorded crime across the Cheshire Constabulary area. CrimeRate data (12 months ending November 2025) uses data.police.uk and provides town-level breakdowns. The two sources use different methodologies, which explains minor differences in county-level figures. Town centre rates are elevated by nightlife, retail, and commuter footfall - residential areas within the same postcodes record lower rates.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Related Spokes -->
+  <section class="section-pad">
+    <div class="section-inner">
+      <span class="section-label">Related guides</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 12px 0;">Continue your Cheshire research</h2>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.7; color: #444444; margin: 0 0 28px 0;">Cheshire safety data connects to house prices, lifestyle trade-offs, and area-specific guides across the county.</p>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px;">
+        {relatedSpokes.map((spoke) => (
+          <a href={spoke.href} class="pillar-card" style="text-decoration: none; display: block;">
+            <span style="font-family: Inter, Arial, sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #3D5A3E; margin-bottom: 10px; display: block;">{spoke.tag}</span>
+            <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; font-weight: 600; color: #1C1C1E; margin: 0; line-height: 1.4;">{spoke.label}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
 </BaseLayout>
