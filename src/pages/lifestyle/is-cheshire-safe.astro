@@ -3,7 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 
 const stats = [
   { value: '69.8/1k', label: 'County crime rate', source: 'ONS, Mar 2025' },
-  { value: '87.2/1k', label: 'National average', source: 'ONS, Mar 2025' },
+  { value: '87.2/1k', label: 'England & Wales average', source: 'ONS, Mar 2025' },
   { value: '-1.7%', label: 'Year-on-year change', source: 'Cheshire Constabulary, Apr 2025' },
 ];
 
@@ -120,7 +120,7 @@ const articleSchema = {
   <!-- Hero -->
   <section class="section-pad" style="padding-top: 40px;">
     <div class="section-inner" style="max-width: 720px;">
-      <span class="section-label">Crime Data</span>
+      <span class="section-label">Crime data</span>
       <h1 style="font-family: Georgia, serif; font-size: clamp(28px, 4.5vw, 44px); font-weight: 700; color: #1C1C1E; line-height: 1.15; margin: 0 0 20px 0; letter-spacing: -0.02em;">Is Cheshire Safe?</h1>
       <p style="font-family: Inter, Arial, sans-serif; font-size: 18px; line-height: 1.7; color: #444444; margin: 0 0 24px 0;">
         Cheshire is the safest county in the North West with 69.8 offences per 1,000 population (ONS, March 2025), 20% below the national average. Town-by-town crime rates, type breakdowns, and police performance data from ONS, Cheshire Constabulary, and CrimeRate.
@@ -147,14 +147,14 @@ const articleSchema = {
   <!-- Quick Answer -->
   <section class="section-pad">
     <div class="section-inner" style="max-width: 720px;">
-      <span class="section-label">The short answer</span>
+      <span class="section-label">Cheshire crime safety summary</span>
       <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 24px 0;">
         How safe is Cheshire compared to the rest of England?
       </h2>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #1C1C1E; margin: 0 0 24px 0; padding-bottom: 20px; border-bottom: 1px solid #E5E0D8;"><strong>Cheshire recorded 69.8 offences per 1,000 population (ONS, March 2025), 20% below the national average of 87.2.</strong> Cheshire is the safest county in the North West, where the regional average is 91.9 per 1,000. Crime fell 1.7% year-on-year (Cheshire Constabulary, Apr 2025). Town rates range from 25.61/1k in Great Boughton to 98.99/1k in Warrington. This page covers 14 towns, 8 crime types, and a 7-year trend from 3 data sources.</p>
       <div style="display: flex; flex-direction: column; gap: 16px;">
-        <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #1C1C1E; margin: 0;">Cheshire recorded 69.8 offences per 1,000 population in the year ending March 2025 (ONS), 20% below the national average of 87.2 per 1,000 and 24% below the North West regional average of 91.9 per 1,000. Cheshire is the safest county in the North West.</p>
-        <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0;">Crime in Cheshire has fallen for three consecutive years (Cheshire Constabulary, Apr 2025). The year ending April 2025 recorded a 1.7% decrease in total crime (Cheshire Constabulary). Burglary fell 12.7%, vehicle crime fell 14.7%, and criminal damage fell 11.2% in the same period.</p>
-        <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0;">Cheshire crime rates vary by 73 percentage points across the county. Villages like Great Boughton (25.61/1k) and Birchwood (26.55/1k) record rates 70% below the national average. Urban centres like Warrington (98.99/1k) and Crewe (97.58/1k) sit above the national average due to nightlife and retail crime.</p>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0;">Crime in Cheshire has fallen for three consecutive years (Cheshire Constabulary, Apr 2025). The year ending April 2025 recorded a 1.7% decrease in total crime. Burglary fell 12.7%, vehicle crime fell 14.7%, and criminal damage fell 11.2% in the same period.</p>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0;">Cheshire crime rates vary by 73 percentage points across the county. Great Boughton (25.61/1k) and Birchwood (26.55/1k) record rates 70% below the national average. Warrington (98.99/1k) and Crewe (97.58/1k) sit above the national average due to nightlife and retail crime.</p>
       </div>
     </div>
   </section>
@@ -162,7 +162,7 @@ const articleSchema = {
   <!-- Town-by-Town Crime Rates -->
   <section class="section-pad" style="background-color: #FFFFFF; border-top: 1px solid #E5E0D8; border-bottom: 1px solid #E5E0D8;">
     <div class="section-inner">
-      <span class="section-label">By area</span>
+      <span class="section-label">Town crime rates</span>
       <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 12px 0;">What is the crime rate in each Cheshire town?</h2>
       <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.7; color: #444444; margin: 0 0 28px 0;">Cheshire crime rates range from 25.61 per 1,000 in Great Boughton to 98.99 per 1,000 in Warrington (CrimeRate, 12 months ending November 2025). The national average is 74.32 per 1,000 (CrimeRate, Nov 2025).</p>
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px;">
@@ -183,7 +183,7 @@ const articleSchema = {
   <!-- Crime Type Breakdown -->
   <section class="section-pad">
     <div class="section-inner" style="max-width: 800px;">
-      <span class="section-label">By crime type</span>
+      <span class="section-label">Crime type breakdown</span>
       <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 12px 0;">What types of crime occur in Cheshire?</h2>
       <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.7; color: #444444; margin: 0 0 28px 0;">Cheshire records below-national-average rates for 13 of 14 crime categories (CrimeRate, 12 months ending November 2025). The only exception is public order offences at 1.16x the national rate (CrimeRate, 12 months ending November 2025).</p>
       <div style="display: flex; flex-direction: column; gap: 0;">
@@ -202,7 +202,7 @@ const articleSchema = {
   <!-- Year-on-Year Trend -->
   <section class="section-pad" style="background-color: #FFFFFF; border-top: 1px solid #E5E0D8; border-bottom: 1px solid #E5E0D8;">
     <div class="section-inner" style="max-width: 720px;">
-      <span class="section-label">Trend</span>
+      <span class="section-label">County crime trend</span>
       <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 12px 0;">Is crime in Cheshire going up or down?</h2>
       <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.7; color: #444444; margin: 0 0 28px 0;">Crime in Cheshire has fallen from 69.49 per 1,000 in 2019 to 57.97 per 1,000 in 2025, a 17% reduction over six years (CrimeRate). The CrimeRate risk index for Cheshire fell from 78 to 58 between 2020 and 2025.</p>
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(85px, 1fr)); gap: 12px;">
@@ -224,7 +224,7 @@ const articleSchema = {
   <!-- Police Performance -->
   <section class="section-pad">
     <div class="section-inner" style="max-width: 720px;">
-      <span class="section-label">Policing</span>
+      <span class="section-label">Cheshire Constabulary performance</span>
       <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 12px 0;">How does Cheshire Constabulary perform nationally?</h2>
       <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.7; color: #444444; margin: 0 0 28px 0;">Cheshire Constabulary ranks in the top 5 police forces nationally for charge/summonsed outcome rates across all crime categories (PCC Performance Report, 2024/25).</p>
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px;">
@@ -249,7 +249,7 @@ const articleSchema = {
   <!-- Relocator Questions -->
   <section class="section-pad" style="background-color: #FFFFFF; border-top: 1px solid #E5E0D8; border-bottom: 1px solid #E5E0D8;">
     <div class="section-inner">
-      <span class="section-label">From the community</span>
+      <span class="section-label">Relocator safety questions</span>
       <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 12px 0;">How does Cheshire crime compare to where relocators move from?</h2>
       <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.7; color: #444444; margin: 0 0 28px 0;">Cheshire relocators from London and the North of England raise two recurring safety concerns: how suburban crime rates compare to inner-city areas, and whether lower-priced Cheshire towns carry higher risk.</p>
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px;">
@@ -275,7 +275,7 @@ const articleSchema = {
   <!-- FAQ Accordion -->
   <section class="section-pad">
     <div class="section-inner" style="max-width: 800px;">
-      <span class="section-label">Common questions</span>
+      <span class="section-label">Safety FAQ</span>
       <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 12px 0;">What else do people ask about Cheshire safety?</h2>
       <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.7; color: #444444; margin: 0 0 28px 0;">Cheshire safety questions answered with ONS, Cheshire Constabulary, and CrimeRate data from 2024/25.</p>
       <div>

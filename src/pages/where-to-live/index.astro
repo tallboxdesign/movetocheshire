@@ -5,14 +5,14 @@ import HubLayout from '../../components/HubLayout.astro';
 const spokes = [
   { label: 'Best Places to Live in Cheshire', href: '/where-to-live/best-places-cheshire', description: "A data-led ranking of Cheshire's most desirable towns and villages, weighing schools, commute times, prices, and quality of life." },
   { label: 'The Cheshire Golden Triangle', href: '/where-to-live/cheshire-golden-triangle', description: "Wilmslow, Alderley Edge, and Prestbury - what makes the Golden Triangle different, who lives there, and whether the premium is justified." },
-  { label: 'Moving to Chester', href: '/where-to-live/chester', description: "The county's historic city - different character, different buyer profile, and a different value proposition." },
+  { label: 'Moving to Chester', href: '/where-to-live/chester', description: "The county's historic city - its own character, a distinct buyer profile, and a separate value proposition." },
 ];
 
 const relatedHubs = [
-  { label: 'House Prices', href: '/house-prices' },
-  { label: 'Schools', href: '/schools' },
-  { label: 'Commuting', href: '/commuting' },
-  { label: 'Lifestyle', href: '/lifestyle' },
+  { label: 'Cheshire House Prices', href: '/house-prices' },
+  { label: 'Cheshire Schools', href: '/schools' },
+  { label: 'Cheshire Commuting', href: '/commuting' },
+  { label: 'Cheshire Lifestyle', href: '/lifestyle' },
 ];
 
 const faqSchema = {
@@ -31,7 +31,7 @@ const faqSchema = {
 const webPageSchema = {
   '@context': 'https://schema.org',
   '@type': 'CollectionPage',
-  name: 'Where to Live in Cheshire: A Straight Guide to Every Area',
+  name: 'Where to Live in Cheshire?',
   description: 'Area-by-area comparisons of every major Cheshire town and village, with average prices, school data, and commute times.',
   url: 'https://movetocheshire.uk/where-to-live',
   dateModified: '2026-02-01',
@@ -84,11 +84,11 @@ const areas = [
 const faqs = [
   {
     question: 'Is Cheshire expensive to live in?',
-    answer: `It depends which part. Cheshire East averages £306,000 across all property types (Source: ONS, November 2025), but that figure masks a wide range - from Crewe at around £175,000 to Alderley Edge above £700,000. The difference between Cheshire East vs Cheshire West and Chester is significant: Cheshire East averages £306,000 while Cheshire West and Chester sits at £266,000, reflecting different housing stock and commuter demand. Day-to-day costs in the county are broadly in line with the national average outside of the premium towns, where restaurants and independent schools push spending up significantly.`,
+    answer: `Cheshire East averages £306,000 and Cheshire West averages £266,000 across all property types (Source: ONS, November 2025), but the county range spans from £175,000 in Crewe to above £700,000 in Alderley Edge. Cheshire East sits 5% above the national average of £290,000; Cheshire West sits 8% below. Day-to-day costs outside the premium towns are broadly in line with the national average, though restaurants and independent schools in the Golden Triangle push spending noticeably above county norms.`,
   },
   {
     question: 'Is Cheshire a good place to raise a family?',
-    answer: `The county has a high density of Outstanding and Good Ofsted schools, particularly in Cheshire East, and most of the main towns have accessible parks, sports clubs, and youth facilities. The constraint is that outside the larger towns, getting children to activities depends almost entirely on car ownership - public transport is limited outside the main rail corridors. Across both authorities, 76 schools hold Outstanding Ofsted ratings - roughly 22%, compared with 16% nationally. (Source: SNobe / Ofsted, 2024-25; GOV.UK, August 2025)`,
+    answer: `The county has a high density of Outstanding and Good Ofsted schools, particularly in Cheshire East, and Wilmslow, Knutsford, Macclesfield, Chester, and Nantwich have accessible parks, sports clubs, and youth facilities. The constraint is that outside the larger towns, getting children to activities depends almost entirely on car ownership - public transport is limited outside the main rail corridors. Across both authorities, 76 schools hold Outstanding Ofsted ratings - roughly 22%, compared with 16% nationally. (Source: SNobe / Ofsted, 2024-25; GOV.UK, August 2025)`,
   },
   {
     question: 'What is the Golden Triangle in Cheshire?',
@@ -96,11 +96,11 @@ const faqs = [
   },
   {
     question: 'How long is the commute from Cheshire to Manchester?',
-    answer: `It varies significantly by town. The fastest is Wilmslow at 17 minutes to Manchester Piccadilly (Source: National Rail, 2025). Prestbury and Alderley Edge are 20 and 22 minutes respectively. Macclesfield is 25 minutes. Chester is around 50 minutes. Towns like Tarporley and Nantwich have no direct service and require a car to a connecting station, putting the total journey over an hour.`,
+    answer: `Wilmslow is the fastest Cheshire commute at 17 minutes to Manchester Piccadilly (Source: National Rail, 2025). Prestbury takes 20 minutes, Alderley Edge 22 minutes, and Macclesfield 25 minutes. Chester is approximately 50 minutes. Tarporley and Nantwich have no direct rail service and require a car to a connecting station, putting the total journey above 60 minutes.`,
   },
   {
     question: 'Is it worth moving from London to Cheshire?',
-    answer: `For most households selling in inner or mid London, the equity released by the move is substantial - a flat that sold for £600,000 in zone 2 buys a four-bedroom detached house in Wilmslow with money left over. The practical trade-offs are real: London's cultural and professional density does not exist in Cheshire, and if your work requires regular in-person presence in central London, the journey is significant. For Manchester commuters, the calculation is much cleaner.`,
+    answer: `For most households selling in inner or mid London, the equity released by the move is substantial - a flat that sold for £600,000 in zone 2 buys a four-bedroom detached house in Wilmslow with money left over. The practical trade-offs are real: London's cultural and professional density does not exist in Cheshire, and regular in-person presence in central London requires a 2-hour train from Crewe or Wilmslow. For Manchester commuters, the 17- to 25-minute rail journey makes the equity gain straightforward.`,
   },
   {
     question: 'What is the cost of living in Cheshire compared to London?',
@@ -110,8 +110,8 @@ const faqs = [
 ---
 
 <BaseLayout
-  title="Where to Live in Cheshire | Area Guides | movetocheshire.uk"
-  description="Area-by-area comparisons of every major Cheshire town and village. Covering the commuter belt, the Golden Triangle, family hotspots, and affordable options - with average prices, Ofsted school data, and commute times."
+  title="Where to Live in Cheshire? | Area Guides | movetocheshire.uk"
+  description="Cheshire area guide comparing ten towns by house price, school Ofsted rating, and train commute to Manchester - from Crewe (£175,000, 55 min) to Alderley Edge (£700,000+, 22 min). Budget tier analysis, relocator case studies, and honest trade-offs sourced from ONS, Rightmove, and National Rail data (2025)."
 >
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
@@ -121,9 +121,10 @@ const faqs = [
   </Fragment>
 
   <HubLayout
-    tag="Area Guide"
-    title="Where to Live in Cheshire: A Straight Guide to Every Area"
-    description="Area-by-area comparisons of every major Cheshire town and village. Covering the commuter belt, the Golden Triangle, family hotspots, and affordable options - with average prices, school data, and commute times."
+    breadcrumb="Area Guide"
+    tag="Relocation Guide"
+    title="Where to Live in Cheshire?"
+    description="Cheshire area guide comparing ten towns by house price, school Ofsted rating, and train commute to Manchester - from Crewe (£175,000, 55 min) to Alderley Edge (£700,000+, 22 min). Budget tier analysis, relocator case studies, and honest trade-offs sourced from ONS, Rightmove, and National Rail data (2025)."
     spokes={spokes}
     relatedHubs={relatedHubs}
   >
@@ -134,6 +135,7 @@ const faqs = [
     </p>
 
     <!-- STAT BAR -->
+    <p style="font-family: Inter, Arial, sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #888888; margin: 0 0 12px 0;">Cheshire at a glance</p>
     <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border: 1px solid #E5E0D8; margin-bottom: 48px;">
       <div style="padding: 24px; border-right: 1px solid #E5E0D8; text-align: center;">
         <p style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; margin: 0 0 6px 0;">£306,000</p>
@@ -147,27 +149,57 @@ const faqs = [
       </div>
       <div style="padding: 24px; text-align: center;">
         <p style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #C4933F; margin: 0 0 6px 0;">17 mins</p>
-        <p style="font-family: Inter, Arial, sans-serif; font-size: 13px; color: #555555; margin: 0 0 4px 0;">Fastest train, Wilmslow to Manchester</p>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 13px; color: #555555; margin: 0 0 4px 0;">Fastest Cheshire train, Wilmslow to Manchester</p>
         <p style="font-family: Inter, Arial, sans-serif; font-size: 11px; color: #999999; font-style: italic; margin: 0;">Source: National Rail, 2025</p>
       </div>
     </div>
 
     <!-- INTRO COPY -->
-    <div style="max-width: 720px; margin-bottom: 48px;">
+    <div style="max-width: 720px; margin-bottom: 48px; margin-left: auto; margin-right: auto;">
       <p style="font-family: Inter, Arial, sans-serif; font-size: 17px; line-height: 1.75; color: #333333; margin: 0 0 20px 0;">
-        Cheshire is not one market - it is three, stacked by budget, commute tolerance, and what you are willing to trade off. For families, the county offers some of the strongest school catchments outside London. The county stretches from the outer edge of Greater Manchester's commuter belt down to the Welsh border, and the difference in price between the top and bottom of that range is roughly £525,000. Getting the right answer to where you should live depends on which of those three zones fits your situation.
+        Cheshire is not one market - it is three, stacked by budget, commute tolerance, and lifestyle priority. Cheshire East has 76 Outstanding-rated schools - 22% of its total versus 16% nationally (Ofsted/SNobe, 2024-25). Cheshire stretches from Greater Manchester's commuter belt to the Welsh border. The price gap between the top and bottom of that range is £525,000. The three tiers - premium (£490,000+), mid-range (£220,000-£430,000), and accessible (under £220,000) - carry distinct commute times and school profiles.
       </p>
-      <p style="font-family: Inter, Arial, sans-serif; font-size: 17px; line-height: 1.75; color: #333333; margin: 0 0 20px 0;">
-        The top tier is the <a href="/where-to-live/cheshire-golden-triangle" style="color: #3D5A3E; text-decoration: underline;">Golden Triangle</a>: Wilmslow, Alderley Edge, and Prestbury. These commuter villages draw the highest earners out of Manchester and the Londoners who arrive with significant equity. Alderley Edge averages above £700,000 and Prestbury above £650,000. Schools are consistently rated Outstanding, trains to Manchester Piccadilly run every 15 to 20 minutes, and the fastest journey from Wilmslow takes 17 minutes. <em style="color: #888888; font-size: 14px;">(Source: National Rail, 2025)</em> If you have a budget above £600,000 and a Manchester commute to manage, this is the rational choice - not a lifestyle indulgence.
+    </div>
+
+    <!-- THREE PRICE TIERS -->
+    <div style="max-width: 720px; margin-bottom: 48px; margin-left: auto; margin-right: auto;">
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 28px); font-weight: 700; color: #1C1C1E; margin: 0 0 12px 0;">How does each Cheshire price tier compare?</h2>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; color: #555555; margin: 0 0 24px 0;">
+        Cheshire's three residential tiers range from £175,000 to above £700,000, each with different commute profiles, school concentrations, and trade-offs for relocating families.
       </p>
-      <p style="font-family: Inter, Arial, sans-serif; font-size: 17px; line-height: 1.75; color: #333333; margin: 0 0 20px 0;">
-        The middle band covers Knutsford, Macclesfield, Chester, and Nantwich. These towns offer much of the same school quality and access at 30 to 50 percent lower prices. Macclesfield is 25 minutes from Manchester Piccadilly and averages £280,000. <a href="/where-to-live/chester" style="color: #3D5A3E; text-decoration: underline;">Chester</a> is the county's only true city, with its own employment base, a direct train to London Euston, and an average price of £250,000 - though the Manchester commute at roughly 50 minutes is the compromise. This band is where most relocators from London end up, particularly those bringing £400,000 to £650,000 from a sale in zone 2 or 3.
+      <h3 style="font-family: Inter, Arial, sans-serif; font-size: 19px; font-weight: 700; color: #1C1C1E; margin: 0 0 12px 0;">What does the premium Cheshire tier offer?</h3>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 17px; line-height: 1.75; color: #333333; margin: 0 0 10px 0;">
+        The <a href="/where-to-live/cheshire-golden-triangle" style="color: #3D5A3E; text-decoration: underline;">Golden Triangle</a> - Wilmslow, Alderley Edge, and Prestbury - averages £490,000 to above £700,000. Trains to Manchester Piccadilly run every 15 to 20 minutes, with Wilmslow the fastest at 17 minutes. <em style="color: #888888; font-size: 14px;">(Source: National Rail, 2025)</em>
       </p>
-      <p style="font-family: Inter, Arial, sans-serif; font-size: 17px; line-height: 1.75; color: #333333; margin: 0 0 20px 0;">
-        The accessible tier - Northwich at £220,000 and Crewe at £175,000 - serves buyers who are either working locally, hybrid working from home most of the week, or prioritising mortgage size over commute time. Crewe has direct trains to Manchester and London but the town itself is industrial in character and the surrounding housing stock is a different proposition from the villages further north. Northwich sits between the two larger zones and has improved meaningfully over the past decade, though it lacks the independent retail scene of Knutsford or the school density of the Golden Triangle.
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 17px; line-height: 1.75; color: #333333; margin: 0 0 28px 0;">
+        Schools across all three Cheshire towns are consistently rated Outstanding by Ofsted. Buyers with budgets above £600,000 and a Manchester commute access the county's highest-rated catchments and fastest rail connections from this tier.
+      </p>
+
+      <h3 style="font-family: Inter, Arial, sans-serif; font-size: 19px; font-weight: 700; color: #1C1C1E; margin: 0 0 12px 0;">What does the mid-range Cheshire tier offer?</h3>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 17px; line-height: 1.75; color: #333333; margin: 0 0 10px 0;">
+        Knutsford, Macclesfield, Chester, and Nantwich each have multiple Good- and Outstanding-rated schools at 30% to 50% lower prices than the Golden Triangle. Macclesfield averages £280,000 with a 25-minute train to Manchester Piccadilly.
+      </p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 17px; line-height: 1.75; color: #333333; margin: 0 0 28px 0;">
+        <a href="/where-to-live/chester" style="color: #3D5A3E; text-decoration: underline;">Chester</a> is the county's only true city, with its own employment base, a direct train to London Euston, and an average price of £250,000 - though the Manchester commute at roughly 50 minutes is the compromise. Most London relocators bringing £400,000 to £650,000 from a zone 2 or 3 sale land in this band.
+      </p>
+
+      <h3 style="font-family: Inter, Arial, sans-serif; font-size: 19px; font-weight: 700; color: #1C1C1E; margin: 0 0 12px 0;">What does the accessible Cheshire tier offer?</h3>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 17px; line-height: 1.75; color: #333333; margin: 0 0 10px 0;">
+        Northwich at £220,000 and Crewe at £175,000 serve buyers working locally, hybrid-working from home, or prioritising mortgage size over commute time. Crewe has direct trains to Manchester and London, but the housing stock is predominantly terraced and semi-detached.
       </p>
       <p style="font-family: Inter, Arial, sans-serif; font-size: 17px; line-height: 1.75; color: #333333; margin: 0;">
-        The typical relocator arriving from London is 35 to 45 years old, selling a flat or smaller house in zones 2 to 4, and arriving with equity of between £400,000 and £900,000. That money buys a detached house with a garden and buying into a school catchment that would cost three to four times as much in Surrey or Hertfordshire - London's average sits at £551,294 against Cheshire East's £306,000. <em style="color: #888888; font-size: 14px;">(Source: ONS / Land Registry UKHPI, December 2025)</em> The county rewards that move well - but only if you land in the right area for your particular situation.
+        Northwich sits between Cheshire's two larger zones and has added a Barons Quay retail development and new-build housing since 2015. Northwich lacks the independent retail scene of Knutsford or the school density of the Golden Triangle.
+      </p>
+    </div>
+
+    <!-- LONDON EQUITY -->
+    <div style="max-width: 720px; margin-bottom: 48px; margin-left: auto; margin-right: auto;">
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 28px); font-weight: 700; color: #1C1C1E; margin: 0 0 12px 0;">How far does London equity stretch in Cheshire?</h2>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 17px; line-height: 1.75; color: #333333; margin: 0 0 10px 0;">
+        London equity of £400,000 to £900,000 buys a detached house with a garden in Cheshire - a property type that costs £750,000 to £1,200,000 in Surrey or Hertfordshire (Land Registry, Dec 2025). London's average sits at £551,294 against Cheshire East's £306,000. <em style="color: #888888; font-size: 14px;">(Source: ONS / Land Registry UKHPI, December 2025)</em>
+      </p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 17px; line-height: 1.75; color: #333333; margin: 0;">
+        The typical relocator is 35 to 45 years old, selling a flat or smaller house in zones 2 to 4. The price differential favours the move - ten Cheshire towns match budgets from £175,000 to £700,000+ across commute times of 17 to 60 minutes.
       </p>
     </div>
 
@@ -175,14 +207,14 @@ const faqs = [
     <div style="margin-bottom: 48px;">
       <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 28px); font-weight: 700; color: #1C1C1E; margin: 0 0 12px 0;">Cheshire Areas: Quick Comparison</h2>
       <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; color: #555555; margin: 0 0 24px 0;">
-        Cheshire's ten main residential areas range from £175,000 in Crewe to above £700,000 in Alderley Edge, with train commutes to Manchester spanning 17 to 60 minutes. Each spoke page goes into full detail on prices by street, school Ofsted ratings, and what each area is actually like to live in day to day.
+        Cheshire's ten main residential areas range from £175,000 in Crewe to above £700,000 in Alderley Edge, with train commutes to Manchester spanning 17 to 60 minutes. Each area guide covers prices by street, school Ofsted ratings, daily amenities, and the trade-offs of living there.
       </p>
       <div style="overflow-x: auto;">
         <table style="width: 100%; border-collapse: collapse; font-family: Inter, Arial, sans-serif; font-size: 14px;">
           <thead>
             <tr style="border-bottom: 2px solid #3D5A3E;">
-              <th style="text-align: left; padding: 12px 16px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #3D5A3E;">Area</th>
-              <th style="text-align: left; padding: 12px 16px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #3D5A3E;">Avg. Price</th>
+              <th style="text-align: left; padding: 12px 16px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #3D5A3E;">Cheshire Town</th>
+              <th style="text-align: left; padding: 12px 16px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #3D5A3E;">Avg. House Price</th>
               <th style="text-align: left; padding: 12px 16px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #3D5A3E;">Train to Manchester</th>
               <th style="text-align: left; padding: 12px 16px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #3D5A3E;">Best for</th>
             </tr>
@@ -206,7 +238,8 @@ const faqs = [
 
     <!-- RELOCATOR QUESTIONS -->
     <div style="margin-bottom: 48px;">
-      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 28px); font-weight: 700; color: #1C1C1E; margin: 0 0 32px 0;">Questions from People Making the Move</h2>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 28px); font-weight: 700; color: #1C1C1E; margin: 0 0 12px 0;">Questions from People Moving to Cheshire</h2>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.7; color: #444444; margin: 0 0 28px 0;">Cheshire relocators from London and Greater Manchester raise two recurring questions: which town fits their budget, and whether the commute trade-off is worth the price difference.</p>
 
       <div style="border: 1px solid #E5E0D8; background-color: #FFFFFF; padding: 32px; margin-bottom: 24px;">
         <p style="font-family: Inter, Arial, sans-serif; font-size: 13px; font-weight: 700; color: #3D5A3E; margin: 0 0 8px 0;">RL - Clapham, London</p>
@@ -214,7 +247,7 @@ const faqs = [
           "We've got £750k from our London flat - where in Cheshire gives us the best schools AND a reasonable commute?"
         </p>
         <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.75; color: #444444; margin: 0;">
-          At £750,000 you are firmly inside Golden Triangle territory. Wilmslow gives you the fastest commute - 17 minutes to Manchester Piccadilly <em style="color: #888888; font-size: 13px;">(Source: National Rail, 2025)</em> - and a concentration of Outstanding-rated primary and secondary schools within a compact catchment. Alderley Edge and Prestbury are within the same budget at the lower end of their ranges and offer a more village-scale environment if that matters to you. The key decision is whether you want to be on a train in under 20 minutes or whether a slightly longer drive to Knutsford (35 minutes by train) would give you more house for the same money.
+          At £750,000 you are inside Golden Triangle territory. Wilmslow gives you the fastest commute - 17 minutes to Manchester Piccadilly <em style="color: #888888; font-size: 13px;">(Source: National Rail, 2025)</em> - and a concentration of Outstanding-rated primary and secondary schools within a compact catchment. Alderley Edge and Prestbury are within the same budget at the lower end of their ranges and offer a more village-scale environment if that matters to you. Wilmslow offers a sub-20-minute train commute at £490,000 average; Knutsford offers larger properties at £430,000 with a 35-minute commute (Rightmove, 2025; National Rail, 2025).
         </p>
       </div>
 
@@ -224,14 +257,15 @@ const faqs = [
           "We're priced out of Altrincham but want the same quality of life. What's the Cheshire equivalent?"
         </p>
         <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.75; color: #444444; margin: 0;">
-          Knutsford is the closest match in character - a compact, walkable town centre, good independent food and retail, strong schools, and a broadly professional demographic. The average price sits around £430,000, which is below Altrincham's comparable stock. Poynton is worth looking at too: it sits just inside Cheshire East, averages £444,312 with a 20-minute direct train to Manchester Piccadilly, and it tends to be overlooked by people searching further into the county. <em style="color: #888888; font-size: 13px;">(Source: Rightmove, 2025; Northern Trains, current timetable)</em>
+          Knutsford is the closest match in character - a compact, walkable town centre, good independent food and retail, strong schools, and a professional demographic. The average price sits around £430,000, which is below Altrincham's comparable stock. Poynton sits just inside Cheshire East, averages £444,312, and has a 20-minute direct train to Manchester Piccadilly - an option overlooked by buyers searching further into the county. <em style="color: #888888; font-size: 13px;">(Source: Rightmove, 2025; Northern Trains, current timetable)</em>
         </p>
       </div>
     </div>
 
     <!-- PAA ACCORDION -->
     <div style="margin-bottom: 48px;">
-      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 28px); font-weight: 700; color: #1C1C1E; margin: 0 0 32px 0;">Questions People Ask Before Moving to Cheshire</h2>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 28px); font-weight: 700; color: #1C1C1E; margin: 0 0 12px 0;">Questions People Ask Before Moving to Cheshire</h2>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.7; color: #444444; margin: 0 0 28px 0;">Cheshire costs, schools, commute times, and the London-to-Cheshire equity calculation - answered with ONS, Rightmove, and council data from 2025.</p>
       {faqs.map((faq, index) => (
         <div style={`border-top: ${index === 0 ? '2px solid #3D5A3E' : '1px solid #E5E0D8'}; padding: 28px 0;`}>
           <div style="display: flex; gap: 16px; align-items: flex-start;">
@@ -249,15 +283,21 @@ const faqs = [
 
     <!-- GOOD TO KNOW CALLOUT -->
     <div style="border-left: 3px solid #C4933F; background-color: rgba(196, 147, 63, 0.05); padding: 28px 32px; margin-bottom: 48px;">
-      <h2 style="font-family: Inter, Arial, sans-serif; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #C4933F; margin: 0 0 16px 0;">Good to Know</h2>
+      <h2 style="font-family: Inter, Arial, sans-serif; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #C4933F; margin: 0 0 16px 0;">What are the downsides of living in Cheshire?</h2>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.75; color: #444444; margin: 0 0 14px 0;">
+        Car dependency is significant: outside Wilmslow, Knutsford, Macclesfield, and Chester, you drive everywhere - to the supermarket, to the school run, to the station. Households with one car or no car find large parts of Cheshire impractical.
+      </p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.75; color: #444444; margin: 0 0 14px 0;">
+        The evening economy is thin outside Chester; most Cheshire towns close by 9pm and the restaurant scene, while improving, is not comparable to a Manchester suburb.
+      </p>
       <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.75; color: #444444; margin: 0;">
-        Cheshire has real downsides that do not appear in area guides written by people trying to sell you something. Car dependency is significant: outside Wilmslow, Knutsford, Macclesfield, and Chester, you will drive everywhere - to the supermarket, to the school run, to the station. Households with one car or no car will find large parts of the county impractical. The evening economy is thin outside Chester; most towns close by 9pm and the restaurant scene, while improving, is not comparable to a Manchester suburb. There is also a well-documented postcode hierarchy between areas - the gap in perceived status between Alderley Edge and Wilmslow, or between Prestbury and Poynton, is felt more keenly locally than it looks on a map, and it feeds into school gate culture and property pricing in ways that are worth understanding before you commit to a street.
+        A postcode hierarchy exists between Cheshire areas: Alderley Edge (£700,000+) and Prestbury (£650,000+) carry higher local status than Wilmslow (£490,000) or Poynton (£444,000), and this gap shapes school gate culture and resale values on a street-by-street basis.
       </p>
     </div>
 
     <!-- FROM THE COMMUNITY -->
     <div style="border: 1px solid #E5E0D8; background-color: #F9F7F4; padding: 32px; margin-bottom: 0;">
-      <p style="font-family: Inter, Arial, sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #888888; margin: 0 0 16px 0;">From the Community</p>
+      <h2 style="font-family: Inter, Arial, sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #888888; margin: 0 0 16px 0;">What do Cheshire residents say about living here?</h2>
       <blockquote style="border-left: 3px solid #3D5A3E; padding-left: 20px; margin: 0;">
         <p style="font-family: Georgia, serif; font-size: 17px; font-style: italic; line-height: 1.65; color: #333333; margin: 0;">
           "Most people who move to Cheshire from London say the same thing: they thought they were making a compromise and they ended up wondering why they waited so long. The space, the schools, the fact that you can park - it sounds mundane until you've spent ten years not having it. The thing nobody tells you is that Cheshire has its own social dynamics. It is not a neutral backdrop. You will be somewhere with opinions about itself, and that takes a little adjusting to. But for most families, the deal stacks up clearly. You get more house, better schools, and a shorter commute if you're going to Manchester rather than London. The London-to-Cheshire move only has one real risk: landing in the wrong town for your situation."

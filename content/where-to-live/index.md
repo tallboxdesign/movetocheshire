@@ -6,8 +6,8 @@
 <!-- Last updated: February 2026 -->
 
 ---
-title: "Where to Live in Cheshire"
-description: "Area-by-area comparisons of every major Cheshire town and village. Covering the commuter belt, the Golden Triangle, family hotspots, and affordable options — with average prices, school data, and commute times."
+title: "Where to Live in Cheshire?"
+description: "Cheshire area guide comparing ten towns by house price, school Ofsted rating, and train commute to Manchester - from Crewe (£175,000, 55 min) to Alderley Edge (£700,000+, 22 min). Budget tier analysis, relocator case studies, and honest trade-offs sourced from ONS, Rightmove, and National Rail data (2025)."
 primaryKeyword: "where to live in Cheshire"
 lastUpdated: "February 2026"
 ---
@@ -18,7 +18,7 @@ lastUpdated: "February 2026"
 ---
 
 <!-- H1 -->
-# Where to Live in Cheshire: A Straight Guide to Every Area
+# Where to Live in Cheshire?
 
 Cheshire is not one market — it is three, stacked by budget, commute tolerance, and what you are willing to trade off. The county stretches from the outer edge of Greater Manchester's commuter belt down to the Welsh border, and the difference in price between the top and bottom of that range is roughly £525,000. Getting the right answer to where you should live depends on which of those three zones fits your situation.
 
