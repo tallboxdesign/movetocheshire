@@ -107,7 +107,7 @@ export default function AreaTable() {
 
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '36px', flexWrap: 'wrap', gap: '16px' }}>
           <div>
-            <span className="section-label">Area comparison</span>
+            <span className="section-label">Cheshire area comparison</span>
             <h2
               id="area-table-heading"
               style={{
@@ -126,12 +126,14 @@ export default function AreaTable() {
           <p
             style={{
               fontFamily: 'Inter, Arial, sans-serif',
-              fontSize: '13px',
-              color: '#888888',
+              fontSize: '14px',
+              color: '#555555',
               margin: 0,
+              maxWidth: '420px',
+              lineHeight: 1.5,
             }}
           >
-            Click column headings to sort
+            Cheshire spans 10 areas from £175,000 (Crewe) to £700,000+ (Alderley Edge). Sort by price, commute, or schools to compare.
           </p>
         </div>
 

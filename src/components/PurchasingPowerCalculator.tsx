@@ -31,10 +31,10 @@ export default function PurchasingPowerCalculator() {
 
                 <div className="text-center max-w-3xl mx-auto mb-12">
                     <h2 className="text-3xl md:text-4xl font-serif text-slate-900 mb-4 tracking-tight">
-                        Relocation Purchasing Power Calculator
+                        Cheshire Purchasing Power Calculator
                     </h2>
                     <p className="text-lg text-slate-600">
-                        See exactly how far your budget stretches across the county. Enter your maximum budget to compare equivalent property types across our three key regional tiers.
+                        Cheshire property prices range from £175,000 (Crewe) to £700,000+ (Alderley Edge). Enter your budget to compare what each Cheshire price tier offers.
                     </p>
                 </div>
 
@@ -45,7 +45,7 @@ export default function PurchasingPowerCalculator() {
                         </div>
                         <div className="flex-grow w-full">
                             <label htmlFor="budget-input" className="block text-sm font-medium text-slate-700 mb-2">
-                                Your Target Budget
+                                Your Cheshire property budget
                             </label>
                             <div className="relative rounded-md shadow-sm">
                                 <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
@@ -66,7 +66,7 @@ export default function PurchasingPowerCalculator() {
                     </div>
 
                     <div className="space-y-6">
-                        <h3 className="text-xl font-serif text-slate-900 mb-6">What £{formatCurrency(budget)} buys you:</h3>
+                        <h3 className="text-xl font-serif text-slate-900 mb-6">What £{formatCurrency(budget)} buys in Cheshire:</h3>
 
                         <div className="grid md:grid-cols-3 gap-6">
                             {tiers.map((tier, idx) => (

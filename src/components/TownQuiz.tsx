@@ -130,14 +130,14 @@ export default function TownQuiz() {
                     <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500"></div>
                     <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
                         <div className="flex-1 text-left">
-                            <h2 className="text-3xl font-serif text-white mb-3">Not sure where to start?</h2>
+                            <h2 className="text-3xl font-serif text-white mb-3">Which Cheshire town suits you?</h2>
                             <p className="text-slate-300 text-lg">Take our 1-minute intelligent quiz. We'll cross-reference your budget and priorities to recommend the two best Cheshire towns for your specific situation.</p>
                         </div>
                         <button
                             onClick={handleOpen}
                             className="bg-white text-slate-900 hover:bg-stone-50 font-semibold px-8 py-4 rounded-lg flex items-center gap-2 transition-transform hover:scale-105 flex-shrink-0"
                         >
-                            Start the Quiz <Play className="w-5 h-5" />
+                            Find your Cheshire match <Play className="w-5 h-5" />
                         </button>
                     </div>
                 </div>
@@ -197,7 +197,7 @@ export default function TownQuiz() {
                                     <div className="inline-flex items-center justify-center w-16 h-16 bg-green-100 rounded-full mb-4">
                                         <MapPin className="w-8 h-8 text-green-600" />
                                     </div>
-                                    <h2 className="text-3xl font-serif text-slate-900">Your Perfect Matches</h2>
+                                    <h2 className="text-3xl font-serif text-slate-900">Your Cheshire Matches</h2>
                                     <p className="text-slate-600 mt-2">Based on your answers, focus your search on these areas.</p>
                                 </div>
 
@@ -225,7 +225,7 @@ export default function TownQuiz() {
                                         onClick={scrollToData}
                                         className="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white font-medium px-6 py-3 rounded-lg transition-colors"
                                     >
-                                        View Area Data Below
+                                        Compare Cheshire area data
                                     </button>
                                     <button
                                         onClick={() => { setCurrentStep(0); setAnswers({}); setResults([]); }}
