@@ -173,7 +173,7 @@ const webPageSchema = {
   dateModified: '2026-02-24',
   temporalCoverage: '2023/2026',
   spatialCoverage: { '@type': 'AdministrativeArea', name: 'Cheshire', containedInPlace: { '@type': 'Country', name: 'England' } },
-  mainEntity: { '@type': 'AdministrativeArea', name: 'Cheshire', description: 'Ceremonial county in North West England comprising Cheshire East, Cheshire West and Chester, Warrington, and Halton.' },
+  mainEntity: { '@type': 'AdministrativeArea', name: 'Cheshire', sameAs: 'https://www.wikidata.org/wiki/Q23064', geo: { '@type': 'GeoCoordinates', latitude: 53.17, longitude: -2.58 }, description: 'Ceremonial county in North West England covering 2,343 km² across Cheshire East, Cheshire West and Chester, Warrington, and Halton, with a population of approximately 1.07 million.' },
   audience: { '@type': 'Audience', audienceType: 'Home buyers and relocators considering Cheshire' },
   isBasedOn: [
     { '@type': 'Dataset', name: 'ONS UK House Price Index', url: 'https://www.ons.gov.uk/economy/inflationandpriceindices/bulletins/housepriceindex/latest', publisher: { '@type': 'GovernmentOrganization', name: 'Office for National Statistics' }, temporalCoverage: '2025-12' },
@@ -358,6 +358,19 @@ const faqSchema = {
         <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0;">Cheshire has 34% detached housing stock versus 22% nationally (Census 2021), which pulls the county average above the UK figure. A detached home in Cheshire East averages £496,000. A terraced home in Cheshire West averages £207,000. A flat in Halton averages £103,000.</p>
         <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0;">Cheshire prices range from £115,000 in Ellesmere Port Westminster ward to £1,163,360 for a detached home in Alderley Edge (CW&C Council 2023, Rightmove Feb 2026). A £1,048,360 spread within a single county makes the headline average unreliable without area and property type breakdowns.</p>
       </div>
+      <figure style="margin: 32px auto 0 auto; max-width: 720px;">
+        <img
+          src="/images/house-prices/price-tiers.webp"
+          alt="Cheshire house price tiers showing affordable tier from £115,000 in Ellesmere Port to premium Golden Triangle at £450,000 to £1.16 million with county average of £314,000"
+          width="960"
+          height="340"
+          loading="lazy"
+          style="width: 100%; height: auto; border: 1px solid #E5E0D8; display: block;"
+        />
+        <figcaption style="font-family: Inter, Arial, sans-serif; font-size: 12px; color: #888888; margin-top: 8px; line-height: 1.5;">
+          Cheshire house prices span three tiers from affordable market towns to the premium Golden Triangle. (Sources: ONS Dec 2025, Rightmove Feb 2026, CW&C Council 2023)
+        </figcaption>
+      </figure>
     </div>
   </section>
 
@@ -366,7 +379,20 @@ const faqSchema = {
     <div class="section-inner" style="max-width: 900px;">
       <span class="section-label">Cheshire authority prices</span>
       <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 12px 0;">What are house prices in each Cheshire authority area?</h2>
-      <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.7; color: #444444; margin: 0 0 28px 0;">Cheshire East averages £306,000, Cheshire West £266,000, Warrington £252,000, and Halton £189,000 (ONS, Dec 2025). Halton is 35% below the county average of £314,000. Cheshire East recorded the strongest year-on-year growth at 5.7%.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.7; color: #444444; margin: 0 0 20px 0;">Cheshire East averages £306,000, Cheshire West £266,000, Warrington £252,000, and Halton £189,000 (ONS, Dec 2025). Halton is 35% below the county average of £314,000. Cheshire East recorded the strongest year-on-year growth at 5.7%.</p>
+      <figure style="margin: 0 auto 28px auto; max-width: 720px;">
+        <img
+          src="/images/house-prices/authority-comparison.webp"
+          alt="Horizontal bar chart comparing Cheshire house prices by authority area showing Cheshire East at £306,000 Cheshire West at £266,000 Warrington at £252,000 and Halton at £189,000 against UK average of £290,000"
+          width="1024"
+          height="1024"
+          loading="lazy"
+          style="width: 100%; height: auto; border: 1px solid #E5E0D8; display: block;"
+        />
+        <figcaption style="font-family: Inter, Arial, sans-serif; font-size: 12px; color: #888888; margin-top: 8px; line-height: 1.5;">
+          Cheshire's four authority areas compared to the UK average of £290,000. (Source: ONS UK House Price Index, December 2025)
+        </figcaption>
+      </figure>
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px;">
         {authorities.map((auth) => (
           <div style="border-left: 3px solid #3D5A3E; background-color: #F9F7F4; padding: 24px;">
@@ -461,7 +487,7 @@ const faqSchema = {
     <div class="section-inner" style="max-width: 900px;">
       <span class="section-label">Cheshire West ward prices</span>
       <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 12px 0;">What are house prices in each Cheshire West ward?</h2>
-      <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.7; color: #444444; margin: 0 0 20px 0;">Cheshire West and Chester ward-level prices range from £115,000 in Ellesmere Port Westminster to £487,500 in Tattenhall (CW&C Council, 2023). Chester wards span from £172,000 in Blacon to £340,000 in Handbridge Park and Upton.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.7; color: #444444; margin: 0 0 20px 0;">Cheshire West and Chester is one of four unitary authorities within the ceremonial county of Cheshire, covering the western half from Chester to Ellesmere Port, Northwich, and Winsford. Ward-level Cheshire house prices in this authority range from £115,000 in Ellesmere Port Westminster to £487,500 in Tattenhall (CW&C Council, 2023). Chester wards span from £172,000 in Blacon to £340,000 in Handbridge Park and Upton.</p>
 
       <!-- Filter controls -->
       <div class="ward-filter-bar" id="ward-filters">
@@ -677,6 +703,19 @@ const faqSchema = {
       <span class="section-label">Cheshire relocator questions</span>
       <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 12px 0;">What do relocators from London and the South East ask about Cheshire prices?</h2>
       <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.7; color: #444444; margin: 0 0 28px 0;">London averages £551,294 (ONS, Dec 2025). Cheshire averages £314,000. Relocators from southern England gain 45-60% more floor space per pound in Northwich (£242,657), Chester (£205,000-£340,000), and Frodsham (£255,000) compared to equivalent London budgets (Rightmove, 2025).</p>
+      <figure style="margin: 0 auto 28px auto; max-width: 720px;">
+        <img
+          src="/images/move-to-cheshire-team-chester.webp"
+          alt="Move to Cheshire team member photographing Chester city centre Tudor architecture on Eastgate Street"
+          width="1024"
+          height="1024"
+          loading="lazy"
+          style="width: 100%; height: auto; border: 1px solid #E5E0D8; display: block;"
+        />
+        <figcaption style="font-family: Inter, Arial, sans-serif; font-size: 12px; color: #888888; margin-top: 8px; line-height: 1.5;">
+          The Move to Cheshire team researching Chester's property market on Eastgate Street - one of the city's most photographed Tudor rows.
+        </figcaption>
+      </figure>
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px;">
         {[
           { initials: 'RB', name: 'R.B.', location: 'Moving from Surrey', question: "We have a budget of £550,000. In Surrey that buys a tired three-bed semi. What does the same money get in Cheshire?", answer: "In Knutsford (£606,876 average), £550,000 reaches a four-bedroom semi-detached or a modest detached on a quieter street. In Northwich (£242,657 average), £550,000 buys a new-build five-bedroom detached with garden and double garage. In Macclesfield or Chester Newton and Hoole, the same budget reaches a large detached four-bedroom. In Wilmslow (£489,105 average), £550,000 reaches a three-bedroom semi or a two-bedroom apartment in a premium location.", colour: '#3D5A3E' },

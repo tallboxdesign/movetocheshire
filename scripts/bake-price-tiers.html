@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html><head>
+<meta charset="UTF-8">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { width: 960px; padding: 40px 48px; background: #F5F0E8; font-family: 'Inter', Arial, sans-serif; }
+  h1 { font-family: Georgia, serif; font-size: 28px; font-weight: 700; color: #1C1C1E; text-align: center; margin-bottom: 32px; letter-spacing: 0.5px; }
+  .bar-container { display: flex; height: 64px; border-radius: 4px; overflow: hidden; margin-bottom: 8px; }
+  .tier { display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; letter-spacing: 0.5px; text-transform: uppercase; }
+  .tier-affordable { background: #E8DFD0; color: #1C1C1E; flex: 2.7; }
+  .tier-mid { background: #3D5A3E; color: #FFFFFF; flex: 4; }
+  .tier-premium { background: #C0973B; color: #FFFFFF; flex: 3.3; }
+  .labels-row { display: flex; margin-bottom: 6px; }
+  .label-cell { display: flex; flex-direction: column; align-items: center; }
+  .label-cell.affordable { flex: 2.7; }
+  .label-cell.mid { flex: 4; }
+  .label-cell.premium { flex: 3.3; }
+  .price-range { font-size: 13px; font-weight: 600; color: #666; margin-bottom: 2px; }
+  .towns { font-size: 13px; color: #444; line-height: 1.5; text-align: center; margin-top: 12px; }
+  .towns strong { font-weight: 600; color: #1C1C1E; }
+  .avg-marker { display: flex; align-items: center; gap: 6px; justify-content: center; margin: 12px 0 20px 0; }
+  .avg-dot { width: 10px; height: 10px; border-radius: 50%; border: 2px solid #1C1C1E; background: transparent; }
+  .avg-text { font-size: 13px; font-weight: 600; color: #1C1C1E; }
+  .source { font-size: 11px; color: #888; text-align: center; margin-top: 24px; }
+  .price-labels { display: flex; justify-content: space-between; font-size: 12px; font-weight: 600; color: #666; margin-bottom: 6px; }
+</style>
+</head><body>
+
+<h1>Cheshire House Price Tiers</h1>
+
+<div class="price-labels">
+  <span>£115,000</span>
+  <span>£250,000</span>
+  <span>£450,000</span>
+  <span>£1,163,360</span>
+</div>
+
+<div class="bar-container">
+  <div class="tier tier-affordable">Affordable Tier</div>
+  <div class="tier tier-mid">Mid-Range Tier</div>
+  <div class="tier tier-premium">Golden Triangle / Premium</div>
+</div>
+
+<div class="avg-marker">
+  <span class="avg-dot"></span>
+  <span class="avg-text">County average: £314,000 (PlumPlot/ONS, 2025)</span>
+</div>
+
+<div class="labels-row">
+  <div class="label-cell affordable">
+    <div class="towns"><strong>Ellesmere Port</strong> - <strong>Winsford</strong> - <strong>Halton</strong></div>
+  </div>
+  <div class="label-cell mid">
+    <div class="towns"><strong>Chester</strong> - <strong>Northwich</strong> - <strong>Macclesfield</strong> - <strong>Wilmslow</strong></div>
+  </div>
+  <div class="label-cell premium">
+    <div class="towns"><strong>Alderley Edge</strong> - <strong>Knutsford</strong> - <strong>Prestbury</strong></div>
+  </div>
+</div>
+
+<p class="source">Sources: ONS Dec 2025, Rightmove Feb 2026, CW&C Council 2023</p>
+
+</body></html>
