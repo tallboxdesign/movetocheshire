@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #1C1C1E; margin: 0; }
+  .container {
+    width: 720px;
+    height: 480px;
+    position: relative;
+    overflow: hidden;
+    font-family: Inter, Arial, sans-serif;
+    background: linear-gradient(135deg, #1C1C1E 0%, #2A2A2E 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 28px 32px;
+  }
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  .eyebrow {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: #C4933F;
+    margin-bottom: 6px;
+  }
+  .title {
+    font-family: Georgia, serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: #FFFFFF;
+    line-height: 1.2;
+  }
+  .subtitle {
+    font-size: 13px;
+    color: rgba(255,255,255,0.5);
+    margin-top: 4px;
+  }
+  .rows {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .row {
+    display: grid;
+    grid-template-columns: 60px 1fr 90px 80px 70px;
+    gap: 8px;
+    align-items: center;
+    padding: 10px 14px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+  .row-header {
+    background: none;
+    border: none;
+    padding: 0 14px 4px;
+  }
+  .row-header span {
+    font-size: 10px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.35);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .sector {
+    font-size: 15px;
+    font-weight: 700;
+    color: #C4933F;
+  }
+  .area {
+    font-size: 12px;
+    color: rgba(255,255,255,0.7);
+  }
+  .price {
+    font-size: 14px;
+    font-weight: 700;
+    color: #FFFFFF;
+    text-align: right;
+  }
+  .sqm {
+    font-size: 12px;
+    color: rgba(255,255,255,0.6);
+    text-align: right;
+  }
+  .trend {
+    font-size: 13px;
+    font-weight: 700;
+    text-align: right;
+  }
+  .trend-up { color: #4CAF50; }
+  .trend-down { color: #E57373; }
+  .bar {
+    height: 4px;
+    border-radius: 2px;
+    background: rgba(196,147,63,0.3);
+    margin-top: 4px;
+  }
+  .bar-fill {
+    height: 100%;
+    border-radius: 2px;
+    background: #C4933F;
+  }
+  .footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .source {
+    font-size: 10px;
+    color: rgba(255,255,255,0.35);
+  }
+  .brand {
+    font-size: 11px;
+    font-weight: 600;
+    color: #3D5A3E;
+    letter-spacing: 0.02em;
+  }
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="container" id="capture">
+    <div class="header">
+      <div>
+        <div class="eyebrow">SK9 postcode pricing zones</div>
+        <div class="title">Wilmslow prices by postcode sector</div>
+        <div class="subtitle">Six sectors, one district - ranked by price per sqm</div>
+      </div>
+    </div>
+
+    <div class="rows">
+      <div class="row-header">
+        <div style="display: grid; grid-template-columns: 60px 1fr 90px 80px 70px; gap: 8px;">
+          <span>Sector</span>
+          <span>Area</span>
+          <span style="text-align: right;">Avg price</span>
+          <span style="text-align: right;">Per sqm</span>
+          <span style="text-align: right;">1yr</span>
+        </div>
+      </div>
+      <div class="row">
+        <span class="sector">SK9 6</span>
+        <div>
+          <span class="area">Dean Row, Oak Lane</span>
+          <div class="bar"><div class="bar-fill" style="width: 100%;"></div></div>
+        </div>
+        <span class="price">£630k</span>
+        <span class="sqm">£4,870</span>
+        <span class="trend trend-up">+2.4%</span>
+      </div>
+      <div class="row">
+        <span class="sector">SK9 5</span>
+        <div>
+          <span class="area">Lindow, Pownall Park</span>
+          <div class="bar"><div class="bar-fill" style="width: 96%;"></div></div>
+        </div>
+        <span class="price">£638k</span>
+        <span class="sqm">£4,700</span>
+        <span class="trend trend-up">+1.6%</span>
+      </div>
+      <div class="row">
+        <span class="sector">SK9 2</span>
+        <div>
+          <span class="area">Harden Park, Wilmslow Park</span>
+          <div class="bar"><div class="bar-fill" style="width: 87%;"></div></div>
+        </div>
+        <span class="price">£606k</span>
+        <span class="sqm">£4,260</span>
+        <span class="trend trend-up">+8.8%</span>
+      </div>
+      <div class="row">
+        <span class="sector">SK9 1</span>
+        <div>
+          <span class="area">Fulshaw Park, town centre</span>
+          <div class="bar"><div class="bar-fill" style="width: 85%;"></div></div>
+        </div>
+        <span class="price">£502k</span>
+        <span class="sqm">£4,130</span>
+        <span class="trend trend-down">-6.4%</span>
+      </div>
+      <div class="row">
+        <span class="sector">SK9 4</span>
+        <div>
+          <span class="area">Lacey Green, Styal</span>
+          <div class="bar"><div class="bar-fill" style="width: 80%;"></div></div>
+        </div>
+        <span class="price">£422k</span>
+        <span class="sqm">£3,900</span>
+        <span class="trend trend-down">-1.4%</span>
+      </div>
+      <div class="row">
+        <span class="sector">SK9 3</span>
+        <div>
+          <span class="area">Handforth</span>
+          <div class="bar"><div class="bar-fill" style="width: 74%;"></div></div>
+        </div>
+        <span class="price">£357k</span>
+        <span class="sqm">£3,620</span>
+        <span class="trend trend-down">-0.8%</span>
+      </div>
+    </div>
+
+    <div class="footer">
+      <span class="source">HouseMetric / Land Registry, last 12 months to 2025</span>
+      <span class="brand">movetocheshire.uk</span>
+    </div>
+  </div>
+</body>
+</html>

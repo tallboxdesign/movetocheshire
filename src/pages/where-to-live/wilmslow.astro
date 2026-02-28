@@ -1,0 +1,516 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const faqs = [
+  { question: 'Is Wilmslow a good place to live?', answer: 'Yes. Wilmslow (SK9 postcode) combines the fastest Manchester commute in Cheshire (17 minutes by train) with a walkable town centre, two Outstanding-rated primary schools, and a crime rate 44% below the national average at 51.4 per 1,000 population (police.uk, 2025). The trade-off is price - the average property in SK9 costs £586,475 (Rightmove, 2025).' },
+  { question: 'What is the average house price in Wilmslow?', answer: 'The average house price in Wilmslow is £586,475 (Rightmove, last 12 months to 2025). Detached properties average £909,473, semi-detached £490,371, terraced £356,614, and flats £232,017. Prices are up 9% year-on-year.' },
+  { question: 'How long is the commute from Wilmslow to Manchester?', answer: 'The fastest train from Wilmslow to Manchester Piccadilly takes 17 minutes via Avanti West Coast services. Northern Rail runs slower stopping services averaging 28-30 minutes. Approximately 103 trains run daily between 04:46 and 23:39 (National Rail, 2025).' },
+  { question: 'Is Wilmslow expensive?', answer: 'Yes, Wilmslow is the second least affordable town in Cheshire. The average house price of £586,475 represents 14.4 times the average resident salary of £40,600. However, flats from £232,000 and terraced homes from £356,000 offer entry points below the detached average.' },
+  { question: 'Why is Wilmslow so expensive?', answer: 'Three structural factors sustain Wilmslow prices above Cheshire averages. First, the 17-minute Manchester commute is the fastest in the county, compressing demand into a small geography. Second, Outstanding primary school catchments (Gorsey Bank, Ashdene) add measurable premiums to nearby properties. Third, Green Belt constraints and the town\'s mature residential layout restrict new supply - few large plots become available for development, keeping the housing stock constrained against steady demand.' },
+  { question: 'How does Wilmslow compare to Alderley Edge?', answer: 'Wilmslow is roughly six times larger than Alderley Edge (26,213 vs 4,777 residents) with a broader commercial offer including Hoopers department store, multiple supermarkets, and diverse dining. Alderley Edge is more exclusive - detached homes average £1.27 million vs £909,000 in Wilmslow. Wilmslow suits buyers who want amenity and walkability; Alderley Edge suits those prioritising prestige and exclusivity.' },
+];
+
+const neighbourhoods = [
+  { name: 'Fulshaw Park', postcode: 'SK9 1', avgPrice: '£1,200,000+', type: 'Premium detached', character: 'Private roads, large plots' },
+  { name: 'Harden Park', postcode: 'SK9 2', avgPrice: '£900,000+', type: 'Executive detached', character: 'Established family estate' },
+  { name: 'Lacey Green', postcode: 'SK9 4', avgPrice: '£500,000', type: 'Mixed family', character: 'Good primary school, settled' },
+  { name: 'Dean Row', postcode: 'SK9 6', avgPrice: '£450,000', type: 'Family homes', character: 'Quieter south side' },
+  { name: 'Lindow', postcode: 'SK9 5', avgPrice: '£550,000', type: 'Mixed', character: 'Near Lindow Common SSSI' },
+  { name: 'Wilmslow Park', postcode: 'SK9 2', avgPrice: '£475,000', type: 'Mixed period', character: 'Near The Carrs, Victorian stock' },
+  { name: 'Wilmslow Town Centre', postcode: 'SK9 1/5', avgPrice: '£350,000', type: 'Apartments, terraced', character: 'Walkable, restaurants, retail' },
+];
+
+const schools = [
+  { name: 'Wilmslow High School', type: 'State secondary', rating: 'Good (Jan 2025)', note: '2,196 pupils, Progress 8: +0.16' },
+  { name: 'Gorsey Bank Primary', type: 'State primary', rating: 'Outstanding (2023)', note: '460 pupils' },
+  { name: 'Ashdene Primary', type: 'State primary', rating: 'Outstanding (2019)', note: 'Consistently outstanding' },
+  { name: 'Lacey Green Primary Academy', type: 'State primary', rating: 'Good (2023)', note: 'Academy trust' },
+  { name: 'Lindow Community Primary', type: 'State primary', rating: 'Good', note: '420 pupils' },
+];
+
+const relatedSpokes = [
+  { label: 'The Cheshire Golden Triangle', href: '/where-to-live/cheshire-golden-triangle', tag: 'Area Guide' },
+  { label: 'Best Places to Live in Cheshire', href: '/where-to-live/best-places-cheshire', tag: 'Area Guide' },
+  { label: 'Chester Area Guide', href: '/where-to-live/chester', tag: 'Area Guide' },
+];
+
+const placeSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'City',
+  name: 'Wilmslow',
+  description: 'Affluent commuter town in northeast Cheshire (SK9 postcode), average house prices £586,475, 17-minute train to Manchester Piccadilly, part of the Golden Triangle.',
+  postalCode: 'SK9',
+  geo: { '@type': 'GeoCoordinates', latitude: 53.3275, longitude: -2.2312 },
+  containedInPlace: { '@type': 'AdministrativeArea', name: 'Cheshire East' },
+};
+
+const neighbourhoodListSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: 'Neighbourhoods in Wilmslow',
+  description: 'Key residential areas in Wilmslow compared by average house price and character.',
+  numberOfItems: neighbourhoods.length,
+  itemListElement: neighbourhoods.map((n, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    item: { '@type': 'Place', name: n.name, description: `Average price ${n.avgPrice}. ${n.character}.`, containedInPlace: { '@type': 'City', name: 'Wilmslow' } },
+  })),
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://movetocheshire.uk' },
+    { '@type': 'ListItem', position: 2, name: 'Where to Live', item: 'https://movetocheshire.uk/where-to-live' },
+    { '@type': 'ListItem', position: 3, name: 'Wilmslow', item: 'https://movetocheshire.uk/where-to-live/wilmslow' },
+  ],
+};
+---
+
+<BaseLayout
+  title="Living in Wilmslow | Buyer's Area Guide | movetocheshire.uk"
+  description="Wilmslow (SK9) area guide for buyers - house prices from £232k to £909k, 17-minute Manchester commute, Outstanding schools, seven neighbourhoods, and what daily life costs in Cheshire's busiest Golden Triangle town."
+  ogImage="/images/where-to-live/wilmslow-overview.webp"
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(placeSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(neighbourhoodListSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+  </Fragment>
+
+  <!-- Breadcrumb -->
+  <div class="section-pad" style="padding-top: 20px; padding-bottom: 0;">
+    <div class="section-inner">
+      <nav aria-label="Breadcrumb" style="font-family: Inter, Arial, sans-serif; font-size: 13px; color: #999999;">
+        <a href="/" style="color: #999999; text-decoration: none;">Home</a>
+        <span style="margin: 0 8px;">/</span>
+        <a href="/where-to-live" style="color: #999999; text-decoration: none;">Where to Live</a>
+        <span style="margin: 0 8px;">/</span>
+        <span style="color: #1C1C1E;">Wilmslow</span>
+      </nav>
+    </div>
+  </div>
+
+  <!-- Hero -->
+  <section class="section-pad" style="padding-top: 40px;">
+    <div class="section-inner" style="max-width: 720px;">
+      <span class="section-label">Cheshire relocation guide</span>
+      <h1 style="font-family: Georgia, serif; font-size: clamp(28px, 4.5vw, 44px); font-weight: 700; color: #1C1C1E; line-height: 1.15; margin: 0 0 20px 0; letter-spacing: -0.02em;">Living in Wilmslow</h1>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 18px; line-height: 1.7; color: #444444; margin: 0 0 24px 0;">
+        Wilmslow (SK9) is the largest and most commercially active town in Cheshire's Golden Triangle, with a 17-minute Manchester rail commute, two Outstanding primary schools, and house prices averaging £586,475 (Rightmove, 2025). The SK9 postcode covers every neighbourhood from Fulshaw Park to Dean Row.
+      </p>
+      <span style="display: inline-block; font-family: Inter, Arial, sans-serif; font-size: 12px; font-weight: 600; color: #3D5A3E; background-color: rgba(61, 90, 62, 0.08); padding: 6px 12px; letter-spacing: 0.02em;">Last updated: February 2026</span>
+    </div>
+  </section>
+
+  <!-- Stat Bar -->
+  <section class="section-pad" style="padding-top: 0;">
+    <div class="section-inner">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px;">
+        {[
+          { value: 'SK9', label: 'Wilmslow postcode district', source: 'Royal Mail' },
+          { value: '£586k', label: 'Wilmslow average house price', source: 'Rightmove, 2025' },
+          { value: '17 min', label: 'Wilmslow to Manchester Piccadilly', source: 'National Rail, 2025' },
+          { value: '51/1k', label: 'Wilmslow crime rate (below avg)', source: 'police.uk, 2025' },
+        ].map((stat) => (
+          <div style="background-color: #FFFFFF; border: 1px solid #E5E0D8; padding: 28px 24px;">
+            <p class="data-tile-value" style="margin: 0 0 8px 0;">{stat.value}</p>
+            <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; font-weight: 600; color: #1C1C1E; margin: 0 0 4px 0;">{stat.label}</p>
+            <p style="font-family: Inter, Arial, sans-serif; font-size: 12px; color: #999999; margin: 0;">{stat.source}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Hero Image (Tier 3 baked) -->
+  <section class="section-pad" style="padding-top: 0; padding-bottom: 0;">
+    <div class="section-inner" style="max-width: 720px;">
+      <figure style="margin: 0 auto 0;">
+        <img src="/images/where-to-live/wilmslow-overview.webp"
+          alt="Wilmslow area overview showing seven neighbourhoods from Fulshaw Park at £1.2 million to town centre apartments at £350,000 with 17-minute Manchester commute and crime rate 44% below national average"
+          loading="eager"
+          style="width: 720px; max-width: 100%; aspect-ratio: 1200/630; border: 1px solid #E5E0D8;" />
+        <figcaption style="font-family: Inter, Arial, sans-serif; font-size: 12px; color: #999999; margin-top: 8px;">
+          Wilmslow neighbourhood price map ranging from £350,000 in the town centre to above £1.2 million in Fulshaw Park. The 17-minute Manchester commute underpins all seven residential areas.
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- TLDR -->
+  <section class="section-pad">
+    <div class="section-inner" style="max-width: 720px;">
+      <span class="section-label">The short answer</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 24px 0;">
+        What makes Wilmslow different from other Cheshire towns?
+      </h2>
+      <div style="display: flex; flex-direction: column; gap: 16px;">
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #1C1C1E; margin: 0;">Wilmslow (postcode SK9) occupies a specific position in Cheshire's property market: it is the only town that combines a sub-20-minute Manchester commute with a walkable high street, a department store, and two Outstanding-rated primary schools. At £586,475 average (Rightmove, 2025), it costs roughly 14% less than neighbouring Alderley Edge (£680,000) while offering materially more retail, dining, and day-to-day amenity.</p>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0;">The town functions as the commercial hub of the <a href="/where-to-live/cheshire-golden-triangle" style="color: #3D5A3E;">Golden Triangle</a>. Where Alderley Edge and Prestbury operate as exclusive residential enclaves, Wilmslow has Bank Square boutiques, Hoopers department store, a twice-monthly artisan market, and a dining scene spanning independent Italian restaurants to craft beer pubs. Residents of Alderley Edge and Prestbury drive to Wilmslow for weekly errands.</p>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0;">The trade-off is noise and density. Wilmslow is a functioning town of 26,213 residents (Census 2021), not a quiet village. The A34 corridor generates peak-hour congestion, weekend shoppers fill the town centre, and the evening economy draws visitors from across east Cheshire. Buyers seeking seclusion find it in Prestbury or Knutsford - buyers wanting convenience and connectivity choose Wilmslow.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Property Prices -->
+  <section class="section-pad" style="background-color: #FFFFFF; border-top: 1px solid #E5E0D8; border-bottom: 1px solid #E5E0D8;">
+    <div class="section-inner" style="max-width: 720px;">
+      <span class="section-label">Property market</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 24px 0;">
+        What do properties cost in Wilmslow?
+      </h2>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #1C1C1E; margin: 0 0 16px 0;">Wilmslow (SK9) averages £586,475 across all property types, with prices up 9% year-on-year and 3% above the 2023 peak of £569,282 (Rightmove, 2025). The entire SK9 postcode district covers the town and its seven neighbourhoods, from apartments at £232,000 in the town centre to detached homes exceeding £1.5 million on Fulshaw Park's private roads.</p>
+
+      <div style="overflow-x: auto; margin: 24px 0;">
+        <table style="width: 100%; border-collapse: collapse; font-family: Inter, Arial, sans-serif; font-size: 14px;">
+          <thead>
+            <tr style="border-bottom: 2px solid #E5E0D8;">
+              <th style="text-align: left; padding: 12px 16px; font-weight: 600; color: #1C1C1E;">Property type</th>
+              <th style="text-align: right; padding: 12px 16px; font-weight: 600; color: #1C1C1E;">Wilmslow avg</th>
+              <th style="text-align: right; padding: 12px 16px; font-weight: 600; color: #1C1C1E;">Cheshire East avg</th>
+            </tr>
+          </thead>
+          <tbody>
+            {[
+              { type: 'Detached', wilmslow: '£909,473', cheshire: '£460,000' },
+              { type: 'Semi-detached', wilmslow: '£490,371', cheshire: '£280,000' },
+              { type: 'Terraced', wilmslow: '£356,614', cheshire: '£220,000' },
+              { type: 'Flat', wilmslow: '£232,017', cheshire: '£155,000' },
+            ].map((row) => (
+              <tr style="border-bottom: 1px solid #F0EDE8;">
+                <td style="padding: 12px 16px; color: #1C1C1E;">{row.type}</td>
+                <td style="text-align: right; padding: 12px 16px; font-weight: 600; color: #C4933F;">{row.wilmslow}</td>
+                <td style="text-align: right; padding: 12px 16px; color: #666666;">{row.cheshire}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 12px; color: #999999; margin: 8px 0 0 0;">Sources: <a href="https://www.rightmove.co.uk/house-prices/wilmslow.html" rel="nofollow noopener" target="_blank" style="color: #999999;">Rightmove</a>, last 12 months to 2025. Cheshire East: ONS, November 2025.</p>
+      </div>
+
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">Wilmslow's detached homes command a 98% premium over the Cheshire East average of £460,000 (ONS, November 2025). That premium reflects three factors: the 17-minute Manchester commute, the school catchment density, and the constrained housing supply in a mature residential area where few new plots become available.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 24px 0;">For buyers on tighter budgets, Wilmslow's flat and terraced stock provides entry points from £232,000 - considerably lower than the headline average suggests. Town centre apartments near the station offer the commute advantage without the detached price tag. Buyers comparing options across the county should read the <a href="/where-to-live" style="color: #3D5A3E;">full Cheshire area comparison</a> and the <a href="/buying-guide/stamp-duty-cheshire" style="color: #3D5A3E;">stamp duty calculator</a> to model total acquisition costs.</p>
+
+      <h3 style="font-family: Inter, Arial, sans-serif; font-size: 19px; font-weight: 700; color: #1C1C1E; margin: 0 0 12px 0;">Wilmslow SK9 postcode pricing zones</h3>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">Wilmslow's SK9 postcode divides into six residential sectors, each with a distinct price profile. SK9 6 (Dean Row and the Oak Lane corridor) commands the highest median price per square metre at £4,870, while SK9 3 (Handforth) offers the most affordable entry into the SK9 district at £3,620 per square metre (HouseMetric, 2025).</p>
+
+      <div style="overflow-x: auto; margin: 0 0 16px 0;">
+        <table style="width: 100%; border-collapse: collapse; font-family: Inter, Arial, sans-serif; font-size: 14px;">
+          <thead>
+            <tr style="border-bottom: 2px solid #E5E0D8;">
+              <th style="text-align: left; padding: 12px 16px; font-weight: 600; color: #1C1C1E;">Sector</th>
+              <th style="text-align: left; padding: 12px 16px; font-weight: 600; color: #1C1C1E;">Wilmslow area</th>
+              <th style="text-align: right; padding: 12px 16px; font-weight: 600; color: #1C1C1E;">Avg sold price</th>
+              <th style="text-align: right; padding: 12px 16px; font-weight: 600; color: #1C1C1E;">£/sqm</th>
+              <th style="text-align: right; padding: 12px 16px; font-weight: 600; color: #1C1C1E;">1yr trend</th>
+            </tr>
+          </thead>
+          <tbody>
+            {[
+              { sector: 'SK9 6', area: 'Dean Row, Oak Lane', avg: '£630,346', sqm: '£4,870', trend: '+2.4%', trendColor: '#3D5A3E' },
+              { sector: 'SK9 5', area: 'Lindow, Pownall Park', avg: '£637,895', sqm: '£4,700', trend: '+1.6%', trendColor: '#3D5A3E' },
+              { sector: 'SK9 2', area: 'Harden Park, Wilmslow Park', avg: '£606,306', sqm: '£4,260', trend: '+8.8%', trendColor: '#3D5A3E' },
+              { sector: 'SK9 1', area: 'Fulshaw Park, town centre', avg: '£502,154', sqm: '£4,130', trend: '-6.4%', trendColor: '#CC3333' },
+              { sector: 'SK9 4', area: 'Lacey Green, Styal', avg: '£421,993', sqm: '£3,900', trend: '-1.4%', trendColor: '#CC3333' },
+              { sector: 'SK9 3', area: 'Handforth', avg: '£356,856', sqm: '£3,620', trend: '-0.8%', trendColor: '#CC3333' },
+            ].map((row) => (
+              <tr style="border-bottom: 1px solid #F0EDE8;">
+                <td style="padding: 12px 16px; font-weight: 600; color: #1C1C1E;">{row.sector}</td>
+                <td style="padding: 12px 16px; color: #666666;">{row.area}</td>
+                <td style="text-align: right; padding: 12px 16px; font-weight: 600; color: #C4933F;">{row.avg}</td>
+                <td style="text-align: right; padding: 12px 16px; color: #1C1C1E;">{row.sqm}</td>
+                <td style="text-align: right; padding: 12px 16px; font-weight: 600; color: {row.trendColor};">{row.trend}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 12px; color: #999999; margin: 8px 0 0 0;">Sources: <a href="https://housemetric.co.uk/analysis/sector/SK9-6/Wilmslow" rel="nofollow noopener" target="_blank" style="color: #999999;">HouseMetric</a>, last 12 months to 2025. Based on Land Registry sold prices.</p>
+      </div>
+
+      <figure style="margin: 0 0 24px 0;">
+        <img src="/images/where-to-live/wilmslow-postcodes.webp"
+          alt="Wilmslow SK9 postcode pricing zones ranked by price per square metre from SK9 6 at £4,870 to SK9 3 Handforth at £3,620 with year-on-year trends"
+          loading="lazy"
+          width="720" height="480"
+          style="width: 100%; max-width: 720px; aspect-ratio: 3/2; border: 1px solid #E5E0D8;" />
+        <figcaption style="font-family: Inter, Arial, sans-serif; font-size: 12px; color: #999999; margin-top: 8px;">
+          Wilmslow SK9 postcode sectors ranked by price per square metre. SK9 2 (Harden Park, Wilmslow Park) recorded the strongest growth at +8.8% year-on-year. Source: HouseMetric/Land Registry, 2025.
+        </figcaption>
+      </figure>
+
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">SK9 2 recorded the strongest growth at +8.8% year-on-year, driven by demand for Torkington Road (average £2.95 million - the second most expensive street in the North West) and Wilmslow Park South (average £1.2 million). SK9 1 recorded the sharpest decline at -6.4%, although this reflects a composition effect: the sector includes both premium roads like Alderley Road (£5,873 per sqm) and town-centre flat stock on Church Street (£2,437 per sqm).</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0;">SK9 3 (Handforth) is technically within the SK9 district but functions as a separate settlement north of Wilmslow with its own high street and character. Buyers searching for Wilmslow's commute benefit at Handforth prices should note the 8-minute train to Wilmslow station adds to the Manchester journey time.</p>
+    </div>
+  </section>
+
+  <!-- Neighbourhoods -->
+  <section class="section-pad">
+    <div class="section-inner" style="max-width: 720px;">
+      <span class="section-label">Residential areas</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 24px 0;">
+        Which Wilmslow neighbourhoods suit different buyers?
+      </h2>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #1C1C1E; margin: 0 0 24px 0;">Wilmslow's SK9 postcode covers seven distinct residential areas, each with a different price point, housing stock, and lifestyle. The town's geography runs from premium private estates like Fulshaw Park (SK9 1) on the southern edge to period homes in Wilmslow Park near The Carrs and more accessible apartments in the town centre (SK9 5).</p>
+
+      <!-- Tier 2: Nanobanana base + crawlable CSS overlay -->
+      <div style="position: relative; max-width: 720px; margin: 0 auto 24px; border: 1px solid #E5E0D8; overflow: hidden;">
+        <img src="/images/where-to-live/wilmslow-neighbourhoods-base.webp"
+          alt="Aerial view of affluent Wilmslow residential streets with large detached homes and mature gardens in the Cheshire countryside"
+          loading="lazy"
+          width="720" height="480"
+          style="width: 100%; aspect-ratio: 3/2; object-fit: cover; object-position: center 30%; display: block; filter: brightness(0.45);" />
+        <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: flex; flex-direction: column; justify-content: space-between; padding: clamp(16px, 3vw, 28px);">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+            <div>
+              <p style="font-family: Inter, Arial, sans-serif; font-size: clamp(10px, 1.5vw, 11px); font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: #C4933F; margin: 0 0 4px 0;">Wilmslow neighbourhoods</p>
+              <p style="font-family: Georgia, serif; font-size: clamp(16px, 3vw, 22px); font-weight: 700; color: #FFFFFF; margin: 0;">Seven areas, one postcode</p>
+            </div>
+            <div style="background: rgba(196,147,63,0.15); border: 1px solid rgba(196,147,63,0.4); padding: 6px 12px; text-align: center;">
+              <p style="font-family: Inter, Arial, sans-serif; font-size: clamp(16px, 2.5vw, 20px); font-weight: 700; color: #C4933F; margin: 0;">£586k</p>
+              <p style="font-family: Inter, Arial, sans-serif; font-size: 10px; color: rgba(255,255,255,0.6); margin: 0;">Wilmslow average</p>
+            </div>
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: clamp(6px, 1vw, 10px);">
+            <div style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); padding: clamp(8px, 1.5vw, 14px) clamp(8px, 1.2vw, 12px);">
+              <p style="font-family: Inter, Arial, sans-serif; font-size: 13px; font-weight: 700; color: #FFFFFF; margin: 0 0 2px 0;">Fulshaw Park</p>
+              <p style="font-family: Inter, Arial, sans-serif; font-size: 10px; color: rgba(255,255,255,0.5); margin: 0 0 8px 0;">SK9 1 - Prestige</p>
+              <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; font-weight: 700; color: #C4933F; margin: 0;">£1.2m+</p>
+            </div>
+            <div style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); padding: clamp(8px, 1.5vw, 14px) clamp(8px, 1.2vw, 12px);">
+              <p style="font-family: Inter, Arial, sans-serif; font-size: 13px; font-weight: 700; color: #FFFFFF; margin: 0 0 2px 0;">Harden Park</p>
+              <p style="font-family: Inter, Arial, sans-serif; font-size: 10px; color: rgba(255,255,255,0.5); margin: 0 0 8px 0;">SK9 2 - Executive</p>
+              <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; font-weight: 700; color: #C4933F; margin: 0;">£900k+</p>
+            </div>
+            <div style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); padding: clamp(8px, 1.5vw, 14px) clamp(8px, 1.2vw, 12px);">
+              <p style="font-family: Inter, Arial, sans-serif; font-size: 13px; font-weight: 700; color: #FFFFFF; margin: 0 0 2px 0;">Lindow</p>
+              <p style="font-family: Inter, Arial, sans-serif; font-size: 10px; color: rgba(255,255,255,0.5); margin: 0 0 8px 0;">SK9 5 - Green fringe</p>
+              <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; font-weight: 700; color: #C4933F; margin: 0;">£550k</p>
+            </div>
+            <div style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); padding: clamp(8px, 1.5vw, 14px) clamp(8px, 1.2vw, 12px);">
+              <p style="font-family: Inter, Arial, sans-serif; font-size: 13px; font-weight: 700; color: #FFFFFF; margin: 0 0 2px 0;">Lacey Green</p>
+              <p style="font-family: Inter, Arial, sans-serif; font-size: 10px; color: rgba(255,255,255,0.5); margin: 0 0 8px 0;">SK9 4 - Family</p>
+              <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; font-weight: 700; color: #C4933F; margin: 0;">£500k</p>
+            </div>
+            <div style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); padding: clamp(8px, 1.5vw, 14px) clamp(8px, 1.2vw, 12px);">
+              <p style="font-family: Inter, Arial, sans-serif; font-size: 13px; font-weight: 700; color: #FFFFFF; margin: 0 0 2px 0;">Wilmslow Park</p>
+              <p style="font-family: Inter, Arial, sans-serif; font-size: 10px; color: rgba(255,255,255,0.5); margin: 0 0 8px 0;">SK9 2 - Period homes</p>
+              <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; font-weight: 700; color: #C4933F; margin: 0;">£475k</p>
+            </div>
+            <div style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); padding: clamp(8px, 1.5vw, 14px) clamp(8px, 1.2vw, 12px);">
+              <p style="font-family: Inter, Arial, sans-serif; font-size: 13px; font-weight: 700; color: #FFFFFF; margin: 0 0 2px 0;">Dean Row</p>
+              <p style="font-family: Inter, Arial, sans-serif; font-size: 10px; color: rgba(255,255,255,0.5); margin: 0 0 8px 0;">SK9 6 - Quieter south</p>
+              <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; font-weight: 700; color: #C4933F; margin: 0;">£450k</p>
+            </div>
+            <div style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); padding: clamp(8px, 1.5vw, 14px) clamp(8px, 1.2vw, 12px);">
+              <p style="font-family: Inter, Arial, sans-serif; font-size: 13px; font-weight: 700; color: #FFFFFF; margin: 0 0 2px 0;">Town Centre</p>
+              <p style="font-family: Inter, Arial, sans-serif; font-size: 10px; color: rgba(255,255,255,0.5); margin: 0 0 8px 0;">SK9 1/5 - Apartments</p>
+              <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; font-weight: 700; color: #C4933F; margin: 0;">£350k</p>
+            </div>
+          </div>
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <span style="font-family: Inter, Arial, sans-serif; font-size: 10px; color: rgba(255,255,255,0.35);">Rightmove, last 12 months to 2025</span>
+            <span style="font-family: Inter, Arial, sans-serif; font-size: 10px; color: rgba(255,255,255,0.5);">movetocheshire.uk</span>
+          </div>
+        </div>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 16px; margin: 0 0 24px 0;">
+        {neighbourhoods.map((n) => (
+          <div style="background-color: #FFFFFF; border: 1px solid #E5E0D8; padding: 20px 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+            <div>
+              <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; font-weight: 700; color: #1C1C1E; margin: 0 0 4px 0;">{n.name} <span style="font-size: 12px; font-weight: 600; color: #999999;">({n.postcode})</span></p>
+              <p style="font-family: Inter, Arial, sans-serif; font-size: 13px; color: #666666; margin: 0;">{n.character}</p>
+            </div>
+            <div style="text-align: right;">
+              <p style="font-family: Inter, Arial, sans-serif; font-size: 18px; font-weight: 700; color: #C4933F; margin: 0 0 2px 0;">{n.avgPrice}</p>
+              <p style="font-family: Inter, Arial, sans-serif; font-size: 12px; color: #999999; margin: 0;">{n.type}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <h3 style="font-family: Inter, Arial, sans-serif; font-size: 19px; font-weight: 700; color: #1C1C1E; margin: 0 0 12px 0;">Fulshaw Park - the prestige estate</h3>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">Fulshaw Park is Wilmslow's most sought-after residential address, with large detached homes on private roads behind mature hedgerows. Properties here rarely come to market - when they do, competition is intense, with asking prices from £1.2 million to above £1.55 million (Rightmove, 2025). The estate sits south of the town centre with walking access to both The Carrs Park and Wilmslow station.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">The housing stock is predominantly 1920s-1950s individually designed detached homes on plots of 0.25 to 0.5 acres, many with double garages and south-facing gardens. Several properties have been extended or rebuilt, but the estate's private road covenants restrict subdivision and maintain the low-density character. Fulshaw Park falls within the Gorsey Bank Primary catchment - a further pricing factor given that school's Outstanding Ofsted rating (2023).</p>
+
+      <h3 style="font-family: Inter, Arial, sans-serif; font-size: 19px; font-weight: 700; color: #1C1C1E; margin: 0 0 12px 0;">Harden Park - the executive estate</h3>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">Harden Park occupies the northeast corner of Wilmslow, between Handforth and the A34. The area is defined by 1960s-1970s executive detached homes on generous plots, averaging above £900,000 (Rightmove, 2025). Harden Park suits families who want four-to-five-bedroom homes with large gardens at a lower entry point than Fulshaw Park, while remaining within the Wilmslow High School catchment.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">The estate is quieter than areas closer to the town centre but sits further from the station - a 15-to-20-minute walk or a short drive. Buyers choosing Harden Park typically drive to the station or to Handforth Dean retail park rather than relying on the walkable town centre.</p>
+
+      <h3 style="font-family: Inter, Arial, sans-serif; font-size: 19px; font-weight: 700; color: #1C1C1E; margin: 0 0 12px 0;">Lacey Green - the family heartland</h3>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">Lacey Green is Wilmslow's most established family neighbourhood, centred on Lacey Green Primary Academy (Good, Ofsted 2023) and a cluster of 1950s-1970s semi-detached and detached homes. At £500,000 average, it represents the mid-market tier - below the premium estates but above the town centre flat market.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">The area has a settled, low-turnover character. Properties circulate within school-age family networks, meaning the best stock often sells before reaching open-market listing. Buyers targeting Lacey Green should register with local estate agents early and monitor pre-market listings. The neighbourhood borders Lindow to the west, giving residents walking access to Lindow Common without the higher prices of the Lindow fringe.</p>
+
+      <h3 style="font-family: Inter, Arial, sans-serif; font-size: 19px; font-weight: 700; color: #1C1C1E; margin: 0 0 12px 0;">Dean Row - the quieter south</h3>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">Dean Row extends south of Wilmslow towards the rural fringe and the village of Handforth. At £450,000 average, it offers family-sized homes with more garden space than the town centre at roughly 23% below the Wilmslow-wide average. The housing stock mixes 1970s estates with scattered older cottages along Dean Row Road.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">Dean Row is further from the station (a 20-to-25-minute walk) and has fewer local amenities, but the trade-off is space and quiet. St Chad's Church and the surrounding green space give the area a semi-rural feel despite its Wilmslow postcode. Buyers who prioritise garden size and tranquillity over walkability find Dean Row the best value within the SK9 postcode area.</p>
+
+      <h3 style="font-family: Inter, Arial, sans-serif; font-size: 19px; font-weight: 700; color: #1C1C1E; margin: 0 0 12px 0;">Lindow - green fringe living</h3>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">Lindow sits on Wilmslow's western edge adjacent to Lindow Common, a Site of Special Scientific Interest with lowland heath and birch woodland. The area attracts buyers who want countryside access within a 10-minute walk of the town centre. Housing stock is mixed - 1930s semis alongside more recent detached homes averaging £550,000 (Rightmove, 2025).</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">Lindow Community Primary School (Good, Ofsted) serves the neighbourhood, and the station is a 15-minute walk via Hawthorn Lane. Lindow Common is also the site of the Lindow Man discovery - an Iron Age bog body preserved for 2,000 years, now exhibited in the British Museum.</p>
+
+      <h3 style="font-family: Inter, Arial, sans-serif; font-size: 19px; font-weight: 700; color: #1C1C1E; margin: 0 0 12px 0;">Wilmslow Park - period homes near The Carrs</h3>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">Wilmslow Park sits between the town centre and The Carrs parkland, offering a mix of Victorian terraces, Edwardian semis, and interwar detached homes. At £475,000 average, the area appeals to buyers who value period character and walking proximity to both the park and the high street. The River Bollin runs along the southern boundary, and morning walks through The Carrs to the station take roughly 12 minutes on foot.</p>
+
+      <h3 style="font-family: Inter, Arial, sans-serif; font-size: 19px; font-weight: 700; color: #1C1C1E; margin: 0 0 12px 0;">Wilmslow Town Centre - convenience at lower cost</h3>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">Central Wilmslow offers the lowest entry prices at around £350,000 average, primarily apartments and smaller terraced properties. The advantage is proximity: the station, restaurants, and shops are within five minutes' walk. The trade-off is evening noise from the high street and limited garden space. For first-time buyers and downsizers, the town centre provides the Wilmslow commute and amenity at roughly 60% of the suburb average.</p>
+    </div>
+  </section>
+
+  <!-- Commute -->
+  <section class="section-pad" style="background-color: #FFFFFF; border-top: 1px solid #E5E0D8; border-bottom: 1px solid #E5E0D8;">
+    <div class="section-inner" style="max-width: 720px;">
+      <span class="section-label">Transport links</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 24px 0;">
+        How does the Wilmslow commute work?
+      </h2>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #1C1C1E; margin: 0 0 16px 0;">Wilmslow station handles the fastest regular commute in Cheshire: 17 minutes to Manchester Piccadilly via Avanti West Coast express services. Northern Rail runs additional stopping services averaging 28-30 minutes, giving a combined frequency of approximately 103 trains per day between 04:46 and 23:39 (National Rail, 2025).</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">Three operators serve Wilmslow station: Avanti West Coast (fast services to Manchester and London Euston), Northern Rail (stopping services), and Transport for Wales. The multi-operator coverage means that service disruptions on one line rarely eliminate all connections.</p>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin: 24px 0;">
+        {[
+          { dest: 'Manchester Piccadilly', time: '17 min', note: 'Avanti express' },
+          { dest: 'Manchester Airport', time: '7 min', note: 'Northern Rail direct' },
+          { dest: 'London Euston', time: '2 hr 5 min', note: 'Avanti West Coast' },
+          { dest: 'Stockport', time: '8 min', note: 'Northern Rail' },
+        ].map((route) => (
+          <div style="background-color: #F9F7F4; border: 1px solid #E5E0D8; padding: 20px;">
+            <p style="font-family: Inter, Arial, sans-serif; font-size: 22px; font-weight: 700; color: #3D5A3E; margin: 0 0 4px 0;">{route.time}</p>
+            <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; font-weight: 600; color: #1C1C1E; margin: 0 0 4px 0;">{route.dest}</p>
+            <p style="font-family: Inter, Arial, sans-serif; font-size: 12px; color: #999999; margin: 0;">{route.note}</p>
+          </div>
+        ))}
+      </div>
+
+      <h3 style="font-family: Inter, Arial, sans-serif; font-size: 19px; font-weight: 700; color: #1C1C1E; margin: 0 0 12px 0;">Manchester Airport proximity</h3>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">Wilmslow sits four miles from Manchester Airport - a 7-minute direct train or 9-minute drive. This proximity makes the town a practical base for frequent business travellers and households with international connections. No other Cheshire town of comparable size and quality offers this level of airport access.</p>
+
+      <h3 style="font-family: Inter, Arial, sans-serif; font-size: 19px; font-weight: 700; color: #1C1C1E; margin: 0 0 12px 0;">Wilmslow road and motorway connections</h3>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0;">Wilmslow connects to the M60 orbital motorway and Manchester city centre via the A34. Off-peak, the drive to Manchester takes approximately 30 minutes. Peak-hour congestion on the A34 and Wilmslow Road corridor adds 15-25 minutes, making the train materially faster for daily commuters. <em style="color: #888888; font-size: 14px;">(Sources: National Rail, 2025; Google Maps typical travel times)</em></p>
+    </div>
+  </section>
+
+  <!-- Schools -->
+  <section class="section-pad">
+    <div class="section-inner" style="max-width: 720px;">
+      <span class="section-label">Education</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 24px 0;">
+        What are the schools like in Wilmslow?
+      </h2>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #1C1C1E; margin: 0 0 16px 0;">Wilmslow has nine schools serving the town and surrounding villages, including two Outstanding-rated primary schools and a Good-rated secondary school (Ofsted, 2019-2025). The school density is higher than any other Golden Triangle town, making Wilmslow the default secondary catchment for families across the area.</p>
+
+      <div style="overflow-x: auto; margin: 24px 0;">
+        <table style="width: 100%; border-collapse: collapse; font-family: Inter, Arial, sans-serif; font-size: 14px;">
+          <thead>
+            <tr style="border-bottom: 2px solid #E5E0D8;">
+              <th style="text-align: left; padding: 12px 16px; font-weight: 600; color: #1C1C1E;">School</th>
+              <th style="text-align: left; padding: 12px 16px; font-weight: 600; color: #1C1C1E;">Type</th>
+              <th style="text-align: left; padding: 12px 16px; font-weight: 600; color: #1C1C1E;">Rating</th>
+              <th style="text-align: left; padding: 12px 16px; font-weight: 600; color: #1C1C1E;">Note</th>
+            </tr>
+          </thead>
+          <tbody>
+            {schools.map((s) => (
+              <tr style="border-bottom: 1px solid #F0EDE8;">
+                <td style="padding: 12px 16px; color: #1C1C1E; font-weight: 500;">{s.name}</td>
+                <td style="padding: 12px 16px; color: #666666;">{s.type}</td>
+                <td style="padding: 12px 16px; color: #3D5A3E; font-weight: 600;">{s.rating}</td>
+                <td style="padding: 12px 16px; color: #666666; font-size: 13px;">{s.note}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 12px; color: #999999; margin: 8px 0 0 0;">Sources: <a href="https://www.gov.uk/government/organisations/ofsted" rel="nofollow noopener" target="_blank" style="color: #999999;">Ofsted</a>, 2019-2025. From September 2024, Ofsted no longer awards single overall grades for state schools.</p>
+      </div>
+
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">Wilmslow High School serves as the main secondary for the entire Golden Triangle area, drawing pupils from Alderley Edge and Prestbury as well as Wilmslow itself. Its Progress 8 score of +0.16 means pupils make slightly above-average progress compared to similar students nationally (DfE, 2024). The 58% grade 5+ in English and Maths exceeds the national average of 30.84%.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0;">Gorsey Bank Primary and Ashdene Primary are the two Outstanding-rated state primaries. Gorsey Bank, in particular, received exemplary ratings across all inspection categories in 2023. School catchment boundaries directly influence property prices - streets within the Gorsey Bank or Ashdene catchments command measurable premiums over otherwise comparable properties outside the boundary. Families weighing school options alongside budget should read the <a href="/buying-guide/making-offer-cheshire" style="color: #3D5A3E;">guide to making an offer in Cheshire</a>.</p>
+    </div>
+  </section>
+
+  <!-- Lifestyle -->
+  <section class="section-pad" style="background-color: #FFFFFF; border-top: 1px solid #E5E0D8; border-bottom: 1px solid #E5E0D8;">
+    <div class="section-inner" style="max-width: 720px;">
+      <span class="section-label">Wilmslow amenity and services</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 24px 0;">
+        What is daily life like in Wilmslow?
+      </h2>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #1C1C1E; margin: 0 0 16px 0;">Wilmslow delivers a level of day-to-day convenience rare in Cheshire's smaller towns. Bank Square and pedestrianised Grove Street form the retail and dining core, with Hoopers department store, Waitrose, Sainsbury's, and over 100 independent boutiques within walking distance of the station.</p>
+
+      <h3 style="font-family: Inter, Arial, sans-serif; font-size: 19px; font-weight: 700; color: #1C1C1E; margin: 0 0 12px 0;">Wilmslow dining and restaurants</h3>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">Wilmslow's restaurant scene spans Italian (Cibo, Piccolino), Neapolitan pizza (Wood Fire Smoke on Water Lane), Indian (Potyo - 4.9 rating), and American smokehouse (Hickory's on Racecourse Road). For evening drinks, The Ladybrook pub and Coach and Four provide traditional alternatives to the wine bar scene. The dining offer is broader and more diverse than neighbouring Alderley Edge, which concentrates on premium-only venues.</p>
+
+      <h3 style="font-family: Inter, Arial, sans-serif; font-size: 19px; font-weight: 700; color: #1C1C1E; margin: 0 0 12px 0;">Wilmslow parks and outdoors</h3>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">Wilmslow's flagship park, The Carrs, runs 71 acres along the River Bollin, a 10-minute walk from the town centre. The park hosts Wilmslow's weekly Parkrun (Saturday 9am), a children's play area, and riverside walking trails connecting to Quarry Bank Mill - a National Trust property with 400 acres of woodland and a preserved 18th-century cotton mill built by Samuel Greg. On the western side of town, Lindow Common (SSSI) provides lowland heath walking through protected birch woodland.</p>
+
+      <h3 style="font-family: Inter, Arial, sans-serif; font-size: 19px; font-weight: 700; color: #1C1C1E; margin: 0 0 12px 0;">Wilmslow Artisan Market and events</h3>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0;">The Wilmslow Artisan Market runs on the third Saturday of each month (except January) on Alderley Road and South Drive, with over 120 traders, street food stalls, and live entertainment. The market has won national awards since launching in 2011 and draws visitors from across east Cheshire. Wilmslow Live, a free summer music event on Bank Square, and the annual Running Festival (half marathon, 10K, and fun run) round out the community calendar.</p>
+    </div>
+  </section>
+
+  <!-- Safety -->
+  <section class="section-pad">
+    <div class="section-inner" style="max-width: 720px;">
+      <span class="section-label">Crime and security data</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 24px 0;">
+        Is Wilmslow safe?
+      </h2>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #1C1C1E; margin: 0 0 16px 0;">Wilmslow records a crime rate of 51.4 per 1,000 population (police.uk, 2025), which is 44% below the national average of 91.6 per 1,000 and 12% below the Cheshire average of 58 per 1,000 (Cheshire Constabulary, 2024/25). The year-on-year trend shows a 2.1% decline in recorded crime.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0;">The most commonly reported categories are anti-social behaviour and low-level theft, consistent with a town centre that draws evening and weekend visitors. Violent crime and burglary rates sit below Cheshire East averages. The Cheshire Constabulary neighbourhood policing team covers Wilmslow, Handforth, and Alderley Edge from the Wilmslow Police Station on Swan Street.</p>
+    </div>
+  </section>
+
+  <!-- History and Heritage -->
+  <section class="section-pad" style="background-color: #FFFFFF; border-top: 1px solid #E5E0D8; border-bottom: 1px solid #E5E0D8;">
+    <div class="section-inner" style="max-width: 720px;">
+      <span class="section-label">Wilmslow origins and notable residents</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 24px 0;">
+        What is Wilmslow's history?
+      </h2>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #1C1C1E; margin: 0 0 16px 0;">Wilmslow derives its name from Old English "Wighelmes hlaw" - the mound of a man called Wighelm. Before the railway arrived in 1842, the parish comprised a few farms, a church, and a population of 2,842 (Census, 1801). The Manchester to Crewe railway transformed the settlement, drawing wealthy merchants who built the Victorian and Georgian houses that still define the town's residential character.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">Two heritage facts distinguish Wilmslow from neighbouring towns. Alan Turing - mathematician, Enigma codebreaker, and pioneer of computer science - lived at 43 Adlington Road until his death in 1954. A blue plaque marks the house, and Turing Drive is named in his honour. Separately, the Lindow Man, an Iron Age bog body preserved in peat for over 2,000 years, was discovered in Lindow Moss on the town's western edge in the 1980s and is now exhibited in the British Museum.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0;">Post-war suburban development consolidated Wilmslow's role as Manchester's primary commuter settlement. The town's contemporary reputation - luxury retail, footballer residents, the Real Housewives of Cheshire filming locations - reflects its evolution from agricultural parish to one of the most affluent communities in northern England.</p>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section-pad">
+    <div class="section-inner" style="max-width: 720px;">
+      <span class="section-label">Frequently asked about Wilmslow</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 32px 0;">
+        Wilmslow buyer questions
+      </h2>
+      <div style="display: flex; flex-direction: column; gap: 0;">
+        {faqs.map((faq) => (
+          <details style="border-bottom: 1px solid #E5E0D8;">
+            <summary style="font-family: Inter, Arial, sans-serif; font-size: 16px; font-weight: 600; color: #1C1C1E; padding: 20px 0; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center;">
+              {faq.question}
+              <span style="font-size: 20px; color: #999999; margin-left: 16px; flex-shrink: 0;">+</span>
+            </summary>
+            <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.75; color: #444444; padding: 0 0 20px 0; margin: 0;">{faq.answer}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Related Spokes -->
+  <section class="section-pad" style="background-color: #FFFFFF; border-top: 1px solid #E5E0D8;">
+    <div class="section-inner">
+      <span class="section-label">Explore nearby Cheshire towns</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 24px 0;">
+        Related Cheshire guides
+      </h2>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
+        {relatedSpokes.map((spoke) => (
+          <a href={spoke.href} style="display: block; text-decoration: none; background-color: #F9F7F4; border: 1px solid #E5E0D8; padding: 24px; transition: border-color 0.2s ease;">
+            <span style="font-family: Inter, Arial, sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #3D5A3E;">{spoke.tag}</span>
+            <p style="font-family: Georgia, serif; font-size: 18px; font-weight: 700; color: #1C1C1E; margin: 8px 0 0 0; line-height: 1.3;">{spoke.label}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #F9F7F4; margin: 0; }
+  .container {
+    width: 1200px;
+    height: 630px;
+    background: #F9F7F4;
+    display: flex;
+    flex-direction: column;
+    font-family: Inter, Arial, sans-serif;
+    overflow: hidden;
+  }
+
+  .header {
+    padding: 40px 48px 0;
+  }
+  .eyebrow {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #3D5A3E;
+    margin-bottom: 10px;
+  }
+  .title {
+    font-family: Georgia, serif;
+    font-size: 36px;
+    font-weight: 700;
+    color: #1C1C1E;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+  }
+  .subtitle {
+    font-size: 16px;
+    color: #666666;
+    margin-top: 8px;
+    line-height: 1.5;
+  }
+
+  .stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 16px;
+    padding: 32px 48px 0;
+  }
+  .stat-card {
+    background: #FFFFFF;
+    border: 1px solid #E5E0D8;
+    padding: 24px 20px;
+  }
+  .stat-value {
+    font-size: 28px;
+    font-weight: 700;
+    color: #C4933F;
+    margin-bottom: 4px;
+  }
+  .stat-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #1C1C1E;
+    margin-bottom: 4px;
+  }
+  .stat-source {
+    font-size: 11px;
+    color: #999999;
+  }
+
+  .areas {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 12px;
+    padding: 24px 48px 0;
+    flex: 1;
+  }
+  .area {
+    background: #FFFFFF;
+    border: 1px solid #E5E0D8;
+    padding: 16px 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .area-name {
+    font-size: 14px;
+    font-weight: 700;
+    color: #1C1C1E;
+    margin-bottom: 4px;
+  }
+  .area-type {
+    font-size: 11px;
+    color: #888888;
+    margin-bottom: 12px;
+  }
+  .area-price {
+    font-size: 18px;
+    font-weight: 700;
+    color: #C4933F;
+  }
+
+  .footer {
+    padding: 16px 48px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .source {
+    font-size: 11px;
+    color: #BBBBBB;
+  }
+  .brand {
+    font-size: 13px;
+    font-weight: 600;
+    color: #3D5A3E;
+    letter-spacing: 0.02em;
+  }
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="container" id="capture">
+    <div class="header">
+      <div class="eyebrow">Wilmslow, Cheshire</div>
+      <div class="title">Cheshire's fastest commuter town</div>
+      <div class="subtitle">Property prices, neighbourhoods, and transport links at a glance</div>
+    </div>
+
+    <div class="stats">
+      <div class="stat-card">
+        <div class="stat-value">£586k</div>
+        <div class="stat-label">Average price</div>
+        <div class="stat-source">Rightmove, 2025</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">17 min</div>
+        <div class="stat-label">Train to Manchester</div>
+        <div class="stat-source">National Rail, 2025</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">26,213</div>
+        <div class="stat-label">Population</div>
+        <div class="stat-source">Census 2021</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">51/1k</div>
+        <div class="stat-label">Crime rate</div>
+        <div class="stat-source">44% below UK avg</div>
+      </div>
+    </div>
+
+    <div class="areas">
+      <div class="area">
+        <div>
+          <div class="area-name">Fulshaw Park</div>
+          <div class="area-type">Prestige</div>
+        </div>
+        <div class="area-price">£1.2m+</div>
+      </div>
+      <div class="area">
+        <div>
+          <div class="area-name">Harden Park</div>
+          <div class="area-type">Executive</div>
+        </div>
+        <div class="area-price">£900k+</div>
+      </div>
+      <div class="area">
+        <div>
+          <div class="area-name">Lindow</div>
+          <div class="area-type">Green fringe</div>
+        </div>
+        <div class="area-price">£550k</div>
+      </div>
+      <div class="area">
+        <div>
+          <div class="area-name">Lacey Green</div>
+          <div class="area-type">Family</div>
+        </div>
+        <div class="area-price">£500k</div>
+      </div>
+      <div class="area">
+        <div>
+          <div class="area-name">Dean Row</div>
+          <div class="area-type">Quieter south</div>
+        </div>
+        <div class="area-price">£450k</div>
+      </div>
+      <div class="area">
+        <div>
+          <div class="area-name">Town Centre</div>
+          <div class="area-type">Apartments</div>
+        </div>
+        <div class="area-price">£350k</div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <span class="source">Rightmove 2025 - National Rail 2025 - Census 2021 - police.uk 2025</span>
+      <span class="brand">movetocheshire.uk</span>
+    </div>
+  </div>
+</body>
+</html>
