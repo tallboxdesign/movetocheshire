@@ -40,8 +40,8 @@ const resolvedOgDescription = ogDescription || description;
     <meta property="og:description" content={resolvedOgDescription} />
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:site_name" content="movetocheshire.uk" />
-    {ogImage && <meta property="og:image" content={ogImage} />}
-    <meta name="twitter:card" content="summary" />
+    {ogImage && <meta property="og:image" content={ogImage.startsWith('http') ? ogImage : `https://movetocheshire.uk${ogImage}`} />}
+    <meta name="twitter:card" content={ogImage ? "summary_large_image" : "summary"} />
     <meta name="twitter:title" content={resolvedOgTitle} />
     <meta name="twitter:description" content={resolvedOgDescription} />
     <slot name="head" />

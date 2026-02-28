@@ -1,0 +1,35 @@
+# movetocheshire.uk
+> Independent data-driven guide to relocating to Cheshire. Property prices, area guides, schools, commuting, and the buying process - sourced from ONS, HMRC, Ofsted, and National Rail.
+
+## Buying Guide
+- [Stamp Duty in Cheshire](/buying-guide/stamp-duty-cheshire): SDLT calculations at 16 Cheshire price points with FTB relief, additional dwelling surcharge, and post-April 2025 rates
+- [Survey Types for Cheshire Properties](/buying-guide/survey-types-cheshire): RICS survey levels matched to Cheshire housing stock with town-specific risk mapping and cost comparison
+- [Conveyancing in Cheshire](/buying-guide/conveyancing-cheshire): Six-stage conveyancing process with Cheshire-specific costs at 10 price points, mandatory salt search, LA search timelines (5-21 working days), and CQS solicitor selection
+- [Making an Offer in Cheshire](/buying-guide/making-offer-cheshire): Offer strategy across nine Cheshire towns with area-specific pricing dynamics, sealed bids, gazumping protection, Estate Agents Act 1979 obligations, and an interactive offer strategy calculator
+- [Buying Guide Hub](/buying-guide): Process guide covering stamp duty, surveys, conveyancing, and offers
+
+## House Prices
+- [Average House Price in Cheshire](/house-prices/average-house-price-cheshire): ONS ward-level price data across Cheshire East and Cheshire West
+- [Wilmslow House Prices](/house-prices/wilmslow-house-prices): Price tiers and trends for Wilmslow properties
+- [House Prices Hub](/house-prices): County-wide price data with authority and ward breakdowns
+
+## Where to Live
+- [Best Places to Live in Cheshire](/where-to-live/best-places-cheshire): Town comparisons by price, schools, commute, and safety
+- [Golden Triangle](/where-to-live/cheshire-golden-triangle): Alderley Edge, Wilmslow, and Prestbury guide
+- [Chester](/where-to-live/chester): City and neighbourhood guide
+
+## Schools
+- [Best Primary Schools](/schools/best-primary-schools): Ofsted-rated primary schools across Cheshire
+- [Best Secondary Schools](/schools/best-secondary-schools): Ofsted-rated secondary schools across Cheshire
+
+## Commuting
+- [Cheshire to Manchester Commute](/commuting/cheshire-manchester-commute): Train times, costs, and routes
+- [Wilmslow to Manchester Train](/commuting/wilmslow-manchester-train): Direct service details
+
+## Lifestyle
+- [Pros and Cons of Living in Cheshire](/lifestyle/pros-cons-living-cheshire): Balanced assessment with data
+- [Is Cheshire Safe?](/lifestyle/is-cheshire-safe): ONS crime data by authority and ward
+- [Moving from London to Cheshire](/lifestyle/moving-london-cheshire): Relocation comparison
+
+## Investment
+- [Is It a Good Time to Buy in Cheshire?](/investment/good-time-buy-cheshire): Market timing analysis with Savills and ONS data

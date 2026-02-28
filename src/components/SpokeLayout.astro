@@ -12,48 +12,44 @@ const { tag, hubLabel, hubHref, title, description, accentColor = '#3D5A3E' } = 
 ---
 
 <div style="background-color: #F9F7F4;">
+    <!-- Breadcrumb -->
+    <div class="section-pad" style="padding-top: 20px; padding-bottom: 0;">
+      <div class="section-inner">
+        <nav aria-label="Breadcrumb" style="font-family: Inter, Arial, sans-serif; font-size: 13px; color: #999999;">
+          <a href="/" style="color: #999999; text-decoration: none;">Home</a>
+          <span style="margin: 0 8px;">/</span>
+          <a href={hubHref} style="color: #999999; text-decoration: none;">{hubLabel}</a>
+          <span style="margin: 0 8px;">/</span>
+          <span style="color: #1C1C1E;">{tag}</span>
+        </nav>
+      </div>
+    </div>
+
+    <!-- Hero -->
     <section
       class="section-pad"
-      style="background-color: #F9F7F4; border-bottom: 1px solid #E5E0D8;"
+      style="background-color: #F9F7F4; padding-top: 40px; border-bottom: 1px solid #E5E0D8;"
     >
       <div class="section-inner">
-        <div style="margin-bottom: 8px;">
-          <a
-            href="/"
-            style="font-family: Inter, Arial, sans-serif; font-size: 13px; color: #888888; text-decoration: none;"
+        <div style="max-width: 720px;">
+          <span
+            style={`font-family: Inter, Arial, sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: ${accentColor}; display: block; margin-bottom: 14px;`}
           >
-            Home
-          </a>
-          <span style="color: #CCCCCC; margin: 0 8px;">/</span>
-          <a
-            href={hubHref}
-            style="font-family: Inter, Arial, sans-serif; font-size: 13px; color: #888888; text-decoration: none;"
-          >
-            {hubLabel}
-          </a>
-          <span style="color: #CCCCCC; margin: 0 8px;">/</span>
-          <span style="font-family: Inter, Arial, sans-serif; font-size: 13px; color: #444444;">
             {tag}
           </span>
+
+          <h1
+            style="font-family: Georgia, serif; font-size: clamp(28px, 4.5vw, 44px); font-weight: 700; color: #1C1C1E; line-height: 1.15; letter-spacing: -0.02em; margin: 0 0 20px 0;"
+          >
+            {title}
+          </h1>
+
+          <p
+            style="font-family: Inter, Arial, sans-serif; font-size: 18px; line-height: 1.7; color: #444444; margin: 0 0 40px 0;"
+          >
+            {description}
+          </p>
         </div>
-
-        <span
-          style={`font-family: Inter, Arial, sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: ${accentColor}; display: block; margin-bottom: 14px; margin-top: 28px;`}
-        >
-          {tag}
-        </span>
-
-        <h1
-          style="font-family: Georgia, serif; font-size: clamp(28px, 4.5vw, 46px); font-weight: 700; color: #1C1C1E; line-height: 1.12; letter-spacing: -0.02em; margin: 0 0 20px 0; max-width: 720px;"
-        >
-          {title}
-        </h1>
-
-        <p
-          style="font-family: Inter, Arial, sans-serif; font-size: 18px; line-height: 1.7; color: #555555; max-width: 640px; margin: 0 0 40px 0;"
-        >
-          {description}
-        </p>
 
         <div
           style="border: 1px solid #E5E0D8; background-color: #FFFFFF; padding: 40px; max-width: 720px;"

@@ -1,0 +1,710 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const conveyancingStages = [
+  { stage: 1, name: 'Instruct solicitor', duration: '1-3 days', description: 'ID verification, AML checks, file setup' },
+  { stage: 2, name: 'Searches and contract pack', duration: '2-4 weeks', description: 'Local authority, environmental, salt search ordered' },
+  { stage: 3, name: 'Enquiries and mortgage', duration: '2-6 weeks', description: 'Legal questions raised, mortgage offer issued' },
+  { stage: 4, name: 'Exchange of contracts', duration: '1-2 days', description: 'Deposit paid (10%), completion date fixed' },
+  { stage: 5, name: 'Completion', duration: '1-4 weeks after exchange', description: 'Funds transfer, keys released' },
+  { stage: 6, name: 'Post-completion', duration: '4-12 weeks', description: 'SDLT filed, Land Registry registration' },
+];
+
+const conveyancingCosts = [
+  { price: '185,000', location: 'Crewe', legalFees: '£500-£700', searches: '£250-£350', landReg: '£95', total: '£845-£1,145' },
+  { price: '220,000', location: 'Northwich', legalFees: '£550-£750', searches: '£280-£380', landReg: '£95', total: '£925-£1,225' },
+  { price: '266,000', location: 'Chester avg', legalFees: '£600-£800', searches: '£280-£400', landReg: '£270', total: '£1,150-£1,470' },
+  { price: '300,000', location: 'Macclesfield', legalFees: '£650-£850', searches: '£300-£400', landReg: '£270', total: '£1,220-£1,520' },
+  { price: '350,000', location: 'Knutsford entry', legalFees: '£700-£900', searches: '£300-£420', landReg: '£270', total: '£1,270-£1,590' },
+  { price: '400,000', location: 'Wilmslow entry', legalFees: '£750-£950', searches: '£300-£430', landReg: '£270', total: '£1,320-£1,650' },
+  { price: '480,000', location: 'Knutsford avg', legalFees: '£800-£1,000', searches: '£320-£440', landReg: '£270', total: '£1,390-£1,710' },
+  { price: '550,000', location: 'Wilmslow avg', legalFees: '£850-£1,050', searches: '£320-£450', landReg: '£540', total: '£1,710-£2,040' },
+  { price: '750,000', location: 'Alderley Edge', legalFees: '£950-£1,150', searches: '£350-£450', landReg: '£540', total: '£1,840-£2,140' },
+  { price: '1,000,000', location: 'Prestbury', legalFees: '£1,000-£1,200', searches: '£350-£470', landReg: '£910', total: '£2,260-£2,580' },
+];
+
+const searchTypes = [
+  { search: 'Local authority', purpose: 'Planning history, building control, conservation areas, highways', cost: '£100-£250', timeline: '5-22 working days' },
+  { search: 'Environmental', purpose: 'Flood risk, contaminated land, ground stability', cost: '£35-£75', timeline: '1-3 working days' },
+  { search: 'Water and drainage', purpose: 'Public water and sewer connections, drainage maps', cost: '£35-£60', timeline: '1-5 working days' },
+  { search: 'Cheshire salt search', purpose: 'Brine subsidence history, compensation claims', cost: '£79', timeline: '1 working day' },
+  { search: 'Coal mining', purpose: 'Mining subsidence risk (north-east Cheshire)', cost: '£40-£60', timeline: '1-3 working days' },
+  { search: 'Chancel repair', purpose: 'Church repair liability on the title', cost: '£15-£25', timeline: '1-2 working days' },
+];
+
+const laSearchTimelines = [
+  { authority: 'Cheshire East', areas: 'Crewe, Nantwich, Macclesfield, Knutsford, Wilmslow', days: 21 },
+  { authority: 'Cheshire West and Chester', areas: 'Chester, Northwich, Winsford, Frodsham, Ellesmere Port', days: 20 },
+  { authority: 'Warrington', areas: 'Warrington borough', days: 5 },
+];
+
+const faqs = [
+  { question: 'How long does conveyancing take in Cheshire?', answer: 'Conveyancing on a standard freehold Cheshire purchase takes 8-12 weeks from instruction to completion (Law Society, 2025). Leasehold purchases add 2-4 weeks for freeholder enquiries and lease review. Chain transactions add a further 2-4 weeks because each linked sale must synchronise exchange dates. Cheshire East local authority searches take 21 working days compared to 5 working days in Warrington - the council processing speed directly affects the Stage 2 timeline.' },
+  { question: 'What is a Cheshire salt search?', answer: 'The Cheshire salt search (formally the Cheshire Brine Subsidence Compensation District search) checks whether a property sits within a zone affected by historical brine extraction. The search costs £79 including VAT and returns within 1 working day. It reveals any subsidence claims, compensation payments, or commutation awards recorded against the property. The Law Society mandates this search for all purchases within the Brine Compensation District, which covers Cheshire East, Cheshire West and Chester, Warrington, and parts of Trafford.' },
+  { question: 'Do I need a local solicitor for a Cheshire property?', answer: 'English conveyancing law applies uniformly, so any qualified solicitor or licensed conveyancer in England and Wales can act on a Cheshire purchase. Local solicitors offer knowledge of Cheshire-specific issues - the salt search requirement, Chester conservation area restrictions, and Cheshire East planning patterns. Online conveyancers charge £200-£400 less on average but rely on standard protocols and may not flag area-specific risks unprompted. CQS-accredited firms (Law Society Conveyancing Quality Scheme) meet audit standards regardless of location.' },
+  { question: 'What is the difference between exchange and completion?', answer: 'Exchange of contracts is the point at which the purchase becomes legally binding - the buyer pays a 10% deposit and both parties commit to complete on the agreed date. Neither party can withdraw after exchange without forfeiting the deposit or facing breach-of-contract claims. Completion is the day the remaining funds transfer from the buyer\'s solicitor to the seller\'s solicitor, ownership passes, and the buyer collects the keys. The gap between exchange and completion ranges from 1 day to 4 weeks, with 2 weeks being typical in Cheshire chain transactions.' },
+  { question: 'Can I speed up Cheshire conveyancing?', answer: 'Three factors accelerate Cheshire conveyancing. Instructing a solicitor before the offer is accepted saves 1-2 weeks on AML checks and file setup. Ordering searches on instruction rather than waiting for the contract pack saves 1-3 weeks because searches run in parallel with the seller\'s solicitor preparing documents. Responding to solicitor information requests within 48 hours prevents delays - the most common cause of slow conveyancing is the buyer taking weeks to return signed forms or provide requested documents.' },
+  { question: 'What happens if the chain collapses?', answer: 'A chain collapse before exchange of contracts means the buyer loses conveyancing fees incurred to that point (typically £500-£1,200 in legal fees plus £250-£450 in search costs) but does not lose a deposit. After exchange, withdrawal costs the 10% deposit plus potential damages. Home buyer protection insurance (from £74) covers lost conveyancing and survey fees if the purchase fails before exchange. Chain collapses affect approximately 30% of English property transactions (HomeOwners Alliance, 2025).' },
+  { question: 'What extra costs does a leasehold purchase add?', answer: 'Leasehold conveyancing adds £300-£600 to the legal bill. The freeholder or managing agent charges a notice fee (£100-£200) for registering the new owner, a management pack fee (£200-£400) containing service charge accounts, insurance details, and lease terms, and potentially a deed of covenant fee (£50-£150). Ground rent and service charge apportionments require calculation at completion. Chester city centre flats and Northwich apartment developments are the most common leasehold purchases in Cheshire.' },
+  { question: 'What is CQS accreditation?', answer: 'The Conveyancing Quality Scheme (CQS) is a Law Society accreditation programme that audits conveyancing firms against defined standards for case management, client communication, file handling, and regulatory compliance. CQS firms undergo annual assessment and must demonstrate professional indemnity insurance, complaints handling procedures, and staff training records. Most mortgage lenders require the buyer\'s solicitor to hold CQS accreditation before releasing funds. The CQS directory at lawsociety.org.uk lists accredited firms searchable by location.' },
+];
+
+const relatedSpokes = [
+  { label: 'Stamp Duty in Cheshire', href: '/buying-guide/stamp-duty-cheshire', tag: 'Buying Guide' },
+  { label: 'Survey Types for Cheshire Properties', href: '/buying-guide/survey-types-cheshire', tag: 'Buying Guide' },
+  { label: 'Average House Price in Cheshire', href: '/house-prices/average-house-price-cheshire', tag: 'Prices' },
+];
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((faq) => ({
+    '@type': 'Question',
+    name: faq.question,
+    acceptedAnswer: { '@type': 'Answer', text: faq.answer },
+  })),
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://movetocheshire.uk' },
+    { '@type': 'ListItem', position: 2, name: 'Buying Guide', item: 'https://movetocheshire.uk/buying-guide' },
+    { '@type': 'ListItem', position: 3, name: 'Conveyancing in Cheshire', item: 'https://movetocheshire.uk/buying-guide/conveyancing-cheshire' },
+  ],
+};
+
+
+const webApplicationSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  additionalType: 'https://schema.org/FinancialProduct',
+  name: 'Cheshire Conveyancing Timeline Estimator',
+  description: 'Estimates the conveyancing timeline for Cheshire property purchases based on property type, chain status, local authority area, and buyer type. Includes Cheshire-specific search timelines and cost estimates.',
+  applicationCategory: 'FinanceApplication',
+  operatingSystem: 'Web browser',
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'GBP' },
+  areaServed: {
+    '@type': 'AdministrativeArea',
+    name: 'Cheshire',
+    containedInPlace: { '@type': 'Country', name: 'England' },
+  },
+  audience: { '@type': 'Audience', audienceType: 'Home buyers purchasing property in Cheshire' },
+  potentialAction: {
+    '@type': 'UseAction',
+    name: 'Estimate your Cheshire conveyancing timeline',
+    target: 'https://movetocheshire.uk/buying-guide/conveyancing-cheshire#timeline-tool',
+  },
+  isPartOf: { '@type': 'WebPage', url: 'https://movetocheshire.uk/buying-guide/conveyancing-cheshire' },
+};
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: 'Conveyancing When Buying a Cheshire Property',
+  description: 'The conveyancing process for Cheshire property purchases explained in six stages. Covers the mandatory salt search, local authority search timelines across Cheshire East, CWaC, and Warrington, solicitor costs at 10 price points, and how to choose a conveyancer with CQS accreditation.',
+  datePublished: '2026-02-27',
+  dateModified: '2026-02-27',
+  author: { '@type': 'Organization', name: 'movetocheshire.uk' },
+  publisher: { '@type': 'Organization', name: 'movetocheshire.uk', url: 'https://movetocheshire.uk' },
+};
+---
+
+<BaseLayout
+  title="Conveyancing in Cheshire | Costs, Timeline & Solicitor Guide"
+  description="Cheshire conveyancing costs £750-£1,600 over 8-12 weeks. Covers the mandatory salt search (£79), LA search times (Cheshire East 21 days vs Warrington 5), 6-stage process, and CQS solicitor selection."
+  ogImage="https://movetocheshire.uk/images/buying-guide/cheshire-conveyancing-timeline-composite.webp"
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(webApplicationSchema)} />
+  </Fragment>
+
+  <!-- Breadcrumb -->
+  <div class="section-pad" style="padding-top: 20px; padding-bottom: 0;">
+    <div class="section-inner">
+      <nav aria-label="Breadcrumb" style="font-family: Inter, Arial, sans-serif; font-size: 13px; color: #999999;">
+        <a href="/" style="color: #999999; text-decoration: none;">Home</a>
+        <span style="margin: 0 8px;">/</span>
+        <a href="/buying-guide" style="color: #999999; text-decoration: none;">Buying Guide</a>
+        <span style="margin: 0 8px;">/</span>
+        <span style="color: #1C1C1E;">Conveyancing</span>
+      </nav>
+    </div>
+  </div>
+
+  <!-- Hero -->
+  <section class="section-pad" style="padding-top: 40px;">
+    <div class="section-inner" style="max-width: 720px;">
+      <span class="section-label">Legal process</span>
+      <h1 style="font-family: Georgia, serif; font-size: clamp(28px, 4.5vw, 44px); font-weight: 700; color: #1C1C1E; line-height: 1.15; margin: 0 0 20px 0; letter-spacing: -0.02em;">Conveyancing When Buying a Cheshire Property</h1>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 18px; line-height: 1.7; color: #444444; margin: 0 0 24px 0;">
+        Conveyancing in Cheshire follows a six-stage legal process from solicitor instruction to Land Registry registration, typically completing in 8-12 weeks (Law Society, 2025). Cheshire purchases carry additional requirements - the mandatory brine subsidence search, local authority search delays of up to 21 working days in Cheshire East, and conservation area restrictions in Chester - that extend timelines beyond the national average.
+      </p>
+      <span style="display: inline-block; font-family: Inter, Arial, sans-serif; font-size: 12px; font-weight: 600; color: #3D5A3E; background-color: rgba(61, 90, 62, 0.08); padding: 6px 12px; letter-spacing: 0.02em;">Last updated: February 2026</span>
+      <nav aria-label="Page sections" style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px;">
+        {[
+          { label: 'Process', href: '#process' },
+          { label: 'Cheshire difference', href: '#cheshire-difference' },
+          { label: 'Timeline', href: '#timeline-tool' },
+          { label: 'Costs', href: '#costs' },
+          { label: 'Searches', href: '#searches' },
+          { label: 'Choosing a solicitor', href: '#solicitor' },
+          { label: 'FAQ', href: '#faq' },
+        ].map((link) => (
+          <a href={link.href} style="font-family: Inter, Arial, sans-serif; font-size: 13px; font-weight: 500; color: #3D5A3E; text-decoration: none; padding: 5px 12px; border: 1px solid rgba(61, 90, 62, 0.25); transition: border-color 0.2s, background-color 0.2s;">{link.label}</a>
+        ))}
+      </nav>
+    </div>
+  </section>
+
+  <!-- Stat Bar -->
+  <section class="section-pad" style="padding-top: 0;">
+    <div class="section-inner">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px;">
+        {[
+          { value: '8-12 weeks', label: 'Standard Cheshire conveyancing timeline', source: 'Law Society, 2025' },
+          { value: '£750-£1,600', label: 'Cheshire conveyancing cost excluding SDLT', source: 'Compare My Move, 2025' },
+          { value: '£79', label: 'Cheshire salt search (mandatory in brine districts)', source: 'Cheshire Brine Board' },
+        ].map((stat) => (
+          <div style="background-color: #FFFFFF; border: 1px solid #E5E0D8; padding: 28px 24px;">
+            <p class="data-tile-value" style="margin: 0 0 8px 0;">{stat.value}</p>
+            <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; font-weight: 600; color: #1C1C1E; margin: 0 0 4px 0;">{stat.label}</p>
+            <p style="font-family: Inter, Arial, sans-serif; font-size: 12px; color: #999999; margin: 0;">{stat.source}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Hero image - Tier 3 composite (photo + CSS baked) -->
+  <section class="section-pad" style="padding-top: 0; padding-bottom: 0;">
+    <div class="section-inner" style="max-width: 720px;">
+      <figure style="margin: 0 auto 0;">
+        <img src="/images/buying-guide/cheshire-conveyancing-timeline-composite.webp"
+          alt="Cheshire conveyancing timeline showing six stages from solicitor instruction to Land Registry registration over 8-12 weeks, with salt search and conservation area callouts"
+          loading="eager"
+          style="width: 720px; max-width: 100%; aspect-ratio: 720/480; border: 1px solid #E5E0D8;" />
+        <figcaption style="font-family: Inter, Arial, sans-serif; font-size: 12px; color: #999999; margin-top: 8px;">Total conveyancing cost excluding SDLT ranges from £750 to £1,600 depending on property price and transaction complexity (Compare My Move, 2025).</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- TLDR -->
+  <section class="section-pad">
+    <div class="section-inner" style="max-width: 720px;">
+      <span class="section-label">Cheshire conveyancing summary</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 24px 0;">
+        What does conveyancing involve when buying in Cheshire?
+      </h2>
+      <div style="display: flex; flex-direction: column; gap: 16px;">
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #1C1C1E; margin: 0;"><strong>Conveyancing is the legal transfer of property ownership from seller to buyer, conducted by a solicitor or licensed conveyancer who manages searches, contract review, fund transfers, and Land Registry registration.</strong></p>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #1C1C1E; margin: 0;">The process applies to every residential property purchase in England and Wales - buyers cannot complete a purchase without instructing a conveyancer.</p>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #1C1C1E; margin: 0;"><strong>Cheshire conveyancing costs £845-£1,600 for standard freehold purchases at prices from £185,000 in Crewe to £480,000 in Knutsford, rising to £2,580 on £1,000,000 Prestbury properties</strong> (Compare My Move, 2025). The Cheshire salt search adds £79 to the standard search pack - a requirement specific to the Brine Compensation District that covers the entire county.</p>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0;">Cheshire East council processes local authority searches in 21 working days, Cheshire West and Chester in 20, and Warrington in 5. The council where the property sits determines whether Stage 2 (searches and contract pack) takes 2 weeks or 5 weeks - the single largest variable in the Cheshire conveyancing timeline.</p>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0;">This guide covers 6 stages, costs at 10 Cheshire price points from £185,000 to £1,000,000, 6 property searches with Cheshire-specific timelines, and CQS solicitor selection criteria.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cheshire Difference -->
+  <section id="cheshire-difference" class="section-pad" style="background-color: #FFFFFF; border-top: 1px solid #E5E0D8; border-bottom: 1px solid #E5E0D8;">
+    <div class="section-inner" style="max-width: 720px;">
+      <span class="section-label">Cheshire-specific requirements</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 16px 0;">What makes Cheshire conveyancing different?</h2>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 24px 0;">Cheshire conveyancing diverges from the national standard in four areas: a mandatory geological search, conservation area complications, local authority processing delays, and a concentration of leasehold city-centre stock.</p>
+
+      <h3 style="font-family: Georgia, serif; font-size: 20px; font-weight: 700; color: #1C1C1E; margin: 24px 0 12px 0;">The mandatory Cheshire salt search</h3>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">The Cheshire Brine Subsidence Compensation District search costs £79 and returns within 1 working day. The Law Society mandates this search for every property purchase within the District, which covers Cheshire East, Cheshire West and Chester, Warrington, and parts of Trafford (Brine Subsidence Compensation Act 1891, amended 1952). Historical brine extraction - pumping water into underground salt deposits to dissolve and extract the mineral - caused mine collapses and ground subsidence across the county.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0;">The search reveals any subsidence claims, compensation payments, or commutation awards against the property. A commutation payment equals the property's market value and is offered when damage is too severe to repair economically. Northwich, Winsford, and Middlewich carry the highest subsidence risk due to concentrated historical extraction. The Winsford salt mine remains the largest and oldest active salt mine in the UK.</p>
+
+      <h3 style="font-family: Georgia, serif; font-size: 20px; font-weight: 700; color: #1C1C1E; margin: 24px 0 12px 0;">Conservation areas and listed buildings in Chester</h3>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0;">Chester's city centre sits within an extensive Conservation Area containing approximately 1,200 listed buildings (Cheshire West and Chester Council). Conservation designation restricts permitted development rights - external alterations including window replacement, rendering, satellite dishes, and extensions require local authority consent.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0;">Your conveyancer raises additional enquiries on conservation area status, Article 4 directions (which remove further permitted development rights), and any outstanding enforcement notices. These enquiries add 1-2 weeks to Stage 3 and increase legal fees by £100-£200 for the additional work.</p>
+
+      <h3 style="font-family: Georgia, serif; font-size: 20px; font-weight: 700; color: #1C1C1E; margin: 24px 0 12px 0;">Local authority search timelines across Cheshire</h3>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">Local authority search processing times vary by a factor of four across Cheshire's three councils. The local authority search (LLC1 and CON29) is the slowest element in the standard search pack and the primary bottleneck in Stage 2.</p>
+      <div style="overflow-x: auto; margin-bottom: 16px;">
+        <table style="width: 100%; border-collapse: collapse; font-family: Inter, Arial, sans-serif; font-size: 14px; min-width: 480px;">
+          <thead>
+            <tr style="border-bottom: 2px solid #3D5A3E;">
+              <th style="text-align: left; padding: 12px 16px; font-weight: 700; color: #1C1C1E;">Local authority</th>
+              <th style="text-align: left; padding: 12px 16px; font-weight: 700; color: #1C1C1E;">Areas covered</th>
+              <th style="text-align: right; padding: 12px 16px; font-weight: 700; color: #1C1C1E;">Working days</th>
+            </tr>
+          </thead>
+          <tbody>
+            {laSearchTimelines.map((row, i) => (
+              <tr style={`background-color: ${i % 2 === 0 ? '#FFFFFF' : '#F9F7F4'}; border-bottom: 1px solid #E5E0D8;`}>
+                <td style="padding: 14px 16px; font-weight: 600; color: #1C1C1E;">{row.authority}</td>
+                <td style="padding: 14px 16px; color: #444444;">{row.areas}</td>
+                <td style="padding: 14px 16px; color: #C4933F; font-weight: 700; text-align: right;">{row.days}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 12px; color: #999999; margin: 0;">Source: Local authority published turnaround times, February 2026. Times vary by workload and peak periods.</p>
+      <figure style="margin: 20px auto 0; max-width: 720px;">
+        <img src="/images/buying-guide/cheshire-la-search-timeline-comparison.webp" alt="Horizontal bar chart comparing local authority search processing times across three Cheshire councils - Warrington at 5 working days, Cheshire West and Chester at 20 days, and Cheshire East at 21 days" loading="lazy" style="width: 720px; max-width: 100%; aspect-ratio: 720/330; border: 1px solid #E5E0D8;" />
+        <figcaption style="font-family: Inter, Arial, sans-serif; font-size: 12px; color: #999999; margin-top: 8px;">Warrington processes searches 4x faster than Cheshire East - a key factor when choosing between Cheshire locations under time pressure.</figcaption>
+      </figure>
+
+      <h3 style="font-family: Georgia, serif; font-size: 20px; font-weight: 700; color: #1C1C1E; margin: 24px 0 12px 0;">Leasehold flats in Chester city centre</h3>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0;">Chester city centre flats and Northwich apartment developments constitute the majority of leasehold purchases in Cheshire. Leasehold conveyancing requires additional enquiries to the freeholder or managing agent covering the management pack (£200-£400), notice of transfer (£100-£200), and deed of covenant (£50-£150).</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0;">These freeholder-imposed charges add £350-£750 to the disbursement bill and extend the timeline by 2-4 weeks because the freeholder's response is outside your solicitor's control.</p>
+    </div>
+  </section>
+
+  <!-- Timeline Estimator Tool -->
+  <section id="timeline-tool" class="section-pad" style="background-color: #FFFFFF; border-top: 1px solid #E5E0D8; border-bottom: 1px solid #E5E0D8;">
+    <div class="section-inner" style="max-width: 720px;">
+      <span class="section-label">Conveyancing timeline estimator</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 16px 0;">How long does conveyancing take in Cheshire?</h2>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 24px 0;">Cheshire conveyancing timelines range from 5 weeks for a chain-free cash purchase in Warrington to 20+ weeks for a leasehold chain transaction in Cheshire East. Select your purchase details to estimate the timeline for your specific situation.</p>
+
+      <div style="display: flex; flex-direction: column; gap: 20px; margin-bottom: 24px;">
+        <div>
+          <label for="conv-property-type" style="font-family: Inter, Arial, sans-serif; font-size: 13px; font-weight: 600; color: #1C1C1E; display: block; margin-bottom: 6px;">Cheshire property type</label>
+          <select id="conv-property-type" style="font-family: Inter, Arial, sans-serif; font-size: 16px; color: #1C1C1E; border: 1px solid #E5E0D8; padding: 10px 14px; background: #FFFFFF; max-width: 320px; width: 100%;">
+            <option value="freehold">Freehold</option>
+            <option value="leasehold">Leasehold</option>
+          </select>
+        </div>
+        <div>
+          <label for="conv-chain" style="font-family: Inter, Arial, sans-serif; font-size: 13px; font-weight: 600; color: #1C1C1E; display: block; margin-bottom: 6px;">Chain status</label>
+          <select id="conv-chain" style="font-family: Inter, Arial, sans-serif; font-size: 16px; color: #1C1C1E; border: 1px solid #E5E0D8; padding: 10px 14px; background: #FFFFFF; max-width: 320px; width: 100%;">
+            <option value="chain-free">Chain-free</option>
+            <option value="chain">In a chain</option>
+            <option value="new-build">New build</option>
+          </select>
+        </div>
+        <div>
+          <label for="conv-location" style="font-family: Inter, Arial, sans-serif; font-size: 13px; font-weight: 600; color: #1C1C1E; display: block; margin-bottom: 6px;">Cheshire local authority area</label>
+          <select id="conv-location" style="font-family: Inter, Arial, sans-serif; font-size: 16px; color: #1C1C1E; border: 1px solid #E5E0D8; padding: 10px 14px; background: #FFFFFF; max-width: 320px; width: 100%;">
+            <option value="cheshire-east">Cheshire East</option>
+            <option value="cwac">Cheshire West and Chester</option>
+            <option value="warrington">Warrington</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <div>
+          <label for="conv-buyer" style="font-family: Inter, Arial, sans-serif; font-size: 13px; font-weight: 600; color: #1C1C1E; display: block; margin-bottom: 6px;">Buyer type</label>
+          <select id="conv-buyer" style="font-family: Inter, Arial, sans-serif; font-size: 16px; color: #1C1C1E; border: 1px solid #E5E0D8; padding: 10px 14px; background: #FFFFFF; max-width: 320px; width: 100%;">
+            <option value="ftb">First-time buyer</option>
+            <option value="homeowner">Existing homeowner</option>
+            <option value="cash">Cash buyer</option>
+            <option value="investor">Investor</option>
+          </select>
+        </div>
+        <button id="conv-calc-btn" type="button" style="font-family: Inter, Arial, sans-serif; font-size: 14px; font-weight: 600; color: #FFFFFF; background-color: #3D5A3E; border: none; padding: 12px 28px; cursor: pointer; align-self: flex-start; transition: background-color 0.2s;">Estimate your Cheshire conveyancing timeline</button>
+      </div>
+
+      <div id="conv-result" style="display: none; border: 1px solid #E5E0D8; padding: 24px;">
+        <div style="margin-bottom: 16px;">
+          <p style="font-family: Inter, Arial, sans-serif; font-size: 12px; font-weight: 600; color: #999999; text-transform: uppercase; letter-spacing: 0.05em; margin: 0 0 4px 0;">Estimated Cheshire conveyancing timeline</p>
+          <p id="conv-total" style="font-family: Georgia, serif; font-size: 32px; font-weight: 700; color: #C4933F; margin: 0;">8-12 weeks</p>
+        </div>
+        <div id="conv-stages" style="display: flex; flex-direction: column; gap: 4px; margin-bottom: 16px;"></div>
+        <div id="conv-notes" style="display: flex; flex-direction: column; gap: 4px; margin-bottom: 16px;"></div>
+        <p id="conv-cost" style="font-family: Inter, Arial, sans-serif; font-size: 14px; font-weight: 600; color: #3D5A3E; margin: 0;"></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Costs -->
+  <section id="costs" class="section-pad">
+    <div class="section-inner">
+      <span class="section-label">Cheshire conveyancing fees</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 16px 0;">How much does conveyancing cost in Cheshire?</h2>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 24px 0; max-width: 720px;">Cheshire conveyancing costs £845-£2,580 in total depending on property price, with legal fees, search disbursements, and Land Registry fees as the three components. The table below shows all three at 10 representative Cheshire price points from Crewe to Prestbury.</p>
+      <div style="overflow-x: auto;">
+        <table style="width: 100%; border-collapse: collapse; font-family: Inter, Arial, sans-serif; font-size: 14px; min-width: 640px;">
+          <thead>
+            <tr style="border-bottom: 2px solid #3D5A3E;">
+              <th style="text-align: left; padding: 12px 16px; font-weight: 700; color: #1C1C1E;">Price</th>
+              <th style="text-align: left; padding: 12px 16px; font-weight: 700; color: #1C1C1E;">Location</th>
+              <th style="text-align: right; padding: 12px 16px; font-weight: 700; color: #1C1C1E;">Legal fees</th>
+              <th style="text-align: right; padding: 12px 16px; font-weight: 700; color: #1C1C1E;">Searches</th>
+              <th style="text-align: right; padding: 12px 16px; font-weight: 700; color: #1C1C1E;">Land Reg</th>
+              <th style="text-align: right; padding: 12px 16px; font-weight: 700; color: #1C1C1E;">Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            {conveyancingCosts.map((row, i) => (
+              <tr style={`background-color: ${i % 2 === 0 ? '#FFFFFF' : '#F9F7F4'}; border-bottom: 1px solid #E5E0D8;`}>
+                <td style="padding: 14px 16px; font-weight: 600; color: #1C1C1E;">£{row.price}</td>
+                <td style="padding: 14px 16px; color: #444444;">{row.location}</td>
+                <td style="padding: 14px 16px; color: #444444; text-align: right;">{row.legalFees}</td>
+                <td style="padding: 14px 16px; color: #444444; text-align: right;">{row.searches}</td>
+                <td style="padding: 14px 16px; color: #444444; text-align: right;">{row.landReg}</td>
+                <td style="padding: 14px 16px; color: #C4933F; font-weight: 600; text-align: right;">{row.total}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 12px; color: #999999; margin: 12px 0 0 0;">Source: Compare My Move, 2025. Legal fees include VAT. Search costs include the Cheshire salt search (£79). Land Registry fees per HMLR fee scale 2025. Leasehold purchases add £300-£600 for freeholder charges.</p>
+    </div>
+  </section>
+
+  <!-- Cost Breakdown -->
+  <section class="section-pad" style="background-color: #FFFFFF; border-top: 1px solid #E5E0D8; border-bottom: 1px solid #E5E0D8;">
+    <div class="section-inner" style="max-width: 720px;">
+      <h3 style="font-family: Georgia, serif; font-size: 20px; font-weight: 700; color: #1C1C1E; margin: 0 0 12px 0;">Cheshire legal fees vs disbursements</h3>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 20px 0;">Legal fees cover the solicitor's professional time: reviewing the contract, raising enquiries, reporting on title, managing exchange and completion, and filing post-completion documents.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 20px 0;">Disbursements are third-party costs the solicitor pays on your behalf - search fees, Land Registry fees, bank transfer charges (£25-£50 per transfer), and AML identity verification (£6-£20). A solicitor quoting £600 in legal fees produces a final invoice of £900-£1,200 once disbursements are added.</p>
+
+      <h3 style="font-family: Georgia, serif; font-size: 20px; font-weight: 700; color: #1C1C1E; margin: 24px 0 12px 0;">Cheshire-specific search costs</h3>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 20px 0;">The standard Cheshire search pack costs £250-£470 depending on the local authority and whether optional searches are included. The Cheshire salt search (£79) is unique to the county. Coal mining searches (£40-£60) apply to properties in north-east Cheshire near the Staffordshire coalfield boundary. Chancel repair searches (£15-£25) identify whether the property carries a liability to contribute to church repairs - an ancient obligation that still applies to approximately 5,200 parishes in England.</p>
+
+      <h3 style="font-family: Georgia, serif; font-size: 20px; font-weight: 700; color: #1C1C1E; margin: 24px 0 12px 0;">Land Registry fees by property price</h3>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 20px 0;">HM Land Registry charges a registration fee on every property transfer, calculated on a sliding scale by property price (HMLR, 2025). The fee bands are: £40 up to £100,000, £95 for £100,001-£200,000, £270 for £200,001-£500,000 (covering Crewe through Knutsford), £540 for £500,001-£1,000,000, and £910 above £1,000,000. These fees apply to the digital registration process; postal registration costs double.</p>
+
+      <h3 style="font-family: Georgia, serif; font-size: 20px; font-weight: 700; color: #1C1C1E; margin: 24px 0 12px 0;">Additional leasehold costs</h3>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0;">Leasehold purchases in Chester and Northwich add £300-£600 to the conveyancing bill in freeholder-imposed charges. The management information pack (£200-£400) contains service charge accounts, buildings insurance certificates, ground rent demands, and the lease document. The notice of transfer fee (£100-£200) registers the new owner with the freeholder. A deed of covenant (£50-£150) binds the buyer to the lease terms.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0;">Your conveyancer reviews the lease for onerous clauses - ground rent escalation provisions, short remaining lease terms (below 80 years triggers additional costs), and restrictions on alterations or subletting. SDLT on leasehold purchases applies to both the purchase price and the net present value of ground rent above £125,000.</p>
+    </div>
+  </section>
+
+  <!-- Six Stages -->
+  <section id="process" class="section-pad">
+    <div class="section-inner" style="max-width: 720px;">
+      <span class="section-label">Six-stage process</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 16px 0;">What are the six stages of Cheshire conveyancing?</h2>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 24px 0;">The conveyancing process follows six sequential stages from instruction to registration, with each stage producing a defined output that triggers the next. Stages 2 and 3 run partially in parallel because your solicitor raises enquiries on the contract while searches are processed.</p>
+      <figure style="margin: 0 auto 24px; max-width: 720px;">
+        <img src="/images/buying-guide/cheshire-conveyancing-process-flowchart.webp" alt="Flowchart showing the six stages of Cheshire conveyancing from instructing a solicitor through to Land Registry registration, with Cheshire-specific callouts for salt search requirements and local authority search delays" loading="lazy" style="width: 720px; max-width: 100%; aspect-ratio: 720/736; border: 1px solid #E5E0D8;" />
+        <figcaption style="font-family: Inter, Arial, sans-serif; font-size: 12px; color: #999999; margin-top: 8px;">Stages 2 and 3 overlap in practice - your solicitor raises enquiries while local authority searches are processing. Law Society conveyancing protocol, 2025.</figcaption>
+      </figure>
+
+      {conveyancingStages.map((stage) => (
+        <div style="border-left: 3px solid #3D5A3E; padding: 16px 20px; margin-bottom: 16px; background-color: rgba(61, 90, 62, 0.02);">
+          <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px;">
+            <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; font-weight: 700; color: #3D5A3E; margin: 0;">Stage {stage.stage}: {stage.name}</p>
+            <p style="font-family: Inter, Arial, sans-serif; font-size: 13px; font-weight: 600; color: #C4933F; margin: 0; white-space: nowrap;">{stage.duration}</p>
+          </div>
+          <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; color: #444444; margin: 0;">{stage.description}</p>
+        </div>
+      ))}
+
+      <h3 style="font-family: Georgia, serif; font-size: 20px; font-weight: 700; color: #1C1C1E; margin: 24px 0 12px 0;">Stage 1 - Instruct a solicitor and complete AML checks</h3>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">Stage 1 begins when you formally instruct a solicitor by signing the engagement letter and providing identification documents. Anti-money laundering regulations (Money Laundering Regulations 2017) require the solicitor to verify your identity using a passport or driving licence, a utility bill or bank statement dated within the last 3 months, and proof of deposit funds.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">Electronic ID verification through services such as Thirdfort or Credas takes 24-48 hours. Manual verification by posting documents takes 3-5 working days.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0;">Instructing a solicitor before your offer is accepted saves 1-2 weeks because AML checks and file setup complete while you search for a property. Your solicitor opens the file, confirms their quote, and is ready to act immediately when the seller's solicitor sends the contract pack.</p>
+
+      <h3 style="font-family: Georgia, serif; font-size: 20px; font-weight: 700; color: #1C1C1E; margin: 24px 0 12px 0;">Stage 2 - Receive the contract pack and order searches</h3>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">The seller's solicitor prepares the contract pack containing the draft contract, title deeds, property information form, fittings and contents form, and any lease documents. Your solicitor reviews these documents and simultaneously orders the search pack: local authority search, environmental search, water and drainage search, Cheshire salt search, and any additional searches required by the property location.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0;">The local authority search determines Stage 2 duration. In Warrington, searches return in 5 working days and Stage 2 completes in approximately 2 weeks. In Cheshire East, the 21 working day local authority search extends Stage 2 to 4-5 weeks. Your solicitor orders all searches on the same day - the environmental, water, salt, and chancel searches return within 1-5 working days while the local authority search is still processing.</p>
+
+      <h3 style="font-family: Georgia, serif; font-size: 20px; font-weight: 700; color: #1C1C1E; margin: 24px 0 12px 0;">Stage 3 - Raise enquiries and secure mortgage offer</h3>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">Your solicitor raises enquiries (legal questions) on the contract pack, search results, and title. Common Cheshire enquiries cover salt search findings, conservation area restrictions on Chester properties, planning history, boundary disputes, and service charge arrears on leasehold flats. The seller's solicitor responds to enquiries within 1-4 weeks depending on complexity and responsiveness.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0;">Your mortgage lender issues a formal mortgage offer during Stage 3 after completing its valuation. The mortgage offer confirms the loan amount, interest rate, and conditions. Your solicitor reviews the mortgage offer and confirms the conditions are satisfied before proceeding to exchange. Cash buyers skip the mortgage element entirely, removing 2-3 weeks from Stage 3. The <a href="/buying-guide/survey-types-cheshire" style="color: #3D5A3E; text-decoration: underline;">property survey</a> typically completes during Stage 3 - survey findings may generate further enquiries if defects are identified.</p>
+
+      <h3 style="font-family: Georgia, serif; font-size: 20px; font-weight: 700; color: #1C1C1E; margin: 24px 0 12px 0;">Stage 4 - Exchange contracts and pay deposit</h3>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0;">Exchange of contracts is the point at which the purchase becomes legally binding. The buyer pays a 10% deposit (typically £18,500 on a £185,000 Crewe property to £100,000 on a £1,000,000 Prestbury property), and both parties commit to complete on the agreed date. Neither buyer nor seller can withdraw after exchange without forfeiting the deposit or facing breach-of-contract claims.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0;">In chain transactions, all parties in the chain exchange simultaneously - your solicitor coordinates exchange timing with every other solicitor in the chain by telephone on the agreed day.</p>
+
+      <h3 style="font-family: Georgia, serif; font-size: 20px; font-weight: 700; color: #1C1C1E; margin: 24px 0 12px 0;">Stage 5 - Complete the purchase and collect keys</h3>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0;">Completion occurs on the date fixed at exchange. Your solicitor transfers the remaining purchase funds (balance after the 10% deposit) to the seller's solicitor by bank transfer. Once the seller's solicitor confirms receipt, the estate agent releases the keys. Completion normally occurs by 1pm to allow time for funds to clear through the banking system. The gap between exchange and completion ranges from 1 day to 4 weeks, with 2 weeks being standard for Cheshire chain transactions.</p>
+
+      <h3 style="font-family: Georgia, serif; font-size: 20px; font-weight: 700; color: #1C1C1E; margin: 24px 0 12px 0;">Stage 6 - Register ownership at HM Land Registry</h3>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0;">Your solicitor files the <a href="/buying-guide/stamp-duty-cheshire" style="color: #3D5A3E; text-decoration: underline;">Stamp Duty Land Tax return</a> within 14 days of completion and submits the application to register your ownership at HM Land Registry. SDLT must be paid before Land Registry registration can proceed. Land Registry processing takes 4-12 weeks depending on complexity - straightforward freehold registrations at the shorter end, leasehold and first registrations at the longer end. Your solicitor sends you the title information document (previously the land certificate) confirming your registered ownership.</p>
+    </div>
+  </section>
+
+  <!-- Searches -->
+  <section id="searches" class="section-pad" style="background-color: #FFFFFF; border-top: 1px solid #E5E0D8; border-bottom: 1px solid #E5E0D8;">
+    <div class="section-inner">
+      <span class="section-label">Cheshire property searches</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 16px 0;">Which property searches does a Cheshire conveyancer order?</h2>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 24px 0; max-width: 720px;">A Cheshire conveyancer orders six searches on a standard purchase: local authority, environmental, water and drainage, Cheshire salt, chancel repair, and (where applicable) coal mining. The total search pack costs £250-£470 and takes 5-22 working days depending on the local authority area.</p>
+      <div style="overflow-x: auto;">
+        <table style="width: 100%; border-collapse: collapse; font-family: Inter, Arial, sans-serif; font-size: 14px; min-width: 640px;">
+          <thead>
+            <tr style="border-bottom: 2px solid #3D5A3E;">
+              <th style="text-align: left; padding: 12px 16px; font-weight: 700; color: #1C1C1E;">Search</th>
+              <th style="text-align: left; padding: 12px 16px; font-weight: 700; color: #1C1C1E;">Purpose</th>
+              <th style="text-align: right; padding: 12px 16px; font-weight: 700; color: #1C1C1E;">Cost</th>
+              <th style="text-align: right; padding: 12px 16px; font-weight: 700; color: #1C1C1E;">Timeline</th>
+            </tr>
+          </thead>
+          <tbody>
+            {searchTypes.map((row, i) => (
+              <tr style={`background-color: ${i % 2 === 0 ? '#FFFFFF' : '#F9F7F4'}; border-bottom: 1px solid #E5E0D8;`}>
+                <td style="padding: 14px 16px; font-weight: 600; color: #1C1C1E;">{row.search}</td>
+                <td style="padding: 14px 16px; color: #444444;">{row.purpose}</td>
+                <td style="padding: 14px 16px; color: #444444; text-align: right; white-space: nowrap;">{row.cost}</td>
+                <td style="padding: 14px 16px; color: #C4933F; font-weight: 600; text-align: right; white-space: nowrap;">{row.timeline}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 12px; color: #999999; margin: 12px 0 0 0;">Source: Search provider published fees, 2025/26. Local authority search costs vary by council. Coal mining search applies to properties in north-east Cheshire near the Staffordshire coalfield boundary.</p>
+    </div>
+  </section>
+
+  <!-- Search Details -->
+  <section class="section-pad">
+    <div class="section-inner" style="max-width: 720px;">
+      <h3 style="font-family: Georgia, serif; font-size: 20px; font-weight: 700; color: #1C1C1E; margin: 0 0 12px 0;">Local authority search</h3>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 20px 0;">The local authority search combines two elements: the LLC1 (Local Land Charges Register search) and the CON29 (enquiries of the local authority). The LLC1 reveals financial charges, planning conditions, tree preservation orders, and smoke control zones registered against the property. The CON29 covers planning history, building control records, road adoption status, and contaminated land entries.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 20px 0;">Optional CON29O enquiries (at additional cost) cover specific matters such as common land status, environmental health notices, or nearby public footpaths. Cheshire East charges £100-£150 for the combined search, Cheshire West and Chester charges £120-£200, and Warrington charges £100-£130.</p>
+
+      <h3 style="font-family: Georgia, serif; font-size: 20px; font-weight: 700; color: #1C1C1E; margin: 24px 0 12px 0;">Environmental search</h3>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 20px 0;">The environmental search assesses flood risk (fluvial, surface water, and groundwater), contaminated land liability, ground stability, and radon gas exposure. Providers including Landmark, Groundsure, and Future Climate Info compile data from the Environment Agency, British Geological Survey, and local authority records. Cheshire properties near the River Dee (Chester), River Weaver (Northwich, Winsford), and River Bollin (Wilmslow, Knutsford) carry elevated fluvial flood risk. The environmental search costs £35-£75 and returns within 1-3 working days.</p>
+
+      <h3 style="font-family: Georgia, serif; font-size: 20px; font-weight: 700; color: #1C1C1E; margin: 24px 0 12px 0;">Water and drainage search</h3>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 20px 0;">United Utilities processes water and drainage searches for all Cheshire properties. The search confirms whether the property connects to the public water supply and public sewer network, identifies the location of public sewers and water mains near the property, and reveals any sewer flooding history. Properties with private drainage (common in rural Cheshire villages) require additional investigation into septic tank or cesspool condition. The CON29DW search costs £35-£60 and returns within 1-5 working days.</p>
+
+      <h3 style="font-family: Georgia, serif; font-size: 20px; font-weight: 700; color: #1C1C1E; margin: 24px 0 12px 0;">Cheshire brine subsidence search</h3>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 20px 0;">The Cheshire salt search checks the Brine Subsidence Compensation Board records for any claims, payments, or commutation awards against the property. A clear search confirms no recorded subsidence activity. A flagged search reveals the claim history and any structural monitoring requirements. Mortgage lenders require a clear salt search before releasing funds on Cheshire properties - a flagged result triggers a specialist ground stability assessment (£500-£1,500) and potentially a structural engineer's report before the lender proceeds.</p>
+
+      <h3 style="font-family: Georgia, serif; font-size: 20px; font-weight: 700; color: #1C1C1E; margin: 24px 0 12px 0;">Coal mining search (north-east Cheshire)</h3>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0;">The Coal Authority CON29M mining search applies to properties in north-east Cheshire bordering the Staffordshire coalfield. Affected areas include parts of Congleton, Alsager, and Biddulph fringe. The search reveals coal mining activity, mine shafts, subsidence claims, and mine gas risk. Properties outside the coalfield boundary do not require this search. The Coal Authority charges £40-£60 and returns results within 1-3 working days.</p>
+    </div>
+  </section>
+
+  <!-- Choosing a Solicitor -->
+  <section id="solicitor" class="section-pad" style="background-color: #FFFFFF; border-top: 1px solid #E5E0D8; border-bottom: 1px solid #E5E0D8;">
+    <div class="section-inner" style="max-width: 720px;">
+      <span class="section-label">Solicitor selection</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 16px 0;">How do you choose a conveyancer in Cheshire?</h2>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 24px 0;">Choosing a conveyancer in Cheshire involves three decisions: local firm vs online provider, accreditation requirements, and the questions to ask before instructing. The decision affects cost (£200-£400 difference), communication quality, and the solicitor's ability to flag Cheshire-specific risks.</p>
+      <figure style="margin: 0 auto 24px; max-width: 720px;">
+        <div style="position: relative; overflow: hidden; border: 1px solid #E5E0D8;">
+          <img src="/images/buying-guide/cheshire-sold-property-streetscape.webp" alt="Chester Georgian townhouse street with a sold sign on a red brick property, Tudor black-and-white buildings visible in the background" loading="lazy" style="width: 720px; max-width: 100%; aspect-ratio: 16/9; object-fit: cover; object-position: center 30%; display: block;" />
+          <div style="position: absolute; bottom: 0; left: 0; right: 0; padding: 20px 24px; background: linear-gradient(transparent, rgba(0,0,0,0.75));">
+            <div style="display: flex; gap: 24px; font-family: Inter, Arial, sans-serif;">
+              <div>
+                <p style="font-size: clamp(11px, 1.5vw, 13px); color: rgba(255,255,255,0.8); margin: 0 0 2px 0; text-transform: uppercase; letter-spacing: 0.04em;">Local Cheshire solicitor</p>
+                <p style="font-size: clamp(18px, 2.5vw, 24px); font-weight: 700; color: #FFFFFF; margin: 0;">£600-£1,200</p>
+              </div>
+              <div>
+                <p style="font-size: clamp(11px, 1.5vw, 13px); color: rgba(255,255,255,0.8); margin: 0 0 2px 0; text-transform: uppercase; letter-spacing: 0.04em;">Online conveyancer</p>
+                <p style="font-size: clamp(18px, 2.5vw, 24px); font-weight: 700; color: #FFFFFF; margin: 0;">£400-£800</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <figcaption style="font-family: Inter, Arial, sans-serif; font-size: 12px; color: #999999; margin-top: 8px;">Local solicitors add value on Chester conservation area properties, Northwich subsidence purchases, and leasehold city centre flats where Cheshire-specific knowledge reduces risk.</figcaption>
+      </figure>
+
+      <h3 style="font-family: Georgia, serif; font-size: 20px; font-weight: 700; color: #1C1C1E; margin: 24px 0 12px 0;">Local solicitor vs online conveyancer</h3>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">Local Cheshire solicitors charge £600-£1,200 in legal fees and offer face-to-face meetings, knowledge of Chester conservation area complications, familiarity with Cheshire East planning patterns, and established relationships with local estate agents.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">Online conveyancers charge £400-£800 and operate through email and phone only, using standardised processes that handle volume efficiently.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0;">Local knowledge provides the most value on Chester conservation area properties, Northwich subsidence zone purchases, leasehold Chester city centre flats, and rural properties with private drainage or agricultural ties. Standard freehold purchases in modern estates (Crewe, Warrington new builds) follow identical procedures regardless of solicitor location - the online cost saving is more relevant on these transactions.</p>
+
+      <h3 style="font-family: Georgia, serif; font-size: 20px; font-weight: 700; color: #1C1C1E; margin: 24px 0 12px 0;">CQS accreditation and what it means</h3>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0;">The Conveyancing Quality Scheme (CQS) is a Law Society accreditation that audits firms annually against standards for case management, client communication, file handling, and regulatory compliance. Most mortgage lenders require CQS accreditation as a condition of panel membership.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0;">Instructing a non-CQS firm risks your mortgage lender refusing to release funds through that solicitor, forcing a transfer to an accredited firm mid-transaction. The CQS directory at lawsociety.org.uk lists accredited firms searchable by postcode. Verify CQS status before instructing any solicitor.</p>
+
+      <h3 style="font-family: Georgia, serif; font-size: 20px; font-weight: 700; color: #1C1C1E; margin: 24px 0 12px 0;">Questions to ask before instructing</h3>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">Eight questions that establish fee transparency, accreditation status, and communication expectations before you commit to a Cheshire conveyancer.</p>
+      <div style="display: flex; flex-direction: column; gap: 8px;">
+        {[
+          'What is your total fee including VAT and all disbursements?',
+          'Are you on my mortgage lender\'s panel? (Confirm with lender name)',
+          'Do you hold CQS accreditation?',
+          'What is your current average completion timeline?',
+          'How many Cheshire transactions did you complete in the past 12 months?',
+          'Who handles my file day-to-day - a solicitor, legal executive, or paralegal?',
+          'What is your communication policy - email updates, weekly calls, or portal access?',
+          'Do you charge a cancellation fee if the purchase falls through before exchange?',
+        ].map((q) => (
+          <div style="display: flex; gap: 8px; font-family: Inter, Arial, sans-serif; font-size: 15px; padding: 8px 0; border-bottom: 1px solid #F0EDE8;">
+            <span style="color: #3D5A3E; font-weight: 600; flex-shrink: 0;">-</span>
+            <span style="color: #444444;">{q}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Accordion -->
+  <section id="faq" class="section-pad">
+    <div class="section-inner" style="max-width: 800px;">
+      <span class="section-label">Conveyancing questions</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 16px 0;">Conveyancing questions for Cheshire buyers</h2>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 24px 0;">Common conveyancing questions covering timelines, the Cheshire salt search, solicitor selection, exchange vs completion, chain collapses, and leasehold costs.</p>
+      <div>
+        {faqs.map((faq, index) => (
+          <details style={`border-top: ${index === 0 ? '2px solid #3D5A3E' : '1px solid #E5E0D8'};`}>
+            <summary style="padding: 20px 0; cursor: pointer; font-family: Inter, Arial, sans-serif; font-size: 16px; font-weight: 600; color: #1C1C1E; line-height: 1.4; list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 16px;">
+              {faq.question}
+              <span style="font-family: Georgia, serif; font-size: 20px; color: #C4933F; flex-shrink: 0;">+</span>
+            </summary>
+            <div style="padding-bottom: 24px;">
+              <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.75; color: #444444; margin: 0;">{faq.answer}</p>
+            </div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Callout -->
+  <section class="section-pad" style="border-top: 1px solid #E5E0D8;">
+    <div class="section-inner" style="max-width: 720px;">
+      <div style="border-left: 3px solid #C4933F; background-color: rgba(196, 147, 63, 0.04); padding: 24px 28px;">
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; font-weight: 700; color: #C4933F; margin: 0 0 8px 0; text-transform: uppercase; letter-spacing: 0.05em;">What your Cheshire solicitor handles after completion</p>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.7; color: #444444; margin: 0 0 12px 0;">
+          Post-completion work runs for 4-12 weeks after you collect the keys. Your solicitor files the SDLT return and pays the tax to <a href="https://www.gov.uk/stamp-duty-land-tax" target="_blank" rel="nofollow noopener" style="color: #3D5A3E;">HMRC</a> within 14 days of completion - late filing incurs automatic penalties of £100 (rising to £200 after 3 months) plus daily penalties of £10 after 12 months. The <a href="https://www.gov.uk/government/organisations/hm-land-registry" target="_blank" rel="nofollow noopener" style="color: #3D5A3E;">Land Registry</a> application follows once SDLT is paid.
+        </p>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.7; color: #444444; margin: 0 0 12px 0;">
+          Your solicitor also sends the Stamp Duty Land Tax certificate (SDLT5) to you, pays any apportioned service charges to the managing agent on leasehold properties, and stores the title deeds (or confirms digital registration). The file closes when Land Registry registration completes and you receive the title information document.
+        </p>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 13px; line-height: 1.6; color: #999999; margin: 0;">
+          Sources: <a href="https://www.lawsociety.org.uk/public/for-public-visitors/using-a-solicitor/conveyancing-quality-scheme" target="_blank" rel="nofollow noopener" style="color: #999999;">Law Society CQS directory</a> · <a href="https://www.gov.uk/stamp-duty-land-tax" target="_blank" rel="nofollow noopener" style="color: #999999;">HMRC Stamp Duty Land Tax</a> · <a href="https://www.gov.uk/government/organisations/hm-land-registry" target="_blank" rel="nofollow noopener" style="color: #999999;">HM Land Registry</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Related Spokes -->
+  <section class="section-pad" style="border-top: 1px solid #E5E0D8;">
+    <div class="section-inner">
+      <span class="section-label">Buying guide</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 28px 0;">Related Cheshire buying guides</h2>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px;">
+        {relatedSpokes.map((spoke) => (
+          <a href={spoke.href} class="pillar-card" style="text-decoration: none; display: block;">
+            <span style="font-family: Inter, Arial, sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #3D5A3E; margin-bottom: 10px; display: block;">{spoke.tag}</span>
+            <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; font-weight: 600; color: #1C1C1E; margin: 0; line-height: 1.4;">{spoke.label}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const propTypeSelect = document.getElementById('conv-property-type') as HTMLSelectElement;
+    const chainSelect = document.getElementById('conv-chain') as HTMLSelectElement;
+    const locationSelect = document.getElementById('conv-location') as HTMLSelectElement;
+    const buyerSelect = document.getElementById('conv-buyer') as HTMLSelectElement;
+    const calcBtn = document.getElementById('conv-calc-btn') as HTMLButtonElement;
+    const resultDiv = document.getElementById('conv-result') as HTMLElement;
+    const totalEl = document.getElementById('conv-total') as HTMLElement;
+    const stagesEl = document.getElementById('conv-stages') as HTMLElement;
+    const notesEl = document.getElementById('conv-notes') as HTMLElement;
+    const costEl = document.getElementById('conv-cost') as HTMLElement;
+
+    calcBtn.addEventListener('click', () => {
+      const propType = propTypeSelect.value;
+      const chain = chainSelect.value;
+      const location = locationSelect.value;
+      const buyer = buyerSelect.value;
+
+      // Base timeline: 8-12 weeks
+      let minWeeks = 8;
+      let maxWeeks = 12;
+
+      // Leasehold adds 2-4 weeks
+      if (propType === 'leasehold') {
+        minWeeks += 2;
+        maxWeeks += 4;
+      }
+
+      // Chain adds 2-4 weeks
+      if (chain === 'chain') {
+        minWeeks += 2;
+        maxWeeks += 4;
+      }
+
+      // New build variable
+      if (chain === 'new-build') {
+        minWeeks += 0;
+        maxWeeks += 8;
+      }
+
+      // Cheshire East adds 1 week vs CWaC baseline
+      if (location === 'cheshire-east') {
+        minWeeks += 1;
+        maxWeeks += 1;
+      }
+
+      // Warrington faster by 2 weeks
+      if (location === 'warrington') {
+        minWeeks -= 2;
+        maxWeeks -= 2;
+      }
+
+      // Cash buyer saves 2-3 weeks (no mortgage)
+      if (buyer === 'cash') {
+        minWeeks -= 2;
+        maxWeeks -= 3;
+      }
+
+      // Floor
+      if (minWeeks < 3) minWeeks = 3;
+      if (maxWeeks < minWeeks) maxWeeks = minWeeks + 1;
+
+      totalEl.textContent = `${minWeeks}-${maxWeeks} weeks`;
+
+      // Stage breakdown
+      const laSearchDays = location === 'warrington' ? 5 : location === 'cwac' ? 20 : location === 'cheshire-east' ? 21 : 15;
+      const laSearchWeeks = Math.ceil(laSearchDays / 5);
+
+      interface StageInfo {
+        name: string;
+        weeks: string;
+      }
+
+      const stages: StageInfo[] = [
+        { name: 'Stage 1: Instruct solicitor and AML checks', weeks: '0-1 week' },
+        { name: 'Stage 2: Searches and contract pack', weeks: `${laSearchWeeks}-${laSearchWeeks + 1} weeks` },
+        { name: 'Stage 3: Enquiries and mortgage', weeks: buyer === 'cash' ? '1-3 weeks' : '2-6 weeks' },
+        { name: 'Stage 4: Exchange of contracts', weeks: '1-2 days' },
+        { name: 'Stage 5: Completion', weeks: chain === 'chain' ? '2-4 weeks after exchange' : '1-2 weeks after exchange' },
+        { name: 'Stage 6: Post-completion registration', weeks: '4-12 weeks' },
+      ];
+
+      stagesEl.innerHTML = stages.map(s =>
+        `<div style="display: flex; justify-content: space-between; font-family: Inter, Arial, sans-serif; font-size: 14px; padding: 6px 0; border-bottom: 1px solid #F0EDE8;">
+          <span style="color: #444444;">${s.name}</span>
+          <span style="color: #1C1C1E; font-weight: 600; white-space: nowrap;">${s.weeks}</span>
+        </div>`
+      ).join('');
+
+      // Cheshire-specific notes
+      const notes: string[] = [];
+      const laName = location === 'cheshire-east' ? 'Cheshire East' : location === 'cwac' ? 'Cheshire West and Chester' : location === 'warrington' ? 'Warrington' : 'Your local authority';
+      notes.push(`${laName} local authority search: ${laSearchDays} working days`);
+      notes.push('Salt search required: 1 working day, £79');
+
+      if (propType === 'leasehold') {
+        notes.push('Leasehold: freeholder enquiries add 2-4 weeks and £300-£600');
+      }
+      if (chain === 'chain') {
+        notes.push('Chain: all parties must synchronise exchange dates');
+      }
+      if (chain === 'new-build') {
+        notes.push('New build: completion depends on builder\'s construction schedule');
+      }
+      if (buyer === 'cash') {
+        notes.push('Cash buyer: no mortgage valuation or offer stage required');
+      }
+      if (location === 'cheshire-east' || location === 'cwac') {
+        notes.push('Chester properties may require conservation area enquiries (+1-2 weeks)');
+      }
+
+      notesEl.innerHTML = notes.map(note =>
+        `<div style="display: flex; gap: 8px; font-family: Inter, Arial, sans-serif; font-size: 14px; padding: 4px 0;">
+          <span style="color: #3D5A3E; font-weight: 600; flex-shrink: 0;">-</span>
+          <span style="color: #444444;">${note}</span>
+        </div>`
+      ).join('');
+
+      // Cost estimate
+      const minCost = propType === 'leasehold' ? 1100 : 750;
+      const maxCost = propType === 'leasehold' ? 2200 : 1600;
+      costEl.textContent = `Estimated Cheshire conveyancing cost: £${minCost.toLocaleString('en-GB')}-£${maxCost.toLocaleString('en-GB')} (excluding SDLT)`;
+
+      resultDiv.style.display = 'block';
+    });
+  </script>
+</BaseLayout>

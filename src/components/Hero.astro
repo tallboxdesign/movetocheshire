@@ -12,66 +12,76 @@ const quickLinks = [
 <section
   aria-labelledby="hero-heading"
   class="section-pad"
-  style="background-color: #F9F7F4;"
+  style="background-color: #F9F7F4; overflow: hidden;"
 >
-  <div style="max-width: 800px; margin: 0 auto; padding: 0 20px;">
+  <div style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 400px), 1fr)); gap: 48px; align-items: center;">
+      <!-- LEFT COLUMN: Text and Value Prop -->
+      <div style="max-width: 600px;">
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 24px;">
+          <div style="width: 28px; height: 2px; background-color: #3D5A3E; flex-shrink: 0;" />
+          <span style="font-family: Inter, Arial, sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: #3D5A3E;">
+            Independent Relocation Intelligence - Cheshire, England
+          </span>
+        </div>
 
-    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 32px;">
-      <div style="width: 28px; height: 2px; background-color: #3D5A3E; flex-shrink: 0;" />
-      <span
-        style="font-family: Inter, Arial, sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: #3D5A3E;"
-      >
-        Independent Relocation Intelligence - Cheshire, England
-      </span>
+        <h1
+          id="hero-heading"
+          style="font-family: Georgia, serif; font-size: clamp(36px, 5vw, 56px); font-weight: 700; line-height: 1.1; color: #1C1C1E; letter-spacing: -0.02em; margin-bottom: 32px;"
+        >
+          Moving to Cheshire?
+        </h1>
+
+        <!-- PUNCHY DATA POINTS (Concept 3) -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap: 24px; margin-bottom: 40px;">
+          <div>
+            <div style="font-family: Inter, Arial, sans-serif; font-size: 28px; font-weight: 700; color: #3D5A3E; margin-bottom: 4px; line-height: 1;">£314k</div>
+            <div style="font-family: Inter, Arial, sans-serif; font-size: 13px; color: #555555; line-height: 1.4; padding-right: 12px;">Average price (44% below London's £551k)</div>
+          </div>
+          <div>
+            <div style="font-family: Inter, Arial, sans-serif; font-size: 28px; font-weight: 700; color: #3D5A3E; margin-bottom: 4px; line-height: 1;">112</div>
+            <div style="font-family: Inter, Arial, sans-serif; font-size: 13px; color: #555555; line-height: 1.4; padding-right: 12px;">Outstanding-rated schools</div>
+          </div>
+          <div>
+            <div style="font-family: Inter, Arial, sans-serif; font-size: 28px; font-weight: 700; color: #3D5A3E; margin-bottom: 4px; line-height: 1;">17-55m</div>
+            <div style="font-family: Inter, Arial, sans-serif; font-size: 13px; color: #555555; line-height: 1.4; padding-right: 12px;">Commute times to Manchester</div>
+          </div>
+          <div>
+            <div style="font-family: Inter, Arial, sans-serif; font-size: 28px; font-weight: 700; color: #3D5A3E; margin-bottom: 4px; line-height: 1;">10</div>
+            <div style="font-family: Inter, Arial, sans-serif; font-size: 13px; color: #555555; line-height: 1.4; padding-right: 12px;">Towns compared side-by-side</div>
+          </div>
+        </div>
+
+        <div style="border-left: 3px solid #3D5A3E; background-color: rgba(61, 90, 62, 0.04); padding: 16px 20px; margin-bottom: 40px;">
+          <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; font-weight: 600; color: #1C1C1E; margin: 0; margin-bottom: 4px;">
+            No estate agent spin. No sponsored content. Just answers.
+          </p>
+          <p style="font-family: Inter, Arial, sans-serif; font-size: 13px; color: #666666; margin: 0;">
+            Data sourced from ONS, Ofsted, and National Rail. Updated Feb 2026.
+          </p>
+        </div>
+
+        <nav aria-label="Page sections" style="display: flex; flex-wrap: wrap; gap: 10px;">
+          {quickLinks.map((link) => {
+            const isHighlight = 'highlight' in link && link.highlight;
+            return (
+              <a
+                href={link.href}
+                class={`hero-link ${isHighlight ? 'hero-link--highlight' : ''}`}
+                style={`font-family: Inter, Arial, sans-serif; font-size: 13px; font-weight: 600; color: ${isHighlight ? '#C4933F' : '#3D5A3E'}; border: 1px solid ${isHighlight ? 'rgba(196,147,63,0.5)' : '#3D5A3E'}; padding: 9px 18px; text-decoration: none; letter-spacing: 0.01em; transition: background-color 0.15s ease, color 0.15s ease; display: inline-block;`}
+              >
+                {link.label}
+              </a>
+            );
+          })}
+        </nav>
+      </div>
+
+      <!-- RIGHT COLUMN: Interactive Tool (Slot) -->
+      <div style="position: relative; z-index: 10;">
+        <slot />
+      </div>
     </div>
-
-    <h1
-      id="hero-heading"
-      style="font-family: Georgia, serif; font-size: clamp(32px, 5.5vw, 52px); font-weight: 700; line-height: 1.12; color: #1C1C1E; letter-spacing: -0.02em; margin-bottom: 28px; max-width: 720px;"
-    >
-      Moving to Cheshire?
-    </h1>
-
-    <p
-      style="font-family: Inter, Arial, sans-serif; font-size: clamp(16px, 2vw, 19px); line-height: 1.7; color: #444444; max-width: 660px; margin-bottom: 36px;"
-    >
-      Cheshire, North West England, averages £314,000 across all property types (PlumPlot/ONS, 2025) -
-      44% below London's £551,294 (ONS, Q4 2025). This independent guide covers house prices by town,
-      112 Outstanding-rated schools, commute times from 17 minutes (Wilmslow) to 55 minutes (Crewe),
-      and area comparisons across 10 Cheshire towns. Updated quarterly from ONS, Ofsted, and National Rail.
-    </p>
-
-    <div
-      style="border-left: 3px solid #3D5A3E; background-color: rgba(61, 90, 62, 0.04); padding: 16px 20px; margin-bottom: 44px;"
-    >
-      <p
-        style="font-family: Inter, Arial, sans-serif; font-size: 16px; font-weight: 600; color: #1C1C1E; margin: 0; margin-bottom: 4px;"
-      >
-        No estate agent spin. No sponsored content. Just answers.
-      </p>
-      <p
-        style="font-family: Inter, Arial, sans-serif; font-size: 14px; color: #777777; margin: 0;"
-      >
-        All data sourced from ONS, Ofsted, National Rail, and official council records.
-        Last updated: February 2026.
-      </p>
-    </div>
-
-    <nav aria-label="Page sections" style="display: flex; flex-wrap: wrap; gap: 10px;">
-      {quickLinks.map((link) => {
-        const isHighlight = 'highlight' in link && link.highlight;
-        return (
-          <a
-            href={link.href}
-            class={isHighlight ? 'hero-link hero-link--highlight' : 'hero-link'}
-            style={`font-family: Inter, Arial, sans-serif; font-size: 13px; font-weight: 600; color: ${isHighlight ? '#C4933F' : '#3D5A3E'}; border: 1px solid ${isHighlight ? 'rgba(196,147,63,0.5)' : '#3D5A3E'}; padding: 9px 18px; text-decoration: none; letter-spacing: 0.01em; transition: background-color 0.15s ease, color 0.15s ease; display: inline-block;`}
-          >
-            {link.label}
-          </a>
-        );
-      })}
-    </nav>
-
   </div>
 </section>
 

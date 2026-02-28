@@ -1,0 +1,664 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const surveyLevels = [
+  { feature: 'Cost range', level1: '£300-£950', level2: '£400-£1,000', level3: '£600-£1,500+' },
+  { feature: 'Inspection depth', level1: 'Visual only', level2: 'All accessible areas', level3: 'Comprehensive structural' },
+  { feature: 'Condition ratings', level1: 'Traffic light', level2: 'Detailed with advice', level3: 'Full technical analysis' },
+  { feature: 'Repair advice', level1: 'No', level2: 'Yes', level3: 'Detailed with cost estimates' },
+  { feature: 'Valuation', level1: 'No', level2: 'Optional upgrade', level3: 'No (separate)' },
+  { feature: 'Duration', level1: '1-2 hours', level2: '2-4 hours', level3: '4-8 hours' },
+  { feature: 'Best for', level1: 'New builds, under 10 years', level2: 'Standard post-1960 homes', level3: 'Pre-1960, listed, complex' },
+];
+
+const surveyCosts = [
+  { price: '185,000', location: 'Crewe', level2: '£400-£500', level3: '£630-£750' },
+  { price: '220,000', location: 'Northwich', level2: '£400-£550', level3: '£650-£800' },
+  { price: '266,000', location: 'Chester avg', level2: '£450-£600', level3: '£700-£850' },
+  { price: '300,000', location: 'Macclesfield', level2: '£450-£650', level3: '£750-£900' },
+  { price: '350,000', location: 'Knutsford entry', level2: '£500-£700', level3: '£800-£1,000' },
+  { price: '400,000', location: 'Wilmslow entry', level2: '£550-£750', level3: '£850-£1,050' },
+  { price: '480,000', location: 'Knutsford avg', level2: '£600-£800', level3: '£900-£1,100' },
+  { price: '550,000', location: 'Wilmslow avg', level2: '£650-£850', level3: '£950-£1,200' },
+  { price: '750,000', location: 'Alderley Edge', level2: '£800-£1,000', level3: '£1,200-£1,500' },
+  { price: '1,000,000', location: 'Prestbury', level2: '£900-£1,000', level3: '£1,400-£1,800' },
+];
+
+const townSurveyGuide = [
+  { town: 'Chester', stock: 'Sandstone, medieval, Georgian', recommended: 'Level 3', risks: 'Sandstone erosion, lime mortar decay, lead pipes, Conservation Area restrictions' },
+  { town: 'Nantwich', stock: 'Timber-framed, 15th-17th century', recommended: 'Level 3', risks: 'Timber rot, beetle infestation, wattle-and-daub degradation, listed building consent' },
+  { town: 'Knutsford', stock: 'Victorian, Edwardian, period character', recommended: 'Level 2 or 3', risks: 'Slate roof deterioration, damp in solid-wall construction, chimney stack movement' },
+  { town: 'Wilmslow', stock: 'Mixed period and modern detached', recommended: 'Level 2', risks: 'Flat roof sections on extensions, cavity wall tie corrosion on 1960s-1980s builds' },
+  { town: 'Alderley Edge', stock: 'Large detached, period and luxury', recommended: 'Level 2 or 3', risks: 'Complex roof structures, basement damp, sandstone boundary walls, annexe compliance' },
+  { town: 'Prestbury', stock: 'Premium detached, mixed period', recommended: 'Level 2 or 3', risks: 'Extensive grounds drainage, outbuilding structural integrity, historical extensions' },
+  { town: 'Macclesfield', stock: 'Victorian terraces, stone-built', recommended: 'Level 2', risks: 'Stone pointing deterioration, rear extension subsidence, shared drainage' },
+  { town: 'Crewe', stock: 'Post-war semis, modern estates', recommended: 'Level 1 or 2', risks: 'NHBC warranty coverage on new builds, cavity insulation defects on 1970s stock' },
+  { town: 'Northwich', stock: 'Mixed 20th century, new builds', recommended: 'Level 2', risks: 'Brine subsidence (high risk zone), salt search mandatory, ground movement monitoring' },
+  { town: 'Winsford', stock: 'Post-war estates, modern builds', recommended: 'Level 1 or 2', risks: 'Active salt mine proximity, ground stability assessment on older properties' },
+  { town: 'Frodsham', stock: 'Victorian, sandstone, modern infill', recommended: 'Level 2', risks: 'Sandstone damp absorption, hillside drainage, radon in western wards' },
+];
+
+const faqs = [
+  { question: 'Do I need a survey on a new build in Cheshire?', answer: 'A snagging survey (£300-£500) is more appropriate than a full RICS survey for new builds under NHBC warranty. The snagging inspection checks for cosmetic defects, incomplete finishes, and building regulation compliance issues before the developer\'s handover period expires. NHBC structural warranties cover major defects for 10 years, but the warranty does not cover poor workmanship or cosmetic problems identified after the builder\'s two-year rectification period. Cheshire new builds in Crewe, Winsford, and Northwich developments are covered by this approach.' },
+  { question: 'Can I get a survey before my offer is accepted?', answer: 'No. RICS surveyors require access to the property interior, which the seller grants only after accepting an offer. The standard sequence in Cheshire is: offer accepted, mortgage application submitted, surveyor instructed. Instructing a surveyor before an accepted offer wastes the fee if another buyer secures the property. The mortgage lender commissions its own valuation separately - this is not a survey and does not check the property condition.' },
+  { question: 'What happens if the survey finds serious problems?', answer: 'Three options exist after a survey flags significant defects. Renegotiate the purchase price by the estimated repair cost - surveyors provide repair cost ranges in Level 2 and detailed estimates in Level 3 reports. Request the seller completes repairs before exchange, verified by a re-inspection. Withdraw from the purchase entirely, losing only the survey fee (£400-£1,500) and any conveyancing costs incurred to that point. In Cheshire, subsidence findings from the salt search or survey require specialist ground investigation before lenders approve the mortgage.' },
+  { question: 'Is a mortgage valuation the same as a survey?', answer: 'No. A mortgage valuation confirms the property is adequate security for the loan - it protects the lender, not the buyer. The valuer spends 15-30 minutes on site and checks the property exists, is habitable, and is worth approximately the purchase price. A RICS survey (Level 2 or 3) inspects the property condition in detail over 2-8 hours, identifying defects, repair costs, and risks. The mortgage valuation does not check for damp, subsidence, roof condition, electrical safety, or any of the structural and environmental issues a survey examines.' },
+  { question: 'How do I find a surveyor in Cheshire?', answer: 'The RICS Find a Surveyor directory (rics.org/find-a-surveyor) lists chartered surveyors by location and specialism. Filter by "Building Survey" or "HomeBuyer Report" and set the location to Cheshire. Local knowledge matters - a surveyor familiar with Chester\'s sandstone construction, Nantwich\'s timber frames, or Northwich\'s subsidence history provides more relevant commentary than a generalist. Expect 1-2 weeks between instruction and the completed report. Fees are agreed upfront and paid before or on the day of inspection.' },
+  { question: 'How long does a Cheshire property survey take?', answer: 'A Level 1 Condition Report takes 1-2 hours on site. A Level 2 HomeBuyer Report requires 2-4 hours depending on property size. A Level 3 Building Survey takes 4-8 hours for a full structural inspection. The written report arrives 3-5 working days after the site visit. Larger properties in the Golden Triangle - particularly those with outbuildings, annexes, or extensive grounds - extend toward the upper time range. Chester properties with cellars, Nantwich listed buildings, and properties flagged for subsidence risk add inspection time.' },
+  { question: 'What is a snagging survey?', answer: 'A snagging survey is a pre-handover inspection of a new-build property that identifies cosmetic defects, incomplete work, and building regulation non-compliance before the buyer moves in. Common findings include poorly fitted doors, unfinished paintwork, gaps in sealant, drainage gradient errors, and minor plumbing faults. The survey costs £300-£500 and takes 2-4 hours. The developer is obligated to fix snagging items within the NHBC two-year builder rectification period. Snagging surveys are distinct from RICS surveys - they assess build quality against the specification, not structural condition.' },
+  { question: 'Should I attend the survey in person?', answer: 'RICS surveyors permit buyers to attend the tail end of the inspection (the final 30-60 minutes) on most Level 2 and Level 3 surveys. Attending allows the surveyor to point out specific issues in context - showing you the crack pattern in a Chester sandstone wall or the damp readings in a Nantwich cellar is more informative than reading about it in the report. Not all surveyors offer this, so confirm when instructing. Do not attend the full inspection - the surveyor needs to work methodically without conversation.' },
+];
+
+const relatedSpokes = [
+  { label: 'Stamp Duty in Cheshire', href: '/buying-guide/stamp-duty-cheshire', tag: 'Buying Guide' },
+  { label: 'Average House Price in Cheshire', href: '/house-prices/average-house-price-cheshire', tag: 'Prices' },
+  { label: 'Best Places to Live in Cheshire', href: '/where-to-live/best-places-cheshire', tag: 'Area Guide' },
+];
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((faq) => ({
+    '@type': 'Question',
+    name: faq.question,
+    acceptedAnswer: { '@type': 'Answer', text: faq.answer },
+  })),
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://movetocheshire.uk' },
+    { '@type': 'ListItem', position: 2, name: 'Buying Guide', item: 'https://movetocheshire.uk/buying-guide' },
+    { '@type': 'ListItem', position: 3, name: 'Survey Types in Cheshire', item: 'https://movetocheshire.uk/buying-guide/survey-types-cheshire' },
+  ],
+};
+
+const howToSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'HowTo',
+  name: 'How to choose the right survey for a Cheshire property',
+  step: [
+    { '@type': 'HowToStep', text: 'Assess the property age - new builds (under 10 years) need Level 1, post-1960 standard homes need Level 2, pre-1960 and listed buildings need Level 3' },
+    { '@type': 'HowToStep', text: 'Check Cheshire area risks - Chester sandstone, Nantwich timber frames, and Northwich subsidence zones increase survey requirements' },
+    { '@type': 'HowToStep', text: 'Compare the three RICS survey levels by inspection depth, cost, and the repair advice each provides' },
+    { '@type': 'HowToStep', text: 'Get quotes from local RICS-accredited surveyors with experience in your specific Cheshire town and property type' },
+  ],
+};
+
+const webApplicationSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  additionalType: 'https://schema.org/FinancialProduct',
+  name: 'Cheshire Survey Recommendation Tool',
+  description: 'Recommends the appropriate RICS survey level for Cheshire properties based on property age, location, and purchase price. Provides cost estimates and Cheshire-specific risk notes.',
+  applicationCategory: 'FinanceApplication',
+  operatingSystem: 'Web browser',
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'GBP' },
+  areaServed: {
+    '@type': 'AdministrativeArea',
+    name: 'Cheshire',
+    containedInPlace: { '@type': 'Country', name: 'England' },
+  },
+  audience: { '@type': 'Audience', audienceType: 'Home buyers purchasing property in Cheshire' },
+  potentialAction: {
+    '@type': 'UseAction',
+    name: 'Get a Cheshire survey recommendation',
+    target: 'https://movetocheshire.uk/buying-guide/survey-types-cheshire#recommendation-tool',
+  },
+  isPartOf: { '@type': 'WebPage', url: 'https://movetocheshire.uk/buying-guide/survey-types-cheshire' },
+};
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: 'Survey Types for Cheshire Properties',
+  description: 'RICS Level 1, 2, and 3 property surveys explained for Cheshire housing stock. Covers survey costs at 10 Cheshire price points, town-by-town recommendations for Chester, Nantwich, Knutsford, Wilmslow, and the Golden Triangle, plus Cheshire-specific risks including brine subsidence and the mandatory salt search.',
+  datePublished: '2026-02-26',
+  dateModified: '2026-02-26',
+  author: { '@type': 'Organization', name: 'movetocheshire.uk' },
+  publisher: { '@type': 'Organization', name: 'movetocheshire.uk', url: 'https://movetocheshire.uk' },
+};
+---
+
+<BaseLayout
+  title="Survey Types for Cheshire Properties | RICS Levels 1, 2 & 3 | movetocheshire.uk"
+  description="RICS property survey types explained for Cheshire housing stock. Level 1, 2, and 3 costs at 10 price points from Crewe to Prestbury. Town-by-town recommendations covering Chester sandstone, Nantwich timber frames, brine subsidence, and Golden Triangle period homes."
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(howToSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(webApplicationSchema)} />
+  </Fragment>
+
+  <!-- Breadcrumb -->
+  <div class="section-pad" style="padding-top: 20px; padding-bottom: 0;">
+    <div class="section-inner">
+      <nav aria-label="Breadcrumb" style="font-family: Inter, Arial, sans-serif; font-size: 13px; color: #999999;">
+        <a href="/" style="color: #999999; text-decoration: none;">Home</a>
+        <span style="margin: 0 8px;">/</span>
+        <a href="/buying-guide" style="color: #999999; text-decoration: none;">Buying Guide</a>
+        <span style="margin: 0 8px;">/</span>
+        <span style="color: #1C1C1E;">Survey Types</span>
+      </nav>
+    </div>
+  </div>
+
+  <!-- Hero -->
+  <section class="section-pad" style="padding-top: 40px;">
+    <div class="section-inner" style="max-width: 720px;">
+      <span class="section-label">Property surveys</span>
+      <h1 style="font-family: Georgia, serif; font-size: clamp(28px, 4.5vw, 44px); font-weight: 700; color: #1C1C1E; line-height: 1.15; margin: 0 0 20px 0; letter-spacing: -0.02em;">Survey Types for Cheshire Properties</h1>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 18px; line-height: 1.7; color: #444444; margin: 0 0 24px 0;">
+        Cheshire's housing stock spans six centuries of construction methods, and the correct RICS survey level depends on both property age and location. This 2026 guide covers survey costs at 10 Cheshire price points from Crewe to Prestbury, the mandatory salt search, and town-by-town recommendations for Chester's sandstone, Nantwich's timber frames, and the Golden Triangle's period homes.
+      </p>
+      <span style="display: inline-block; font-family: Inter, Arial, sans-serif; font-size: 12px; font-weight: 600; color: #3D5A3E; background-color: rgba(61, 90, 62, 0.08); padding: 6px 12px; letter-spacing: 0.02em;">Last updated: February 2026</span>
+      <nav aria-label="Page sections" style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px;">
+        {[
+          { label: 'Survey levels', href: '#survey-levels' },
+          { label: 'Cheshire costs', href: '#cheshire-costs' },
+          { label: 'Town guide', href: '#town-guide' },
+          { label: 'Cheshire issues', href: '#cheshire-issues' },
+          { label: 'Renegotiation', href: '#renegotiation' },
+          { label: 'FAQ', href: '#faq' },
+        ].map((link) => (
+          <a href={link.href} style="font-family: Inter, Arial, sans-serif; font-size: 13px; font-weight: 500; color: #3D5A3E; text-decoration: none; padding: 5px 12px; border: 1px solid rgba(61, 90, 62, 0.25); transition: border-color 0.2s, background-color 0.2s;">{link.label}</a>
+        ))}
+      </nav>
+    </div>
+  </section>
+
+  <!-- Stat Bar -->
+  <section class="section-pad" style="padding-top: 0;">
+    <div class="section-inner">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px;">
+        {[
+          { value: '85%', label: 'Cheshire property surveys flag at least one issue', source: 'RICS, 2025' },
+          { value: '£8,000', label: 'Average Cheshire buyer saving from survey findings', source: 'Compare My Move, 2025' },
+          { value: '£79', label: 'Cheshire Salt Search (mandatory)', source: 'Law Society' },
+        ].map((stat) => (
+          <div style="background-color: #FFFFFF; border: 1px solid #E5E0D8; padding: 28px 24px;">
+            <p class="data-tile-value" style="margin: 0 0 8px 0;">{stat.value}</p>
+            <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; font-weight: 600; color: #1C1C1E; margin: 0 0 4px 0;">{stat.label}</p>
+            <p style="font-family: Inter, Arial, sans-serif; font-size: 12px; color: #999999; margin: 0;">{stat.source}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- TLDR -->
+  <section class="section-pad">
+    <div class="section-inner" style="max-width: 720px;">
+      <span class="section-label">Cheshire survey summary</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 24px 0;">
+        Most Cheshire buyers need a Level 2 survey - but older towns need Level 3
+      </h2>
+      <div style="display: flex; flex-direction: column; gap: 16px;">
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #1C1C1E; margin: 0;"><strong>A property survey is a professional inspection that assesses the structural condition, defects, and repair requirements of a building before purchase</strong> (RICS). Three standardised levels exist - Level 1 (visual), Level 2 (detailed), and Level 3 (comprehensive structural) - each covering progressively more of the property's fabric and systems.</p>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #1C1C1E; margin: 0;"><strong>Cheshire's housing stock spans six centuries of construction methods</strong>, from Nantwich's 15th-century timber frames and Chester's Georgian sandstone terraces to post-war estates in Crewe and modern developments across Northwich. The appropriate survey level depends on both the property's age and its Cheshire location - a Victorian terrace in Chester requires Level 3 for sandstone assessment, while the same age property in Macclesfield needs only Level 2.</p>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0;">Level 2 HomeBuyer Reports suit standard post-1960 properties across Cheshire's commuter towns - Wilmslow, Macclesfield, Frodsham, and modern Crewe estates. Level 3 Building Surveys are necessary for Chester's sandstone buildings, Nantwich's timber frames, and period homes throughout the Golden Triangle where construction predates 1960. Survey costs range from £400 to £1,500 depending on the level and property value.</p>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0;">Cheshire carries three location-specific survey risks absent from most English counties: brine subsidence from historical salt mining (concentrated around Northwich, Winsford, and Middlewich), radon gas accumulation in western Cheshire wards, and sandstone deterioration in Chester's Conservation Area. The mandatory Cheshire Salt Search (£79) is a separate requirement from the property survey itself.</p>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0;">The tables below map survey recommendations and costs to 11 Cheshire towns at 10 price points from £185,000 in Crewe to £1,000,000 in Prestbury.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Centerpiece: Survey Recommendation Tool -->
+  <section id="recommendation-tool" class="section-pad" style="background-color: #FFFFFF; border-top: 1px solid #E5E0D8; border-bottom: 1px solid #E5E0D8;">
+    <div class="section-inner" style="max-width: 720px;">
+      <span class="section-label">Survey recommendation tool</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 16px 0;">Which survey for your Cheshire property?</h2>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 24px 0;">Cheshire property surveys range from £300 for a Level 1 Condition Report on a Crewe new build to £1,800 for a Level 3 Building Survey on a Prestbury period home. Select your property details to receive a survey level recommendation with Cheshire-specific notes.</p>
+
+      <div style="display: flex; flex-direction: column; gap: 20px; margin-bottom: 24px;">
+        <div>
+          <label for="survey-age" style="font-family: Inter, Arial, sans-serif; font-size: 13px; font-weight: 600; color: #1C1C1E; display: block; margin-bottom: 6px;">Cheshire property age</label>
+          <select id="survey-age" style="font-family: Inter, Arial, sans-serif; font-size: 16px; color: #1C1C1E; border: 1px solid #E5E0D8; background: #FFFFFF; padding: 10px 14px; width: 100%; max-width: 360px;">
+            <option value="">Select property age</option>
+            <option value="new">New build (under 10 years)</option>
+            <option value="modern">Modern (10-30 years)</option>
+            <option value="postwar">Post-war (1945-1970)</option>
+            <option value="victorian">Victorian-Edwardian (1837-1914)</option>
+            <option value="period">Pre-1837 period</option>
+            <option value="listed">Listed building</option>
+          </select>
+        </div>
+        <div>
+          <label for="survey-area" style="font-family: Inter, Arial, sans-serif; font-size: 13px; font-weight: 600; color: #1C1C1E; display: block; margin-bottom: 6px;">Cheshire area</label>
+          <select id="survey-area" style="font-family: Inter, Arial, sans-serif; font-size: 16px; color: #1C1C1E; border: 1px solid #E5E0D8; background: #FFFFFF; padding: 10px 14px; width: 100%; max-width: 360px;">
+            <option value="">Select Cheshire area</option>
+            <option value="chester">Chester</option>
+            <option value="nantwich">Nantwich</option>
+            <option value="knutsford">Knutsford</option>
+            <option value="wilmslow">Wilmslow</option>
+            <option value="macclesfield">Macclesfield</option>
+            <option value="crewe">Crewe</option>
+            <option value="northwich">Northwich</option>
+            <option value="winsford">Winsford</option>
+            <option value="frodsham">Frodsham</option>
+            <option value="alderley">Alderley Edge</option>
+            <option value="prestbury">Prestbury</option>
+            <option value="other">Other Cheshire area</option>
+          </select>
+        </div>
+        <div>
+          <label for="survey-price" style="font-family: Inter, Arial, sans-serif; font-size: 13px; font-weight: 600; color: #1C1C1E; display: block; margin-bottom: 6px;">Cheshire property price</label>
+          <div style="display: flex; align-items: center; border: 1px solid #E5E0D8; background: #FFFFFF; max-width: 280px;">
+            <span style="font-family: Inter, Arial, sans-serif; font-size: 16px; font-weight: 600; color: #999999; padding: 10px 0 10px 14px;">£</span>
+            <input type="text" id="survey-price" inputmode="numeric" placeholder="350,000" style="font-family: Inter, Arial, sans-serif; font-size: 16px; color: #1C1C1E; border: none; outline: none; padding: 10px 14px 10px 4px; background: transparent; width: 100%;" />
+          </div>
+        </div>
+        <button id="survey-calc-btn" type="button" style="font-family: Inter, Arial, sans-serif; font-size: 14px; font-weight: 600; color: #FFFFFF; background-color: #3D5A3E; border: none; padding: 12px 28px; cursor: pointer; align-self: flex-start; transition: background-color 0.2s;">Get Cheshire survey recommendation</button>
+      </div>
+
+      <div id="survey-result" style="display: none; border: 1px solid #E5E0D8; padding: 24px;">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 16px;">
+          <div>
+            <p style="font-family: Inter, Arial, sans-serif; font-size: 12px; font-weight: 600; color: #999999; text-transform: uppercase; letter-spacing: 0.05em; margin: 0 0 4px 0;">Recommended Cheshire survey level</p>
+            <p id="survey-level-result" style="font-family: Georgia, serif; font-size: 32px; font-weight: 700; color: #C4933F; margin: 0;">Level 2</p>
+          </div>
+          <div style="text-align: right;">
+            <p style="font-family: Inter, Arial, sans-serif; font-size: 12px; font-weight: 600; color: #999999; text-transform: uppercase; letter-spacing: 0.05em; margin: 0 0 4px 0;">Estimated Cheshire survey cost</p>
+            <p id="survey-cost-result" style="font-family: Georgia, serif; font-size: 20px; font-weight: 700; color: #1C1C1E; margin: 0;">£400-£600</p>
+          </div>
+        </div>
+        <div id="survey-notes" style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px;"></div>
+        <p id="survey-roi" style="font-family: Inter, Arial, sans-serif; font-size: 13px; color: #999999; margin: 0;"></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Three RICS Survey Levels -->
+  <section id="survey-levels" class="section-pad" style="background-color: #FFFFFF; border-top: 1px solid #E5E0D8; border-bottom: 1px solid #E5E0D8;">
+    <div class="section-inner" style="max-width: 720px;">
+      <span class="section-label">RICS survey levels</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 16px 0;">What are the three RICS survey levels for Cheshire properties?</h2>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 24px 0; max-width: 720px;">RICS standardised property surveys into three levels in 2020, replacing the previous Condition Report, HomeBuyer Report, and Building Survey names with a numbered system (RICS). Each level increases inspection depth, report detail, and cost. The table below compares all three across seven criteria relevant to Cheshire property purchases.</p>
+
+      <div style="max-width: 720px; margin: 0 auto 24px auto;">
+        <img src="/images/buying-guide/rics-survey-levels-compared.png" alt="RICS survey levels compared showing Level 1 visual-only inspection at £300-£950 for new builds, Level 2 all accessible areas at £400-£1,000 for standard Cheshire homes, and Level 3 comprehensive structural analysis at £600-£1,500+ for period properties and listed buildings" style="width: 100%; height: auto; border: 1px solid #E5E0D8;" />
+      </div>
+
+      <div style="overflow-x: auto;">
+        <table style="width: 100%; border-collapse: collapse; font-family: Inter, Arial, sans-serif; font-size: 14px; min-width: 600px;">
+          <thead>
+            <tr style="border-bottom: 2px solid #3D5A3E;">
+              <th style="text-align: left; padding: 12px 16px; font-weight: 700; color: #1C1C1E;">Feature</th>
+              <th style="text-align: left; padding: 12px 16px; font-weight: 700; color: #1C1C1E;">Level 1</th>
+              <th style="text-align: left; padding: 12px 16px; font-weight: 700; color: #1C1C1E;">Level 2</th>
+              <th style="text-align: left; padding: 12px 16px; font-weight: 700; color: #1C1C1E;">Level 3</th>
+            </tr>
+          </thead>
+          <tbody>
+            {surveyLevels.map((row, i) => (
+              <tr style={`background-color: ${i % 2 === 0 ? '#FFFFFF' : '#F9F7F4'}; border-bottom: 1px solid #E5E0D8;`}>
+                <td style="padding: 14px 16px; font-weight: 600; color: #1C1C1E;">{row.feature}</td>
+                <td style="padding: 14px 16px; color: #444444;">{row.level1}</td>
+                <td style="padding: 14px 16px; color: #3D5A3E; font-weight: 600;">{row.level2}</td>
+                <td style="padding: 14px 16px; color: #C4933F; font-weight: 600;">{row.level3}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 12px; color: #999999; margin: 12px 0 0 0;">Source: RICS Home Survey Standard, 4th edition (2024). Cost ranges reflect Cheshire surveyor quotes across property values from £185,000 to £1,000,000.</p>
+    </div>
+  </section>
+
+  <!-- Level Descriptions -->
+  <section class="section-pad">
+    <div class="section-inner" style="max-width: 720px;">
+      <h3 style="font-family: Georgia, serif; font-size: 20px; font-weight: 700; color: #1C1C1E; margin: 0 0 12px 0;">Level 1 Condition Report - new builds and modern homes</h3>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">Level 1 surveys use a visual-only inspection method, examining accessible surfaces without moving furniture, lifting carpets, or testing services (RICS). The report assigns traffic-light condition ratings (green, amber, red) to each element but provides no repair advice, no cost estimates, and no valuation.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">Level 1 suits new-build properties under 10 years old with an active NHBC warranty, where structural defects are covered by the warranty and the survey confirms the property matches its specification.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 24px 0;">Cheshire new builds in Crewe (Gresty Oaks, Leighton West), Winsford (Weaver Park), and Northwich (Winnington Village) fall into this category. At £300 to £950, Level 1 is the lowest-cost option - but it misses defects that are not visible on the surface. For any property older than 10 years or any property without a structural warranty, Level 2 is the minimum appropriate level.</p>
+
+      <h3 style="font-family: Georgia, serif; font-size: 20px; font-weight: 700; color: #1C1C1E; margin: 0 0 12px 0;">Level 2 HomeBuyer Report - standard Cheshire properties</h3>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">Level 2 surveys inspect all accessible areas of the property interior and exterior, including roof spaces where a hatch exists, and provide condition ratings with repair advice for each defect identified (RICS). The surveyor uses a damp meter on internal walls, checks for visible signs of movement or subsidence, and assesses the general condition of services (heating, electrics, plumbing) without testing them. An optional market valuation upgrade adds a comparison to recent local sales.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 24px 0;">Level 2 covers the majority of Cheshire purchases: post-1960 detached and semi-detached homes in Wilmslow, Macclesfield, Frodsham, and suburban Chester. At £400 to £1,000 depending on property value, Level 2 provides enough detail for standard construction methods (cavity walls, pitched tile roofs, concrete foundations) while flagging anything that requires further specialist investigation. The report identifies issues but does not quantify repair costs - that requires Level 3 or a specialist follow-up.</p>
+
+      <h3 style="font-family: Georgia, serif; font-size: 20px; font-weight: 700; color: #1C1C1E; margin: 0 0 12px 0;">Level 3 Building Survey - period properties and listed buildings</h3>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">Level 3 surveys provide a comprehensive structural analysis covering all accessible and visible elements, with detailed descriptions of construction methods, materials, defects, and their causes (RICS). The surveyor tests timber for rot, examines pointing and mortar condition, checks drainage runs, inspects cellars and sub-floor spaces, and provides repair cost estimates for every defect. The report runs 30 to 50 pages and takes 4 to 8 hours of on-site inspection.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">Level 3 is necessary for Chester's sandstone townhouses (lime mortar joints, lead flashing, stone erosion), Nantwich's timber-framed buildings (wattle-and-daub panels, oak frame movement, beetle damage), and any listed building where repairs require Conservation Area or Historic England approval.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0;">Golden Triangle period homes in Knutsford, Alderley Edge, and Prestbury with pre-1914 construction also warrant Level 3. At £600 to £1,500+, the survey costs more than Level 2 but provides repair cost estimates needed to renegotiate the purchase price with precision.</p>
+    </div>
+  </section>
+
+  <!-- Survey Costs at Cheshire Price Points -->
+  <section id="cheshire-costs" class="section-pad" style="background-color: #FFFFFF; border-top: 1px solid #E5E0D8; border-bottom: 1px solid #E5E0D8;">
+    <div class="section-inner" style="max-width: 720px;">
+      <span class="section-label">Cheshire survey costs</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 16px 0;">How much does a property survey cost in Cheshire?</h2>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 24px 0; max-width: 720px;">Cheshire survey fees scale with property value because higher-value properties carry greater professional indemnity liability for the surveyor (RICS). A Level 2 on a £185,000 Crewe semi costs £400 to £500. The same survey type on a £1,000,000 Prestbury detached costs £900 to £1,000. The table below maps Level 2 and Level 3 costs to 10 representative Cheshire price points.</p>
+      <div style="overflow-x: auto;">
+        <table style="width: 100%; border-collapse: collapse; font-family: Inter, Arial, sans-serif; font-size: 14px; min-width: 540px;">
+          <thead>
+            <tr style="border-bottom: 2px solid #3D5A3E;">
+              <th style="text-align: left; padding: 12px 16px; font-weight: 700; color: #1C1C1E;">Price</th>
+              <th style="text-align: left; padding: 12px 16px; font-weight: 700; color: #1C1C1E;">Cheshire location</th>
+              <th style="text-align: right; padding: 12px 16px; font-weight: 700; color: #1C1C1E;">Level 2</th>
+              <th style="text-align: right; padding: 12px 16px; font-weight: 700; color: #1C1C1E;">Level 3</th>
+            </tr>
+          </thead>
+          <tbody>
+            {surveyCosts.map((row, i) => (
+              <tr style={`background-color: ${i % 2 === 0 ? '#FFFFFF' : '#F9F7F4'}; border-bottom: 1px solid #E5E0D8;`}>
+                <td style="padding: 14px 16px; font-weight: 600; color: #1C1C1E;">£{row.price}</td>
+                <td style="padding: 14px 16px; color: #444444;">{row.location}</td>
+                <td style="padding: 14px 16px; color: #3D5A3E; font-weight: 600; text-align: right;">{row.level2}</td>
+                <td style="padding: 14px 16px; color: #C4933F; font-weight: 600; text-align: right;">{row.level3}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 12px; color: #999999; margin: 12px 0 0 0;">Costs based on Cheshire RICS surveyor quotes, February 2026. Level 1 costs £300-£950 across all price points. Level 3 costs increase for listed buildings, complex roof structures, and properties with cellars or extensive outbuildings. VAT included.</p>
+    </div>
+  </section>
+
+  <!-- Town-by-Town Guide -->
+  <section id="town-guide" class="section-pad">
+    <div class="section-inner" style="max-width: 720px;">
+      <span class="section-label">Town survey guide</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 16px 0;">Which survey type for each Cheshire town?</h2>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 24px 0; max-width: 720px;">Cheshire's 11 main property market towns split into three survey categories based on dominant housing stock and location-specific risks. The map and table below map each town to its recommended survey level, primary construction type, and the specific defects a surveyor prioritises in that area.</p>
+      
+      <!-- Survey Recommendations Map -->
+      <div style="max-width: 720px; margin: 0 auto 24px auto;">
+        <img 
+          src="/images/buying-guide/cheshire-survey-recommendations-map.png" 
+          alt="Cheshire survey recommendations map showing Chester and Nantwich in red for Level 3, Wilmslow Macclesfield Northwich and Frodsham in amber for Level 2, and Crewe and Winsford in green for Level 1-2, with Knutsford Alderley Edge and Prestbury in amber-red for Level 2-3" 
+          style="width: 100%; height: auto; border: 1px solid #E5E0D8;"
+        />
+      </div>
+
+      <div style="overflow-x: auto;">
+        <table style="width: 100%; border-collapse: collapse; font-family: Inter, Arial, sans-serif; font-size: 14px; min-width: 700px;">
+          <thead>
+            <tr style="border-bottom: 2px solid #3D5A3E;">
+              <th style="text-align: left; padding: 12px 16px; font-weight: 700; color: #1C1C1E;">Town</th>
+              <th style="text-align: left; padding: 12px 16px; font-weight: 700; color: #1C1C1E;">Dominant stock</th>
+              <th style="text-align: left; padding: 12px 16px; font-weight: 700; color: #1C1C1E;">Recommended</th>
+              <th style="text-align: left; padding: 12px 16px; font-weight: 700; color: #1C1C1E;">Key risks</th>
+            </tr>
+          </thead>
+          <tbody>
+            {townSurveyGuide.map((row, i) => (
+              <tr style={`background-color: ${i % 2 === 0 ? '#FFFFFF' : '#F9F7F4'}; border-bottom: 1px solid #E5E0D8;`}>
+                <td style="padding: 14px 16px; font-weight: 600; color: #1C1C1E;">{row.town}</td>
+                <td style="padding: 14px 16px; color: #444444;">{row.stock}</td>
+                <td style={`padding: 14px 16px; font-weight: 600; color: ${row.recommended.includes('3') ? '#C4933F' : '#3D5A3E'};`}>{row.recommended}</td>
+                <td style="padding: 14px 16px; color: #444444; font-size: 13px;">{row.risks}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 12px; color: #999999; margin: 12px 0 0 0;">Recommendations based on dominant housing stock in each town. Individual properties may require a different level - a 1960s detached in Chester needs Level 2, while a Victorian terrace in Crewe warrants Level 2 or 3 despite the town's predominantly modern stock.</p>
+    </div>
+  </section>
+
+  <!-- Town Descriptions -->
+  <section class="section-pad" style="background-color: #FFFFFF; border-top: 1px solid #E5E0D8; border-bottom: 1px solid #E5E0D8;">
+    <div class="section-inner" style="max-width: 720px;">
+      <h3 style="font-family: Georgia, serif; font-size: 20px; font-weight: 700; color: #1C1C1E; margin: 0 0 12px 0;">Chester - sandstone, medieval, and Georgian townhouses</h3>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">Chester's city centre properties use red sandstone construction spanning Roman foundations through Georgian facades to Victorian commercial buildings. Sandstone absorbs moisture at 12-15% by volume (British Geological Survey), causing surface erosion, salt crystallisation damage, and lime mortar joint decay. A Level 3 survey in Chester examines stone weathering depth, pointing condition, lead flashing integrity around chimney stacks, and cellar damp - features absent from a standard Level 2 checklist.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 24px 0;">Chester's Rows - the medieval two-level shopping galleries unique to the city - present additional surveying complexity where residential accommodation sits above or behind commercial frontages. Conservation Area restrictions in central Chester require any remedial work identified by the survey to use historically appropriate materials and methods, increasing repair costs by 20-40% compared to standard construction (Chester Civic Trust).</p>
+
+      <h3 style="font-family: Georgia, serif; font-size: 20px; font-weight: 700; color: #1C1C1E; margin: 0 0 12px 0;">Nantwich - timber-framed buildings from the 15th to 17th century</h3>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">Nantwich contains over 150 listed buildings, the highest concentration in Cheshire, with timber-framed construction dating from the 1400s to the 1600s (Historic England). The Great Fire of Nantwich in 1583 destroyed much of the town - surviving pre-fire buildings and the rebuilding wave that followed produce a housing stock where oak frames, wattle-and-daub infill panels, and lime plaster finishes require specialist surveyor knowledge.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">Level 3 surveys on Nantwich timber frames assess frame deflection (the amount the oak structure has moved from its original position over centuries), death watch beetle and common furniture beetle infestation in structural timbers, and moisture readings in wattle-and-daub panels.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 24px 0;">A generalist surveyor flags "timber frame movement" as a defect; a specialist surveyor distinguishes between historic settlement (stable) and active movement (requiring intervention). Instructing a surveyor with timber-frame experience in the Nantwich market reduces the risk of unnecessarily alarming findings.</p>
+
+      <h3 style="font-family: Georgia, serif; font-size: 20px; font-weight: 700; color: #1C1C1E; margin: 0 0 12px 0;">Knutsford and Wilmslow - period character homes and luxury estates</h3>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">Knutsford's housing stock mixes Victorian and Edwardian properties along King Street and Toft Road with 1930s semis and modern infill developments. Properties averaging £480,000 to £618,694 (Rightmove, 2026) frequently feature solid-wall construction, original slate roofs, and period features that a Level 2 survey assesses adequately for post-1900 buildings. Pre-1900 properties or those with visible signs of movement warrant Level 3.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 24px 0;">Wilmslow ranges from 1960s detached homes on established residential roads (Level 2 appropriate) to substantial period properties and modern luxury builds exceeding £1,000,000. The higher property values in both towns increase surveyor fees proportionally - a Level 2 at Wilmslow's £550,000 average costs £650 to £850 compared to £400 to £500 at Crewe's £185,000 average. Properties with swimming pools, extensive grounds, or self-contained annexes require the surveyor to assess additional structures, extending both time and cost.</p>
+
+      <h3 style="font-family: Georgia, serif; font-size: 20px; font-weight: 700; color: #1C1C1E; margin: 0 0 12px 0;">Macclesfield - Victorian terraces and renovation prospects</h3>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">Macclesfield's silk mill heritage produced dense rows of Victorian stone terraces in the town centre, with post-war and modern estates on the outskirts. Stone terraces at the £250,000 to £350,000 range present specific survey concerns: shared party walls where pointing deterioration in one property affects the neighbour, rear extensions built without modern building regulation compliance, and shared drainage systems where blockages are a joint responsibility.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 24px 0;">Level 2 covers most Macclesfield properties. Victorian terraces with visible cracking or recent renovations benefit from Level 3 to assess whether structural changes followed proper engineering specifications.</p>
+
+      <h3 style="font-family: Georgia, serif; font-size: 20px; font-weight: 700; color: #1C1C1E; margin: 0 0 12px 0;">Crewe, Northwich, and Winsford - post-war and modern housing</h3>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">Crewe's housing stock centres on post-war semi-detached and terraced properties (1950s-1970s) alongside modern new-build estates from the 2010s onwards. New builds under NHBC warranty need a Level 1 or snagging survey only. Post-war properties at Crewe's £185,000 to £197,000 average need Level 2 to check for cavity wall tie corrosion (common in 1960s-1980s construction), flat roof deterioration on extensions, and asbestos in textured coatings and soffits.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">Northwich and Winsford carry brine subsidence as a primary survey risk, elevated above every other Cheshire town. Northwich sits directly above the Cheshire salt field where historical wild brine pumping caused extensive ground collapse - the town was partially rebuilt in the early 1900s using transportable timber-framed buildings designed to be moved when the ground shifted.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0;">A Level 2 survey in Northwich or Winsford must include specific subsidence assessment, and the mandatory Cheshire Salt Search (£79) provides the historical mining data the surveyor needs to evaluate ground stability risk at the specific property address.</p>
+    </div>
+  </section>
+
+  <!-- Cheshire-Specific Issues -->
+  <section id="cheshire-issues" class="section-pad">
+    <div class="section-inner" style="max-width: 720px;">
+      <span class="section-label">Cheshire survey risks</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 16px 0;">What Cheshire-specific issues do surveys uncover?</h2>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 24px 0;">Cheshire surveyors prioritise different defects depending on which part of the county the property sits in. A Chester inspection focuses on sandstone moisture absorption and lime mortar integrity. A Northwich survey centres on ground stability and brine void proximity. A Frodsham report checks radon accumulation readings against the 200 Bq/m3 action level. The sections below cover each risk, its geographic concentration, and the cost to remediate.</p>
+
+      <h3 style="font-family: Georgia, serif; font-size: 20px; font-weight: 700; color: #1C1C1E; margin: 24px 0 12px 0;">Condensation and damp in older Cheshire properties</h3>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">Damp is the most common defect Cheshire surveyors report, appearing in 60-70% of pre-1960 property surveys (RICS). Cheshire's boulder clay subsoil retains moisture, and older properties built with solid walls (no cavity) absorb ground moisture through capillary action - rising damp. Chester's sandstone properties are particularly susceptible because sandstone's porosity (12-15% moisture absorption) draws water upward and through walls more readily than brick.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">Condensation damp results from inadequate ventilation in properties where original fireplaces and airbricks have been sealed during renovation. Victorian and Edwardian homes in Macclesfield, Knutsford, and Chester frequently show black mould at window reveals and external wall corners - a ventilation issue, not a structural defect, but one that costs £200 to £2,000 to resolve depending on whether the fix requires mechanical ventilation or simply reopening sealed vents.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 24px 0;">The surveyor distinguishes between rising damp (requires a damp proof course - £2,000 to £5,000), penetrating damp (requires external repair - £500 to £3,000), and condensation (requires ventilation improvement - £200 to £2,000).</p>
+
+      <h3 style="font-family: Georgia, serif; font-size: 20px; font-weight: 700; color: #1C1C1E; margin: 24px 0 12px 0;">Brine subsidence and the mandatory Cheshire Salt Search</h3>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">The Cheshire Salt Search is a mandatory conveyancing search for any property within the Cheshire Brine Compensation District, costing £79 inc VAT (Law Society). The search reveals whether the property sits above historical salt mining workings, active brine extraction zones, or areas where ground subsidence has been recorded.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">Northwich, Winsford, and Middlewich carry the highest subsidence risk because wild brine pumping - injecting water underground to dissolve rock salt, then extracting the brine - created underground voids that collapsed unpredictably from the 1800s through to the mid-1900s.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">The Cheshire Brine Subsidence Compensation Board compensates property owners for damage caused by historical salt mining under the Brine Pumping (Compensation for Subsidence) Act 1891, amended 1952. Compensation covers repair costs, and where damage renders the property beyond economic repair, the Board pays the market value as a commutation payment.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">The Winsford rock salt mine - the largest and oldest active salt mine in the UK, operating since 1844 - continues controlled extraction at depth, but modern mining techniques produce minimal surface subsidence compared to the historical wild brine pumping.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 24px 0;">A property survey in Northwich or Winsford checks for subsidence indicators: stepped cracking in brickwork, doors and windows that stick or have been re-hung, sloping floors, and gaps between walls and ceilings. The salt search result and the survey findings together determine whether a lender approves the mortgage without additional conditions. Properties with active subsidence or unresolved compensation claims are difficult to mortgage - the survey provides the evidence the lender requires.</p>
+
+      <h3 style="font-family: Georgia, serif; font-size: 20px; font-weight: 700; color: #1C1C1E; margin: 24px 0 12px 0;">Radon risk in western Cheshire</h3>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">Radon is a naturally occurring radioactive gas that accumulates in enclosed spaces, particularly ground-floor rooms and cellars, where it enters through cracks in floors and walls (UK Health Security Agency). Western Cheshire wards - including parts of Chester, Frodsham, and the Delamere Forest area - sit on geological formations that produce above-average radon levels.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0;">A radon test costs £30 to £50 and takes three months of monitoring with a passive detector. Properties in radon-affected areas require mitigation (a radon sump or positive pressure ventilation, £800 to £1,500) if readings exceed the 200 Bq/m3 action level. Level 2 and Level 3 surveys note radon risk areas and recommend testing, but the survey itself does not measure radon - that requires a separate test kit from the UKHSA.</p>
+    </div>
+  </section>
+
+  <!-- Renegotiation -->
+  <section id="renegotiation" class="section-pad" style="background-color: #FFFFFF; border-top: 1px solid #E5E0D8; border-bottom: 1px solid #E5E0D8;">
+    <div class="section-inner" style="max-width: 720px;">
+      <span class="section-label">Renegotiation evidence</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 16px 0;">Can a survey save you money on a Cheshire property?</h2>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 20px 0;"><strong>85% of property surveys identify at least one defect requiring attention, and the average buyer renegotiates £8,000 off the purchase price based on survey findings</strong> (RICS, 2025; Compare My Move, 2025). On a £350,000 Knutsford property with a Level 2 survey costing £500 to £700, an £8,000 renegotiation produces a return of 11 to 16 times the survey fee.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 20px 0;">The renegotiation is strongest when the survey quantifies repair costs. Level 3 reports include cost estimates - "roof re-slating: £8,000 to £12,000" gives the buyer a concrete figure to present to the seller. Level 2 reports identify defects without costings, requiring the buyer to obtain separate repair quotes before renegotiating. Both approaches work, but Level 3 accelerates the renegotiation because the evidence is already in one document.</p>
+
+      <div style="border: 1px solid #E5E0D8; padding: 24px; margin-bottom: 24px;">
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; font-weight: 700; color: #3D5A3E; margin: 0 0 16px 0; text-transform: uppercase; letter-spacing: 0.05em;">Survey ROI at three Cheshire price points</p>
+        <div style="display: flex; flex-direction: column; gap: 8px;">
+          <div style="display: flex; justify-content: space-between; font-family: Inter, Arial, sans-serif; font-size: 15px; padding: 8px 0; border-bottom: 1px solid #F0EDE8;">
+            <span style="color: #444444;">£185,000 Crewe - Level 2 (£450)</span>
+            <span style="color: #1C1C1E; font-weight: 600;">0.24% of price</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; font-family: Inter, Arial, sans-serif; font-size: 15px; padding: 8px 0; border-bottom: 1px solid #F0EDE8;">
+            <span style="color: #444444;">£350,000 Knutsford - Level 2 (£600)</span>
+            <span style="color: #1C1C1E; font-weight: 600;">0.17% of price</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; font-family: Inter, Arial, sans-serif; font-size: 15px; padding: 8px 0; border-bottom: 1px solid #F0EDE8;">
+            <span style="color: #444444;">£750,000 Alderley Edge - Level 3 (£1,350)</span>
+            <span style="color: #1C1C1E; font-weight: 600;">0.18% of price</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; font-family: Inter, Arial, sans-serif; font-size: 15px; padding: 12px 0 0 0;">
+            <span style="color: #1C1C1E; font-weight: 700;">Average renegotiation saving</span>
+            <span style="color: #C4933F; font-weight: 700; font-size: 18px;">£8,000</span>
+          </div>
+        </div>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 13px; color: #999999; margin: 16px 0 0 0;">Survey cost as percentage of purchase price. Average renegotiation saving source: Compare My Move, 2025.</p>
+      </div>
+
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">Cheshire-specific findings strengthen the renegotiation position further. A subsidence flag in Northwich, rising damp in a Chester sandstone property, or a timber beetle report in a Nantwich building creates repair liabilities that sellers recognise as legitimate price reduction grounds. Sellers in competitive Cheshire areas (Knutsford, Wilmslow, Alderley Edge) accept price reductions rather than risk the buyer withdrawing - remarketing a property after a failed sale adds 4 to 8 weeks and signals issues to subsequent buyers.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0;">The 15% of surveys that find no significant issues provide their own value: confidence that the property is structurally sound and fairly priced. Proceeding without a survey saves £400 to £1,500 upfront but removes the only independent assessment of the property's condition before committing to a purchase that typically exceeds £200,000 in Cheshire.</p>
+    </div>
+  </section>
+
+  <!-- FAQ Accordion -->
+  <section id="faq" class="section-pad">
+    <div class="section-inner" style="max-width: 800px;">
+      <span class="section-label">Survey questions</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 16px 0;">Survey questions for Cheshire buyers</h2>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 24px 0;">Cheshire buyers ask these property survey questions about new builds, timing, finding a local RICS surveyor, and what to do when the survey identifies problems.</p>
+      <div>
+        {faqs.map((faq, index) => (
+          <details style={`border-top: ${index === 0 ? '2px solid #3D5A3E' : '1px solid #E5E0D8'};`}>
+            <summary style="padding: 20px 0; cursor: pointer; font-family: Inter, Arial, sans-serif; font-size: 16px; font-weight: 600; color: #1C1C1E; line-height: 1.4; list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 16px;">
+              {faq.question}
+              <span style="font-family: Georgia, serif; font-size: 20px; color: #C4933F; flex-shrink: 0;">+</span>
+            </summary>
+            <div style="padding-bottom: 24px;">
+              <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.75; color: #444444; margin: 0;">{faq.answer}</p>
+            </div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Callout -->
+  <section class="section-pad" style="border-top: 1px solid #E5E0D8;">
+    <div class="section-inner" style="max-width: 720px;">
+      <div style="border-left: 3px solid #C4933F; background-color: rgba(196, 147, 63, 0.04); padding: 24px 28px;">
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; font-weight: 700; color: #C4933F; margin: 0 0 8px 0; text-transform: uppercase; letter-spacing: 0.05em;">Why skipping a survey costs more than commissioning one</p>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.7; color: #444444; margin: 0 0 12px 0;">
+          A Level 2 survey on a £300,000 Macclesfield property costs £450 to £650 - between 0.15% and 0.22% of the purchase price. The average renegotiation saving from survey findings is £8,000 (Compare My Move, 2025). Undiscovered defects after completion become the buyer's sole financial responsibility, with no recourse to the seller under English property law's caveat emptor principle.
+        </p>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.7; color: #444444; margin: 0;">
+          Roof replacement costs £5,000 to £15,000. Subsidence underpinning costs £10,000 to £50,000. Damp proof course installation costs £2,000 to £5,000. A survey identifies these before exchange of contracts - the last point at which the buyer can renegotiate, request repairs, or withdraw without losing the deposit.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Related Spokes -->
+  <section class="section-pad" style="border-top: 1px solid #E5E0D8;">
+    <div class="section-inner">
+      <span class="section-label">Buying guide</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 28px 0;">Related Cheshire buying guides</h2>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px;">
+        {relatedSpokes.map((spoke) => (
+          <a href={spoke.href} class="pillar-card" style="text-decoration: none; display: block;">
+            <span style="font-family: Inter, Arial, sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #3D5A3E; margin-bottom: 10px; display: block;">{spoke.tag}</span>
+            <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; font-weight: 600; color: #1C1C1E; margin: 0; line-height: 1.4;">{spoke.label}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const ageSelect = document.getElementById('survey-age') as HTMLSelectElement;
+    const areaSelect = document.getElementById('survey-area') as HTMLSelectElement;
+    const priceInput = document.getElementById('survey-price') as HTMLInputElement;
+    const calcBtn = document.getElementById('survey-calc-btn') as HTMLButtonElement;
+    const resultDiv = document.getElementById('survey-result') as HTMLElement;
+    const levelResult = document.getElementById('survey-level-result') as HTMLElement;
+    const costResult = document.getElementById('survey-cost-result') as HTMLElement;
+    const notesEl = document.getElementById('survey-notes') as HTMLElement;
+    const roiEl = document.getElementById('survey-roi') as HTMLElement;
+
+    // Format input with commas
+    priceInput.addEventListener('input', () => {
+      const raw = priceInput.value.replace(/[^0-9]/g, '');
+      if (raw) {
+        priceInput.value = parseInt(raw).toLocaleString('en-GB');
+      }
+    });
+
+    interface AreaInfo {
+      notes: string[];
+      pushLevel3: boolean;
+    }
+
+    const areaData: Record<string, AreaInfo> = {
+      chester: { notes: ['Sandstone construction requires specialist mortar and stone assessment', 'Conservation Area restrictions increase repair costs by 20-40%'], pushLevel3: true },
+      nantwich: { notes: ['Timber frame specialist surveyor recommended', 'Listed building consent required for most repairs', 'Death watch beetle and furniture beetle inspection critical'], pushLevel3: true },
+      knutsford: { notes: ['Solid-wall construction common in Victorian/Edwardian stock', 'Slate roof condition a priority check'], pushLevel3: false },
+      wilmslow: { notes: ['Cavity wall tie corrosion common in 1960s-1980s properties', 'Check flat roof sections on rear extensions'], pushLevel3: false },
+      macclesfield: { notes: ['Victorian stone terraces - check shared party wall condition', 'Rear extension building regulation compliance'], pushLevel3: false },
+      crewe: { notes: ['NHBC warranty check on new builds', 'Cavity insulation defects on 1970s stock'], pushLevel3: false },
+      northwich: { notes: ['High brine subsidence risk zone', 'Salt Search mandatory (£79)', 'Ground stability assessment essential', 'Check for stepped cracking and door/window alignment'], pushLevel3: false },
+      winsford: { notes: ['Active salt mine proximity', 'Salt Search mandatory (£79)', 'Ground stability assessment on older properties'], pushLevel3: false },
+      frodsham: { notes: ['Sandstone damp absorption in older properties', 'Radon risk in western wards - testing recommended (£30-£50)'], pushLevel3: false },
+      alderley: { notes: ['Complex roof structures on large detached properties', 'Basement and cellar damp assessment', 'Annexe and outbuilding compliance check'], pushLevel3: false },
+      prestbury: { notes: ['Extensive grounds drainage assessment', 'Outbuilding structural integrity', 'Historical extension compatibility check'], pushLevel3: false },
+      other: { notes: ['Salt Search mandatory within the Brine Compensation District (£79)'], pushLevel3: false },
+    };
+
+    function getLevel(age: string, area: string): { level: string; levelNum: number } {
+      const areaInfo = areaData[area] || areaData.other;
+
+      if (age === 'listed') return { level: 'Level 3', levelNum: 3 };
+      if (age === 'period') return { level: 'Level 3', levelNum: 3 };
+      if (age === 'victorian' && areaInfo.pushLevel3) return { level: 'Level 3', levelNum: 3 };
+      if (age === 'victorian') return { level: 'Level 2 or 3', levelNum: 2.5 };
+      if (age === 'postwar' && areaInfo.pushLevel3) return { level: 'Level 2 or 3', levelNum: 2.5 };
+      if (age === 'postwar') return { level: 'Level 2', levelNum: 2 };
+      if (age === 'modern') return { level: 'Level 2', levelNum: 2 };
+      if (age === 'new') return { level: 'Level 1', levelNum: 1 };
+      return { level: 'Level 2', levelNum: 2 };
+    }
+
+    function getCostRange(levelNum: number, price: number): string {
+      if (levelNum <= 1) return '£300-£500';
+      if (levelNum <= 2) {
+        if (price <= 200000) return '£400-£500';
+        if (price <= 300000) return '£450-£650';
+        if (price <= 400000) return '£500-£750';
+        if (price <= 550000) return '£650-£850';
+        if (price <= 800000) return '£800-£1,000';
+        return '£900-£1,000';
+      }
+      if (levelNum <= 2.5) {
+        if (price <= 200000) return '£400-£750';
+        if (price <= 300000) return '£450-£850';
+        if (price <= 400000) return '£550-£1,050';
+        if (price <= 550000) return '£650-£1,200';
+        if (price <= 800000) return '£800-£1,500';
+        return '£900-£1,800';
+      }
+      // Level 3
+      if (price <= 200000) return '£630-£750';
+      if (price <= 300000) return '£700-£900';
+      if (price <= 400000) return '£850-£1,050';
+      if (price <= 550000) return '£950-£1,200';
+      if (price <= 800000) return '£1,200-£1,500';
+      return '£1,400-£1,800';
+    }
+
+    function formatMoney(n: number): string {
+      return '£' + n.toLocaleString('en-GB');
+    }
+
+    calcBtn.addEventListener('click', () => {
+      const age = ageSelect.value;
+      const area = areaSelect.value;
+      const price = parseInt(priceInput.value.replace(/[^0-9]/g, ''));
+
+      if (!age || !area || !price || price < 0) return;
+
+      const { level, levelNum } = getLevel(age, area);
+      const costRange = getCostRange(levelNum, price);
+      const areaInfo = areaData[area] || areaData.other;
+
+      levelResult.textContent = level;
+      costResult.textContent = costRange;
+
+      // Build notes
+      const notes: string[] = [...areaInfo.notes];
+      if (age === 'listed') notes.unshift('Listed building - Historic England or Conservation Officer approval required for repairs');
+      if (age === 'new') notes.unshift('Check NHBC warranty coverage and expiry date');
+
+      notesEl.innerHTML = notes.map(note =>
+        `<div style="display: flex; gap: 8px; font-family: Inter, Arial, sans-serif; font-size: 14px; padding: 6px 0; border-bottom: 1px solid #F0EDE8;">
+          <span style="color: #3D5A3E; font-weight: 600; flex-shrink: 0;">-</span>
+          <span style="color: #444444;">${note}</span>
+        </div>`
+      ).join('');
+
+      // ROI line
+      const midCost = levelNum <= 1 ? 400 : levelNum <= 2 ? (price <= 300000 ? 550 : price <= 550000 ? 750 : 950) : (price <= 300000 ? 800 : price <= 550000 ? 1075 : 1450);
+      const costPct = ((midCost / price) * 100).toFixed(2);
+      roiEl.textContent = `Survey costs approximately ${costPct}% of purchase price (${formatMoney(midCost)} midpoint). Average saving from renegotiation: £8,000.`;
+
+      resultDiv.style.display = 'block';
+    });
+  </script>
+</BaseLayout>

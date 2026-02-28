@@ -124,7 +124,7 @@ export default function TownQuiz() {
     };
 
     return (
-        <section className="py-12 bg-white border-b border-stone-200" id="town-quiz-banner">
+        <section className="py-12 bg-white border-b border-stone-200" id="town-quiz">
             <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
                 <div className="bg-slate-900 rounded-2xl p-8 md:p-12 shadow-xl relative overflow-hidden">
                     <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500"></div>

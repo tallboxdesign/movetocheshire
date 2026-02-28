@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #F9F7F4; }
+  .container {
+    position: relative;
+    width: 1440px;
+    height: 500px;
+    overflow: hidden;
+  }
+  .container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 30%;
+    display: block;
+  }
+  .bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(61,90,62,0.92);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    padding: 18px 32px;
+    font-family: Inter, Arial, sans-serif;
+  }
+  .stat {
+    text-align: center;
+  }
+  .stat-value {
+    font-size: 28px;
+    font-weight: 700;
+    color: #FFFFFF;
+    display: block;
+    letter-spacing: -0.01em;
+  }
+  .stat-label {
+    font-size: 14px;
+    color: rgba(255,255,255,0.7);
+    display: block;
+    margin-top: 2px;
+  }
+  .divider {
+    width: 1px;
+    height: 40px;
+    background: rgba(255,255,255,0.25);
+  }
+</style>
+</head>
+<body>
+  <div class="container" id="capture">
+    <img src="../public/images/cheshire-aerial.png" />
+    <div class="bar">
+      <div class="stat">
+        <span class="stat-value">10</span>
+        <span class="stat-label">Cheshire towns</span>
+      </div>
+      <div class="divider"></div>
+      <div class="stat">
+        <span class="stat-value">3</span>
+        <span class="stat-label">price tiers</span>
+      </div>
+      <div class="divider"></div>
+      <div class="stat">
+        <span class="stat-value">£175k-£700k+</span>
+        <span class="stat-label">house price range</span>
+      </div>
+      <div class="divider"></div>
+      <div class="stat">
+        <span class="stat-value">17-60 min</span>
+        <span class="stat-label">commutes to Manchester</span>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

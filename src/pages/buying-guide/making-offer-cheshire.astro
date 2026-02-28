@@ -1,0 +1,645 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const offerDynamics = [
+  { area: 'Wilmslow', zone: 'Golden Triangle', avgPrice: '£550,000', typicalOffer: '98-102%', competition: 'High', notes: 'Fierce competition for premium homes; sealed bids common for rare plots' },
+  { area: 'Knutsford', zone: 'Golden Triangle', avgPrice: '£480,000', typicalOffer: '97-100%', competition: 'High', notes: 'Period properties attract multiple offers; historic character premium' },
+  { area: 'Alderley Edge', zone: 'Golden Triangle', avgPrice: '£700,000+', typicalOffer: '95-100%', competition: 'High', notes: 'Prestige market with £3m-£7m top end; specialist advice essential' },
+  { area: 'Chester', zone: 'Mid-Cheshire', avgPrice: '£305,000', typicalOffer: '93-97%', competition: 'Medium', notes: 'Diverse market from £216k FTB entry to Victorian villas' },
+  { area: 'Macclesfield', zone: 'Mid-Cheshire', avgPrice: '£300,000', typicalOffer: '92-96%', competition: 'Medium', notes: 'Balanced market; turnkey family homes move faster' },
+  { area: 'Frodsham', zone: 'Mid-Cheshire', avgPrice: '£340,000', typicalOffer: '93-97%', competition: 'Medium', notes: 'Village premium for quality of life; limited stock' },
+  { area: 'Crewe', zone: 'Affordable', avgPrice: '£185,000', typicalOffer: '88-93%', competition: 'Low-Medium', notes: 'FTB and investor market; more negotiation room' },
+  { area: 'Northwich', zone: 'Affordable', avgPrice: '£220,000', typicalOffer: '90-95%', competition: 'Low-Medium', notes: 'Entry from £141,500 in Witton; regeneration upside' },
+  { area: 'Warrington', zone: 'Affordable', avgPrice: '£245,000', typicalOffer: '91-95%', competition: 'Medium', notes: 'Strong commuter demand; new builds competitive' },
+];
+
+const offerTimeline = [
+  { step: 1, name: 'Prepare to offer', duration: '1-7 days before viewing', description: 'Secure mortgage agreement in principle, instruct solicitor, set budget ceiling including SDLT and fees' },
+  { step: 2, name: 'View and research', duration: '1-3 viewings', description: 'Check Land Registry sold prices, days on market, property condition, EPC rating' },
+  { step: 3, name: 'Make your offer', duration: '1-2 days', description: 'Verbal offer via estate agent with proof of funds and solicitor details' },
+  { step: 4, name: 'Negotiate', duration: '1-7 days', description: 'Counter-offers, sealed bids if multiple buyers compete' },
+  { step: 5, name: 'Offer accepted (SSTC)', duration: 'Day 1 of conveyancing', description: 'Memorandum of sale issued by agent; not yet legally binding' },
+  { step: 6, name: 'Protect your position', duration: 'Ongoing until exchange', description: 'Progress conveyancing, book survey, maintain regular contact with agent and solicitor' },
+];
+
+const faqs = [
+  { question: 'How much below asking price should I offer in Cheshire?', answer: 'Offer ranges vary by area and market conditions. Golden Triangle properties in Wilmslow, Knutsford, and Alderley Edge typically sell at 95-102% of asking price due to high competition (Rightmove, 2025). Mid-Cheshire towns like Chester and Macclesfield see accepted offers at 92-97%. Affordable areas including Crewe and Northwich allow 7-12% below asking when properties have been listed for 60+ days. Properties on the market for over 120 days across all areas carry the strongest negotiation position.' },
+  { question: 'What is gazumping and is it legal in Cheshire?', answer: 'Gazumping occurs when a seller accepts a higher offer from a second buyer after already accepting an offer from the first buyer. Gazumping is legal in England because accepted offers remain "subject to contract" and carry no binding obligation until exchange of contracts (Law Society). The practice affects approximately 1 in 3 transactions that fall through before completion (HomeOwners Alliance, 2025). Lock-out agreements and Home Buyer Protection Insurance from £74 are the two primary defences available to buyers.' },
+  { question: 'Do I need a mortgage agreement in principle before offering in Cheshire?', answer: 'A mortgage agreement in principle (AiP) demonstrates borrowing capacity to the estate agent and seller. Most Cheshire estate agents require proof of funds before presenting an offer to the vendor (NAEA Propertymark). An AiP takes 24-48 hours to obtain from most lenders and is valid for 60-90 days. Cash buyers provide a bank statement or proof of deposit instead. In competitive Golden Triangle markets, buyers without an AiP are routinely deprioritised against those with confirmed funding.' },
+  { question: 'What are sealed bids and when are they used in Cheshire?', answer: 'Sealed bids (best-and-final offers) require all interested buyers to submit their highest offer by a deadline, typically in a sealed envelope or email to the estate agent. The seller reviews all bids simultaneously and selects the strongest overall package - not necessarily the highest price. Cheshire agents use sealed bids when three or more buyers express interest, most commonly in the Golden Triangle for detached properties and period homes in Knutsford. The process typically runs 5-10 working days from announcement to deadline.' },
+  { question: 'Can I make an offer on a Cheshire property from outside the area?', answer: 'Remote offers are accepted by all Cheshire estate agents. Buyers relocating from London, Manchester, or overseas routinely make offers after virtual viewings or a single in-person visit. The estate agent presents the offer to the vendor regardless of the buyer\'s location. Proof of funds, a named solicitor, and a clear timeline strengthen a remote offer. Chain-free buyers relocating from a sold property carry the same weight as local buyers in the same position.' },
+  { question: 'What happens if my Cheshire property offer is rejected?', answer: 'A rejected offer is not a dead end. The estate agent communicates the rejection and may indicate whether the seller would consider a revised figure. Common responses include increasing the offer by 2-3%, improving the terms (shortening the completion timeline, waiving conditions), or walking away. In Cheshire, 40% of properties that reject initial offers accept a revised second offer within 7 days (NAEA Propertymark regional data). The agent is legally obligated under the Estate Agents Act 1979 to present all offers to the vendor.' },
+  { question: 'Should I offer on more than one Cheshire property at a time?', answer: 'Making simultaneous offers on multiple properties is legal but carries reputational risk with Cheshire estate agents. Agents communicate with each other, particularly within the same town. A buyer known for making multiple concurrent offers is perceived as uncommitted, which weakens each individual offer. The recommended approach is to make one offer at a time, withdraw formally before making another, and maintain clear communication with the agent throughout.' },
+  { question: 'What is gazundering and when does it happen in Cheshire?', answer: 'Gazundering occurs when the buyer reduces their accepted offer price shortly before exchange of contracts. The buyer leverages the seller\'s sunk costs (conveyancing fees, time, emotional investment) to force a price reduction. Gazundering is legal in England for the same reason gazumping is legal - no binding contract exists until exchange. The practice increases during falling markets and is more common on properties where the survey reveals defects. Sellers can reject the lower offer, but risk restarting the sale process from scratch.' },
+];
+
+const relatedSpokes = [
+  { label: 'Stamp Duty in Cheshire', href: '/buying-guide/stamp-duty-cheshire', tag: 'Buying Guide' },
+  { label: 'Survey Types for Cheshire Properties', href: '/buying-guide/survey-types-cheshire', tag: 'Buying Guide' },
+  { label: 'Conveyancing in Cheshire', href: '/buying-guide/conveyancing-cheshire', tag: 'Buying Guide' },
+];
+
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://movetocheshire.uk' },
+    { '@type': 'ListItem', position: 2, name: 'Buying Guide', item: 'https://movetocheshire.uk/buying-guide' },
+    { '@type': 'ListItem', position: 3, name: 'Making an Offer', item: 'https://movetocheshire.uk/buying-guide/making-offer-cheshire' },
+  ],
+};
+
+
+const webApplicationSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  additionalType: 'https://schema.org/FinancialProduct',
+  name: 'Cheshire Offer Strategy Calculator',
+  description: 'Calculate a recommended offer range for Cheshire properties based on area, property condition, days on market, and buyer position. Covers Golden Triangle, Chester, mid-Cheshire, and affordable areas.',
+  applicationCategory: 'FinanceApplication',
+  operatingSystem: 'Web browser',
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'GBP' },
+  areaServed: {
+    '@type': 'AdministrativeArea',
+    name: 'Cheshire',
+    containedInPlace: { '@type': 'Country', name: 'England' },
+  },
+  audience: { '@type': 'Audience', audienceType: 'Home buyers making offers on property in Cheshire' },
+  potentialAction: {
+    '@type': 'UseAction',
+    name: 'Calculate your Cheshire offer strategy',
+    target: 'https://movetocheshire.uk/buying-guide/making-offer-cheshire#calculator',
+  },
+  isPartOf: { '@type': 'WebPage', url: 'https://movetocheshire.uk/buying-guide/making-offer-cheshire' },
+};
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: 'Making an Offer on a Cheshire Property',
+  description: 'How Cheshire property offers work: area-specific pricing dynamics from the Golden Triangle to Crewe, sealed bids, gazumping protection, estate agent obligations under the Estate Agents Act 1979, and an offer strategy calculator.',
+  datePublished: '2026-02-27',
+  dateModified: '2026-02-27',
+  image: {
+    '@type': 'ImageObject',
+    url: 'https://movetocheshire.uk/images/buying-guide/cheshire-offer-dynamics-comparison.webp',
+    width: 720,
+    height: 443,
+  },
+  author: { '@type': 'Organization', name: 'movetocheshire.uk' },
+  publisher: { '@type': 'Organization', name: 'movetocheshire.uk', url: 'https://movetocheshire.uk', logo: { '@type': 'ImageObject', url: 'https://movetocheshire.uk/favicon.svg' } },
+};
+---
+
+<BaseLayout
+  title="Making an Offer in Cheshire | Area Pricing & Calculator"
+  description="How to make an offer on a Cheshire property in 2026: area-specific pricing from Golden Triangle sealed bids to affordable market negotiation. Calculator and gazumping protection."
+  ogImage="/images/buying-guide/cheshire-offer-dynamics-comparison.webp"
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(webApplicationSchema)} />
+  </Fragment>
+
+  <!-- Breadcrumb -->
+  <div class="section-pad" style="padding-top: 20px; padding-bottom: 0;">
+    <div class="section-inner">
+      <nav aria-label="Breadcrumb" style="font-family: Inter, Arial, sans-serif; font-size: 13px; color: #999999;">
+        <a href="/" style="color: #999999; text-decoration: none;">Home</a>
+        <span style="margin: 0 8px;">/</span>
+        <a href="/buying-guide" style="color: #999999; text-decoration: none;">Buying Guide</a>
+        <span style="margin: 0 8px;">/</span>
+        <span style="color: #1C1C1E;">Making an Offer</span>
+      </nav>
+    </div>
+  </div>
+
+  <!-- Hero -->
+  <section class="section-pad" style="padding-top: 40px;">
+    <div class="section-inner" style="max-width: 720px;">
+      <span class="section-label">Offer strategy</span>
+      <h1 style="font-family: Georgia, serif; font-size: clamp(28px, 4.5vw, 44px); font-weight: 700; color: #1C1C1E; line-height: 1.15; margin: 0 0 20px 0; letter-spacing: -0.02em;">Making an Offer on a Cheshire Property</h1>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 18px; line-height: 1.7; color: #444444; margin: 0 0 24px 0;">
+        Cheshire buyers making offers in 2026 face three distinct markets across nine towns - sealed bids in the Golden Triangle where offers reach 102% of asking price, balanced negotiation in Chester and Macclesfield, and affordable markets in Crewe and Northwich where 7-12% below asking is realistic. This guide covers the legal framework, gazumping protection strategies, and an interactive offer calculator.
+      </p>
+      <span style="display: inline-block; font-family: Inter, Arial, sans-serif; font-size: 12px; font-weight: 600; color: #3D5A3E; background-color: rgba(61, 90, 62, 0.08); padding: 6px 12px; letter-spacing: 0.02em;">Last updated: 27 February 2026</span>
+      <nav aria-label="Page sections" style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px;">
+        {[
+          { label: 'How Cheshire offers work', href: '#how-offers-work' },
+          { label: 'Cheshire price research', href: '#research' },
+          { label: 'Cheshire market dynamics', href: '#market-dynamics' },
+          { label: 'Cheshire sealed bids', href: '#sealed-bids' },
+          { label: 'Gazumping protection', href: '#gazumping' },
+          { label: 'Cheshire agent duties', href: '#estate-agent' },
+          { label: 'Cheshire offer calculator', href: '#calculator' },
+          { label: 'Cheshire buyer FAQ', href: '#faq' },
+        ].map((link) => (
+          <a href={link.href} style="font-family: Inter, Arial, sans-serif; font-size: 13px; font-weight: 500; color: #3D5A3E; text-decoration: none; padding: 5px 12px; border: 1px solid rgba(61, 90, 62, 0.25); transition: border-color 0.2s, background-color 0.2s;">{link.label}</a>
+        ))}
+      </nav>
+    </div>
+  </section>
+
+  <!-- Stat Bar -->
+  <section class="section-pad" style="padding-top: 0;">
+    <div class="section-inner">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px;">
+        {[
+          { value: '1 in 3', label: 'Cheshire and England property purchases that fall through before completion', source: 'HomeOwners Alliance, 2025' },
+          { value: '88-102%', label: 'Cheshire accepted offer range across nine towns', source: 'Rightmove, 2025' },
+          { value: 'Not binding', label: 'Cheshire accepted offers remain subject to contract until exchange', source: 'Law Society, 2025' },
+        ].map((stat) => (
+          <div style="background-color: #FFFFFF; border: 1px solid #E5E0D8; padding: 28px 24px;">
+            <p class="data-tile-value" style="margin: 0 0 8px 0;">{stat.value}</p>
+            <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; font-weight: 600; color: #1C1C1E; margin: 0 0 4px 0;">{stat.label}</p>
+            <p style="font-family: Inter, Arial, sans-serif; font-size: 12px; color: #999999; margin: 0;">{stat.source}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- TLDR -->
+  <section class="section-pad">
+    <div class="section-inner" style="max-width: 720px;">
+      <span class="section-label">Cheshire offer summary</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 24px 0;">
+        What do Cheshire property offers look like in 2026?
+      </h2>
+      <div style="display: flex; flex-direction: column; gap: 16px;">
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #1C1C1E; margin: 0;"><strong>Making an offer on a Cheshire property follows the same legal process as the rest of England - verbal offer through the estate agent, "subject to contract" until exchange - but the offer amount that succeeds varies dramatically by area</strong> (Law Society). Golden Triangle properties in Wilmslow, Knutsford, and Alderley Edge attract offers at 95-102% of asking price, while affordable towns like Crewe and Northwich see accepted offers at 88-95%.</p>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #1C1C1E; margin: 0;"><strong>Accepted offers carry no legal obligation until exchange of contracts</strong> (Law Society). This gap - the period between acceptance and exchange, typically 8-12 weeks in Cheshire - is when buyer costs accumulate without protection: conveyancing (£500-£1,800), survey (£400-£1,500), and mortgage fees average £2,700 in abortive costs when a purchase collapses (HomeOwners Alliance, 2025). Buyer position, speed, and protection strategy are as important as the offer price itself.</p>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0;">Nine Cheshire towns across three market tiers are analysed below with area-specific offer ranges, the sealed bid process used in the Golden Triangle, four gazumping defences, and estate agent obligations under the Estate Agents Act 1979.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Offer Strategy Calculator (CENTERPIECE) -->
+  <section id="calculator" class="section-pad" style="background-color: #FFFFFF; border-top: 1px solid #E5E0D8; border-bottom: 1px solid #E5E0D8;">
+    <div class="section-inner" style="max-width: 720px;">
+      <span class="section-label">Cheshire offer calculator</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 16px 0;">What percentage of asking price should you offer in Cheshire?</h2>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 24px 0;">Cheshire property offer ranges vary from 78% to 105% of asking price depending on area, condition, days on market, and buyer position (Rightmove, 2025). Select your circumstances below to generate a recommended offer range with tactical notes, gazumping risk assessment, and a next-steps checklist specific to your Cheshire purchase.</p>
+
+      <!-- Calculator Form -->
+      <div style="border: 2px solid #3D5A3E; padding: 28px; margin-bottom: 24px;">
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; font-weight: 700; color: #3D5A3E; margin: 0 0 20px 0; text-transform: uppercase; letter-spacing: 0.05em;">Cheshire Offer Strategy Calculator</p>
+
+        <div style="display: flex; flex-direction: column; gap: 20px; margin-bottom: 24px;">
+          <div>
+            <label for="offer-area" style="font-family: Inter, Arial, sans-serif; font-size: 13px; font-weight: 600; color: #1C1C1E; display: block; margin-bottom: 6px;">Cheshire area</label>
+            <select id="offer-area" style="font-family: Inter, Arial, sans-serif; font-size: 15px; color: #1C1C1E; border: 1px solid #E5E0D8; padding: 10px 14px; background: #FFFFFF; width: 100%; max-width: 360px;">
+              <option value="golden-triangle">Golden Triangle (Wilmslow, Knutsford, Alderley Edge)</option>
+              <option value="chester">Chester and surrounds</option>
+              <option value="mid-cheshire" selected>Mid-Cheshire (Macclesfield, Frodsham, Nantwich)</option>
+              <option value="affordable">South and East Cheshire (Crewe, Northwich, Warrington)</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="offer-condition" style="font-family: Inter, Arial, sans-serif; font-size: 13px; font-weight: 600; color: #1C1C1E; display: block; margin-bottom: 6px;">Cheshire property condition</label>
+            <select id="offer-condition" style="font-family: Inter, Arial, sans-serif; font-size: 15px; color: #1C1C1E; border: 1px solid #E5E0D8; padding: 10px 14px; background: #FFFFFF; width: 100%; max-width: 360px;">
+              <option value="turnkey">Turnkey - no work required</option>
+              <option value="light-refurb" selected>Light refurb needed</option>
+              <option value="major-renovation">Major renovation</option>
+              <option value="new-build">New build</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="offer-days" style="font-family: Inter, Arial, sans-serif; font-size: 13px; font-weight: 600; color: #1C1C1E; display: block; margin-bottom: 6px;">Days on Cheshire market</label>
+            <select id="offer-days" style="font-family: Inter, Arial, sans-serif; font-size: 15px; color: #1C1C1E; border: 1px solid #E5E0D8; padding: 10px 14px; background: #FFFFFF; width: 100%; max-width: 360px;">
+              <option value="under-14">Under 14 days</option>
+              <option value="14-60" selected>14-60 days</option>
+              <option value="60-120">60-120 days</option>
+              <option value="120-plus">120+ days</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="offer-position" style="font-family: Inter, Arial, sans-serif; font-size: 13px; font-weight: 600; color: #1C1C1E; display: block; margin-bottom: 6px;">Your Cheshire buyer position</label>
+            <select id="offer-position" style="font-family: Inter, Arial, sans-serif; font-size: 15px; color: #1C1C1E; border: 1px solid #E5E0D8; padding: 10px 14px; background: #FFFFFF; width: 100%; max-width: 360px;">
+              <option value="ftb">First-time buyer with AiP</option>
+              <option value="chain-free" selected>Chain-free with cash or mortgage offer</option>
+              <option value="in-chain">In a chain</option>
+              <option value="investor">Investor</option>
+            </select>
+          </div>
+        </div>
+
+        <button id="offer-calc-btn" type="button" style="font-family: Inter, Arial, sans-serif; font-size: 14px; font-weight: 600; color: #FFFFFF; background-color: #3D5A3E; border: none; padding: 12px 28px; cursor: pointer; transition: background-color 0.2s;">Calculate your Cheshire offer strategy</button>
+      </div>
+
+      <!-- Calculator Result -->
+      <div id="offer-result" style="display: none; border: 1px solid #E5E0D8; padding: 24px;">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 16px; flex-wrap: wrap; gap: 12px;">
+          <div>
+            <p style="font-family: Inter, Arial, sans-serif; font-size: 12px; font-weight: 600; color: #999999; text-transform: uppercase; letter-spacing: 0.05em; margin: 0 0 4px 0;">Recommended Cheshire offer range</p>
+            <p id="offer-range" style="font-family: Georgia, serif; font-size: 32px; font-weight: 700; color: #C4933F; margin: 0;">90-95%</p>
+          </div>
+          <div style="text-align: right;">
+            <p style="font-family: Inter, Arial, sans-serif; font-size: 12px; font-weight: 600; color: #999999; text-transform: uppercase; letter-spacing: 0.05em; margin: 0 0 4px 0;">Cheshire gazumping risk</p>
+            <p id="offer-risk" style="font-family: Georgia, serif; font-size: 20px; font-weight: 700; color: #1C1C1E; margin: 0;">Medium</p>
+          </div>
+        </div>
+        <div id="offer-tactical" style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.7; color: #444444; margin-bottom: 16px; padding: 16px; background-color: rgba(61, 90, 62, 0.04); border-left: 3px solid #3D5A3E;"></div>
+        <div id="offer-checklist" style="display: flex; flex-direction: column; gap: 8px;"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Offer Timeline -->
+  <section class="section-pad">
+    <div class="section-inner" style="max-width: 720px;">
+      <span class="section-label">Offer process</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 16px 0;">What is the Cheshire offer-to-SSTC timeline?</h2>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 24px 0;">The Cheshire offer process runs through six stages from preparation to protecting your position after acceptance, with the full sequence typically taking 2-4 weeks before conveyancing begins.</p>
+
+      <figure style="margin: 0 auto 24px; max-width: 720px;">
+        <img src="/images/buying-guide/cheshire-offer-process-flowchart.webp" alt="Cheshire offer process flowchart showing six steps from preparing to offer through viewing, making an offer, negotiating, offer accepted SSTC, and protecting your position" loading="lazy" width="720" height="299" style="width: 720px; max-width: 100%; aspect-ratio: 720/299; border: 1px solid #E5E0D8;" />
+        <figcaption style="font-family: Inter, Arial, sans-serif; font-size: 12px; color: #999999; margin-top: 8px;">The Cheshire offer-to-SSTC process typically takes 2-4 weeks. Golden Triangle sealed bids may compress steps 3-5 into a single deadline.</figcaption>
+      </figure>
+
+      <div style="display: flex; flex-direction: column; gap: 0;">
+        {offerTimeline.map((step, i) => (
+          <div style={`display: flex; gap: 16px; padding: 16px 0; ${i < offerTimeline.length - 1 ? 'border-bottom: 1px solid #F0EDE8;' : ''}`}>
+            <div style="min-width: 36px; height: 36px; border-radius: 50%; background-color: #3D5A3E; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-family: Inter, Arial, sans-serif; font-size: 14px; font-weight: 700; flex-shrink: 0;">{step.step}</div>
+            <div>
+              <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; font-weight: 600; color: #1C1C1E; margin: 0 0 2px 0;">{step.name} <span style="font-weight: 400; color: #999999; font-size: 13px;">- {step.duration}</span></p>
+              <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; color: #444444; margin: 0; line-height: 1.5;">{step.description}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- How Offers Work -->
+  <section id="how-offers-work" class="section-pad" style="background-color: #FFFFFF; border-top: 1px solid #E5E0D8; border-bottom: 1px solid #E5E0D8;">
+    <div class="section-inner" style="max-width: 720px;">
+      <span class="section-label">Cheshire offer legal process</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 16px 0;">How does making an offer work for Cheshire buyers?</h2>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 20px 0;"><strong>The offer process for Cheshire buyers follows the England-wide system - buyer, estate agent, and seller operating through a legal framework that gives the agent a duty to present every offer received</strong> (<a href="https://www.legislation.gov.uk/ukpga/1979/38/section/21" style="color: #3D5A3E;" rel="nofollow noopener">Estate Agents Act 1979, Section 21</a>). The buyer communicates an offer amount verbally or in writing to the agent, who passes it to the seller along with details of the buyer's financial position and chain status. No written contract exists at this stage.</p>
+
+      <h3 style="font-family: Georgia, serif; font-size: 20px; font-weight: 700; color: #1C1C1E; margin: 24px 0 12px 0;">What does "subject to contract" mean for Cheshire buyers?</h3>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">"Subject to contract" is the phrase that appears on the memorandum of sale the agent issues after the seller accepts an offer - it signals that both parties have agreed a price but neither is contractually committed until solicitors exchange signed contracts (Law Society). Either party can withdraw at any point before exchange without financial penalty or legal consequence.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0;">This differs from Scotland, where an accepted offer becomes legally binding immediately. In England, the period between acceptance and exchange - typically 8-12 weeks for a standard Cheshire purchase - is the vulnerability window where gazumping, survey issues, and chain collapses derail transactions.</p>
+
+      <h3 style="font-family: Georgia, serif; font-size: 20px; font-weight: 700; color: #1C1C1E; margin: 24px 0 12px 0;">What happens between offer acceptance and exchange in Cheshire?</h3>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">The estate agent issues a memorandum of sale to all parties - buyer, seller, and both solicitors - listing the agreed price and each party's details. The property listing changes to "Sold Subject to Contract" (SSTC). The buyer's solicitor begins the <a href="/buying-guide/conveyancing-cheshire" style="color: #3D5A3E;">conveyancing process</a>: ordering local authority searches, the mandatory Cheshire Salt Search (£79), environmental searches, and raising pre-contract enquiries.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0;">The buyer books a <a href="/buying-guide/survey-types-cheshire" style="color: #3D5A3E;">property survey</a> - RICS Level 2 for standard Cheshire homes (£400-£1,000) or Level 3 for older properties and conversions (£630-£1,500). The mortgage lender instructs a valuation. Exchange occurs when both solicitors confirm the contract terms, the buyer transfers the deposit (typically 10%), and completion dates are fixed.</p>
+
+      <h3 style="font-family: Georgia, serif; font-size: 20px; font-weight: 700; color: #1C1C1E; margin: 24px 0 12px 0;">Why do 1 in 3 Cheshire purchases fall through?</h3>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">The five primary causes of purchase collapse are: buyer or seller changing their mind (28%), chain collapse where one transaction in a linked sequence fails (26%), survey revealing structural defects or subsidence risk (18%), mortgage valuation coming in below the offer price (15%), and gazumping by a competing buyer (13%) (HomeOwners Alliance, 2025).</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0;">Cheshire-specific risks include the salt subsidence assessment flagging historical brine mining damage, local authority search delays (5-21 working days depending on Cheshire East or Cheshire West council), and the Golden Triangle's high-value market attracting competing offers during the SSTC period. The average buyer who loses a purchase spends £2,700 in abortive conveyancing, survey, and mortgage fees (HomeOwners Alliance, 2025).</p>
+    </div>
+  </section>
+
+  <!-- Research -->
+  <section id="research" class="section-pad">
+    <div class="section-inner" style="max-width: 720px;">
+      <span class="section-label">Cheshire price research</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 16px 0;">How do you research the right offer price in Cheshire?</h2>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 20px 0;"><strong>Researching the right offer price requires comparing three data sources: Land Registry sold prices for the street or postcode, the property's current asking price against comparable listings, and the number of days on market</strong> (Money Helper, 2025). These three inputs together establish whether the asking price reflects current market value, is aspirational, or is already discounted.</p>
+
+      <h3 style="font-family: Georgia, serif; font-size: 20px; font-weight: 700; color: #1C1C1E; margin: 24px 0 12px 0;">How do sold prices compare to asking prices in Cheshire?</h3>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;"><a href="https://www.gov.uk/search-property-information-land-registry" style="color: #3D5A3E;" rel="nofollow noopener">Land Registry</a> records every completed sale price in England and Wales, searchable by postcode within 6-8 weeks of completion. Comparing the asking price to sold prices for similar properties on the same street or postcode provides the strongest evidence base for an offer.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">Rightmove's sold prices tool and the ONS House Price Index offer complementary views - Rightmove shows individual transactions while ONS provides ward-level averages.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0;">Cheshire's price variation between wards makes postcode-level research essential. A three-bedroom semi in Wilmslow (CH9) averages £450,000, while the same property type in Crewe (CW1) averages £165,000 (ONS, Q4 2025). Using town-level averages without drilling into the specific ward produces misleading offer calculations.</p>
+
+      <h3 style="font-family: Georgia, serif; font-size: 20px; font-weight: 700; color: #1C1C1E; margin: 24px 0 12px 0;">How long has the Cheshire property been on the market?</h3>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">Days on market correlates directly with seller pricing pressure. A Cheshire property listed for under 14 days carries no pricing pressure - the seller is still receiving primary market feedback. By 60-120 days, agents typically advise a price review, as sustained marketing without an offer signals buyer resistance to the asking price.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">At 120+ days, Rightmove and Zoopla price history usually show at least one reduction, and the seller's motivation to negotiate has measurably increased. Cheshire properties in the affordable tier (Crewe, Northwich, Warrington) average 52 days on market compared to 28 days in the Golden Triangle (Rightmove, 2025).</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0;">Rightmove and Zoopla display the listing date. A property that has been reduced in price and relisted resets the counter - check the price history to identify properties that have been marketed for longer than the displayed figure suggests.</p>
+
+      <h3 style="font-family: Georgia, serif; font-size: 20px; font-weight: 700; color: #1C1C1E; margin: 24px 0 12px 0;">What condition is the property in?</h3>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">Property condition directly affects the offer range. A turnkey property (no work required) in a desirable area commands full asking price because competing buyers face the same low refurbishment cost. A property requiring a new roof (£5,000-£15,000), rewiring (£3,000-£5,000), or damp treatment (£2,000-£8,000) gives the buyer a quantifiable reason to reduce the offer by the estimated repair cost.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0;">Cheshire's pre-1919 housing stock - concentrated in Chester's city centre, Knutsford's King Street, and the rural villages - carries higher maintenance risk than post-war estates. Period properties with original sash windows, lime render, and solid walls command a character premium but require specialist maintenance budgets that reduce the net value compared to modernised equivalents.</p>
+
+      <h3 style="font-family: Georgia, serif; font-size: 20px; font-weight: 700; color: #1C1C1E; margin: 24px 0 12px 0;">How does energy efficiency affect a Cheshire offer?</h3>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">Cheshire properties rated EPC D or below cost £500-£1,200 per year more in energy bills than an EPC C equivalent, and this gap gives buyers quantifiable leverage on the offer price. Lenders including Barclays, NatWest, and Nationwide offer green mortgage products with 0.1-0.2% lower interest rates for EPC A-C properties.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0;">A low EPC rating gives the buyer leverage to reduce the offer by the estimated upgrade cost - insulation, double glazing, or heat pump installation typically totals £5,000-£20,000 depending on the property size and current rating.</p>
+    </div>
+  </section>
+
+  <!-- Market Dynamics -->
+  <section id="market-dynamics" class="section-pad" style="background-color: #FFFFFF; border-top: 1px solid #E5E0D8; border-bottom: 1px solid #E5E0D8;">
+    <div class="section-inner" style="max-width: 720px;">
+      <span class="section-label">Cheshire area comparison</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 16px 0;">How does Cheshire's property market affect your offer?</h2>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 24px 0;"><strong>Cheshire operates as three distinct property markets with different offer dynamics</strong> (Rightmove, 2025). The Golden Triangle (Wilmslow, Knutsford, Alderley Edge) is a seller's market where competition pushes offers above asking price. Mid-Cheshire (Chester, Macclesfield, Frodsham) balances supply and demand with moderate negotiation room. Affordable Cheshire (Crewe, Northwich, Warrington) favours buyers with 5-12% below asking regularly accepted.</p>
+
+      <!-- Offer Dynamics Table -->
+      <div style="overflow-x: auto; margin-bottom: 24px;">
+        <table style="width: 100%; border-collapse: collapse; font-family: Inter, Arial, sans-serif; font-size: 14px; min-width: 700px;">
+          <thead>
+            <tr style="border-bottom: 2px solid #3D5A3E;">
+              <th style="text-align: left; padding: 12px 16px; font-weight: 700; color: #1C1C1E;">Area</th>
+              <th style="text-align: left; padding: 12px 16px; font-weight: 700; color: #1C1C1E;">Zone</th>
+              <th style="text-align: right; padding: 12px 16px; font-weight: 700; color: #1C1C1E;">Avg price</th>
+              <th style="text-align: center; padding: 12px 16px; font-weight: 700; color: #1C1C1E;">Typical offer</th>
+              <th style="text-align: center; padding: 12px 16px; font-weight: 700; color: #1C1C1E;">Competition</th>
+              <th style="text-align: left; padding: 12px 16px; font-weight: 700; color: #1C1C1E;">Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            {offerDynamics.map((row, i) => (
+              <tr style={`border-bottom: 1px solid #E5E0D8; ${i % 2 === 0 ? '' : 'background-color: rgba(61, 90, 62, 0.02);'}`}>
+                <td style="padding: 14px 16px; font-weight: 600; color: #1C1C1E;">{row.area}</td>
+                <td style={`padding: 14px 16px; color: ${row.zone === 'Golden Triangle' ? '#C4933F' : row.zone === 'Mid-Cheshire' ? '#3D5A3E' : '#444444'};`}>{row.zone}</td>
+                <td style="padding: 14px 16px; color: #444444; text-align: right;">{row.avgPrice}</td>
+                <td style="padding: 14px 16px; color: #1C1C1E; font-weight: 600; text-align: center;">{row.typicalOffer}</td>
+                <td style={`padding: 14px 16px; text-align: center; font-weight: 600; color: ${row.competition === 'High' ? '#C4933F' : row.competition === 'Medium' ? '#3D5A3E' : '#444444'};`}>{row.competition}</td>
+                <td style="padding: 14px 16px; color: #444444; font-size: 13px;">{row.notes}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 12px; color: #999999; margin: 0 0 24px 0;">Sources: ONS House Price Index Q4 2025, Rightmove sold prices 2025, NAEA Propertymark regional data. Typical offer ranges reflect accepted offers, not initial bids.</p>
+
+      <figure style="margin: 0 auto 24px; max-width: 720px;">
+        <img src="/images/buying-guide/cheshire-offer-dynamics-comparison.webp" alt="Cheshire offer dynamics comparison showing three market tiers - Golden Triangle at 95-102% of asking price with high competition, Mid-Cheshire at 92-97% with medium competition, and Affordable Cheshire at 88-95% with low-medium competition" loading="lazy" width="720" height="443" style="width: 720px; max-width: 100%; aspect-ratio: 720/443; border: 1px solid #E5E0D8;" />
+        <figcaption style="font-family: Inter, Arial, sans-serif; font-size: 12px; color: #999999; margin-top: 8px;">Cheshire property offer ranges vary significantly by market tier - Golden Triangle buyers compete at or above asking price while affordable areas offer 5-12% negotiation room.</figcaption>
+      </figure>
+      <h3 style="font-family: Georgia, serif; font-size: 20px; font-weight: 700; color: #1C1C1E; margin: 24px 0 12px 0;">Golden Triangle - Wilmslow, Knutsford, and Alderley Edge</h3>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">Golden Triangle properties attract multiple offers within the first two weeks of listing, particularly detached homes with four or more bedrooms (Rightmove, 2025). Wilmslow averages £550,000 with turnkey properties under 14 days on market rarely accepting below asking price.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">Knutsford's period properties on King Street and around The Heath command a historic character premium that pushes offers to 97-100% of asking. Alderley Edge operates at the prestige end with entry prices at £700,000 and the top market ranging from £3,000,000 to £7,000,000.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0;">Sealed bids are a regular occurrence in the Golden Triangle. Estate agents trigger the process when three or more buyers express interest, setting a best-and-final deadline. Buyers competing for Golden Triangle properties benefit from being chain-free, having a mortgage offer (not just an AiP), and naming their solicitor upfront. <a href="/buying-guide/stamp-duty-cheshire" style="color: #3D5A3E;">SDLT on Golden Triangle properties</a> ranges from £17,500 at Wilmslow's average to £43,750 at £1,000,000 - factor this into your total budget ceiling.</p>
+
+      <h3 style="font-family: Georgia, serif; font-size: 20px; font-weight: 700; color: #1C1C1E; margin: 24px 0 12px 0;">Mid-Cheshire - Chester, Macclesfield, and Frodsham</h3>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">Chester's property market spans from first-time buyer entry at £216,000 to Victorian and Georgian villas above £600,000, creating a diverse market where offer strategy depends heavily on sub-area (ONS, Q4 2025). The city centre apartment market carries different dynamics to the suburban family home market - flats typically sell at 90-94% of asking, while houses at the Chester average of £305,000 sell at 93-97%.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0;">Macclesfield at £300,000 average represents Cheshire's balanced market - neither aggressively competitive nor heavily discounted. Turnkey family homes sell faster than properties requiring work. Frodsham at £340,000 carries a village premium driven by quality of life, the Sandstone Trail, and limited housing stock. Properties in Frodsham sell faster than the Cheshire West average due to constrained supply.</p>
+
+      <h3 style="font-family: Georgia, serif; font-size: 20px; font-weight: 700; color: #1C1C1E; margin: 24px 0 12px 0;">Affordable Cheshire - Crewe, Northwich, and Warrington</h3>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">Crewe at £185,000 average offers the strongest negotiation position in Cheshire, with properties regularly accepting 7-12% below asking (Rightmove, 2025). First-time buyers and investors dominate this market, and properties listed for 60+ days frequently accept revised offers. Northwich ranges from £141,500 in Witton to £220,000 average, with regeneration projects adding upside potential that the current asking prices do not yet reflect.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0;">Warrington at £245,000 sits between the affordable and mid-Cheshire tiers due to strong commuter demand for Manchester and Liverpool. New build developments in Warrington create direct competition between developers and private sellers - developers often include incentives (stamp duty contribution, upgrades, legal fees paid) that effectively reduce the purchase cost by 3-5% without a visible price reduction.</p>
+
+      <h3 style="font-family: Georgia, serif; font-size: 20px; font-weight: 700; color: #1C1C1E; margin: 24px 0 12px 0;">Seasonal patterns and the spring 2026 outlook</h3>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">Cheshire property listings peak in March-April and September-October based on Rightmove listing volume data, concentrating buyer competition into these windows and reducing negotiation leverage compared to quieter months. January and July-August produce fewer new listings but also fewer competing buyers, making these months favourable for negotiation on stale properties.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">Mortgage rates on new fixed deals fell below 4% for both two-year and five-year terms by January 2026 (Bank of England Monetary Policy Report, February 2026). The FCA's revised stress-test floor of 6.5%, down from the 8.5% applied through 2023, increased maximum borrowing capacity for buyers at median Cheshire income levels.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0;">Chester, Macclesfield, and Frodsham properties in the £250,000-£400,000 bracket face more competition in spring 2026 than at any point in 2025. Savills projects 5.5% capital growth for the North West in 2026 (Savills UK Residential Forecast, November 2025).</p>
+    </div>
+  </section>
+
+  <!-- Sealed Bids -->
+  <section id="sealed-bids" class="section-pad">
+    <div class="section-inner" style="max-width: 720px;">
+      <span class="section-label">Cheshire sealed bid process</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 16px 0;">What are sealed bids and best-and-final offers in Cheshire?</h2>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 20px 0;"><strong>Sealed bids require all interested buyers to submit their highest offer in writing by a fixed deadline, with the seller reviewing all bids simultaneously before selecting the winning buyer</strong> (NAEA Propertymark). The process differs from an auction - the seller is not obligated to accept the highest bid and can weigh buyer position, chain length, completion timeline, and proof of funds alongside the offer amount.</p>
+
+      <h3 style="font-family: Georgia, serif; font-size: 20px; font-weight: 700; color: #1C1C1E; margin: 24px 0 12px 0;">When do Cheshire agents use sealed bids?</h3>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">Cheshire estate agents initiate sealed bids when three or more buyers express serious interest, typically within the first 7-14 days of listing (NAEA Propertymark). The practice is most common in the Golden Triangle for detached properties, period homes in Knutsford, and any property with a feature that creates scarcity - large plots, river frontage, or uninterrupted rural views.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0;">Mid-Cheshire agents use sealed bids less frequently, typically for properties priced below the area average that attract first-time buyer demand. Sealed bids are rare in Crewe and Northwich unless a property is priced significantly below market value to attract investor interest.</p>
+
+      <h3 style="font-family: Georgia, serif; font-size: 20px; font-weight: 700; color: #1C1C1E; margin: 24px 0 12px 0;">How to structure a best-and-final offer</h3>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">A best-and-final offer includes five elements: the offer amount, proof of funds (AiP or bank statement), solicitor details confirming they are instructed, the proposed completion timeline, and a covering letter.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">The covering letter is not a formality. Sellers of family homes in Knutsford and Chester routinely select buyers who demonstrate genuine intention to live in the property over investors offering 2-3% more.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0;">Offer an exact figure (£487,500) rather than a round number (£490,000). Exact figures signal that the buyer has calculated the maximum based on their budget, not picked an arbitrary number. State a specific completion date ("within 8 weeks of exchange") rather than a vague timeline ("as soon as possible").</p>
+
+      <h3 style="font-family: Georgia, serif; font-size: 20px; font-weight: 700; color: #1C1C1E; margin: 24px 0 12px 0;">Proof of funds and mortgage agreement in principle</h3>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0;">A mortgage agreement in principle (AiP) confirms borrowing capacity but is not a mortgage offer - the lender has not yet valued the property or completed full underwriting. An AiP takes 24-48 hours from most lenders and is valid for 60-90 days.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0;">Cash buyers provide a bank statement dated within 30 days showing available funds. In competitive Golden Triangle sealed bids, buyers with a full mortgage offer (not just an AiP) and a named solicitor are prioritised because they reduce the seller's risk of the transaction failing at the mortgage stage.</p>
+    </div>
+  </section>
+
+  <!-- Gazumping -->
+  <section id="gazumping" class="section-pad" style="background-color: #FFFFFF; border-top: 1px solid #E5E0D8; border-bottom: 1px solid #E5E0D8;">
+    <div class="section-inner" style="max-width: 720px;">
+      <span class="section-label">Cheshire gazumping protection</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 16px 0;">What is gazumping and how can Cheshire buyers protect themselves?</h2>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 20px 0;"><strong>Cheshire buyers face gazumping risk when a seller accepts a higher offer from a second buyer after already accepting the first buyer's offer - a practice that is legal in England because accepted offers carry no contractual obligation until exchange</strong> (Law Society). The first buyer loses their conveyancing fees (£500-£1,800), survey costs (£400-£1,500), and mortgage arrangement fees - averaging £2,700 in total (HomeOwners Alliance, 2025). Four strategies reduce this risk between offer acceptance and exchange.</p>
+
+      <h3 style="font-family: Georgia, serif; font-size: 20px; font-weight: 700; color: #1C1C1E; margin: 24px 0 12px 0;">Four strategies to reduce gazumping risk in Cheshire</h3>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">Cheshire buyers reduce gazumping exposure by acting on four points in the vulnerability window between offer acceptance and exchange. Speed of conveyancing, direct communication with the seller's agent, removing the property from the market, and first-offer commitment together address the conditions that allow a competing bid to succeed.</p>
+      <div style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px;">
+        {[
+          { strategy: 'Move fast on conveyancing', detail: 'Instruct your solicitor the same day as offer acceptance. Have your mortgage AiP in place before offering. Book the survey within 48 hours. Every day between acceptance and exchange is a day the seller can receive a competing offer.' },
+          { strategy: 'Request the property is taken off the market', detail: 'Ask the agent to remove the listing from Rightmove and Zoopla once your offer is accepted. Sellers are not obligated to agree, but most will if the buyer demonstrates commitment through speed and communication. A property still marketed as "For Sale" invites competing interest.' },
+          { strategy: 'Stay in regular contact', detail: 'Contact the estate agent weekly for progress updates. Silence from the buyer signals disinterest to the seller and agent. A seller who feels the buyer is engaged and progressing is less likely to entertain a second offer.' },
+          { strategy: 'Make your best offer first', detail: 'An offer at 92% that gets revised to 95% after a competing bid appears signals that the buyer had more budget available. Offering your genuine maximum from the start reduces the incentive for the seller to test the market further.' },
+        ].map((item) => (
+          <div style="border: 1px solid #E5E0D8; padding: 16px 20px;">
+            <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; font-weight: 600; color: #1C1C1E; margin: 0 0 6px 0;">{item.strategy}</p>
+            <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; color: #444444; line-height: 1.6; margin: 0;">{item.detail}</p>
+          </div>
+        ))}
+      </div>
+
+      <h3 style="font-family: Georgia, serif; font-size: 20px; font-weight: 700; color: #1C1C1E; margin: 24px 0 12px 0;">Lock-out agreements and exclusivity periods for Cheshire buyers</h3>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">A lock-out agreement is a written contract where the seller agrees not to negotiate with other buyers for a fixed period - typically 2-4 weeks (Law Society). The agreement gives the buyer exclusivity to complete searches and surveys without the risk of gazumping during that window. Lock-out agreements are legally binding if they specify a fixed duration and both parties sign.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0;">Golden Triangle sellers rarely agree to lock-out terms - in a seller's market, a fixed exclusivity window removes the possibility of a competing offer arriving at full or above-asking price. Mid-Cheshire and affordable market sellers are more receptive, particularly for properties that have been listed for 60+ days. The buyer's solicitor drafts the agreement at a typical cost of £150-£300.</p>
+
+      <h3 style="font-family: Georgia, serif; font-size: 20px; font-weight: 700; color: #1C1C1E; margin: 24px 0 12px 0;">Home Buyer Protection Insurance</h3>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0;">Home Buyer Protection Insurance covers the buyer's abortive costs if the transaction falls through for reasons outside their control - gazumping, seller withdrawal, or chain collapse (HomeOwners Alliance, 2025). Policies start from £74 and cover conveyancing fees, survey costs, and mortgage arrangement fees up to a combined limit of £1,500-£3,000.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0;">The policy does not cover the buyer withdrawing voluntarily or the mortgage lender declining to lend. Booking a <a href="/buying-guide/survey-types-cheshire" style="color: #3D5A3E;">property survey</a> early and taking out protection insurance together reduce the financial exposure of the subject-to-contract vulnerability window.</p>
+    </div>
+  </section>
+
+  <!-- Estate Agent Duties -->
+  <section id="estate-agent" class="section-pad">
+    <div class="section-inner" style="max-width: 720px;">
+      <span class="section-label">Estate agent legal duties</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 16px 0;">What does the Cheshire estate agent do with your offer?</h2>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 20px 0;"><strong>Cheshire estate agents act for the seller, not the buyer - but are bound by the Estate Agents Act 1979 to present all offers promptly to the vendor and not discriminate between buyers</strong> (National Trading Standards). The agent earns commission (typically 1-1.5% of the sale price in Cheshire) from the seller, creating a financial incentive to achieve the highest possible price.</p>
+
+      <h3 style="font-family: Georgia, serif; font-size: 20px; font-weight: 700; color: #1C1C1E; margin: 24px 0 12px 0;">How does the Estate Agents Act 1979 protect Cheshire buyers?</h3>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">Section 21 of the Estate Agents Act 1979 requires the agent to promptly pass on all offers to the seller, including offers received after one has been accepted. The agent cannot refuse to present an offer because the buyer is not using the agent's in-house mortgage broker or preferred solicitor. Failure to forward an offer is a criminal offence under the Act.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0;">The Consumer Protection from Unfair Trading Regulations 2008 require agents to disclose material information: structural defects they are aware of, planning applications affecting the property, and any personal interest in the transaction.</p>
+
+      <h3 style="font-family: Georgia, serif; font-size: 20px; font-weight: 700; color: #1C1C1E; margin: 24px 0 12px 0;">What information strengthens your Cheshire offer to the agent?</h3>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">The estate agent assesses buyer quality alongside the offer amount. Providing four pieces of information at the time of offering strengthens your position: mortgage agreement in principle or proof of cash funds, name and contact details of your instructed solicitor, your chain status (first-time buyer, chain-free, or details of your chain), and your proposed completion timeline.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0;">A chain-free buyer at 95% of asking price is often preferred over a buyer in a three-property chain at 98%. The agent advises the seller on transaction risk, and chain length is the primary risk factor. First-time buyers carry no chain by definition, making them attractive to sellers despite typically offering at the lower end of the range.</p>
+
+      <h3 style="font-family: Georgia, serif; font-size: 20px; font-weight: 700; color: #1C1C1E; margin: 24px 0 12px 0;">What do NAEA Propertymark and the Property Ombudsman cover?</h3>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0;"><a href="https://www.propertymark.co.uk/" style="color: #3D5A3E;" rel="nofollow noopener">NAEA Propertymark</a> members follow a code of practice requiring transparent fee disclosure, honest property descriptions, and prompt offer handling. The Property Ombudsman (TPO) provides a free complaints resolution service for buyers and sellers.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0;">All estate agents in England are legally required to belong to a government-approved redress scheme - either TPO or the Property Redress Scheme (PRS). Verify redress scheme membership and check complaints history on the TPO website before choosing a Cheshire agent.</p>
+    </div>
+  </section>
+
+  <!-- FAQ Accordion -->
+  <section id="faq" class="section-pad" style="background-color: #FFFFFF; border-top: 1px solid #E5E0D8; border-bottom: 1px solid #E5E0D8;">
+    <div class="section-inner" style="max-width: 800px;">
+      <span class="section-label">Cheshire buyer FAQ</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 16px 0;">Offer questions for Cheshire buyers</h2>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 24px 0;">Common questions covering offer amounts by area, sealed bids, gazumping, mortgage readiness, and remote offers for buyers relocating to Cheshire.</p>
+      <div>
+        {faqs.map((faq, index) => (
+          <details style={`border-top: ${index === 0 ? '2px solid #3D5A3E' : '1px solid #E5E0D8'};`}>
+            <summary style="padding: 20px 0; cursor: pointer; font-family: Inter, Arial, sans-serif; font-size: 16px; font-weight: 600; color: #1C1C1E; line-height: 1.4; list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 16px;">
+              {faq.question}
+              <span style="font-family: Georgia, serif; font-size: 20px; color: #C4933F; flex-shrink: 0;">+</span>
+            </summary>
+            <div style="padding-bottom: 24px;">
+              <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.75; color: #444444; margin: 0;">{faq.answer}</p>
+            </div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Next Step Callout -->
+  <section class="section-pad">
+    <div class="section-inner" style="max-width: 720px;">
+      <div style="border-left: 3px solid #3D5A3E; background-color: rgba(61, 90, 62, 0.04); padding: 24px 28px;">
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; font-weight: 700; color: #3D5A3E; margin: 0 0 8px 0; text-transform: uppercase; letter-spacing: 0.05em;">What happens after your offer is accepted</p>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.7; color: #444444; margin: 0;">
+          An accepted offer triggers the <a href="/buying-guide/conveyancing-cheshire" style="color: #3D5A3E;">conveyancing process</a> - local authority searches, the mandatory Cheshire Salt Search, pre-contract enquiries, and exchange of contracts. The typical Cheshire conveyancing timeline runs 8-12 weeks from SSTC to completion. <a href="/buying-guide/stamp-duty-cheshire" style="color: #3D5A3E;">Stamp duty</a> is calculated on the final agreed price and paid within 14 days of completion. Book a <a href="/buying-guide/survey-types-cheshire" style="color: #3D5A3E;">property survey</a> within 48 hours of acceptance to protect your position and identify defects before committing to the purchase.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Related Spokes -->
+  <section class="section-pad" style="border-top: 1px solid #E5E0D8;">
+    <div class="section-inner">
+      <span class="section-label">Further Cheshire guides</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 28px 0;">Related Cheshire buying guides</h2>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px;">
+        {relatedSpokes.map((spoke) => (
+          <a href={spoke.href} class="pillar-card" style="text-decoration: none; display: block;">
+            <span style="font-family: Inter, Arial, sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #3D5A3E; margin-bottom: 10px; display: block;">{spoke.tag}</span>
+            <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; font-weight: 600; color: #1C1C1E; margin: 0; line-height: 1.4;">{spoke.label}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const areaSelect = document.getElementById('offer-area') as HTMLSelectElement;
+    const conditionSelect = document.getElementById('offer-condition') as HTMLSelectElement;
+    const daysSelect = document.getElementById('offer-days') as HTMLSelectElement;
+    const positionSelect = document.getElementById('offer-position') as HTMLSelectElement;
+    const calcBtn = document.getElementById('offer-calc-btn') as HTMLButtonElement;
+    const resultDiv = document.getElementById('offer-result') as HTMLElement;
+    const rangeEl = document.getElementById('offer-range') as HTMLElement;
+    const riskEl = document.getElementById('offer-risk') as HTMLElement;
+    const tacticalEl = document.getElementById('offer-tactical') as HTMLElement;
+    const checklistEl = document.getElementById('offer-checklist') as HTMLElement;
+
+    interface OfferResult {
+      low: number;
+      high: number;
+      risk: string;
+      riskColor: string;
+      tactical: string;
+      checklist: string[];
+    }
+
+    function calculateOffer(): OfferResult {
+      const area = areaSelect.value;
+      const condition = conditionSelect.value;
+      const days = daysSelect.value;
+      const position = positionSelect.value;
+
+      // Base range: 90-95%
+      let low = 90;
+      let high = 95;
+
+      // Area adjustments
+      if (area === 'golden-triangle') { low += 5; high += 8; }
+      else if (area === 'chester') { low += 1; high += 3; }
+      else if (area === 'mid-cheshire') { low += 0; high += 1; }
+      else if (area === 'affordable') { low -= 2; high -= 1; }
+
+      // Condition adjustments
+      if (condition === 'turnkey') { low += 2; high += 5; }
+      else if (condition === 'light-refurb') { low += 0; high += 0; }
+      else if (condition === 'major-renovation') { low -= 10; high -= 5; }
+      else if (condition === 'new-build') { low += 1; high += 3; }
+
+      // Days on market adjustments
+      if (days === 'under-14') { low += 2; high += 3; }
+      else if (days === '14-60') { low += 0; high += 0; }
+      else if (days === '60-120') { low -= 3; high -= 2; }
+      else if (days === '120-plus') { low -= 8; high -= 5; }
+
+      // Position adjustments (mostly tactical notes, minor range impact)
+      if (position === 'in-chain') { low -= 1; high -= 1; }
+
+      // Clamp
+      low = Math.max(70, Math.min(low, 105));
+      high = Math.max(low + 2, Math.min(high, 110));
+
+      // Gazumping risk
+      let risk = 'Medium';
+      let riskColor = '#C4933F';
+      if (area === 'golden-triangle' && days === 'under-14') { risk = 'High'; riskColor = '#C44B3F'; }
+      else if (area === 'golden-triangle') { risk = 'High'; riskColor = '#C44B3F'; }
+      else if (area === 'affordable' && days === '120-plus') { risk = 'Low'; riskColor = '#3D5A3E'; }
+      else if (days === '120-plus') { risk = 'Low'; riskColor = '#3D5A3E'; }
+      else if (area === 'affordable') { risk = 'Low'; riskColor = '#3D5A3E'; }
+
+      // Tactical notes
+      let tactical = '';
+      if (area === 'golden-triangle' && condition === 'turnkey' && days === 'under-14') {
+        tactical = 'Golden Triangle turnkey properties under 14 days rarely accept below asking price. Consider offering at or above asking price with proof of mortgage offer (not just AiP) and an instructed solicitor. Sealed bids are likely if other buyers are interested.';
+      } else if (area === 'golden-triangle') {
+        tactical = 'Golden Triangle properties attract strong competition. Strengthen your offer with a covering letter, named solicitor, and proof of funds. Period properties in Knutsford and detached homes in Wilmslow are the most contested segments.';
+      } else if (area === 'affordable' && condition === 'major-renovation' && days === '120-plus') {
+        tactical = 'A long-listed renovation property in this price bracket offers maximum negotiation room. The seller has likely received feedback on condition issues from previous viewers. Present a costed renovation schedule with your offer to demonstrate serious intent and justify the reduction.';
+      } else if (area === 'affordable') {
+        tactical = 'Affordable Cheshire markets favour buyers with 5-12% below asking regularly accepted. Properties listed for 60+ days carry the strongest negotiation position. New build developers in Warrington and Crewe may offer incentives (stamp duty contribution, upgrades) worth 3-5% of the asking price.';
+      } else if (area === 'chester') {
+        tactical = 'Chester\'s diverse market ranges from £216,000 FTB entry to £600,000+ villas. City centre flats sell at 90-94% of asking; suburban family homes at 93-97%. Research sold prices at the postcode level - Chester ward averages vary by up to £150,000.';
+      } else if (condition === 'major-renovation') {
+        tactical = 'Quantify renovation costs before offering: new roof (£5,000-£15,000), rewiring (£3,000-£5,000), damp treatment (£2,000-£8,000). Present itemised estimates with your offer to justify the reduction. The survey will confirm or adjust these figures.';
+      } else if (days === '120-plus') {
+        tactical = 'Properties listed for 120+ days have typically been overpriced, have a defect deterring buyers, or the market has moved since listing. Check the price history for previous reductions. The seller\'s motivation increases with time on market.';
+      } else {
+        tactical = 'Mid-Cheshire offers a balanced market with moderate negotiation room. Turnkey family homes move faster than properties requiring work. Strengthen your position by having your solicitor instructed and survey booked within 48 hours of offer acceptance.';
+      }
+
+      // Buyer position note appended
+      if (position === 'ftb') {
+        tactical += ' As a first-time buyer with no chain, you carry lower transaction risk than chain buyers - highlight this to the agent.';
+      } else if (position === 'chain-free') {
+        tactical += ' Chain-free buyers are the strongest position type. Sellers and agents prioritise chain-free offers because they eliminate the primary cause of transaction failure.';
+      } else if (position === 'in-chain') {
+        tactical += ' Being in a chain reduces your offer strength. Consider whether you can sell your current property first to become chain-free, or negotiate a longer completion timeline to account for chain dependencies.';
+      } else if (position === 'investor') {
+        tactical += ' Investor offers are assessed on speed and certainty rather than emotional connection. Provide proof of funds immediately and set a specific completion date.';
+      }
+
+      // Checklist
+      const checklist = [
+        'Mortgage agreement in principle or proof of cash funds ready',
+        'Solicitor instructed and confirmed (name and contact details)',
+        'Survey type selected: RICS Level 2 (£400-£1,000) or Level 3 (£630-£1,500)',
+        'Land Registry sold prices checked for the target postcode',
+        'Total budget ceiling calculated including SDLT, survey, and conveyancing fees',
+      ];
+      if (area === 'golden-triangle') {
+        checklist.push('Covering letter prepared for sealed bid scenario');
+      }
+      if (risk === 'High') {
+        checklist.push('Home Buyer Protection Insurance considered (from £74)');
+      }
+
+      return { low, high, risk, riskColor, tactical, checklist };
+    }
+
+    calcBtn.addEventListener('click', () => {
+      const result = calculateOffer();
+
+      rangeEl.textContent = `${result.low}-${result.high}%`;
+      riskEl.textContent = result.risk;
+      riskEl.style.color = result.riskColor;
+      tacticalEl.textContent = result.tactical;
+
+      checklistEl.innerHTML = result.checklist.map(item =>
+        `<div style="display: flex; align-items: flex-start; gap: 8px; font-family: Inter, Arial, sans-serif; font-size: 14px; color: #444444;">
+          <span style="color: #3D5A3E; font-weight: 700; flex-shrink: 0;">&#10003;</span>
+          <span>${item}</span>
+        </div>`
+      ).join('');
+
+      resultDiv.style.display = 'block';
+    });
+  </script>
+</BaseLayout>

@@ -4,7 +4,7 @@ import HubLayout from '../../components/HubLayout.astro';
 
 const spokes = [
   { label: 'Stamp Duty in Cheshire', href: '/buying-guide/stamp-duty-cheshire', description: "Stamp Duty Land Tax calculations for typical Cheshire purchase prices. Includes first-time buyer relief and second home surcharge scenarios." },
-  { label: 'Survey Types Explained', href: '/buying-guide/survey-types-cheshire', description: "RICS Level 1, 2, and 3 surveys - which type is appropriate for Cheshire's housing stock, and what typical survey costs look like locally." },
+  { label: 'Survey Types for Cheshire Properties', href: '/buying-guide/survey-types-cheshire', description: "RICS Level 1, 2, and 3 surveys - which type is appropriate for Cheshire's housing stock, and what typical survey costs look like locally." },
   { label: 'Conveyancing in Cheshire', href: '/buying-guide/conveyancing-cheshire', description: 'What to expect from the conveyancing process in a competitive Cheshire market, with realistic timelines and notes on local solicitors.' },
   { label: 'Making an Offer in Cheshire', href: '/buying-guide/making-offer-cheshire', description: "How Cheshire's property market works: sealed bids, asking price competition, and when offers below asking are realistic." },
 ];
@@ -28,7 +28,7 @@ const collectionPageSchema = {
     '@type': 'ItemList',
     itemListElement: [
       { '@type': 'ListItem', position: 1, name: 'Stamp Duty in Cheshire', url: 'https://movetocheshire.uk/buying-guide/stamp-duty-cheshire' },
-      { '@type': 'ListItem', position: 2, name: 'Survey Types Explained', url: 'https://movetocheshire.uk/buying-guide/survey-types-cheshire' },
+      { '@type': 'ListItem', position: 2, name: 'Survey Types for Cheshire Properties', url: 'https://movetocheshire.uk/buying-guide/survey-types-cheshire' },
       { '@type': 'ListItem', position: 3, name: 'Conveyancing in Cheshire', url: 'https://movetocheshire.uk/buying-guide/conveyancing-cheshire' },
       { '@type': 'ListItem', position: 4, name: 'Making an Offer in Cheshire', url: 'https://movetocheshire.uk/buying-guide/making-offer-cheshire' },
     ],
@@ -36,14 +36,16 @@ const collectionPageSchema = {
 };
 
 const relatedHubs = [
-  { label: 'House Prices', href: '/house-prices' },
-  { label: 'Investment', href: '/investment' },
+  { label: 'Cheshire House Prices', href: '/house-prices' },
+  { label: 'Cheshire Property Investment', href: '/investment' },
 ];
+
 ---
 
 <BaseLayout
-  title="Buying a Home in Cheshire | Process Guide | movetocheshire.uk"
-  description="A practical guide to buying property in Cheshire: stamp duty, survey types, conveyancing, and what to expect from the purchase process. Cheshire-specific timelines and considerations."
+  title="Buying a Home in Cheshire | Costs, Timeline & Process | movetocheshire.uk"
+  description="Cheshire property purchases add 2-8% in fees beyond the asking price and take 12-16 weeks from offer to completion. Covers stamp duty, survey costs, conveyancing, and offer dynamics at 10 Cheshire price points from Crewe to Prestbury."
+  ogImage="/images/buying-guide/cheshire-buying-process-overview.webp"
 >
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
@@ -52,8 +54,104 @@ const relatedHubs = [
   <HubLayout
     tag="Process Guide"
     title="Buying a Home in Cheshire"
-    description="A practical guide to the full purchase process: stamp duty, survey types, local solicitors, and what to expect from conveyancing in a competitive market. Includes Cheshire-specific timelines and considerations."
+    description="Cheshire property purchases add stamp duty from £0 to £93,750, survey fees from £400 to £1,800, and conveyancing costs from £845 to £2,580 to the asking price. Four guides cover each stage of the buying process with Cheshire-specific costs, timelines, and local search requirements."
     spokes={spokes}
     relatedHubs={relatedHubs}
-  />
+  >
+
+    <!-- TLDR -->
+    <div style="max-width: 720px; margin-bottom: 48px; margin-left: auto; margin-right: auto;">
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 12px; color: #888888; margin: 0 0 32px 0;">
+        Last updated: February 2026
+      </p>
+      <div style="border-left: 3px solid #3D5A3E; padding-left: 20px; margin-bottom: 32px;">
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 17px; line-height: 1.75; color: #333333; margin: 0;">
+          Buying a home in Cheshire costs between 2% and 8% above the asking price in additional fees - stamp duty, survey, conveyancing, and the mandatory salt search - depending on property value and buyer type (HMRC, RICS, Law Society, 2025-26). The process takes 12-16 weeks from accepted offer to completion on a standard freehold purchase. Competition ranges from sealed bids at 102% of asking in Wilmslow to 7-12% below asking in Crewe. Aggregated costs, timelines, and market dynamics are mapped across four process stages at 10 Cheshire price points from £185,000 to £1,500,000.
+        </p>
+      </div>
+    </div>
+
+    <!-- Process overview image -->
+    <figure style="margin: 0 auto 48px; max-width: 720px;">
+      <img src="/images/buying-guide/cheshire-buying-process-overview.webp"
+        alt="Cheshire property buying process showing four stages from offer to completion with costs and timelines per stage"
+        loading="eager"
+        style="width: 720px; max-width: 100%; aspect-ratio: 1440/700; border: 1px solid #E5E0D8;" />
+      <figcaption style="font-family: Inter, Arial, sans-serif; font-size: 12px; color: #999999; margin-top: 8px;">
+        Total additional fees range from under £1,300 (first-time buyer, Crewe) to above £97,000 (£1.5m Prestbury home). Sources: HMRC, RICS, Law Society, Rightmove (2025-26).
+      </figcaption>
+    </figure>
+
+    <!-- H2: TOTAL COST -->
+    <div style="max-width: 720px; margin-bottom: 48px; margin-left: auto; margin-right: auto;">
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 28px); font-weight: 700; color: #1C1C1E; margin: 0 0 12px 0;">What does buying in Cheshire cost beyond the asking price?</h2>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 17px; line-height: 1.75; color: #333333; margin: 0 0 14px 0;">
+        A Cheshire property purchase adds three categories of cost to the agreed price: stamp duty land tax, a property survey, and conveyancing fees including local searches. The total ranges from under £1,300 for a first-time buyer in Crewe to above £97,000 on a £1,500,000 Prestbury home.
+      </p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 17px; line-height: 1.75; color: #333333; margin: 0 0 14px 0;">
+        <a href="/buying-guide/stamp-duty-cheshire" style="color: #3D5A3E; text-decoration: underline;">Stamp duty</a> is the largest variable. First-time buyers pay £0 on properties up to £300,000 - covering Crewe, Northwich, Chester, Nantwich, and Macclesfield at average prices (HMRC, 2025-26). Standard buyers at £300,000 pay £5,000. The liability reaches £43,750 at £1,000,000 and £93,750 at £1,500,000. Additional dwelling purchases add a 5% surcharge across all bands.
+      </p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 17px; line-height: 1.75; color: #333333; margin: 0 0 14px 0;">
+        <a href="/buying-guide/survey-types-cheshire" style="color: #3D5A3E; text-decoration: underline;">Survey costs</a> depend on the RICS level and property value. A Level 2 homebuyer survey on a £300,000 Macclesfield property runs £450-£650 (RICS, 2025). A Level 3 building survey on a £750,000 Alderley Edge period property - where Cheshire's sandstone and pre-1900 construction require detailed structural assessment - costs £1,200-£1,500.
+      </p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 17px; line-height: 1.75; color: #333333; margin: 0;">
+        <a href="/buying-guide/conveyancing-cheshire" style="color: #3D5A3E; text-decoration: underline;">Conveyancing</a> adds £845-£2,580 depending on purchase price, covering solicitor fees (£500-£1,200), local authority searches (£250-£470), the Cheshire salt search at £79, and Land Registry registration (£95-£910). Leasehold purchases - most common for Chester city centre flats and Northwich apartments - add £300-£600 in freeholder notice and management pack fees.
+      </p>
+    </div>
+
+    <!-- H2: TIMELINE -->
+    <div style="max-width: 720px; margin-bottom: 48px; margin-left: auto; margin-right: auto;">
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 28px); font-weight: 700; color: #1C1C1E; margin: 0 0 12px 0;">How long does a Cheshire property purchase take?</h2>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 17px; line-height: 1.75; color: #333333; margin: 0 0 14px 0;">
+        A standard freehold Cheshire purchase takes 12-16 weeks from accepted offer to completion, split across four stages: offer negotiation (1-2 weeks), conveyancing searches and enquiries (8-12 weeks), exchange of contracts (1-2 days), and completion with key handover (1-4 weeks after exchange) (Law Society, 2025).
+      </p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 17px; line-height: 1.75; color: #333333; margin: 0 0 14px 0;">
+        Local authority search processing creates the largest timeline variance within Cheshire. Cheshire East - covering Crewe, Nantwich, Macclesfield, Knutsford, and Wilmslow - takes 21 working days. Cheshire West and Chester takes 20 working days. Warrington returns searches in 5 working days. Buyers in Cheshire East face a 3-week delay that Warrington buyers avoid entirely.
+      </p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 17px; line-height: 1.75; color: #333333; margin: 0;">
+        Chain transactions extend the process by 2-4 weeks because each linked sale synchronises exchange dates. Approximately 30% of English property transactions collapse before exchange (HomeOwners Alliance, 2025), and the buyer loses £500-£1,650 in sunk conveyancing and search fees when this happens. <a href="/buying-guide/making-offer-cheshire" style="color: #3D5A3E; text-decoration: underline;">Preparing to offer</a> with a mortgage agreement in principle and an instructed solicitor before viewings saves 1-3 weeks and strengthens the buyer's position against competing offers.
+      </p>
+    </div>
+
+    <!-- H2: MARKET DYNAMICS -->
+    <div style="max-width: 720px; margin-bottom: 48px; margin-left: auto; margin-right: auto;">
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 28px); font-weight: 700; color: #1C1C1E; margin: 0 0 12px 0;">How does the Cheshire market affect your purchase?</h2>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 17px; line-height: 1.75; color: #333333; margin: 0 0 14px 0;">
+        Cheshire's property market operates across three competition tiers that determine how much negotiation room a buyer has and whether sealed bids apply (Rightmove, 2025).
+      </p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 17px; line-height: 1.75; color: #333333; margin: 0 0 14px 0;">
+        Golden Triangle properties in Wilmslow, Knutsford, and Alderley Edge sell at 95-102% of asking price. Detached homes and period properties in this tier attract multiple offers routinely, with estate agents running sealed bid processes when three or more buyers compete. <a href="/buying-guide/making-offer-cheshire" style="color: #3D5A3E; text-decoration: underline;">Sealed bids</a> require all buyers to submit best-and-final offers by a deadline - the seller selects the strongest overall package, not necessarily the highest price.
+      </p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 17px; line-height: 1.75; color: #333333; margin: 0 0 14px 0;">
+        Mid-Cheshire towns - Chester, Macclesfield, and Frodsham - see accepted offers at 92-97% of asking. Turnkey family homes in this tier move faster than properties requiring renovation. Competition exists but sealed bids outside the Golden Triangle are rare, most commonly triggered in high-demand villages such as Tarporley, Bunbury, and Prestbury where available stock is low.
+      </p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 17px; line-height: 1.75; color: #333333; margin: 0;">
+        Crewe, Northwich, and Warrington form the affordable tier where buyers have 7-12% negotiation room on properties listed for 60+ days (Rightmove, 2025). First-time buyers and investors dominate this market segment. Properties on the market for over 120 days across all Cheshire areas carry the strongest negotiation position regardless of tier.
+      </p>
+    </div>
+
+    <!-- H2: PROCESS STAGES -->
+    <div style="max-width: 720px; margin-bottom: 48px; margin-left: auto; margin-right: auto;">
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 28px); font-weight: 700; color: #1C1C1E; margin: 0 0 12px 0;">What are the stages of buying a property in Cheshire?</h2>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 17px; line-height: 1.75; color: #333333; margin: 0 0 14px 0;">
+        A Cheshire property purchase follows five stages from initial preparation to key handover, each with Cheshire-specific factors - including brine subsidence risk, the mandatory salt search, and local authority search variance - that add time or cost beyond a standard English transaction.
+      </p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 17px; line-height: 1.75; color: #333333; margin: 0 0 14px 0;">
+        Stage one is financial preparation - securing a mortgage agreement in principle and instructing a solicitor before viewings begin. In competitive Golden Triangle markets, buyers without confirmed funding are routinely deprioritised by estate agents.
+      </p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 17px; line-height: 1.75; color: #333333; margin: 0 0 14px 0;">
+        Stage two is <a href="/buying-guide/making-offer-cheshire" style="color: #3D5A3E; text-decoration: underline;">making an offer</a> - submitting a verbal offer through the estate agent with proof of funds and solicitor details. Negotiation takes 1-7 days depending on whether sealed bids apply.
+      </p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 17px; line-height: 1.75; color: #333333; margin: 0 0 14px 0;">
+        Stage three is the <a href="/buying-guide/survey-types-cheshire" style="color: #3D5A3E; text-decoration: underline;">property survey</a> - a RICS Level 2 or Level 3 inspection that identifies structural issues specific to Cheshire's housing stock, including brine subsidence risk, sandstone deterioration, and pre-1900 timber frame condition.
+      </p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 17px; line-height: 1.75; color: #333333; margin: 0 0 14px 0;">
+        Stage four is <a href="/buying-guide/conveyancing-cheshire" style="color: #3D5A3E; text-decoration: underline;">conveyancing</a> - the legal transfer process including local authority searches, the mandatory Cheshire salt search, mortgage processing, and enquiries. This stage takes 8-12 weeks and runs in parallel with the survey.
+      </p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 17px; line-height: 1.75; color: #333333; margin: 0;">
+        Stage five is exchange and completion. Exchange of contracts commits both parties legally and requires a 10% deposit. Completion follows 1-4 weeks later when the remaining funds transfer, <a href="/buying-guide/stamp-duty-cheshire" style="color: #3D5A3E; text-decoration: underline;">stamp duty</a> is filed within 14 days, and the buyer collects the keys.
+      </p>
+    </div>
+
+  </HubLayout>
 </BaseLayout>

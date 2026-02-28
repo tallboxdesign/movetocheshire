@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #F9F7F4; margin: 0; }
+  .container {
+    position: relative;
+    width: 1440px;
+    height: 800px;
+    overflow: hidden;
+  }
+  .container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1px;
+    background: rgba(0,0,0,0.1);
+  }
+  .tier {
+    padding: 28px 24px;
+    text-align: center;
+    font-family: Inter, Arial, sans-serif;
+  }
+  .tier-label {
+    font-size: 24px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    display: block;
+    margin-bottom: 4px;
+  }
+  .tier-price {
+    font-size: 40px;
+    font-weight: 700;
+    display: block;
+  }
+  .tier-commute {
+    font-size: 22px;
+    display: block;
+    margin-top: 3px;
+  }
+  .premium {
+    background: rgba(61,90,62,0.88);
+  }
+  .premium .tier-label { color: rgba(255,255,255,0.7); }
+  .premium .tier-price { color: #FFFFFF; }
+  .premium .tier-commute { color: rgba(255,255,255,0.8); }
+
+  .midrange {
+    background: rgba(122,143,109,0.88);
+  }
+  .midrange .tier-label { color: rgba(255,255,255,0.7); }
+  .midrange .tier-price { color: #FFFFFF; }
+  .midrange .tier-commute { color: rgba(255,255,255,0.8); }
+
+  .accessible {
+    background: rgba(200,190,170,0.88);
+  }
+  .accessible .tier-label { color: rgba(61,90,62,0.8); }
+  .accessible .tier-price { color: #3D5A3E; }
+  .accessible .tier-commute { color: rgba(61,90,62,0.7); }
+</style>
+</head>
+<body>
+  <div class="container" id="capture">
+    <img src="../public/images/cheshire-tiers-illustration.png" />
+    <div class="overlay">
+      <div class="tier premium">
+        <span class="tier-label">Premium</span>
+        <span class="tier-price">£490k-£700k+</span>
+        <span class="tier-commute">17-22 min to Manchester</span>
+      </div>
+      <div class="tier midrange">
+        <span class="tier-label">Mid-range</span>
+        <span class="tier-price">£250k-£430k</span>
+        <span class="tier-commute">25-50 min to Manchester</span>
+      </div>
+      <div class="tier accessible">
+        <span class="tier-label">Accessible</span>
+        <span class="tier-price">£175k-£220k</span>
+        <span class="tier-commute">55-60 min to Manchester</span>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,11 +1,643 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import SpokeLayout from '../../components/SpokeLayout.astro';
+
+const sdltTable = [
+  { price: '185,000', location: 'Crewe', standard: '1,200', ftb: '0', additional: '10,450' },
+  { price: '220,000', location: 'Northwich', standard: '1,900', ftb: '0', additional: '12,900' },
+  { price: '266,000', location: 'Chester avg', standard: '3,300', ftb: '0', additional: '16,600' },
+  { price: '285,000', location: 'Nantwich', standard: '4,500', ftb: '0', additional: '17,750' },
+  { price: '300,000', location: 'Macclesfield', standard: '5,000', ftb: '0', additional: '20,000' },
+  { price: '308,000', location: 'Frodsham', standard: '5,400', ftb: '400', additional: '20,900' },
+  { price: '350,000', location: 'Neston', standard: '7,500', ftb: '2,500', additional: '25,000' },
+  { price: '350,000', location: 'Knutsford entry', standard: '7,500', ftb: '2,500', additional: '25,000' },
+  { price: '400,000', location: 'Wilmslow entry', standard: '10,000', ftb: '5,000', additional: '30,000' },
+  { price: '480,000', location: 'Knutsford avg', standard: '14,000', ftb: '9,000', additional: '38,000' },
+  { price: '500,000', location: 'Poynton', standard: '15,000', ftb: '10,000', additional: '40,000' },
+  { price: '550,000', location: 'Wilmslow avg', standard: '17,500', ftb: 'N/A', additional: '45,000' },
+  { price: '750,000', location: 'Alderley Edge entry', standard: '27,500', ftb: 'N/A', additional: '65,000' },
+  { price: '1,000,000', location: 'Prestbury', standard: '43,750', ftb: 'N/A', additional: '93,750' },
+  { price: '1,500,000', location: 'Alderley Edge / Prestbury premium', standard: '93,750', ftb: 'N/A', additional: '168,750' },
+];
+
+const rateBands = [
+  { band: '£0 - £125,000', standard: '0%', ftb: '0%', additional: '5%' },
+  { band: '£125,001 - £250,000', standard: '2%', ftb: '0%', additional: '7%' },
+  { band: '£250,001 - £300,000', standard: '5%', ftb: '0%', additional: '10%' },
+  { band: '£300,001 - £500,000', standard: '5%', ftb: '5%', additional: '10%' },
+  { band: '£500,001 - £925,000', standard: '5%', ftb: 'Standard rates', additional: '10%' },
+  { band: '£925,001 - £1,500,000', standard: '10%', ftb: 'Standard rates', additional: '15%' },
+  { band: 'Over £1,500,000', standard: '12%', ftb: 'Standard rates', additional: '17%' },
+];
+
+const faqs = [
+  { question: 'When do you pay stamp duty in Cheshire?', answer: 'SDLT is due within 14 days of completion. Your conveyancer calculates the liability on the completion statement and files the SDLT1 return, paying HMRC on your behalf as part of the completion process. Late filing incurs a £100 penalty (rising to £200 after 3 months) plus interest on the outstanding amount.' },
+  { question: 'Who files the SDLT return?', answer: 'Your solicitor or licensed conveyancer files the SDLT1 form electronically through HMRC\'s online portal. HMRC issues an SDLT5 certificate confirming the tax has been paid - the Land Registry requires this certificate before registering the property transfer. The buyer provides the funds, but the conveyancer handles the paperwork and submission. This is included in standard conveyancing fees of £500 to £1,150 plus disbursements.' },
+  { question: 'Can you reduce your stamp duty legally?', answer: 'First-time buyer relief is the most common reduction - it eliminates SDLT entirely on Cheshire properties up to £300,000. Properties with genuine mixed-use elements (a flat above a shop, a farmhouse with commercial land) qualify for lower non-residential rates. Chattels apportionment - agreeing a separate value for fixtures, fittings, and carpets excluded from the property price - reduces the chargeable consideration and therefore the SDLT liability. Shared ownership buyers can elect to pay SDLT only on their initial share. A transfer of equity (adding or removing a name from the title) incurs SDLT only on the value of any consideration given, not the full property value. Multiple dwellings relief was abolished in June 2024.' },
+  { question: 'What changed in April 2025?', answer: 'The temporary SDLT thresholds introduced in September 2022 reverted to their previous levels. The standard nil-rate band dropped from £250,000 back to £125,000. First-time buyer relief dropped from £425,000 to £300,000, and the maximum property price for relief fell from £625,000 to £500,000. A standard buyer purchasing at £300,000 now pays £5,000 instead of £2,500.' },
+  { question: 'Do I need a Cheshire Salt Search?', answer: 'Yes. The Law Society mandates a Cheshire Salt Search for any property purchase within the Cheshire Brine Compensation District, which covers Eastern and Western Cheshire, Chester, Trafford, and Warrington. The search costs £79 inc VAT and checks for historical salt mining subsidence risk. Your conveyancer orders this automatically as part of the local searches.' },
+  { question: 'Is stamp duty different in Cheshire compared to the rest of England?', answer: 'SDLT rates are identical across England and Northern Ireland - there is no regional variation. The difference is that Cheshire property prices determine which bands apply. A first-time buyer in Crewe at £185,000 pays £0 SDLT, while the same buyer type in Wilmslow at £550,000 pays standard rates with no relief because the price exceeds the £500,000 cap.' },
+  { question: 'Will stamp duty be abolished or reformed?', answer: 'The UK Treasury is exploring a National Proportional Property Tax to replace SDLT. The proposed model applies approximately 0.54% annually on properties valued over £500,000, paid by the seller rather than the buyer. No implementation date has been confirmed. If enacted, this reform would benefit Cheshire buyers at every price point because SDLT is currently a buyer cost. Golden Triangle properties above £500,000 would instead incur an annual charge on the seller.' },
+  { question: 'Do overseas buyers pay extra stamp duty in Cheshire?', answer: 'Non-UK residents pay an additional 2% surcharge on top of all applicable SDLT rates (HMRC). This stacks with other surcharges. An overseas investor buying a Cheshire buy-to-let pays standard rates plus the 5% additional dwelling surcharge plus the 2% overseas surcharge - a total of 7% above standard rates on the first £125,000 alone. The surcharge applies regardless of visa status or residency intention at the time of purchase.' },
+];
+
+const relatedSpokes = [
+  { label: 'Survey Types for Cheshire Properties', href: '/buying-guide/survey-types-cheshire', tag: 'Buying Guide' },
+  { label: 'Average House Price in Cheshire', href: '/house-prices/average-house-price-cheshire', tag: 'Prices' },
+  { label: 'Best Places to Live in Cheshire', href: '/where-to-live/best-places-cheshire', tag: 'Area Guide' },
+];
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((faq) => ({
+    '@type': 'Question',
+    name: faq.question,
+    acceptedAnswer: { '@type': 'Answer', text: faq.answer },
+  })),
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://movetocheshire.uk' },
+    { '@type': 'ListItem', position: 2, name: 'Buying Guide', item: 'https://movetocheshire.uk/buying-guide' },
+    { '@type': 'ListItem', position: 3, name: 'Stamp Duty in Cheshire', item: 'https://movetocheshire.uk/buying-guide/stamp-duty-cheshire' },
+  ],
+};
+
+const howToSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'HowTo',
+  name: 'How to calculate SDLT on a Cheshire property',
+  step: [
+    { '@type': 'HowToStep', text: 'Apply 0% to the first £125,000 = £0' },
+    { '@type': 'HowToStep', text: 'Apply 2% to the next £125,000 (£125,001-£250,000) = £2,500' },
+    { '@type': 'HowToStep', text: 'Apply 5% to the remainder (£250,001-£350,000) = £5,000' },
+    { '@type': 'HowToStep', text: 'Total SDLT = £7,500 (effective rate 2.14%)' },
+  ],
+};
+
+const webApplicationSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  additionalType: 'https://schema.org/FinancialProduct',
+  name: 'Cheshire Stamp Duty Calculator',
+  description: 'Calculate SDLT liability on Cheshire property purchases using HMRC post-April 2025 marginal rate bands. Covers standard buyers, first-time buyer relief, and the 5% additional dwelling surcharge.',
+  applicationCategory: 'FinanceApplication',
+  operatingSystem: 'Web browser',
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'GBP' },
+  areaServed: {
+    '@type': 'AdministrativeArea',
+    name: 'Cheshire',
+    containedInPlace: { '@type': 'Country', name: 'England' },
+  },
+  audience: { '@type': 'Audience', audienceType: 'Home buyers purchasing property in Cheshire' },
+  potentialAction: {
+    '@type': 'UseAction',
+    name: 'Calculate stamp duty on a Cheshire property',
+    target: 'https://movetocheshire.uk/buying-guide/stamp-duty-cheshire#calculator',
+  },
+  isPartOf: { '@type': 'WebPage', url: 'https://movetocheshire.uk/buying-guide/stamp-duty-cheshire' },
+};
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: 'Stamp Duty in Cheshire: SDLT at Every Price Point',
+  description: 'Stamp Duty Land Tax calculations for Cheshire property prices from £185,000 in Crewe to £1,500,000 in the Golden Triangle. Includes first-time buyer relief, additional dwelling surcharge, and post-April 2025 rates.',
+  datePublished: '2026-02-26',
+  dateModified: '2026-02-26',
+  author: { '@type': 'Organization', name: 'movetocheshire.uk' },
+  publisher: { '@type': 'Organization', name: 'movetocheshire.uk', url: 'https://movetocheshire.uk' },
+};
 ---
 
 <BaseLayout
-  title="Stamp Duty in Cheshire | Buying Guide | movetocheshire.uk"
-  description="Stamp Duty Land Tax calculations for typical Cheshire purchase prices. Includes first-time buyer relief and second home surcharge scenarios."
+  title="Stamp Duty in Cheshire | SDLT Calculator & Rates | movetocheshire.uk"
+  description="Stamp Duty Land Tax at 16 Cheshire property prices from £185,000 in Crewe to £1.5M in Prestbury. First-time buyer relief, 5% additional dwelling surcharge, overseas buyer rates, and post-April 2025 HMRC bands with worked examples."
 >
-  <SpokeLayout tag="Process Guide" hubLabel="Buying Guide" hubHref="/buying-guide" title="Stamp Duty in Cheshire" description="Stamp Duty Land Tax calculations for typical Cheshire purchase prices. Includes first-time buyer relief and second home surcharge scenarios." />
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(howToSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(webApplicationSchema)} />
+  </Fragment>
+
+  <!-- Breadcrumb -->
+  <div class="section-pad" style="padding-top: 20px; padding-bottom: 0;">
+    <div class="section-inner">
+      <nav aria-label="Breadcrumb" style="font-family: Inter, Arial, sans-serif; font-size: 13px; color: #999999;">
+        <a href="/" style="color: #999999; text-decoration: none;">Home</a>
+        <span style="margin: 0 8px;">/</span>
+        <a href="/buying-guide" style="color: #999999; text-decoration: none;">Buying Guide</a>
+        <span style="margin: 0 8px;">/</span>
+        <span style="color: #1C1C1E;">Stamp Duty</span>
+      </nav>
+    </div>
+  </div>
+
+  <!-- Hero -->
+  <section class="section-pad" style="padding-top: 40px;">
+    <div class="section-inner" style="max-width: 720px;">
+      <span class="section-label">SDLT guide</span>
+      <h1 style="font-family: Georgia, serif; font-size: clamp(28px, 4.5vw, 44px); font-weight: 700; color: #1C1C1E; line-height: 1.15; margin: 0 0 20px 0; letter-spacing: -0.02em;">Stamp Duty in Cheshire</h1>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 18px; line-height: 1.7; color: #444444; margin: 0 0 24px 0;">
+        Stamp Duty Land Tax calculations at Cheshire property prices - from £185,000 in Crewe to £1,500,000 in the Golden Triangle. Covers post-April 2025 rates, first-time buyer relief, and the 5% additional dwelling surcharge.
+      </p>
+      <span style="display: inline-block; font-family: Inter, Arial, sans-serif; font-size: 12px; font-weight: 600; color: #3D5A3E; background-color: rgba(61, 90, 62, 0.08); padding: 6px 12px; letter-spacing: 0.02em;">Last updated: February 2026</span>
+      <nav aria-label="Page sections" style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px;">
+        {[
+          { label: 'Rate bands', href: '#rate-bands' },
+          { label: 'Cheshire prices', href: '#cheshire-prices' },
+          { label: 'Worked example', href: '#worked-example' },
+          { label: 'First-time buyers', href: '#ftb' },
+          { label: 'Additional dwelling', href: '#additional' },
+          { label: 'Golden Triangle', href: '#golden-triangle' },
+          { label: 'London comparison', href: '#london' },
+          { label: 'Buying costs', href: '#costs' },
+          { label: 'FAQ', href: '#faq' },
+        ].map((link) => (
+          <a href={link.href} style="font-family: Inter, Arial, sans-serif; font-size: 13px; font-weight: 500; color: #3D5A3E; text-decoration: none; padding: 5px 12px; border: 1px solid rgba(61, 90, 62, 0.25); transition: border-color 0.2s, background-color 0.2s;">{link.label}</a>
+        ))}
+      </nav>
+    </div>
+  </section>
+
+  <!-- Stat Bar -->
+  <section class="section-pad" style="padding-top: 0;">
+    <div class="section-inner">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px;">
+        {[
+          { value: '£125k', label: 'SDLT standard nil-rate band', source: 'HMRC, April 2025' },
+          { value: '£300k', label: 'First-time buyer SDLT threshold', source: 'HMRC, April 2025' },
+          { value: '5%', label: 'Additional dwelling SDLT surcharge', source: 'HMRC, Oct 2024' },
+        ].map((stat) => (
+          <div style="background-color: #FFFFFF; border: 1px solid #E5E0D8; padding: 28px 24px;">
+            <p class="data-tile-value" style="margin: 0 0 8px 0;">{stat.value}</p>
+            <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; font-weight: 600; color: #1C1C1E; margin: 0 0 4px 0;">{stat.label}</p>
+            <p style="font-family: Inter, Arial, sans-serif; font-size: 12px; color: #999999; margin: 0;">{stat.source}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- TLDR / Quick Answer -->
+  <section class="section-pad">
+    <div class="section-inner" style="max-width: 720px;">
+      <span class="section-label">Cheshire SDLT summary</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 24px 0;">
+        Stamp duty in Cheshire ranges from £0 to £93,750 depending on price, buyer status, and property type
+      </h2>
+      <div style="display: flex; flex-direction: column; gap: 16px;">
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #1C1C1E; margin: 0;"><strong>Stamp Duty Land Tax (SDLT) is a one-time tax paid by the buyer on residential and commercial property purchases in England and Northern Ireland above £125,000</strong> (HMRC, April 2025). The tax uses a marginal band system - each rate applies only to the portion within that band, not the full price.</p>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #1C1C1E; margin: 0;"><strong>Stamp Duty Land Tax in Cheshire follows the same HMRC rate bands as the rest of England</strong>, but Cheshire's price spread - from £185,000 in Crewe to over £1,000,000 in Alderley Edge (ONS, Q4 2025) - means the SDLT bill varies dramatically depending on where in the county you buy.</p>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0;">First-time buyers purchasing in Crewe, Northwich, or Winsford pay <strong>£0 in stamp duty</strong> because average prices sit below the £300,000 relief threshold. A standard buyer at Chester's average of £266,000 pays £3,300. In the Golden Triangle, SDLT on a £1,000,000 Prestbury property reaches £43,750 - or £93,750 as an additional dwelling.</p>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0;">The April 2025 threshold reversion added £2,500 to the SDLT bill for every Cheshire standard buyer purchasing above £250,000 (HMRC). First-time buyers in Cheshire are mostly unaffected - the Cheshire East FTB average of £249,000 and Cheshire West average of £216,000-£219,000 sit below the £300,000 relief threshold.</p>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0;">The tables below show post-April 2025 rates applied to 16 representative Cheshire purchase prices across three buyer scenarios.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SDLT Calculator -->
+  <section id="calculator" class="section-pad" style="background-color: #FFFFFF; border-top: 1px solid #E5E0D8; border-bottom: 1px solid #E5E0D8;">
+    <div class="section-inner" style="max-width: 720px;">
+      <span class="section-label">SDLT calculator</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 16px 0;">How much stamp duty on your Cheshire property?</h2>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 24px 0;">Enter a purchase price to calculate the SDLT liability using HMRC's post-April 2025 marginal rate bands. The calculator covers standard buyers, first-time buyers with relief, and the 5% additional dwelling surcharge.</p>
+
+      <div style="max-width: 720px; margin: 0 auto 24px auto;">
+        <img src="/images/buying-guide/sdlt-calculator-result-example.png" alt="Cheshire Stamp Duty Calculator showing SDLT breakdown on a £350,000 Knutsford property - 0% on first £125,000, 2% on £125,001 to £250,000, 5% on £250,001 to £350,000, total SDLT £7,500 at 2.14% effective rate" style="width: 100%; height: auto; border: 1px solid #E5E0D8;" />
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 20px; margin-bottom: 24px;">
+        <div>
+          <label for="sdlt-price" style="font-family: Inter, Arial, sans-serif; font-size: 13px; font-weight: 600; color: #1C1C1E; display: block; margin-bottom: 6px;">Cheshire property price</label>
+          <div style="display: flex; align-items: center; border: 1px solid #E5E0D8; background: #FFFFFF; max-width: 280px;">
+            <span style="font-family: Inter, Arial, sans-serif; font-size: 16px; font-weight: 600; color: #999999; padding: 10px 0 10px 14px;">£</span>
+            <input type="text" id="sdlt-price" inputmode="numeric" placeholder="350,000" style="font-family: Inter, Arial, sans-serif; font-size: 16px; color: #1C1C1E; border: none; outline: none; padding: 10px 14px 10px 4px; background: transparent; width: 100%;" />
+          </div>
+        </div>
+        <fieldset style="border: none; padding: 0; margin: 0;">
+          <legend style="font-family: Inter, Arial, sans-serif; font-size: 13px; font-weight: 600; color: #1C1C1E; margin-bottom: 8px;">Buyer type</legend>
+          <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+            <label style="font-family: Inter, Arial, sans-serif; font-size: 14px; color: #444444; display: flex; align-items: center; gap: 6px; cursor: pointer;">
+              <input type="radio" name="buyer-type" value="standard" checked style="accent-color: #3D5A3E;" /> Standard buyer
+            </label>
+            <label style="font-family: Inter, Arial, sans-serif; font-size: 14px; color: #444444; display: flex; align-items: center; gap: 6px; cursor: pointer;">
+              <input type="radio" name="buyer-type" value="ftb" style="accent-color: #3D5A3E;" /> First-time buyer
+            </label>
+            <label style="font-family: Inter, Arial, sans-serif; font-size: 14px; color: #444444; display: flex; align-items: center; gap: 6px; cursor: pointer;">
+              <input type="radio" name="buyer-type" value="additional" style="accent-color: #3D5A3E;" /> Additional dwelling
+            </label>
+          </div>
+        </fieldset>
+        <button id="sdlt-calc-btn" type="button" style="font-family: Inter, Arial, sans-serif; font-size: 14px; font-weight: 600; color: #FFFFFF; background-color: #3D5A3E; border: none; padding: 12px 28px; cursor: pointer; align-self: flex-start; transition: background-color 0.2s;">Calculate Cheshire SDLT</button>
+      </div>
+
+      <div id="sdlt-result" style="display: none; border: 1px solid #E5E0D8; padding: 24px;">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 16px;">
+          <div>
+            <p style="font-family: Inter, Arial, sans-serif; font-size: 12px; font-weight: 600; color: #999999; text-transform: uppercase; letter-spacing: 0.05em; margin: 0 0 4px 0;">Cheshire SDLT total</p>
+            <p id="sdlt-total" style="font-family: Georgia, serif; font-size: 32px; font-weight: 700; color: #C4933F; margin: 0;">£0</p>
+          </div>
+          <div style="text-align: right;">
+            <p style="font-family: Inter, Arial, sans-serif; font-size: 12px; font-weight: 600; color: #999999; text-transform: uppercase; letter-spacing: 0.05em; margin: 0 0 4px 0;">Effective SDLT rate</p>
+            <p id="sdlt-rate" style="font-family: Georgia, serif; font-size: 20px; font-weight: 700; color: #1C1C1E; margin: 0;">0%</p>
+          </div>
+        </div>
+        <div id="sdlt-breakdown" style="display: flex; flex-direction: column; gap: 4px; margin-bottom: 16px;"></div>
+        <p id="sdlt-town" style="font-family: Inter, Arial, sans-serif; font-size: 13px; color: #999999; margin: 0;"></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SDLT Rate Bands -->
+  <section id="rate-bands" class="section-pad" style="background-color: #FFFFFF; border-top: 1px solid #E5E0D8; border-bottom: 1px solid #E5E0D8;">
+    <div class="section-inner">
+      <span class="section-label">HMRC rate bands</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 16px 0;">What are the SDLT rates from April 2025?</h2>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 24px 0; max-width: 720px;">SDLT uses a marginal system - each rate applies only to the portion of the chargeable consideration (the purchase price) within that band, not the full amount. A £300,000 property does not attract 5% on the entire price; the 5% applies only to the £50,000 above £250,000.</p>
+      <div style="overflow-x: auto;">
+        <table style="width: 100%; border-collapse: collapse; font-family: Inter, Arial, sans-serif; font-size: 14px; min-width: 540px;">
+          <thead>
+            <tr style="border-bottom: 2px solid #3D5A3E;">
+              <th style="text-align: left; padding: 12px 16px; font-weight: 700; color: #1C1C1E;">Price band</th>
+              <th style="text-align: left; padding: 12px 16px; font-weight: 700; color: #1C1C1E;">Standard rate</th>
+              <th style="text-align: left; padding: 12px 16px; font-weight: 700; color: #1C1C1E;">First-time buyer</th>
+              <th style="text-align: left; padding: 12px 16px; font-weight: 700; color: #1C1C1E;">Additional dwelling</th>
+            </tr>
+          </thead>
+          <tbody>
+            {rateBands.map((row, i) => (
+              <tr style={`background-color: ${i % 2 === 0 ? '#FFFFFF' : '#F9F7F4'}; border-bottom: 1px solid #E5E0D8;`}>
+                <td style="padding: 14px 16px; font-weight: 600; color: #1C1C1E;">{row.band}</td>
+                <td style="padding: 14px 16px; color: #444444;">{row.standard}</td>
+                <td style="padding: 14px 16px; color: #3D5A3E; font-weight: 600;">{row.ftb}</td>
+                <td style="padding: 14px 16px; color: #C4933F; font-weight: 600;">{row.additional}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 12px; color: #999999; margin: 12px 0 0 0;">Source: HMRC, effective 1 April 2025 under Finance Act 2003 (as amended). First-time buyer relief applies on properties up to £500,000 only. Additional dwelling surcharge increased from 3% to 5% on 31 October 2024.</p>
+    </div>
+  </section>
+
+  <!-- SDLT at Cheshire Price Points -->
+  <section id="cheshire-prices" class="section-pad">
+    <div class="section-inner">
+      <span class="section-label">Cheshire calculations</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 16px 0;">How much stamp duty at Cheshire property prices?</h2>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 24px 0; max-width: 720px;">Cheshire property prices range from £185,000 in Crewe to over £1,500,000 in Prestbury and Alderley Edge (ONS, Q4 2025). The table below maps SDLT liability to 16 representative price points across the county for three buyer types, covering Cheshire East (average £306,000), Cheshire West and Chester (average £266,000), and the Golden Triangle.</p>
+      <div style="overflow-x: auto;">
+        <table style="width: 100%; border-collapse: collapse; font-family: Inter, Arial, sans-serif; font-size: 14px; min-width: 640px;">
+          <thead>
+            <tr style="border-bottom: 2px solid #3D5A3E;">
+              <th style="text-align: left; padding: 12px 16px; font-weight: 700; color: #1C1C1E;">Price</th>
+              <th style="text-align: left; padding: 12px 16px; font-weight: 700; color: #1C1C1E;">Cheshire location</th>
+              <th style="text-align: right; padding: 12px 16px; font-weight: 700; color: #1C1C1E;">Standard</th>
+              <th style="text-align: right; padding: 12px 16px; font-weight: 700; color: #1C1C1E;">First-time</th>
+              <th style="text-align: right; padding: 12px 16px; font-weight: 700; color: #1C1C1E;">Additional</th>
+            </tr>
+          </thead>
+          <tbody>
+            {sdltTable.map((row, i) => (
+              <tr style={`background-color: ${i % 2 === 0 ? '#FFFFFF' : '#F9F7F4'}; border-bottom: 1px solid #E5E0D8;`}>
+                <td style="padding: 14px 16px; font-weight: 600; color: #1C1C1E;">£{row.price}</td>
+                <td style="padding: 14px 16px; color: #444444;">{row.location}</td>
+                <td style="padding: 14px 16px; color: #444444; text-align: right;">£{row.standard}</td>
+                <td style={`padding: 14px 16px; text-align: right; font-weight: 600; color: ${row.ftb === 'N/A' ? '#999999' : '#3D5A3E'};`}>{row.ftb === 'N/A' ? 'N/A' : `£${row.ftb}`}</td>
+                <td style="padding: 14px 16px; color: #C4933F; font-weight: 600; text-align: right;">£{row.additional}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 12px; color: #999999; margin: 12px 0 0 0;">Calculations use post-April 2025 HMRC rates. Location prices based on ONS House Price Index Q4 2025 and Rightmove averages. First-time buyer relief unavailable above £500,000. Additional dwelling includes the 5% surcharge (effective 31 October 2024).</p>
+    </div>
+  </section>
+
+  <!-- Worked Example -->
+  <section id="worked-example" class="section-pad" style="background-color: #FFFFFF; border-top: 1px solid #E5E0D8; border-bottom: 1px solid #E5E0D8;">
+    <div class="section-inner" style="max-width: 720px;">
+      <span class="section-label">Marginal rate example</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 16px 0;">How is SDLT calculated on a Cheshire property?</h2>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 24px 0;">SDLT on a £350,000 property in Knutsford totals £7,500 - an effective rate of 2.14%, not the 5% that many buyers assume from seeing the headline band rate. The breakdown below shows how the marginal system applies each band to its slice of the purchase price.</p>
+
+      <div style="max-width: 720px; margin: 0 auto 24px auto;">
+        <img src="/images/buying-guide/sdlt-marginal-rate-breakdown.png" alt="Cheshire SDLT marginal rate breakdown on a £350,000 Knutsford property showing £0 on first £125,000 at 0%, £2,500 on next £125,000 at 2%, and £5,000 on remaining £100,000 at 5%, totalling £7,500" style="width: 100%; height: auto; border: 1px solid #E5E0D8;" />
+      </div>
+
+      <div style="border: 1px solid #E5E0D8; padding: 24px; margin-bottom: 24px;">
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; font-weight: 700; color: #3D5A3E; margin: 0 0 16px 0; text-transform: uppercase; letter-spacing: 0.05em;">Worked example: £350,000 property in Knutsford (standard buyer)</p>
+        <div style="display: flex; flex-direction: column; gap: 8px;">
+          <div style="display: flex; justify-content: space-between; font-family: Inter, Arial, sans-serif; font-size: 15px; padding: 8px 0; border-bottom: 1px solid #F0EDE8;">
+            <span style="color: #444444;">0% on first £125,000</span>
+            <span style="color: #1C1C1E; font-weight: 600;">£0</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; font-family: Inter, Arial, sans-serif; font-size: 15px; padding: 8px 0; border-bottom: 1px solid #F0EDE8;">
+            <span style="color: #444444;">2% on next £125,000 (£125,001 - £250,000)</span>
+            <span style="color: #1C1C1E; font-weight: 600;">£2,500</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; font-family: Inter, Arial, sans-serif; font-size: 15px; padding: 8px 0; border-bottom: 1px solid #F0EDE8;">
+            <span style="color: #444444;">5% on remaining £100,000 (£250,001 - £350,000)</span>
+            <span style="color: #1C1C1E; font-weight: 600;">£5,000</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; font-family: Inter, Arial, sans-serif; font-size: 15px; padding: 12px 0 0 0;">
+            <span style="color: #1C1C1E; font-weight: 700;">Total SDLT</span>
+            <span style="color: #C4933F; font-weight: 700; font-size: 18px;">£7,500</span>
+          </div>
+        </div>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 13px; color: #999999; margin: 16px 0 0 0;">Effective rate: 2.14% of purchase price. A first-time buyer at the same price pays £2,500 (5% on the £50,000 above £300,000).</p>
+      </div>
+
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0;">The marginal system means small price differences create proportionally small SDLT changes. Moving from a £340,000 to a £360,000 property in Cheshire adds £1,000 to the SDLT bill (5% on the extra £20,000), not a jump to a higher flat rate.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 12px 0 0 0;">A £10,000 price negotiation on a £350,000 Knutsford property reduces the SDLT bill by £500 (5% of £10,000). The SDLT saving is 5% of any price reduction within the same band - a calculable figure, not a reason to walk away from an otherwise suitable property.</p>
+    </div>
+  </section>
+
+  <!-- First-Time Buyers -->
+  <section id="ftb" class="section-pad">
+    <div class="section-inner" style="max-width: 720px;">
+      <span class="section-label">Relief eligibility</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 16px 0;">How much do first-time buyers pay in stamp duty in Cheshire?</h2>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 20px 0;"><strong>First-time buyer relief eliminates SDLT entirely on Cheshire properties up to £300,000</strong> and reduces it on properties between £300,001 and £500,000 (HMRC, April 2025). Above £500,000, relief disappears completely and standard rates apply to the full price.</p>
+
+      <div style="max-width: 720px; margin: 0 auto 24px auto;">
+        <img src="/images/buying-guide/cheshire-ftb-sdlt-relief-tiers.png" alt="Cheshire first-time buyer SDLT relief by town showing zero stamp duty towns including Crewe, Winsford, Northwich, and Chester in green, taper zone towns including Macclesfield, Frodsham, and Knutsford in amber, and no-relief Golden Triangle towns Wilmslow, Alderley Edge, and Prestbury in red" style="width: 100%; height: auto; border: 1px solid #E5E0D8;" />
+      </div>
+
+      <h3 style="font-family: Georgia, serif; font-size: 20px; font-weight: 700; color: #1C1C1E; margin: 24px 0 12px 0;">Where does first-time buyer relief cover the full Cheshire price?</h3>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">Cheshire's affordable towns sit entirely within the £300,000 nil-rate band. Crewe averages £185,000 to £197,000 (ONS, Q4 2025), Winsford averages £194,000, Northwich wards range from £141,500 in Witton to £220,000 in Winnington, and Chester's first-time buyer average is £216,000 to £219,000. At all of these prices, first-time buyer SDLT is <strong>£0</strong>.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 12px 0;">Ellesmere Port (£198,761), Runcorn (£178,609), Widnes (£195,053), and Warrington (£230,000) qualify at the same £0 rate. Congleton at £260,000 and Nantwich at £285,000 sit comfortably below the threshold.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 20px 0;">The Cheshire East first-time buyer average of £249,000 confirms that the typical entry-level buyer in the county pays no SDLT under the current thresholds.</p>
+
+      <h3 style="font-family: Georgia, serif; font-size: 20px; font-weight: 700; color: #1C1C1E; margin: 24px 0 12px 0;">Where does Cheshire first-time buyer relief taper or disappear?</h3>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 12px 0;">Relief tapers between £300,001 and £500,000, covering Cheshire's mid-market. Macclesfield at £300,000, Frodsham at £308,506, and Neston at £351,394 sit in the taper zone. A first-time buyer at Frodsham's average pays just £425 in SDLT (5% on the £8,506 above £300,000).</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">Knutsford averages £480,000 to £618,694 depending on source - at £480,000 a first-time buyer pays £9,000, compared to £14,000 at standard rates. Poynton at £479,294 falls in the same band, saving £5,000 through relief.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0;">Relief vanishes entirely above £500,000. Wilmslow's average of £520,000 to £550,000 exceeds the cap, meaning first-time buyers there pay standard SDLT with no relief - £17,500 on a £550,000 purchase. Alderley Edge, Prestbury, and Hale are priced well beyond the relief ceiling. The Golden Triangle is effectively a relief-free zone for first-time buyers.</p>
+    </div>
+  </section>
+
+  <!-- Additional Dwelling Surcharge -->
+  <section id="additional" class="section-pad" style="background-color: #FFFFFF; border-top: 1px solid #E5E0D8; border-bottom: 1px solid #E5E0D8;">
+    <div class="section-inner" style="max-width: 720px;">
+      <span class="section-label">Second homes and buy-to-let</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 16px 0;">How much extra stamp duty on an additional property in Cheshire?</h2>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 20px 0;"><strong>The additional dwelling surcharge adds 5% on top of standard SDLT rates at every band</strong> (HMRC, effective 31 October 2024). This applies to buy-to-let purchases, second homes, holiday properties, and any transaction where the buyer owns two or more residential properties after completion.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 20px 0;">The surcharge doubled from the previous 3% rate in October 2024. On a £400,000 Cheshire property, the additional dwelling SDLT is £30,000 - three times the £10,000 a standard buyer pays at the same price. On a £750,000 Alderley Edge property, the surcharge lifts the bill from £27,500 to £65,000.</p>
+
+      <h3 style="font-family: Georgia, serif; font-size: 20px; font-weight: 700; color: #1C1C1E; margin: 24px 0 12px 0;">Can Cheshire buyers reclaim the surcharge?</h3>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">Buyers replacing their main residence can reclaim the 5% surcharge if they sell the previous property within 36 months of completing the Cheshire purchase (HMRC). The reclaim provision covers situations where completion dates do not align - common in chain transactions and relocations from London or Manchester where the buyer completes on the Cheshire property before selling the existing home.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 20px 0;">The refund must be claimed within 12 months of selling the previous main residence, or 12 months after the original SDLT return filing date - whichever is later. Your conveyancer files an amended SDLT1 return to HMRC. Budget for the surcharge at completion and treat the refund as recoverable rather than certain - delays in selling the previous property are common.</p>
+
+      <h3 style="font-family: Georgia, serif; font-size: 20px; font-weight: 700; color: #1C1C1E; margin: 24px 0 12px 0;">Do overseas buyers pay more stamp duty in Cheshire?</h3>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0;">Non-UK residents purchasing Cheshire property pay an additional 2% surcharge on top of all applicable SDLT rates (HMRC). An overseas investor buying a £500,000 Wilmslow buy-to-let pays standard SDLT (£15,000) plus the 5% additional dwelling surcharge plus the 2% overseas surcharge - a total surcharge of 7% above standard rates. On a £750,000 Alderley Edge investment property, the combined SDLT liability for a non-resident additional dwelling buyer reaches £117,500.</p>
+
+      <h3 style="font-family: Georgia, serif; font-size: 20px; font-weight: 700; color: #1C1C1E; margin: 24px 0 12px 0;">Do companies pay different SDLT on Cheshire property?</h3>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0;">Corporate bodies (companies, partnerships, collective investment schemes) purchasing residential property above £500,000 pay a 15% flat rate on the entire chargeable consideration (HMRC). On a £1,000,000 Prestbury property, the corporate rate produces £150,000 in SDLT compared to £43,750 for an individual standard buyer. Properties held in corporate envelopes above £500,000 are additionally subject to the Annual Tax on Enveloped Dwellings (ATED), charged at £4,400 to £269,450 per year depending on property value band (HMRC, 2025/26).</p>
+    </div>
+  </section>
+
+  <!-- Golden Triangle -->
+  <section id="golden-triangle" class="section-pad">
+    <div class="section-inner" style="max-width: 720px;">
+      <span class="section-label">Premium market</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 16px 0;">What is the stamp duty on a Golden Triangle property?</h2>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 20px 0;"><strong>Golden Triangle properties attract SDLT ranging from £27,500 at £750,000 to £93,750 at £1,500,000 for a standard buyer</strong> (HMRC rates, 2025). Alderley Edge commands average property prices of £3,000,000 to £4,000,000 at the top end, while Wilmslow averages £520,000 to £550,000 and Prestbury ranges above £800,000.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 20px 0;">At these price levels, SDLT enters the 10% band (£925,001 to £1,500,000) and the 12% band (above £1,500,000). A £1,000,000 purchase incurs £43,750 as a standard buyer or £93,750 as an additional dwelling. First-time buyer relief is unavailable at any Golden Triangle price point because all exceed the £500,000 ceiling.</p>
+
+      <h3 style="font-family: Georgia, serif; font-size: 20px; font-weight: 700; color: #1C1C1E; margin: 24px 0 12px 0;">Can mixed-use classification reduce SDLT on rural properties?</h3>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 12px 0;">Golden Triangle properties frequently include substantial grounds, stables, or self-contained annexes. Where a property has genuine non-residential elements - commercial equestrian facilities, agricultural land, or a separate building with independent utility supply - it may qualify for non-residential SDLT rates (0% up to £150,000, 2% to £250,000, 5% above £250,000).</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 12px 0;">Linked transactions (multiple purchases from the same seller as part of a single scheme) are assessed on their combined chargeable consideration, which can push the total into higher SDLT bands.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0;">On a £1,000,000 property, non-residential rates produce £39,500 in SDLT compared to £43,750 at residential rates - a £4,250 saving. HMRC scrutinises mixed-use claims in affluent residential areas, and the classification depends on the property's actual use and transaction-specific facts. Professional tax advice is necessary before relying on this treatment.</p>
+    </div>
+  </section>
+
+  <!-- London Comparison -->
+  <section id="london" class="section-pad" style="background-color: #FFFFFF; border-top: 1px solid #E5E0D8; border-bottom: 1px solid #E5E0D8;">
+    <div class="section-inner" style="max-width: 720px;">
+      <span class="section-label">London to Cheshire</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 16px 0;">How does Cheshire stamp duty compare to London?</h2>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 20px 0;"><strong>Cheshire house prices average 9.8 times the mean wage compared to London's 15.8 times</strong> (ONS, 2025). This affordability gap means buyers relocating from London typically purchase at a lower price point in Cheshire, reducing both the property cost and the SDLT liability simultaneously.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 20px 0;">A buyer selling a £900,000 London flat pays £33,750 in SDLT on that purchase. The same buyer purchasing a £600,000 detached house in Knutsford or Wilmslow pays £20,000 in SDLT - a £13,750 reduction - while gaining a four-bedroom property with a garden. London's smallest average garden size in the UK at 201 sq m contrasts with the detached properties and larger plots typical across Cheshire.</p>
+
+      <div style="border-left: 3px solid #C4933F; background-color: rgba(196, 147, 63, 0.04); padding: 20px 24px; margin: 20px 0;">
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; font-weight: 700; color: #C4933F; margin: 0 0 8px 0; text-transform: uppercase; letter-spacing: 0.05em;">Timing risk for relocators</p>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.7; color: #444444; margin: 0;">Buyers who complete on a Cheshire property before selling their London home owe the 5% additional dwelling surcharge at completion. On a £600,000 purchase, that adds £30,000 to the SDLT bill (total: £50,000 instead of £20,000). The surcharge is refundable within 36 months of selling the London property, but the cash must be available upfront. Factor this into completion sequencing with your conveyancer.</p>
+      </div>
+
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0;">Mortgage rates on new loans fell to their lowest levels in four years by January 2026, with both two-year and five-year fixed deals dropping below 4% (Bank of England, 2026). Lenders now stress-test affordability at 6.5%, down from 8.5% in 2025, increasing the borrowing capacity available to relocating buyers.</p>
+    </div>
+  </section>
+
+  <!-- Cheshire-Specific Costs -->
+  <section id="costs" class="section-pad">
+    <div class="section-inner" style="max-width: 720px;">
+      <span class="section-label">Cheshire fees</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 16px 0;">What are the total buying costs beyond stamp duty in Cheshire?</h2>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 20px 0;"><strong>Total upfront fees beyond SDLT and your deposit range from £1,124 to £6,574</strong> depending on survey type, solicitor disbursements, and mortgage arrangement (NotebookLM sources, 2026). Cheshire purchases carry one additional cost most English counties do not: the mandatory salt search.</p>
+
+      <div style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 24px;">
+        {[
+          { item: 'Conveyancing (solicitor + disbursements)', cost: '£500 - £1,800', note: 'Includes local searches, Land Registry (£200-£300). Leasehold adds ~£300. Leasehold properties (common for Chester city centre flats) incur SDLT on both the purchase price and the net present value of ground rent above £125,000.' },
+          { item: 'Cheshire Salt Search', cost: '£79 inc VAT', note: 'Mandatory within the Brine Compensation District. Covers subsidence risk from historical salt mining.' },
+          { item: 'RICS Level 2 Home Survey', cost: '£400 - £1,000', note: 'Most common for standard Cheshire properties. Level 3 (£630-£1,500) for older or unusual buildings.' },
+          { item: 'Mortgage arrangement fee', cost: '£0 - £1,500', note: 'Fee-free deals exist. Mortgage valuation adds up to £300.' },
+          { item: 'Removal costs', cost: '£450 - £1,400', note: '£450-£550 for 1-2 bed, up to £1,400 for 5 bed. Based on a 10-mile move.' },
+          { item: 'Home buyer protection insurance', cost: 'From £74', note: 'Covers lost fees if the sale falls through. Reclaims survey, conveyancing, and mortgage costs.' },
+        ].map((row) => (
+          <div style="border: 1px solid #E5E0D8; padding: 16px 20px;">
+            <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px;">
+              <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; font-weight: 600; color: #1C1C1E; margin: 0;">{row.item}</p>
+              <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; font-weight: 700; color: #C4933F; margin: 0; white-space: nowrap;">{row.cost}</p>
+            </div>
+            <p style="font-family: Inter, Arial, sans-serif; font-size: 13px; color: #999999; margin: 0;">{row.note}</p>
+          </div>
+        ))}
+      </div>
+
+      <div style="border-left: 3px solid #3D5A3E; background-color: rgba(61, 90, 62, 0.04); padding: 20px 24px;">
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; font-weight: 700; color: #3D5A3E; margin: 0 0 8px 0; text-transform: uppercase; letter-spacing: 0.05em;">The Cheshire Salt Search</p>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.7; color: #444444; margin: 0 0 12px 0;">The Law Society mandates this search for any property purchase within the Cheshire Brine Compensation District, covering Eastern and Western Cheshire, Chester, Trafford, and Warrington. Historical brine mining - pumping water into mines to dissolve salt, then flushing the mixture out - caused mine collapses and ground subsidence.</p>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.7; color: #444444; margin: 0;">The Winsford salt mine remains the largest and oldest active salt mine in the UK. Under the 1952 Act, property owners whose homes are damaged by historical mining can claim repair compensation from the Cheshire Brine Compensation Board, or receive a commutation payment equivalent to the property's market value if damage is too severe.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Accordion -->
+  <section id="faq" class="section-pad" style="background-color: #FFFFFF; border-top: 1px solid #E5E0D8; border-bottom: 1px solid #E5E0D8;">
+    <div class="section-inner" style="max-width: 800px;">
+      <span class="section-label">SDLT questions</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 16px 0;">Stamp duty questions for Cheshire buyers</h2>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 24px 0;">Common SDLT questions covering filing deadlines, legal reductions, the April 2025 threshold changes, and Cheshire-specific requirements including the mandatory salt search.</p>
+      <div>
+        {faqs.map((faq, index) => (
+          <details style={`border-top: ${index === 0 ? '2px solid #3D5A3E' : '1px solid #E5E0D8'};`}>
+            <summary style="padding: 20px 0; cursor: pointer; font-family: Inter, Arial, sans-serif; font-size: 16px; font-weight: 600; color: #1C1C1E; line-height: 1.4; list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 16px;">
+              {faq.question}
+              <span style="font-family: Georgia, serif; font-size: 20px; color: #C4933F; flex-shrink: 0;">+</span>
+            </summary>
+            <div style="padding-bottom: 24px;">
+              <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.75; color: #444444; margin: 0;">{faq.answer}</p>
+            </div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Good to Know -->
+  <section class="section-pad">
+    <div class="section-inner" style="max-width: 720px;">
+      <div style="border-left: 3px solid #3D5A3E; background-color: rgba(61, 90, 62, 0.04); padding: 24px 28px;">
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; font-weight: 700; color: #3D5A3E; margin: 0 0 8px 0; text-transform: uppercase; letter-spacing: 0.05em;">Cheshire market outlook</p>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.7; color: #444444; margin: 0;">
+          Savills (2025) projects 27.6% total capital growth for the North West property market by 2028 - 5.5% in 2026, 6.5% in 2027, and 5.5% in 2028. More than half of North West homes currently listed for sale are cheaper to buy with a mortgage than to rent. SDLT is a one-time transaction cost; Cheshire property values have risen in 8 of the last 10 years (ONS).
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Related Spokes -->
+  <section class="section-pad" style="border-top: 1px solid #E5E0D8;">
+    <div class="section-inner">
+      <span class="section-label">Buying guide</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 28px 0;">Related Cheshire buying guides</h2>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px;">
+        {relatedSpokes.map((spoke) => (
+          <a href={spoke.href} class="pillar-card" style="text-decoration: none; display: block;">
+            <span style="font-family: Inter, Arial, sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #3D5A3E; margin-bottom: 10px; display: block;">{spoke.tag}</span>
+            <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; font-weight: 600; color: #1C1C1E; margin: 0; line-height: 1.4;">{spoke.label}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+  <script>
+    const priceInput = document.getElementById('sdlt-price') as HTMLInputElement;
+    const calcBtn = document.getElementById('sdlt-calc-btn') as HTMLButtonElement;
+    const resultDiv = document.getElementById('sdlt-result') as HTMLElement;
+    const totalEl = document.getElementById('sdlt-total') as HTMLElement;
+    const rateEl = document.getElementById('sdlt-rate') as HTMLElement;
+    const breakdownEl = document.getElementById('sdlt-breakdown') as HTMLElement;
+    const townEl = document.getElementById('sdlt-town') as HTMLElement;
+
+    const towns = [
+      { price: 185000, location: 'Crewe' },
+      { price: 220000, location: 'Northwich' },
+      { price: 266000, location: 'Chester' },
+      { price: 285000, location: 'Nantwich' },
+      { price: 300000, location: 'Macclesfield' },
+      { price: 308000, location: 'Frodsham' },
+      { price: 350000, location: 'Knutsford' },
+      { price: 400000, location: 'Wilmslow' },
+      { price: 480000, location: 'Knutsford avg' },
+      { price: 500000, location: 'Poynton' },
+      { price: 550000, location: 'Wilmslow avg' },
+      { price: 750000, location: 'Alderley Edge' },
+      { price: 1000000, location: 'Prestbury' },
+      { price: 1500000, location: 'Alderley Edge / Prestbury premium' },
+    ];
+
+    const standardBands = [
+      { threshold: 125000, rate: 0 },
+      { threshold: 250000, rate: 0.02 },
+      { threshold: 925000, rate: 0.05 },
+      { threshold: 1500000, rate: 0.10 },
+      { threshold: Infinity, rate: 0.12 },
+    ];
+
+    const ftbBands = [
+      { threshold: 300000, rate: 0 },
+      { threshold: 500000, rate: 0.05 },
+    ];
+
+    const additionalExtra = 0.05;
+
+    function formatMoney(n: number): string {
+      return '£' + n.toLocaleString('en-GB');
+    }
+
+    function calcSDLT(price: number, type: string): { total: number; bands: { label: string; tax: number }[] } {
+      let bands: { label: string; tax: number }[] = [];
+      let total = 0;
+      let prev = 0;
+
+      if (type === 'ftb' && price <= 500000) {
+        for (const b of ftbBands) {
+          const upper = Math.min(price, b.threshold);
+          const slice = Math.max(0, upper - prev);
+          if (slice > 0) {
+            const tax = Math.round(slice * b.rate);
+            const rateLabel = type === 'ftb' && b.rate === 0 ? '0% (FTB relief)' : `${(b.rate * 100).toFixed(0)}%`;
+            bands.push({ label: `${rateLabel} on ${formatMoney(prev)} - ${formatMoney(upper)}`, tax });
+            total += tax;
+          }
+          prev = upper;
+          if (prev >= price) break;
+        }
+      } else {
+        const surcharge = type === 'additional' ? additionalExtra : 0;
+        for (const b of standardBands) {
+          const upper = Math.min(price, b.threshold);
+          const slice = Math.max(0, upper - prev);
+          if (slice > 0) {
+            const effectiveRate = b.rate + surcharge;
+            const tax = Math.round(slice * effectiveRate);
+            bands.push({ label: `${(effectiveRate * 100).toFixed(0)}% on ${formatMoney(prev)} - ${formatMoney(upper)}`, tax });
+            total += tax;
+          }
+          prev = upper;
+          if (prev >= price) break;
+        }
+      }
+
+      return { total, bands };
+    }
+
+    function findTown(price: number): string {
+      let closest = towns[0];
+      let minDiff = Math.abs(price - closest.price);
+      for (const t of towns) {
+        const diff = Math.abs(price - t.price);
+        if (diff < minDiff) { closest = t; minDiff = diff; }
+      }
+      return closest.location;
+    }
+
+    // Format input with commas
+    priceInput.addEventListener('input', () => {
+      const raw = priceInput.value.replace(/[^0-9]/g, '');
+      if (raw) {
+        priceInput.value = parseInt(raw).toLocaleString('en-GB');
+      }
+    });
+
+    calcBtn.addEventListener('click', () => {
+      const price = parseInt(priceInput.value.replace(/[^0-9]/g, ''));
+      if (!price || price < 0) return;
+
+      const type = (document.querySelector('input[name="buyer-type"]:checked') as HTMLInputElement).value;
+      const result = calcSDLT(price, type);
+
+      totalEl.textContent = formatMoney(result.total);
+      rateEl.textContent = price > 0 ? ((result.total / price) * 100).toFixed(2) + '%' : '0%';
+
+      breakdownEl.innerHTML = result.bands.map(b =>
+        `<div style="display: flex; justify-content: space-between; font-family: Inter, Arial, sans-serif; font-size: 14px; padding: 6px 0; border-bottom: 1px solid #F0EDE8;">
+          <span style="color: #444444;">${b.label}</span>
+          <span style="color: #1C1C1E; font-weight: 600;">${formatMoney(b.tax)}</span>
+        </div>`
+      ).join('');
+
+      const town = findTown(price);
+      townEl.textContent = `Closest Cheshire reference: ${town} at ${formatMoney(price)}`;
+
+      resultDiv.style.display = 'block';
+    });
+  </script>
 </BaseLayout>
