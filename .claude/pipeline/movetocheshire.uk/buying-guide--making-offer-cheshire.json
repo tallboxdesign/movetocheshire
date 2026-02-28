@@ -1,0 +1,15 @@
+{
+  "page": "/buying-guide/making-offer-cheshire.astro",
+  "domain": "movetocheshire.uk",
+  "lastUpdated": "2026-02-27T22:50:00Z",
+  "contentType": "guide",
+  "mapPosition": "quality-node",
+  "steps": {
+    "heading-alignment": { "status": "pass", "rerunNeeded": false, "lastRun": "2026-02-27T23:00:00Z", "score": "all-pass", "notes": "7 fixes applied. Rerun after semantic-density H3 entity changes: all-pass confirmed, no new issues." },
+    "semantic-density": { "status": "pass", "rerunNeeded": false, "lastRun": "2026-02-27T22:30:00Z", "score": "71/100", "notes": "22 fixes applied: stat card entity scope, 2 H2 opener predicate direction, 5 FAQ entity qualifiers, 4 section labels, 2 jump links, 8 H3 entity qualifiers. Score pre-fix 71, estimated post-fix ~82." },
+    "passage-fixer": { "status": "pass", "rerunNeeded": false, "lastRun": "2026-02-27T22:35:00Z", "score": "18 violations found, 12 fixed", "notes": "3 CRITICAL fixes: TLDR redundancy resolved, days-on-market unsourced superlative fixed, Savills citation completed. 7 HIGH fixes applied." },
+    "seo-page": { "status": "pass", "rerunNeeded": false, "lastRun": "2026-02-27T22:50:00Z", "score": "81/100", "notes": "FAQPage schema removed (restricted to gov/health). Article schema enhanced with image + publisher.logo. Title tag shortened to 58 chars. Date display updated to specific date. og:image fixed to absolute URL in BaseLayout." },
+    "seo-content": { "status": "pass", "rerunNeeded": false, "lastRun": "2026-02-27T22:45:00Z", "score": "74/100", "notes": "All external links updated to rel='nofollow noopener'. E-E-A-T: Experience 18/25, Expertise 20/25, Authoritativeness 16/25, Trustworthiness 20/25. AI Citation Readiness 72/100." },
+    "seo-geo": { "status": "pass", "rerunNeeded": false, "lastRun": "2026-02-27T22:48:00Z", "score": "71/100", "notes": "GEO readiness scored. Calculator pre-rendering for AI crawlers flagged as highest-impact future improvement. AI crawler access confirmed via Astro SSR." }
+  }
+}

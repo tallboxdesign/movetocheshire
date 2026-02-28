@@ -1,0 +1,15 @@
+{
+  "page": "/buying-guide/index.astro",
+  "domain": "movetocheshire.uk",
+  "lastUpdated": "2026-02-27T22:50:00Z",
+  "contentType": "hub",
+  "mapPosition": "core-hub",
+  "steps": {
+    "heading-alignment": { "status": "pass", "rerunNeeded": false, "lastRun": "2026-02-27T21:22:00Z", "score": "all-pass", "notes": "All passes passed. FAQ schema removed (no visible DOM counterpart)." },
+    "semantic-density": { "status": "pass", "rerunNeeded": false, "lastRun": "2026-02-27T22:45:00Z", "score": "74/100", "notes": "3 fixes applied: spoke label entity qualifier, 2 related hub labels geo-targeted, schema updated to match. Score pre-fix 74, estimated post-fix ~80." },
+    "passage-fixer": { "status": "pass", "rerunNeeded": false, "lastRun": "2026-02-27T23:00:00Z", "score": "3 violations fixed (0 Critical, 3 High, 0 Medium applied)", "notes": "3 HIGH violations fixed: (1) A30 meta-commentary in TLDR final sentence converted to factual scope statement; (2) A5 vague plural 'local considerations' in process stages intro expanded with named Cheshire-specific examples (brine subsidence, salt search, search variance); (3) G12 vague 'limited-stock villages' in market dynamics replaced with named examples (Tarporley, Bunbury, Prestbury). Cross-violation re-scan: all clear. MEDIUM items deferred per instructions (paragraphs under 100 words). Content modified - downstream steps rerunNeeded." },
+    "seo-page": { "status": "not-run", "rerunNeeded": true },
+    "seo-content": { "status": "not-run", "rerunNeeded": true },
+    "seo-geo": { "status": "not-run", "rerunNeeded": true }
+  }
+}

@@ -41,11 +41,13 @@ const webPageSchema = {
   description: 'Independent, data-led guide to moving to Cheshire. House prices, schools, commute times, and area comparisons.',
   url: 'https://movetocheshire.uk/',
   inLanguage: 'en-GB',
-  dateModified: '2026-02-24',
+  dateModified: '2026-02-28',
   isPartOf: { '@type': 'WebSite', name: 'movetocheshire.uk', url: 'https://movetocheshire.uk' },
   about: {
     '@type': 'AdministrativeArea',
     name: 'Cheshire',
+    sameAs: 'https://www.wikidata.org/wiki/Q23064',
+    geo: { '@type': 'GeoCoordinates', latitude: 53.17, longitude: -2.58 },
     containedInPlace: { '@type': 'Country', name: 'England' },
     containsPlace: [
       { '@type': 'City', name: 'Wilmslow' },
@@ -63,7 +65,9 @@ const webPageSchema = {
   mainEntity: {
     '@type': 'AdministrativeArea',
     name: 'Cheshire',
-    description: 'County in North West England covering Cheshire East, Cheshire West and Chester, Halton, and Warrington.',
+    sameAs: 'https://www.wikidata.org/wiki/Q23064',
+    description: 'Ceremonial county in North West England covering 2,343 km² across Cheshire East, Cheshire West and Chester, Warrington, and Halton, with a population of approximately 1.07 million.',
+    geo: { '@type': 'GeoCoordinates', latitude: 53.17, longitude: -2.58 },
     containedInPlace: { '@type': 'Country', name: 'England' },
   },
 };
@@ -142,7 +146,7 @@ const investmentSchema = {
   name: 'Cheshire Property Market Analysis: Is Now a Good Time to Buy?',
   description: 'Data-led analysis of Cheshire property market conditions - price trends, supply levels, mortgage context, and the case for and against buying in 2025-26.',
   temporalCoverage: '2020/2026',
-  dateModified: '2026-02-24',
+  dateModified: '2026-02-28',
   spatialCoverage: {
     '@type': 'AdministrativeArea',
     name: 'Cheshire',
@@ -177,9 +181,27 @@ const investmentSchema = {
     <script type="application/ld+json" set:html={JSON.stringify(investmentSchema)} />
   </Fragment>
 
-  <Hero />
+  <Hero>
+    <PurchasingPowerCalculator client:load />
+  </Hero>
+  <section style="background-color: #F9F7F4; padding: 0;">
+    <div style="max-width: 720px; margin: 0 auto; padding: 0 20px;">
+      <figure style="margin: 0;">
+        <img
+          src="/images/cheshire-hero-baked.webp"
+          alt="Aerial watercolor of Cheshire countryside showing 10 residential towns across 3 price tiers from £175,000 to £700,000+ with 17 to 60 minute commutes to Manchester"
+          width="1440"
+          height="500"
+          loading="eager"
+          style="width: 100%; height: auto; border: 1px solid #E5E0D8;"
+        />
+        <figcaption style="font-family: Inter, Arial, sans-serif; font-size: 12px; color: #888888; margin-top: 8px; margin-bottom: 20px; line-height: 1.5;">
+          Cheshire's residential landscape spans from the premium Golden Triangle to accessible market towns. (Sources: ONS, November 2025; National Rail, 2025)
+        </figcaption>
+      </figure>
+    </div>
+  </section>
   <DataStrip />
-  <PurchasingPowerCalculator client:load />
   <TownQuiz client:load />
   <QuickAnswer />
   <AreaTable client:load />

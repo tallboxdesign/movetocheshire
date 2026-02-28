@@ -1,0 +1,15 @@
+{
+  "page": "/buying-guide/conveyancing-cheshire.astro",
+  "domain": "movetocheshire.uk",
+  "lastUpdated": "2026-02-27T15:00:00Z",
+  "contentType": "service",
+  "mapPosition": "core-node",
+  "steps": {
+    "heading-alignment": { "status": "not-run", "rerunNeeded": false },
+    "semantic-density": { "status": "not-run", "rerunNeeded": false },
+    "passage-fixer": { "status": "not-run", "rerunNeeded": false },
+    "seo-page": { "status": "not-run", "rerunNeeded": false },
+    "seo-content": { "status": "not-run", "rerunNeeded": false },
+    "seo-geo": { "status": "not-run", "rerunNeeded": false }
+  }
+}
