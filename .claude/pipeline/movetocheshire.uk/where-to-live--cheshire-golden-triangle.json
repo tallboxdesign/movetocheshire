@@ -1,0 +1,14 @@
+{
+  "page": "where-to-live/cheshire-golden-triangle",
+  "contentType": "guide",
+  "mapPosition": "quality-node",
+  "steps": {
+    "writing": { "status": "complete", "lastRun": "2026-02-28" },
+    "heading-alignment": { "status": "complete", "lastRun": "2026-02-28", "score": "9/10" },
+    "semantic-density": { "status": "complete", "lastRun": "2026-02-28", "score": "83%" },
+    "passage-fixer": { "status": "complete", "lastRun": "2026-02-28", "score": "16 violations fixed" },
+    "seo-page": { "status": "complete", "lastRun": "2026-02-28", "score": "82/100", "issues": "title fixed, og:image added, links added" },
+    "seo-content": { "status": "complete", "lastRun": "2026-02-28", "score": "79/100", "issues": "zero images, no author bio, safety added, lifestyle expanded" },
+    "seo-geo": { "status": "complete", "lastRun": "2026-02-28", "score": "76/100", "issues": "zero images (156% citation penalty), no Wikipedia entity, no expert quotes, no sameAs in schema" }
+  }
+}

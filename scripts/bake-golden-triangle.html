@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #F9F7F4; margin: 0; }
+  .container {
+    width: 1200px;
+    height: 630px;
+    background: #F9F7F4;
+    display: flex;
+    flex-direction: column;
+    font-family: Inter, Arial, sans-serif;
+    overflow: hidden;
+  }
+
+  /* Header */
+  .header {
+    padding: 40px 48px 0;
+  }
+  .eyebrow {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #3D5A3E;
+    margin-bottom: 10px;
+  }
+  .title {
+    font-family: Georgia, serif;
+    font-size: 36px;
+    font-weight: 700;
+    color: #1C1C1E;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+  }
+  .subtitle {
+    font-size: 16px;
+    color: #666666;
+    margin-top: 8px;
+    line-height: 1.5;
+  }
+
+  /* Town cards */
+  .cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+    padding: 32px 48px 0;
+    flex: 1;
+  }
+  .card {
+    background: #FFFFFF;
+    border: 1px solid #E5E0D8;
+    padding: 28px 24px;
+    display: flex;
+    flex-direction: column;
+  }
+  .card-name {
+    font-size: 22px;
+    font-weight: 700;
+    color: #1C1C1E;
+    margin-bottom: 4px;
+  }
+  .card-character {
+    font-size: 13px;
+    color: #888888;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 20px;
+  }
+  .card-price {
+    font-size: 32px;
+    font-weight: 700;
+    color: #C4933F;
+    margin-bottom: 4px;
+  }
+  .card-price-label {
+    font-size: 12px;
+    color: #999999;
+    margin-bottom: 16px;
+  }
+  .card-stats {
+    margin-top: auto;
+  }
+  .card-stat {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-top: 1px solid #F0EDE8;
+    font-size: 13px;
+  }
+  .card-stat-label {
+    color: #666666;
+  }
+  .card-stat-value {
+    font-weight: 600;
+    color: #1C1C1E;
+  }
+
+  /* Footer */
+  .footer {
+    padding: 16px 48px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .source {
+    font-size: 11px;
+    color: #BBBBBB;
+  }
+  .brand {
+    font-size: 13px;
+    font-weight: 600;
+    color: #3D5A3E;
+    letter-spacing: 0.02em;
+  }
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="container" id="capture">
+    <div class="header">
+      <div class="eyebrow">Cheshire Golden Triangle</div>
+      <div class="title">Three towns, one premium corridor</div>
+      <div class="subtitle">Property prices, commute times, and character compared</div>
+    </div>
+
+    <div class="cards">
+      <div class="card">
+        <div class="card-name">Wilmslow</div>
+        <div class="card-character">Commercial hub</div>
+        <div class="card-price">£586k</div>
+        <div class="card-price-label">Average price</div>
+        <div class="card-stats">
+          <div class="card-stat">
+            <span class="card-stat-label">Commute</span>
+            <span class="card-stat-value">17 min</span>
+          </div>
+          <div class="card-stat">
+            <span class="card-stat-label">Population</span>
+            <span class="card-stat-value">26,022</span>
+          </div>
+          <div class="card-stat">
+            <span class="card-stat-label">Detached avg.</span>
+            <span class="card-stat-value">£820k</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-name">Alderley Edge</div>
+        <div class="card-character">Celebrity village</div>
+        <div class="card-price">£680k</div>
+        <div class="card-price-label">Average price</div>
+        <div class="card-stats">
+          <div class="card-stat">
+            <span class="card-stat-label">Commute</span>
+            <span class="card-stat-value">~30 min</span>
+          </div>
+          <div class="card-stat">
+            <span class="card-stat-label">Population</span>
+            <span class="card-stat-value">4,777</span>
+          </div>
+          <div class="card-stat">
+            <span class="card-stat-label">Detached avg.</span>
+            <span class="card-stat-value">£1.05m</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-name">Prestbury</div>
+        <div class="card-character">Quiet village</div>
+        <div class="card-price">£468k</div>
+        <div class="card-price-label">Average price</div>
+        <div class="card-stats">
+          <div class="card-stat">
+            <span class="card-stat-label">Commute</span>
+            <span class="card-stat-value">~30 min</span>
+          </div>
+          <div class="card-stat">
+            <span class="card-stat-label">Population</span>
+            <span class="card-stat-value">3,288</span>
+          </div>
+          <div class="card-stat">
+            <span class="card-stat-label">Detached avg.</span>
+            <span class="card-stat-value">£875k</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <span class="source">Rightmove Q4 2025 - National Rail 2025 - Census 2021</span>
+      <span class="brand">movetocheshire.uk</span>
+    </div>
+  </div>
+</body>
+</html>

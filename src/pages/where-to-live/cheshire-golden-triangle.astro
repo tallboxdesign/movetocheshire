@@ -1,17 +1,411 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import SpokeLayout from '../../components/SpokeLayout.astro';
+
+const faqs = [
+  { question: 'Is the Golden Triangle the most expensive part of Cheshire?', answer: 'Yes. Wilmslow, Alderley Edge, and Prestbury contain five of the ten most expensive residential roads in the North West (Rightmove, Q4 2025). Alderley Edge averages above £680,000 across all property types, and premium streets in Prestbury regularly exceed £1 million. The only Cheshire areas approaching these prices are parts of Knutsford and Bowdon in Trafford.' },
+  { question: 'Can you live in the Golden Triangle on a budget under £400,000?', answer: 'Wilmslow has the widest price range of the three towns, with apartments and smaller terraced properties starting from approximately £250,000. Alderley Edge and Prestbury have very limited stock below £400,000. If budget is the primary constraint, Macclesfield (£280,000 average) and Poynton (£444,000 average) offer sub-25-minute Manchester commutes at lower price points.' },
+  { question: 'Which Golden Triangle town is best for families?', answer: 'Wilmslow has the broadest school choice with Wilmslow High School (1,700 pupils, Ofsted Good, January 2025) and multiple feeder primaries. Prestbury and Alderley Edge have well-rated primary schools but most secondary-age pupils attend schools in Wilmslow or Macclesfield. The closure of Alderley Edge School for Girls in July 2026 reduces independent school options in the area.' },
+  { question: 'How does the Golden Triangle compare to Knutsford?', answer: 'Knutsford averages £430,000 - roughly 30% below Wilmslow and 40% below Alderley Edge. It has a Georgian town centre, a 35-minute Manchester commute (National Rail, 2025), and strong schools. The trade-off is a longer commute and a quieter evening economy compared to Wilmslow. Knutsford suits buyers who want the Cheshire lifestyle at a lower price point.' },
+  { question: 'Is the Golden Triangle a good investment?', answer: 'Property in the Golden Triangle has outperformed the Cheshire East average over the past decade, driven by constrained supply (Conservation Areas, Green Belt), consistent demand from Manchester professionals, and the catchment premium for highly rated schools. Alderley Edge and Prestbury have the lowest stock turnover in the county - fewer than 150 sales per year combined (HM Land Registry, 2024).' },
+];
+
+const towns = [
+  { name: 'Wilmslow', avgPrice: '£586,000', detached: '£820,000', population: '26,022', commute: '17 min', character: 'Commercial hub' },
+  { name: 'Alderley Edge', avgPrice: '£680,000', detached: '£1,050,000', population: '4,777', commute: '~30 min', character: 'Celebrity village' },
+  { name: 'Prestbury', avgPrice: '£468,000', detached: '£875,000', population: '3,288', commute: '~30 min', character: 'Quiet village' },
+];
+
+const schools = [
+  { name: 'Wilmslow High School', town: 'Wilmslow', type: 'State secondary', rating: 'Good (Jan 2025)', note: '58% grade 5+ Eng+Maths' },
+  { name: 'Alderley Edge Community Primary', town: 'Alderley Edge', type: 'State primary', rating: 'Outstanding', note: '230 pupils' },
+  { name: 'Prestbury CofE Primary', town: 'Prestbury', type: 'State primary', rating: 'Good', note: '210 pupils' },
+  { name: 'Lindow Community Primary', town: 'Wilmslow', type: 'State primary', rating: 'Good', note: '420 pupils' },
+  { name: 'Gorsey Bank Primary', town: 'Wilmslow', type: 'State primary', rating: 'Outstanding', note: '460 pupils' },
+];
+
+const relatedSpokes = [
+  { label: 'Best Places to Live in Cheshire', href: '/where-to-live/best-places-cheshire', tag: 'Area Guide' },
+  { label: 'Moving to Chester', href: '/where-to-live/chester', tag: 'Area Guide' },
+  { label: 'Average House Price in Cheshire', href: '/house-prices/average-house-price-cheshire', tag: 'Prices' },
+];
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://movetocheshire.uk' },
+    { '@type': 'ListItem', position: 2, name: 'Where to Live', item: 'https://movetocheshire.uk/where-to-live' },
+    { '@type': 'ListItem', position: 3, name: 'Golden Triangle', item: 'https://movetocheshire.uk/where-to-live/cheshire-golden-triangle' },
+  ],
+};
+
+const placeSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Place',
+  name: 'Cheshire Golden Triangle',
+  description: 'Residential area in northeast Cheshire comprising Wilmslow, Alderley Edge, and Prestbury. Average house prices range from £468,000 in Prestbury to £680,000 in Alderley Edge, with train commutes of 17 to 30 minutes to Manchester Piccadilly.',
+  geo: { '@type': 'GeoCoordinates', latitude: 53.33, longitude: -2.23 },
+  containedInPlace: { '@type': 'AdministrativeArea', name: 'Cheshire East' },
+  containsPlace: [
+    { '@type': 'City', name: 'Wilmslow' },
+    { '@type': 'City', name: 'Alderley Edge' },
+    { '@type': 'Village', name: 'Prestbury' },
+  ],
+};
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: 'The Cheshire Golden Triangle',
+  description: 'Wilmslow, Alderley Edge, and Prestbury form the Golden Triangle - Cheshire\'s highest-value residential area with property prices from £468,000 to £680,000 and Manchester commutes from 17 minutes.',
+  datePublished: '2026-02-28',
+  dateModified: '2026-02-28',
+  author: { '@type': 'Organization', name: 'Move to Cheshire', url: 'https://movetocheshire.uk' },
+  publisher: { '@type': 'Organization', name: 'Move to Cheshire', url: 'https://movetocheshire.uk' },
+  mainEntityOfPage: 'https://movetocheshire.uk/where-to-live/cheshire-golden-triangle',
+};
 ---
 
 <BaseLayout
-  title="The Cheshire Golden Triangle | Wilmslow, Alderley Edge, Prestbury | movetocheshire.uk"
-  description="Wilmslow, Alderley Edge, and Prestbury - what makes the Golden Triangle different, who lives there, and whether the premium is justified."
+  title="Cheshire Golden Triangle | Three Premium Towns | movetocheshire.uk"
+  description="Wilmslow, Alderley Edge, and Prestbury form the Golden Triangle - Cheshire's highest-value area with prices from £468k to £680k and 17-min Manchester commutes."
+  ogImage="/images/where-to-live/cheshire-golden-triangle-overview.webp"
 >
-  <SpokeLayout
-    tag="Area Guide"
-    hubLabel="Where to Live"
-    hubHref="/where-to-live"
-    title="The Cheshire Golden Triangle"
-    description="Wilmslow, Alderley Edge, and Prestbury - what makes the Golden Triangle different, who lives there, and whether the premium is justified."
-  />
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(placeSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+  </Fragment>
+
+  <!-- Breadcrumb -->
+  <div class="section-pad" style="padding-top: 20px; padding-bottom: 0;">
+    <div class="section-inner">
+      <nav aria-label="Breadcrumb" style="font-family: Inter, Arial, sans-serif; font-size: 13px; color: #999999;">
+        <a href="/" style="color: #999999; text-decoration: none;">Home</a>
+        <span style="margin: 0 8px;">/</span>
+        <a href="/where-to-live" style="color: #999999; text-decoration: none;">Where to Live</a>
+        <span style="margin: 0 8px;">/</span>
+        <span style="color: #1C1C1E;">Cheshire Golden Triangle</span>
+      </nav>
+    </div>
+  </div>
+
+  <!-- Hero -->
+  <section class="section-pad" style="padding-top: 40px;">
+    <div class="section-inner" style="max-width: 720px;">
+      <span class="section-label">Area Guide</span>
+      <h1 style="font-family: Georgia, serif; font-size: clamp(28px, 4.5vw, 44px); font-weight: 700; color: #1C1C1E; line-height: 1.15; margin: 0 0 20px 0; letter-spacing: -0.02em;">The Cheshire Golden Triangle</h1>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 18px; line-height: 1.7; color: #444444; margin: 0 0 24px 0;">
+        Three towns in northeast Cheshire - Wilmslow, Alderley Edge, and Prestbury - form a five-mile residential area with the county's highest property values, fastest Manchester commutes, and strongest school catchments. Average prices range from £468,000 in Prestbury to £680,000 in Alderley Edge (Rightmove, Q4 2025). Trains reach Manchester Piccadilly in 17 to 30 minutes.
+      </p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 18px; line-height: 1.7; color: #444444; margin: 0 0 24px 0;">
+        The area draws Manchester professionals, business owners, and relocating London families seeking premium schools within a short commute corridor.
+      </p>
+      <span style="display: inline-block; font-family: Inter, Arial, sans-serif; font-size: 12px; font-weight: 600; color: #3D5A3E; background-color: rgba(61, 90, 62, 0.08); padding: 6px 12px; letter-spacing: 0.02em;">Last updated: February 2026</span>
+    </div>
+  </section>
+
+  <!-- Stat Bar -->
+  <section class="section-pad" style="padding-top: 0;">
+    <div class="section-inner">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px;">
+        {[
+          { value: '£468k-£680k', label: 'Average house prices across three towns', source: 'Rightmove, Q4 2025' },
+          { value: '17-30 min', label: 'Golden Triangle rail commute', source: 'National Rail, 2025' },
+          { value: '34,087', label: 'Three-town population', source: 'Census 2021, latest available' },
+        ].map((stat) => (
+          <div style="background-color: #FFFFFF; border: 1px solid #E5E0D8; padding: 28px 24px;">
+            <p class="data-tile-value" style="margin: 0 0 8px 0;">{stat.value}</p>
+            <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; font-weight: 600; color: #1C1C1E; margin: 0 0 4px 0;">{stat.label}</p>
+            <p style="font-family: Inter, Arial, sans-serif; font-size: 12px; color: #999999; margin: 0;">{stat.source}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Hero Image -->
+  <section class="section-pad" style="padding-top: 0;">
+    <div class="section-inner" style="max-width: 720px;">
+      <figure style="margin: 0 auto 0; max-width: 720px;">
+        <img src="/images/where-to-live/cheshire-golden-triangle-overview.webp"
+          alt="Cheshire Golden Triangle comparison showing Wilmslow, Alderley Edge, and Prestbury with average property prices and commute times to Manchester"
+          loading="eager"
+          style="width: 720px; max-width: 100%; aspect-ratio: 1200/630; border: 1px solid #E5E0D8;" />
+        <figcaption style="font-family: Inter, Arial, sans-serif; font-size: 12px; color: #999999; margin-top: 8px;">
+          Three Golden Triangle towns compared by price tier, rail commute, and population size. Alderley Edge commands the highest average at £680,000 despite being the smallest settlement.
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- What is the Golden Triangle? -->
+  <section class="section-pad">
+    <div class="section-inner" style="max-width: 720px;">
+      <span class="section-label">Definition</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 24px 0;">What is the Cheshire Golden Triangle?</h2>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #1C1C1E; margin: 0 0 16px 0;">
+        The Golden Triangle is a five-mile area in northeast Cheshire bounded by three settlements: Wilmslow to the west, Alderley Edge to the south, and Prestbury to the southeast. The name reflects the concentration of high-value property, high-earning residents, and premium amenities within this compact geography. The Triangle is the most expensive residential cluster in the North West.
+      </p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">
+        All three towns sit within Cheshire East and fall under Macclesfield parliamentary constituency. The area occupies a corridor in northeast Cheshire between Manchester to the north and the Peak District to the east, giving residents access to both a major employment centre and open countryside within 20 minutes of their front door.
+      </p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0;">
+        The term "Golden Triangle" functions as a recognised geographic shorthand in the North West property market, appearing in estate agency listings and Rightmove area filters. For a broader view of Cheshire's residential areas, see the <a href="/where-to-live" style="color: #3D5A3E;">Where to Live in Cheshire</a> hub.
+      </p>
+    </div>
+  </section>
+
+  <!-- Property Prices -->
+  <section class="section-pad" style="background-color: #FFFFFF; border-top: 1px solid #E5E0D8; border-bottom: 1px solid #E5E0D8;">
+    <div class="section-inner">
+      <span class="section-label">Property prices</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 12px 0;">What do properties cost in the Golden Triangle?</h2>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; color: #555555; margin: 0 0 28px 0;">
+        The Golden Triangle averages approximately £578,000 across all property types - 89% above the Cheshire East average of £306,000 (ONS, November 2025). Detached properties regularly exceed £1 million in all three towns.
+      </p>
+      <div style="overflow-x: auto;">
+        <table style="width: 100%; border-collapse: collapse; font-family: Inter, Arial, sans-serif; font-size: 14px; min-width: 540px;">
+          <thead>
+            <tr style="border-bottom: 2px solid #3D5A3E;">
+              <th style="text-align: left; padding: 12px 16px; font-weight: 700; color: #1C1C1E;">Town</th>
+              <th style="text-align: left; padding: 12px 16px; font-weight: 700; color: #1C1C1E;">Avg. Price</th>
+              <th style="text-align: left; padding: 12px 16px; font-weight: 700; color: #1C1C1E;">Detached Avg.</th>
+              <th style="text-align: left; padding: 12px 16px; font-weight: 700; color: #1C1C1E;">Character</th>
+            </tr>
+          </thead>
+          <tbody>
+            {towns.map((t, i) => (
+              <tr style={`background-color: ${i % 2 === 0 ? '#FFFFFF' : '#F9F7F4'}; border-bottom: 1px solid #E5E0D8;`}>
+                <td style="padding: 14px 16px; font-weight: 600; color: #1C1C1E;">{t.name}</td>
+                <td style="padding: 14px 16px; color: #C4933F; font-weight: 600;">{t.avgPrice}</td>
+                <td style="padding: 14px 16px; color: #444444;">{t.detached}</td>
+                <td style="padding: 14px 16px; color: #444444;">{t.character}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 12px; color: #999999; margin: 12px 0 0 0;">Prices: <a href="https://www.rightmove.co.uk/house-prices/Cheshire-East.html" rel="nofollow noopener" target="_blank" style="color: #999999;">Rightmove sold prices</a>, Q4 2025. Detached averages include semi-rural stock on the periphery of each town.</p>
+    </div>
+  </section>
+  <section class="section-pad" style="padding-top: 0; background-color: #FFFFFF; border-bottom: 1px solid #E5E0D8;">
+    <div class="section-inner" style="max-width: 720px;">
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">
+        Prestbury's overall average of £468,000 masks a wide range. The village centre and Conservation Area attract lower-value period cottages and terraced houses, while Withinlee Road and Bollington Road contain gated properties priced between £875,000 and £1.95 million (Rightmove, 2025). Prestbury has the highest ceiling price of the three towns relative to its size.
+      </p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0;">
+        Five of the ten most expensive residential roads in the North West sit within the Golden Triangle (Rightmove, 2024). Stock turnover is low - Alderley Edge and Prestbury combined saw fewer than 150 sales in 2024 (HM Land Registry), creating persistent demand pressure for buyers entering the market. Use the <a href="/house-prices/average-house-price-cheshire" style="color: #3D5A3E;">Cheshire house prices</a> page for county-wide price comparisons, or check <a href="/buying-guide/stamp-duty-cheshire" style="color: #3D5A3E;">stamp duty in Cheshire</a> to calculate purchase costs at Golden Triangle price points.
+      </p>
+    </div>
+  </section>
+
+  <!-- Town Comparison -->
+  <section class="section-pad">
+    <div class="section-inner" style="max-width: 720px;">
+      <span class="section-label">Town profiles</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 16px 0;">How does each Golden Triangle town compare?</h2>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 28px 0;">
+        Each of the three Golden Triangle towns has a distinct character, price point, and buyer profile.
+      </p>
+
+      <!-- Town profiles image (Tier 2: nanobanana base + CSS overlay) -->
+      <figure style="margin: 0 0 32px; max-width: 720px; position: relative; overflow: hidden; border: 1px solid #E5E0D8;">
+        <img src="/images/where-to-live/golden-triangle-villages.webp"
+          alt="Aerial watercolor illustration of a Cheshire village with sandstone buildings and green countryside typical of the Golden Triangle area"
+          loading="lazy"
+          style="width: 720px; max-width: 100%; aspect-ratio: 16/9; object-fit: cover; object-position: center 30%; display: block;" />
+        <div style="position: absolute; bottom: 0; left: 0; right: 0; display: grid; grid-template-columns: 1fr 1fr 1fr; background: linear-gradient(transparent, rgba(0,0,0,0.65));">
+          <div style="padding: clamp(12px, 2vw, 20px) clamp(8px, 1.5vw, 16px); text-align: center;">
+            <span style="font-family: Inter, Arial, sans-serif; font-size: clamp(11px, 1.4vw, 15px); font-weight: 700; color: #FFFFFF; display: block;">Wilmslow</span>
+            <span style="font-family: Inter, Arial, sans-serif; font-size: clamp(9px, 1.1vw, 12px); color: rgba(255,255,255,0.8); display: block; margin-top: 2px;">17 min - £586k avg</span>
+          </div>
+          <div style="padding: clamp(12px, 2vw, 20px) clamp(8px, 1.5vw, 16px); text-align: center; border-left: 1px solid rgba(255,255,255,0.2); border-right: 1px solid rgba(255,255,255,0.2);">
+            <span style="font-family: Inter, Arial, sans-serif; font-size: clamp(11px, 1.4vw, 15px); font-weight: 700; color: #FFFFFF; display: block;">Alderley Edge</span>
+            <span style="font-family: Inter, Arial, sans-serif; font-size: clamp(9px, 1.1vw, 12px); color: rgba(255,255,255,0.8); display: block; margin-top: 2px;">~30 min - £680k avg</span>
+          </div>
+          <div style="padding: clamp(12px, 2vw, 20px) clamp(8px, 1.5vw, 16px); text-align: center;">
+            <span style="font-family: Inter, Arial, sans-serif; font-size: clamp(11px, 1.4vw, 15px); font-weight: 700; color: #FFFFFF; display: block;">Prestbury</span>
+            <span style="font-family: Inter, Arial, sans-serif; font-size: clamp(9px, 1.1vw, 12px); color: rgba(255,255,255,0.8); display: block; margin-top: 2px;">~30 min - £468k avg</span>
+          </div>
+        </div>
+        <span style="position: absolute; top: 8px; right: 10px; font-family: Inter, Arial, sans-serif; font-size: 10px; font-weight: 600; color: rgba(255,255,255,0.5);">movetocheshire.uk</span>
+      </figure>
+      <figcaption style="font-family: Inter, Arial, sans-serif; font-size: 12px; color: #999999; margin: -24px 0 28px 0;">
+        The three Golden Triangle settlements sit within five miles of each other in northeast Cheshire, connected by the A34 and B5087.
+      </figcaption>
+
+      <!-- Wilmslow -->
+      <h3 style="font-family: Inter, Arial, sans-serif; font-size: 19px; font-weight: 700; color: #1C1C1E; margin: 0 0 12px 0;">Wilmslow - the commercial hub</h3>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">
+        Wilmslow is the largest of the three towns at 26,022 residents (Census 2021, latest available) and functions as the commercial centre of the Golden Triangle. Bank Square and Grove Street form the retail core, with Hoopers department store, independent cafes, and a twice-monthly artisan market. The architecture mixes Tudor and Georgian frontages with post-war residential development on the periphery.
+      </p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 28px 0;">
+        Wilmslow's 17-minute connection to Manchester Piccadilly (National Rail, 2025) is the fastest rail commute in the Golden Triangle. That combination of retail amenity, school density, and commute speed generates the highest transaction volume of the three towns (HM Land Registry, 2024).
+      </p>
+
+      <!-- Alderley Edge -->
+      <h3 style="font-family: Inter, Arial, sans-serif; font-size: 19px; font-weight: 700; color: #1C1C1E; margin: 0 0 12px 0;">Alderley Edge - the celebrity village</h3>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">
+        Alderley Edge has a population of 4,777 (Census 2021, latest available) and a celebrity reputation disproportionate to its size. London Road functions as the high street, anchored by restaurants including Victors, The Alderley Bar and Grill, and independent boutiques. The village's celebrity association - current and former Premier League footballers, media figures, and business owners - drives both its profile and its property premium.
+      </p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 28px 0;">
+        The Edge itself is a National Trust-managed sandstone escarpment on the south side of the village, providing 200 hectares of woodland and walking trails. As a Golden Triangle village, Alderley Edge suits buyers prioritising a village scale with restaurant and social amenity.
+      </p>
+
+      <!-- Prestbury -->
+      <h3 style="font-family: Inter, Arial, sans-serif; font-size: 19px; font-weight: 700; color: #1C1C1E; margin: 0 0 12px 0;">Prestbury - the quiet village</h3>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">
+        Prestbury is the smallest Golden Triangle settlement at 3,288 residents (Census 2021, latest available) and the most deliberately rural in character. The village lacks a commercial high street - there is a post office, a handful of pubs, and the Bridge Hotel, but no supermarket or chain retail. St Peter's Church (Grade I listed, 13th century) anchors the village centre, and much of the core is designated a Conservation Area.
+      </p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0;">
+        Premium properties line Withinlee Road and the lanes south toward Macclesfield, many behind gated entrances with grounds of half an acre or more. Prestbury suits Golden Triangle buyers who want seclusion, space, and a village identity over retail convenience.
+      </p>
+    </div>
+  </section>
+
+  <!-- Commute -->
+  <section class="section-pad" style="background-color: #FFFFFF; border-top: 1px solid #E5E0D8; border-bottom: 1px solid #E5E0D8;">
+    <div class="section-inner" style="max-width: 720px;">
+      <span class="section-label">Transport</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 24px 0;">What are the commute options from the Golden Triangle?</h2>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #1C1C1E; margin: 0 0 16px 0;">
+        All three Golden Triangle towns have direct rail services to Manchester Piccadilly on two lines. Wilmslow sits on the Crewe-Manchester route with 103 trains per day and a 17-minute journey - the fastest rail commute in Cheshire. Alderley Edge shares this line with services every 30 minutes and a journey of around 30 minutes.
+      </p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">
+        Prestbury station sits on the Manchester-Stoke line with hourly services and a similar 30-minute journey. The lower frequency means Prestbury residents often drive to Wilmslow or Macclesfield stations for more flexible departure times.
+      </p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">
+        Manchester Airport sits nine miles from Prestbury, 7 miles from Wilmslow, and 8 miles from Alderley Edge - a 15- to 20-minute drive. This proximity makes the Triangle a practical base for frequent flyers and households with international travel requirements.
+      </p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0;">
+        By road, the A34 connects Wilmslow and Alderley Edge to the M60 orbital motorway. Peak-hour congestion on the A34 and Wilmslow Road corridor adds 15 to 25 minutes to a Manchester city centre drive that takes 30 minutes off-peak. For daily Manchester commuters, the train is materially faster and more predictable than driving. <em style="color: #888888; font-size: 14px;">(Sources: National Rail, 2025; Google Maps typical travel times)</em>
+      </p>
+    </div>
+  </section>
+
+  <!-- Schools -->
+  <section class="section-pad">
+    <div class="section-inner">
+      <span class="section-label">Education</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 12px 0;">What are the schools like in the Golden Triangle?</h2>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; color: #555555; margin: 0 0 28px 0;">
+        The Golden Triangle has a high concentration of Good and Outstanding state schools at primary level (Ofsted, 2020-2025). Wilmslow provides the area's main secondary school catchment, while Alderley Edge and Prestbury each have a single well-regarded primary school feeding into Wilmslow or Macclesfield secondaries.
+      </p>
+      <div style="overflow-x: auto;">
+        <table style="width: 100%; border-collapse: collapse; font-family: Inter, Arial, sans-serif; font-size: 14px; min-width: 540px;">
+          <thead>
+            <tr style="border-bottom: 2px solid #3D5A3E;">
+              <th style="text-align: left; padding: 12px 16px; font-weight: 700; color: #1C1C1E;">School</th>
+              <th style="text-align: left; padding: 12px 16px; font-weight: 700; color: #1C1C1E;">Town</th>
+              <th style="text-align: left; padding: 12px 16px; font-weight: 700; color: #1C1C1E;">Type</th>
+              <th style="text-align: left; padding: 12px 16px; font-weight: 700; color: #1C1C1E;">Ofsted</th>
+            </tr>
+          </thead>
+          <tbody>
+            {schools.map((s, i) => (
+              <tr style={`background-color: ${i % 2 === 0 ? '#FFFFFF' : '#F9F7F4'}; border-bottom: 1px solid #E5E0D8;`}>
+                <td style="padding: 14px 16px; font-weight: 600; color: #1C1C1E;">{s.name}</td>
+                <td style="padding: 14px 16px; color: #444444;">{s.town}</td>
+                <td style="padding: 14px 16px; color: #444444;">{s.type}</td>
+                <td style="padding: 14px 16px; color: #444444;">{s.rating}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 12px; color: #999999; margin: 12px 0 0 0;">Ratings: <a href="https://reports.ofsted.gov.uk/" rel="nofollow noopener" target="_blank" style="color: #999999;">Ofsted inspection reports</a>, 2020-2025. Pupil numbers from school census data.</p>
+    </div>
+  </section>
+  <section class="section-pad" style="padding-top: 0;">
+    <div class="section-inner" style="max-width: 720px;">
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0;">
+        Alderley Edge School for Girls (AESG), an independent school established in 1999, is closing in July 2026. This removes one of the area's independent school options and may increase demand for places at remaining schools in Wilmslow and Macclesfield. The nearest independent alternatives are The King's School in Macclesfield and Cheadle Hulme School.
+      </p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0;">
+        Most secondary-age pupils across the Triangle attend Wilmslow High School, making its catchment a significant factor in property pricing for families. The school catchment premium is most visible in streets closest to Wilmslow High's admissions boundary. Families weighing school options alongside budget should read the <a href="/buying-guide/making-offer-cheshire" style="color: #3D5A3E;">guide to making an offer in Cheshire</a> before competing for catchment-area properties.
+      </p>
+    </div>
+  </section>
+
+  <!-- Premium Justified -->
+  <section class="section-pad" style="background-color: #FFFFFF; border-top: 1px solid #E5E0D8; border-bottom: 1px solid #E5E0D8;">
+    <div class="section-inner" style="max-width: 720px;">
+      <span class="section-label">Value assessment</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 24px 0;">Is the Golden Triangle premium justified?</h2>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #1C1C1E; margin: 0 0 16px 0;">
+        The Golden Triangle commands an 89% premium over the Cheshire East average (£306,000, ONS November 2025). That premium buys three things that mid-Cheshire towns cannot match in combination: a 17-minute Manchester commute from Wilmslow (National Rail, 2025), Outstanding-rated primary schools across the area (Ofsted, 2020-2025), and a constrained housing supply that underpins resale values.
+      </p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">
+        Conservation Area designations in Prestbury and parts of Alderley Edge restrict new development, keeping the same low stock turnover noted in the prices section above. That scarcity sustains pricing even during broader market corrections.
+      </p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">
+        The celebrity reputation, while prominent in media coverage, is a secondary factor in day-to-day life. All three village centres are walkable within 10 minutes from main residential streets, and the Peak District sits within 8 miles.
+      </p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">
+        That social density - knowing neighbours, seeing familiar faces at the school gates and local restaurants - follows from the Triangle's compact five-mile geography rather than its wealth.
+      </p>
+      <h3 style="font-family: Inter, Arial, sans-serif; font-size: 19px; font-weight: 700; color: #1C1C1E; margin: 0 0 12px 0;">How safe is the Golden Triangle?</h3>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">
+        Cheshire records 58 crimes per 1,000 population - a CrimeRate Index of 0.78 against the national average of 1.0 (data.police.uk, 2025). Cheshire East, which contains all three Golden Triangle towns, records lower crime rates than any unitary authority bordering Greater Manchester (ONS, 2024). The most commonly reported crime type in the area is residential burglary, concentrated on higher-value detached properties. Cheshire Constabulary runs dedicated rural crime and neighbourhood policing teams covering the Wilmslow, Alderley Edge, and Prestbury wards.
+      </p>
+      <h3 style="font-family: Inter, Arial, sans-serif; font-size: 19px; font-weight: 700; color: #1C1C1E; margin: 0 0 12px 0;">How does the Golden Triangle compare to mid-Cheshire alternatives?</h3>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0;">
+        Macclesfield sits 10 minutes further east with an average price of £280,000 and a 25-minute Manchester commute. Knutsford offers a comparable lifestyle at £430,000 with a 35-minute train. The Golden Triangle premium buys speed and school catchment - whether those factors justify a 60% to 140% price increase depends on the buyer's commute pattern and school-age children.
+      </p>
+    </div>
+  </section>
+
+  <!-- FAQ Accordion -->
+  <section class="section-pad">
+    <div class="section-inner" style="max-width: 800px;">
+      <span class="section-label">Common questions</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 16px 0;">People also ask about the Golden Triangle</h2>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.7; color: #444444; margin: 0 0 28px 0;">Buyers researching the Cheshire Golden Triangle raise these questions most often.</p>
+      <div>
+        {faqs.map((faq, index) => (
+          <details style={`border-top: ${index === 0 ? '2px solid #3D5A3E' : '1px solid #E5E0D8'};`}>
+            <summary style="padding: 20px 0; cursor: pointer; font-family: Inter, Arial, sans-serif; font-size: 16px; font-weight: 600; color: #1C1C1E; line-height: 1.4; list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 16px;">
+              {faq.question}
+              <span style="font-family: Georgia, serif; font-size: 20px; color: #C4933F; flex-shrink: 0;">+</span>
+            </summary>
+            <div style="padding-bottom: 24px;">
+              <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.75; color: #444444; margin: 0;">{faq.answer}</p>
+            </div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Good to Know -->
+  <section class="section-pad" style="padding-top: 0;">
+    <div class="section-inner" style="max-width: 720px;">
+      <div style="border-left: 3px solid #3D5A3E; background-color: rgba(61, 90, 62, 0.04); padding: 24px 28px;">
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; font-weight: 700; color: #3D5A3E; margin: 0 0 8px 0; text-transform: uppercase; letter-spacing: 0.05em;">Good to know</p>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.7; color: #444444; margin: 0 0 12px 0;">
+          The Golden Triangle sits at the intersection of the Cheshire Plain and the western edge of the Peak District. Within 15 minutes of any of the three towns, you reach open moorland, reservoir walks, and the Bollin Valley trail network. Alderley Edge (the escarpment, not the village) is a National Trust site with Bronze Age mining tunnels and panoramic views across the plain to Manchester and beyond.
+        </p>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.7; color: #444444; margin: 0;">
+          Wilmslow has a monthly artisan market, independent restaurants (Cibo, The Grove, Suburban Green), and The Carrs Park along the River Bollin. Alderley Edge centres on London Road dining - Victors, The Alderley Bar and Grill - and local legends of wizards tied to the sandstone caves. Prestbury, a Conservation Area settlement recorded in the 1086 Domesday Book, offers the River Bollin walking trails and the quietest residential setting of the three.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Related Spokes -->
+  <section class="section-pad" style="border-top: 1px solid #E5E0D8;">
+    <div class="section-inner">
+      <span class="section-label">Related guides</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 28px 0;">Related Golden Triangle guides</h2>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px;">
+        {relatedSpokes.map((spoke) => (
+          <a href={spoke.href} class="pillar-card" style="text-decoration: none; display: block;">
+            <span style="font-family: Inter, Arial, sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #3D5A3E; margin-bottom: 10px; display: block;">{spoke.tag}</span>
+            <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; font-weight: 600; color: #1C1C1E; margin: 0; line-height: 1.4;">{spoke.label}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
 </BaseLayout>
