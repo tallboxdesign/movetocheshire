@@ -10,6 +10,8 @@ interface Props {
   ogTitle?: string;
   ogDescription?: string;
   ogImage?: string;
+  publishDate?: string;
+  updatedDate?: string;
 }
 
 const {
@@ -19,11 +21,21 @@ const {
   ogTitle,
   ogDescription,
   ogImage,
+  publishDate,
+  updatedDate,
 } = Astro.props;
 
 const canonicalUrl = canonical || Astro.url.href;
 const resolvedOgTitle = ogTitle || title;
 const resolvedOgDescription = ogDescription || description;
+
+function formatDate(iso: string): string {
+  return new Date(iso).toLocaleDateString('en-GB', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  });
+}
 ---
 
 <!doctype html>
@@ -44,12 +56,33 @@ const resolvedOgDescription = ogDescription || description;
     <meta name="twitter:card" content={ogImage ? "summary_large_image" : "summary"} />
     <meta name="twitter:title" content={resolvedOgTitle} />
     <meta name="twitter:description" content={resolvedOgDescription} />
+    {publishDate && <meta property="article:published_time" content={publishDate} />}
+    {updatedDate && <meta property="article:modified_time" content={updatedDate} />}
     <slot name="head" />
   </head>
   <body>
     <div class="min-h-screen" style="background-color: #F9F7F4;">
       <Navigation client:load />
       <main>
+        {(publishDate || updatedDate) && (
+          <div class="byline-bar" aria-label="Article metadata">
+            <div class="byline-inner">
+              <span class="byline-author">
+                By <a href="/about" class="byline-link">movetocheshire.uk</a>
+              </span>
+              {publishDate && (
+                <span class="byline-date">
+                  Published <time datetime={publishDate}>{formatDate(publishDate)}</time>
+                </span>
+              )}
+              {updatedDate && updatedDate !== publishDate && (
+                <span class="byline-date">
+                  Updated <time datetime={updatedDate}>{formatDate(updatedDate)}</time>
+                </span>
+              )}
+            </div>
+          </div>
+        )}
         <slot />
       </main>
       <Footer />
@@ -57,3 +90,51 @@ const resolvedOgDescription = ogDescription || description;
     <script src="../scripts/webmcp.ts"></script>
   </body>
 </html>
+
+<style>
+  .byline-bar {
+    background-color: #F9F7F4;
+    border-bottom: 1px solid #E5E0D8;
+    padding: 0.5rem 1.5rem;
+  }
+
+  .byline-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: center;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.8125rem;
+    color: #7A7060;
+  }
+
+  .byline-author {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .byline-link {
+    color: #5C4E3A;
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .byline-link:hover {
+    text-decoration: underline;
+  }
+
+  .byline-date {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .byline-date::before {
+    content: '·';
+    margin-right: 0.5rem;
+    color: #B8AFA0;
+  }
+</style>

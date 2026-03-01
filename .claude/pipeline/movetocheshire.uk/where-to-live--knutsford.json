@@ -2,8 +2,8 @@
   "contentType": "guide",
   "mapPosition": "quality-node",
   "steps": {
-    "heading-alignment": { "status": "pending" },
-    "semantic-density": { "status": "pending" },
+    "heading-alignment": { "status": "completed", "score": 82 },
+    "semantic-density": { "status": "completed", "score": 85 },
     "passage-fixer": { "status": "pending" },
     "seo-page": { "status": "pending" },
     "seo-content": { "status": "pending" },

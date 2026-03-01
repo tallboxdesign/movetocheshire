@@ -2,12 +2,13 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
 const faqs = [
-  { question: 'Is Knutsford a good place to live?', answer: 'Yes. Knutsford (WA16) combines a heritage market town centre with a crime rate 43% below the national average at 47.2 per 1,000 population (SCOS, 2025). Tatton Park borders the town, Barclays employs 7,600 at Radbroke Hall, and Manchester Piccadilly is 40 minutes by train. The trade-off is price - the average property costs £606,876 (Rightmove, 2025).' },
+  { question: 'Is Knutsford a good place to live?', answer: 'Yes. Knutsford (WA16) combines a heritage market town centre with a crime rate 43% below the national average at 47.2 per 1,000 population (SCOS, 2025). Tatton Park borders the town, Barclays employs 7,600 at Radbroke Hall, and Manchester Piccadilly is 40 minutes by train. Knutsford featured in the Sunday Times Best Places to Live in 2024 and 2025. The trade-off is price - the average property costs £606,876 (Rightmove, 2025).' },
   { question: 'What is the average house price in Knutsford?', answer: 'The average house price in Knutsford is £606,876 (Rightmove, 12 months to 2026). Detached properties average £946,156, semi-detached £474,995, terraced £426,250, and flats £206,000 (Land Registry, 2025). Detached homes account for 52% of all sales in WA16.' },
   { question: 'How long is the commute from Knutsford to Manchester?', answer: 'Northern Trains runs approximately 19 services daily from Knutsford station to Manchester Piccadilly, averaging 40 minutes. The first departure is around 06:06 and the last around 23:20. By car, Manchester city centre is 17 miles via the A537 or M6 J19, taking 30-40 minutes depending on traffic.' },
   { question: 'Is Knutsford expensive?', answer: 'Yes. At £606,876 average, Knutsford is the second most expensive Golden Triangle town after Alderley Edge (£666,489). However, flats from £206,000 and terraced homes from £426,250 offer entry points below the detached average of £946,156. WA16 8 (Ollerton direction) is the most affordable postcode sector at £4,210/sqm.' },
   { question: 'What is the brine subsidence risk in Knutsford?', answer: 'Knutsford sits within the Cheshire Brine Compensation District, one of seven statutory Consultation Areas created by historical salt extraction. The Cheshire Brine Subsidence Compensation Board (CBSCB) must be consulted for new building work. Strengthened foundations - raft or jack point designs - are typically recommended. Buyers should commission a salt search as part of conveyancing (Cheshire Brine Subsidence Compensation Board).' },
   { question: 'How does Knutsford compare to Wilmslow?', answer: 'Knutsford averages £606,876 vs Wilmslow at £586,475, but Knutsford has a stronger heritage character - the Cranford connection, Royal May Day festival, and Tatton Park on its doorstep. Wilmslow has the faster Manchester commute (17 minutes vs 40 minutes) and a larger retail offer. Knutsford suits buyers who prioritise character and green space; Wilmslow suits those who need rapid city access.' },
+  { question: 'Is Knutsford a good place to retire?', answer: 'Yes. Knutsford suits retirees who value a walkable town centre, heritage character, and proximity to green space. King Street provides independent shops, restaurants, and a Curzon cinema within walking distance. Tatton Park borders the town for daily walks. Nether Knutsford and the town centre offer period cottages and apartments from £350,000-£500,000 without the maintenance demands of larger Bexton or Toft detached homes. The 47.2 per 1,000 crime rate (SCOS, 2025) is 43% below the national average. Manchester Airport sits 11 miles south for travel.' },
 ];
 
 const neighbourhoods = [
@@ -37,8 +38,15 @@ const placeSchema = {
   '@context': 'https://schema.org',
   '@type': 'City',
   name: 'Knutsford',
+  url: 'https://movetocheshire.uk/where-to-live/knutsford',
   description: 'Historic market town in northeast Cheshire (WA16 postcode), average house prices £606,876, 40-minute train to Manchester Piccadilly, part of the Golden Triangle, home to Tatton Park.',
   postalCode: 'WA16',
+  population: 13259,
+  image: 'https://movetocheshire.uk/images/where-to-live/knutsford-overview.webp',
+  sameAs: [
+    'https://en.wikipedia.org/wiki/Knutsford',
+    'https://www.wikidata.org/wiki/Q217267',
+  ],
   geo: { '@type': 'GeoCoordinates', latitude: 53.3027, longitude: -2.3726 },
   containedInPlace: { '@type': 'AdministrativeArea', name: 'Cheshire East' },
 };
@@ -68,9 +76,11 @@ const breadcrumbSchema = {
 ---
 
 <BaseLayout
-  title="Living in Knutsford | Buyer's Area Guide | movetocheshire.uk"
-  description="Knutsford (WA16) area guide for buyers - house prices from £206k to £946k, 40-minute Manchester commute, Tatton Park, Cranford heritage, six neighbourhoods, and brine subsidence guidance for Cheshire's most characterful Golden Triangle town."
+  title="Where to Live in Knutsford | Area Guide | movetocheshire.uk"
+  description="Knutsford (WA16) area guide - house prices £206k to £946k, 40-min Manchester commute, Tatton Park on the doorstep, six neighbourhoods reviewed and brine subsidence explained."
   ogImage="/images/where-to-live/knutsford-overview.webp"
+  publishDate="2026-02-01"
+  updatedDate="2026-03-01"
 >
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify(placeSchema)} />
@@ -90,7 +100,7 @@ const breadcrumbSchema = {
       </nav>
       <span style="display: inline-block; font-family: Inter, Arial, sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #3D5A3E; background-color: rgba(61, 90, 62, 0.08); padding: 4px 10px; margin-bottom: 16px;">Golden Triangle heritage town</span>
       <h1 style="font-family: Georgia, serif; font-size: clamp(28px, 5vw, 44px); font-weight: 700; color: #1C1C1E; line-height: 1.15; margin: 0 0 20px 0;">Where to live in Knutsford?</h1>
-      <p style="font-family: Inter, Arial, sans-serif; font-size: 17px; line-height: 1.75; color: #444444; margin: 0 0 32px 0;">Knutsford (WA16) averages £606,876 across all property types (Rightmove, 12 months to 2026). The town sits within the Cheshire Golden Triangle in Cheshire East, bordering Tatton Park's 1,000-acre estate. Manchester Piccadilly is 40 minutes by Northern Trains from Knutsford station. Cheshire Constabulary records 47.2 crimes per 1,000 residents - 43% below the national average of 83.5 (SCOS, 2025). This guide covers six neighbourhoods, property prices by type, schools, commute options, brine subsidence considerations, and what daily life costs in Cheshire's Cranford town.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 17px; line-height: 1.75; color: #444444; margin: 0 0 32px 0;">Knutsford's six neighbourhoods range from premium Bexton (£900,000+ detached) and rural Toft (£800,000+) to affordable town centre apartments from £206,000 - all within the WA16 postcode. The town averages £606,876 across all property types (Rightmove, 12 months to 2026), sits within the Cheshire Golden Triangle in Cheshire East, and borders Tatton Park's 1,000-acre estate. Manchester Piccadilly is 40 minutes by Northern Trains. Cheshire Constabulary records 47.2 crimes per 1,000 residents - 43% below the national average (SCOS, 2025). Knutsford featured in the Sunday Times Best Places to Live guide in both 2024 and 2025.</p>
 
       <figure style="margin: 0 auto 28px auto; max-width: 720px;">
         <img
@@ -106,11 +116,11 @@ const breadcrumbSchema = {
       <!-- Stat tiles -->
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin-top: 8px;">
         {[
-          { value: 'WA16', label: 'Postcode' },
-          { value: '£606,876', label: 'Average house price' },
-          { value: '40 min', label: 'Train to Manchester' },
-          { value: '47.2', label: 'Crimes per 1,000' },
-          { value: '13,259', label: 'Population (2021)' },
+          { value: 'WA16', label: 'Knutsford postcode' },
+          { value: '£606,876', label: 'Knutsford avg. price' },
+          { value: '40 min', label: 'Knutsford to Manchester' },
+          { value: '47.2', label: 'Knutsford crime rate' },
+          { value: '13,259', label: 'Knutsford population' },
         ].map((stat) => (
           <div style="background: #FFFFFF; border: 1px solid #E5E0D8; padding: 16px; text-align: center;">
             <p style="font-family: Georgia, serif; font-size: 22px; font-weight: 700; color: #1C1C1E; margin: 0;">{stat.value}</p>
@@ -124,10 +134,10 @@ const breadcrumbSchema = {
   <!-- TLDR -->
   <section style="padding: clamp(32px, 5vw, 56px) 24px;">
     <div style="max-width: 800px; margin: 0 auto;">
-      <span style="display: inline-block; font-family: Inter, Arial, sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #C4933F; margin-bottom: 12px;">The short answer</span>
+      <span style="display: inline-block; font-family: Inter, Arial, sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #C4933F; margin-bottom: 12px;">Knutsford vs Golden Triangle</span>
       <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 16px 0;">What makes Knutsford different from other Golden Triangle towns?</h2>
-      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">Knutsford is the Golden Triangle's heritage town. Elizabeth Gaskell based her 1851 novel Cranford on its streets, and much of the architecture she described still stands. Tatton Park - a 1,000-acre National Trust estate drawing 500,000+ visitors annually - borders the town directly. The Royal May Day festival has run continuously since 1864, making Knutsford one of England's oldest continuously celebrated May Day traditions.</p>
-      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0;">Knutsford's property market averages £606,876 (Rightmove, 2026), positioning it between Alderley Edge (£666,489) and Wilmslow (£586,475). The town trades Wilmslow's 17-minute commute for a 40-minute Northern Trains journey - but gains Tatton Park, a compact heritage centre along King Street and Princess Street, and Barclays' 7,600-employee Radbroke Hall campus on its southern edge. Buyers choosing Knutsford over Wilmslow prioritise character, green space, and a slower pace over rapid Manchester access.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">Knutsford is the Golden Triangle's heritage town. Elizabeth Gaskell based her 1851 novel Cranford on its streets, and much of the architecture she described still stands. Tatton Park - a 1,000-acre National Trust estate drawing 500,000+ visitors annually - borders the town directly. The Royal May Day festival has run continuously since 1864, 162 years of unbroken annual celebration.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0;">Knutsford sits between Alderley Edge (£666,489) and Wilmslow (£586,475) in the Golden Triangle price hierarchy. The town trades Wilmslow's 17-minute commute for a 40-minute Northern Trains journey - but gains Tatton Park, a compact heritage centre along King Street and Princess Street, and Barclays' 7,600-employee Radbroke Hall campus on its southern edge. Buyers choosing Knutsford over Wilmslow accept 23 additional minutes on the train to gain Tatton Park on the doorstep, a pedestrianised heritage high street on King Street, and a town population of 13,259 - roughly half Wilmslow's.</p>
     </div>
   </section>
 
@@ -136,7 +146,7 @@ const breadcrumbSchema = {
     <div style="max-width: 800px; margin: 0 auto;">
       <span style="display: inline-block; font-family: Inter, Arial, sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #3D5A3E; margin-bottom: 12px;">Knutsford WA16 property market</span>
       <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 12px 0;">How much do houses cost in Knutsford?</h2>
-      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 24px 0;">Knutsford's WA16 postcode district covers the town and surrounding villages including Toft, Bexton, and Ollerton. Detached homes account for 52% of all sales and average £946,156. Semi-detached homes average £474,995 (+21.8% year-on-year), terraced homes £426,250 (+16.8%), and flats £206,000 (Land Registry, 2025).</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 24px 0;">Knutsford averages £606,876 across all property types (Rightmove, 12 months to 2026). The WA16 postcode district covers the town and surrounding villages including Toft, Bexton, and Ollerton. Detached homes account for 52% of all sales and average £946,156. Semi-detached homes average £474,995 (+21.8% year-on-year), terraced homes £426,250 (+16.8%), and flats £206,000 (Land Registry, 2025).</p>
 
       <!-- Price table -->
       <div style="overflow-x: auto; margin-bottom: 24px;">
@@ -176,12 +186,12 @@ const breadcrumbSchema = {
     <div style="max-width: 800px; margin: 0 auto;">
       <span style="display: inline-block; font-family: Inter, Arial, sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #3D5A3E; margin-bottom: 12px;">Knutsford residential areas</span>
       <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 12px 0;">Which Knutsford neighbourhoods suit different budgets?</h2>
-      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 28px 0;">Knutsford historically comprised five townships - Nether Knutsford, Over Knutsford, Bexton, Ollerton, and Toft. The modern town divides into six residential areas ranging from £350,000 in the town centre to £900,000+ in Bexton.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 28px 0;">Knutsford's six residential areas divide by character as much as price. Town centre buyers walk to the station and King Street within ten minutes. Cross Town and St John's Wood buyers access Good-rated state primaries within a short drive. Bexton and Toft buyers choose Knutsford for large plots, rural outlook, and direct M6 J19 access - accepting the 40-minute train in exchange for the setting. Nether Knutsford retains the Victorian terrace character of the original township south of the town centre.</p>
 
       <figure style="margin: 0 auto 28px auto; max-width: 720px;">
         <img
           src="/images/where-to-live/knutsford-neighbourhoods.webp"
-          alt="Knutsford WA16 neighbourhood price comparison showing six residential areas from Bexton at £900k to Town Centre at £220k"
+          alt="Knutsford WA16 neighbourhood price comparison showing six residential areas from Bexton at £900,000 plus to Town Centre at £350,000"
           width="720"
           height="480"
           loading="lazy"
@@ -205,15 +215,16 @@ const breadcrumbSchema = {
           </div>
         ))}
       </div>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 28px 0 0 0;">The choice of neighbourhood determines how residents reach Manchester - town centre buyers walk to Knutsford station, while Bexton and Toft residents drive to M6 J19 in under five minutes.</p>
 
       <h3 style="font-family: Georgia, serif; font-size: 20px; font-weight: 700; color: #1C1C1E; margin: 32px 0 12px 0;">What defines Bexton as Knutsford's premium neighbourhood?</h3>
-      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">Bexton sits south of Knutsford town centre along Bexton Lane and Bexton Road, bordering agricultural land and Tatton Park. Properties are predominantly large detached homes on generous plots, many with over half an acre of garden. Egerton Primary School - rated Good by Ofsted (Jan 2023) - sits within this neighbourhood, creating a school catchment premium. WA16 9 (which covers Bexton) commands £4,730 per square metre, the highest rate in the WA16 district (Housemetric, 2025).</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">Bexton commands £4,730 per square metre - the highest rate in the WA16 district - because large detached homes on generous plots, many exceeding half an acre, border Tatton Park and agricultural land south of Knutsford town centre (Housemetric, 2025). Egerton Primary School - rated Good by Ofsted (Jan 2023) - sits within this neighbourhood, creating a school catchment premium that reinforces Bexton's position at the top of Knutsford's price hierarchy.</p>
 
       <h3 style="font-family: Georgia, serif; font-size: 20px; font-weight: 700; color: #1C1C1E; margin: 32px 0 12px 0;">What makes Toft village a separate market from Knutsford town?</h3>
-      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">Toft is a separate village immediately south of Knutsford, connected by Toft Road. Properties here are detached on large plots with a distinctly rural character despite being minutes from Knutsford centre. Toft Cricket Club provides a social anchor, and Booths Park business campus (managed by Bruntwood) sits at the village boundary. Barclays' Radbroke Hall campus (7,600 employees) is technically in Toft parish, making the village a short walk or cycle from one of the North West's largest single-employer sites.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">Toft operates as a distinct property market: Barclays' Radbroke Hall campus sits within the parish, and Booths Park business campus (managed by Bruntwood) adjoins the village boundary - both drawing buyers who work locally and prioritise plot size over commute convenience. Toft Cricket Club provides the primary social anchor. Properties on Toft Road carry a rural character - generous gardens, open views, and paddock plots - that distinguishes them from Knutsford town centre streets despite the two areas being connected by a five-minute drive.</p>
 
       <h3 style="font-family: Georgia, serif; font-size: 20px; font-weight: 700; color: #1C1C1E; margin: 32px 0 12px 0;">Where do first-time buyers enter the Knutsford market?</h3>
-      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">Knutsford town centre and St John's Wood offer the lowest entry points in WA16. Town centre flats and period conversions start from approximately £206,000, and terraced cottages on Princess Street and surrounding roads average £350,000-£425,000. The Longridge estate and newer Parkgate Lane development in St John's Wood provide modern family homes from £450,000 - still premium by national standards but £500,000 below the Bexton detached average.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">Knutsford town centre and St John's Wood offer the lowest entry points in WA16. Town centre flats and period conversions start from approximately £206,000, and terraced cottages on Princess Street and surrounding roads average £350,000-£425,000 (Land Registry, 2025). The Longridge estate and newer Parkgate Lane development in St John's Wood provide modern family homes from £450,000 - still premium by national standards but £500,000 below the Bexton detached average.</p>
     </div>
   </section>
 
@@ -222,7 +233,7 @@ const breadcrumbSchema = {
     <div style="max-width: 800px; margin: 0 auto;">
       <span style="display: inline-block; font-family: Inter, Arial, sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #3D5A3E; margin-bottom: 12px;">Knutsford transport links</span>
       <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 12px 0;">How do Knutsford residents commute to Manchester?</h2>
-      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 20px 0;">Knutsford station sits on the Mid-Cheshire Line operated by Northern Trains. Services to Manchester Piccadilly run approximately every 30 minutes, averaging 40 minutes per journey. Approximately 19 trains run daily between 06:06 and 23:20 (National Rail, 2025).</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 20px 0;">Knutsford residents reach Manchester Piccadilly in 40 minutes by Northern Trains, with approximately 19 services daily from 06:06 to 23:20 on the Mid-Cheshire Line (National Rail, 2025).</p>
       <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 20px 0;">By road, Knutsford has direct M6 access at Junction 19 - the junction that gives the town its motorway visibility. The A556 connects westward to the M56/M6 interchange at Mere. Manchester city centre is 17 miles by road, typically 30-40 minutes outside peak hours. Manchester Airport sits 11 miles south, reachable in 18-20 minutes via A537 or M56 J6.</p>
 
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-top: 16px;">
@@ -239,6 +250,7 @@ const breadcrumbSchema = {
           </div>
         ))}
       </div>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 16px 0 0 0;">Families evaluating WA16 neighbourhoods should note that Cheshire East sets primary school catchment boundaries annually - verifying a specific address falls within the intended catchment is a required step before exchanging contracts.</p>
     </div>
   </section>
 
@@ -247,7 +259,8 @@ const breadcrumbSchema = {
     <div style="max-width: 800px; margin: 0 auto;">
       <span style="display: inline-block; font-family: Inter, Arial, sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #3D5A3E; margin-bottom: 12px;">Knutsford schools</span>
       <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 12px 0;">What schools serve the Knutsford area?</h2>
-      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 24px 0;">Knutsford Academy is the town's main secondary school, rated Good by Ofsted (November 2021). Three state primary schools serve different catchments across the town. The Ryleys School in nearby Alderley Edge (4 miles) provides independent prep education for ages 1-11, feeding pupils to grammar schools including Altrincham Grammar and The King's School Macclesfield.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">Knutsford Academy is the town's main state secondary, rated Good by Ofsted (November 2021). The academy serves WA16 as its primary catchment - the town has no in-district grammar equivalent, though Altrincham Grammar and The King's School Macclesfield are accessible for independent prep pupils.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 24px 0;">At primary level, Egerton Primary School (Bexton Road) covers the Bexton neighbourhood and the south of town. Buyers in WA16 9 should verify their address falls within this catchment, as Cheshire East Council sets boundaries annually. Manor Park School & Nursery serves the northern side including the Longridge estate. The Ryleys School in Alderley Edge (4 miles) provides independent prep for ages 1-11, preparing pupils for grammar school entrance exams.</p>
 
       <div style="overflow-x: auto;">
         <table style="width: 100%; border-collapse: collapse; font-family: Inter, Arial, sans-serif; font-size: 14px;">
@@ -271,6 +284,7 @@ const breadcrumbSchema = {
           </tbody>
         </table>
       </div>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 24px 0 0 0;">All five schools operate within the same WA16 district where Knutsford records the second-lowest crime rate in Cheshire East - a combination the Sunday Times cited when naming Knutsford among its Best Places to Live in both 2024 and 2025.</p>
     </div>
   </section>
 
@@ -279,8 +293,8 @@ const breadcrumbSchema = {
     <div style="max-width: 800px; margin: 0 auto;">
       <span style="display: inline-block; font-family: Inter, Arial, sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #3D5A3E; margin-bottom: 12px;">Knutsford crime and safety</span>
       <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 12px 0;">Is Knutsford safe?</h2>
-      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">Knutsford records 47.2 crimes per 1,000 residents, 43% below the national average of 83.5 per 1,000 (SCOS, 2025). Crime has fallen 7.1% year-on-year. Knutsford ranks as the second safest area in the Cheshire East borough, behind only the rural wards south of the M56.</p>
-      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0;">Cheshire East as a whole records 62.3 crimes per 1,000 residents - lower than most English local authorities. Knutsford's rate of 47.2 sits significantly below both the borough average and the Golden Triangle neighbour Wilmslow (51.4 per 1,000). Cheshire Constabulary operates a Knutsford local policing unit covering the town and surrounding villages (police.uk, Cheshire Constabulary, 2025).</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">Knutsford's crime rate fell 7.1% year-on-year to 47.2 per 1,000 residents, ranking second lowest in the Cheshire East borough behind rural wards south of the M56 (SCOS, 2025).</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">Cheshire East as a whole records 62.3 crimes per 1,000 residents - lower than most English local authorities. Knutsford's rate of 47.2 sits below both the borough average and the Golden Triangle neighbour Wilmslow (51.4 per 1,000). Cheshire Constabulary operates a Knutsford local policing unit covering the town and surrounding villages (police.uk, Cheshire Constabulary, 2025).</p>
     </div>
   </section>
 
@@ -289,9 +303,11 @@ const breadcrumbSchema = {
     <div style="max-width: 800px; margin: 0 auto;">
       <span style="display: inline-block; font-family: Inter, Arial, sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #C4933F; margin-bottom: 12px;">Knutsford buyer alert</span>
       <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 12px 0;">What is brine subsidence risk in Knutsford?</h2>
-      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">Knutsford sits within the Cheshire Brine Compensation District, one of seven statutory Consultation Areas created by centuries of salt extraction beneath the Cheshire Plain. Historical brine pumping left underground voids that can cause ground movement. The Cheshire Brine Subsidence Compensation Board (CBSCB) must be consulted for any new building work in these areas.</p>
-      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">Buyers purchasing in WA16 should commission a salt search as part of their conveyancing process. This search, costing approximately £30-50, reveals whether the property sits within a known subsidence area. The CBSCB typically recommends strengthened foundation designs - raft or jack point foundations - for new builds and extensions. Existing properties with standard foundations are not automatically at risk, but the search provides essential due diligence.</p>
-      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0;">This is not unique to Knutsford. Northwich, Middlewich, and Winsford share the same brine extraction history. Knutsford's property market has absorbed this risk for decades - it does not suppress values, as the £606,876 average demonstrates. A Level 3 RICS Building Survey (rather than the standard Level 2 HomeBuyer Report) is recommended for older Knutsford properties to assess structural integrity. See our <a href="/buying-guide/survey-types-cheshire" style="color: #3D5A3E; text-decoration: underline;">Cheshire survey types guide</a> for details.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">Knutsford sits within the Cheshire Brine Compensation District, one of seven statutory Consultation Areas created by centuries of salt extraction beneath the Cheshire Plain. Historical brine pumping left underground voids that can cause ground movement. Under the Cheshire Brine Subsidence Compensation Acts (1952 and 1964), the Cheshire Brine Subsidence Compensation Board (CBSCB) must be consulted for any new building work in these areas (CBSCB).</p>
+      <h3 style="font-family: Georgia, serif; font-size: 20px; font-weight: 700; color: #1C1C1E; margin: 32px 0 12px 0;">What should Knutsford buyers do about brine subsidence during conveyancing?</h3>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">Knutsford buyers purchasing in WA16 should commission a salt search as part of their conveyancing process. This search, costing approximately £30-50, reveals whether the property sits within a known subsidence area. The CBSCB typically recommends strengthened foundation designs - raft or jack point foundations - for new builds and extensions. Existing properties with standard foundations are not automatically at risk, but the search provides essential due diligence.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">Brine subsidence is not unique to Knutsford - Northwich, Middlewich, and Winsford share the same extraction history across the Cheshire Plain. Knutsford's property market has absorbed this geological reality for decades and values are not suppressed by it, as the £606,876 average demonstrates.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">A Level 3 RICS Building Survey is the appropriate choice for pre-1960 Knutsford properties, assessing structural integrity relative to ground conditions. A Level 2 HomeBuyer Report does not carry the same investigative depth. See our <a href="/buying-guide/survey-types-cheshire" style="color: #3D5A3E; text-decoration: underline;">Knutsford and Cheshire survey types guide</a> for survey costs and methodology. The salt search and appropriate survey together form the complete due diligence picture for WA16 buyers - the steps that address the town's only material conveyancing risk.</p>
     </div>
   </section>
 
@@ -300,10 +316,15 @@ const breadcrumbSchema = {
     <div style="max-width: 800px; margin: 0 auto;">
       <span style="display: inline-block; font-family: Inter, Arial, sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #3D5A3E; margin-bottom: 12px;">Knutsford heritage and lifestyle</span>
       <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 12px 0;">What defines daily life in Knutsford?</h2>
-      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">Knutsford centres on King Street - a tree-lined high street with independent restaurants, boutiques, and cafes in Georgian and Victorian buildings. Princess Street runs parallel, adding pubs, a farmers' market, and the heritage Courthouse. The town retains a compact, walkable core that most Golden Triangle towns lack.</p>
-      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">Tatton Park's 1,000-acre estate borders Knutsford directly, with the main entrance off the town. The park draws 500,000+ visitors annually for its Regency mansion, Japanese garden, deer park, farm, and 100+ annual events including RHS Flower Show Tatton Park (National Trust, 2025). Knutsford residents treat Tatton Park as an extension of their garden - dog walking, running, and cycling routes start from the town centre gate.</p>
-      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">Knutsford Heath covers 36 acres of ancient common land with broadleaved woodland, scrub, and heathland habitats (Cheshire Wildlife Trust). The Moor - 5.5 acres within a conservation area, opened 1907 - provides green space within 15 minutes' walk of over 5,500 households (Cheshire East Council).</p>
-      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0;">Elizabeth Gaskell was raised in Knutsford from the age of 13 months and based her 1851 novel Cranford on the town's social customs and buildings. A Cranford Trail walking route follows her connection. The Royal May Day festival - running continuously since 1864 - features a procession of approximately 600 children, crowning of a May Queen, and the unique local tradition of "sanding" the streets with coloured sand patterns.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">Knutsford centres on King Street - a tree-lined high street where Belle Epoque, The Courthouse restaurant, and King Street Townhouse occupy Georgian and Victorian buildings alongside independent boutiques and wine merchants. Princess Street runs parallel, hosting the monthly Makers Market and pubs including The Lord Eldon and The Freemasons Arms. Curzon Knutsford provides a two-screen independent cinema within the town centre.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">Waitrose and Booths anchor the weekly shop - Booths being a premium Northern grocer with no equivalent south of Lancaster (distinct from Booths Park, the business campus on Toft Road). The compact, walkable core distinguishes Knutsford from other Golden Triangle towns where the retail and dining offer is less concentrated in a single pedestrian street.</p>
+
+      <h3 style="font-family: Georgia, serif; font-size: 20px; font-weight: 700; color: #1C1C1E; margin: 32px 0 12px 0;">How close is Tatton Park to Knutsford town centre?</h3>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">Knutsford borders Tatton Park's 1,000-acre estate directly, with the main entrance accessible from the town centre. The park draws 500,000+ visitors annually for its Regency mansion, Japanese garden, deer park, farm, and 100+ annual events including RHS Flower Show Tatton Park (National Trust, 2025). Knutsford residents treat Tatton Park as an extension of their garden - dog walking, running, and cycling routes start from the town centre gate.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">Beyond Tatton Park, Knutsford connects to several natural areas within a short distance. Knutsford Heath covers 36 acres of ancient common land with broadleaved woodland, scrub, and heathland habitats (Cheshire Wildlife Trust). The Moor - 5.5 acres within a conservation area, opened 1907 - provides green space within 15 minutes' walk of over 5,500 households (Cheshire East Council). Pickmere Lake sits 4 miles north for quieter walking and fishing. The Peak District National Park boundary lies 30 minutes east via the A537 Macclesfield road.</p>
+
+      <h3 style="font-family: Georgia, serif; font-size: 20px; font-weight: 700; color: #1C1C1E; margin: 32px 0 12px 0;">What is the Cranford connection to Knutsford?</h3>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0;">Knutsford inspired Elizabeth Gaskell's 1851 novel Cranford - she was raised in the town from the age of 13 months and based the story on its social customs and buildings. A Cranford Trail walking route follows her connection. The Royal May Day festival - running continuously since 1864 - features a procession of approximately 600 children, crowning of a May Queen, and the unique local tradition of "sanding" the streets with coloured sand patterns.</p>
     </div>
   </section>
 
@@ -312,18 +333,19 @@ const breadcrumbSchema = {
     <div style="max-width: 800px; margin: 0 auto;">
       <span style="display: inline-block; font-family: Inter, Arial, sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #3D5A3E; margin-bottom: 12px;">Knutsford employment</span>
       <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 12px 0;">Where do Knutsford residents work?</h2>
-      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">Barclays' Radbroke Hall campus in Toft is Knutsford's dominant employer. The 64-acre site houses approximately 7,600 employees in technology, data, and banking operations - making it Barclays' largest technology centre in the UK. Barclays announced a major campus redevelopment in 2024 (Barclays, 2024).</p>
-      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">Booths Park, managed by Bruntwood, provides 220 acres of landscaped office campus attracting professional services, financial, and technology tenants. Manchester Airport (11 miles, 25,000+ employees across all operators) and Manchester city centre (17 miles) are the other primary employment destinations.</p>
-      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0;">Knutsford's unemployment rate sits at approximately 1.7%, below the Cheshire average of 2.5% (ILiveHere/NOMIS). The combination of Radbroke Hall, Booths Park, and M6 J19 motorway access means Knutsford functions as both a residential and employment centre - not purely a dormitory town.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">Knutsford's dominant employer is Barclays' Radbroke Hall campus in Toft. The 64-acre site houses approximately 7,600 employees in technology, data, and banking operations - making it Barclays' largest technology centre in the UK. Barclays announced a major campus redevelopment in 2024 (Barclays, 2024).</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">Knutsford's second major employment campus is Booths Park, managed by Bruntwood, a 220-acre landscaped business park attracting professional services, financial, and technology tenants (Bruntwood). Manchester Airport (11 miles, 25,000+ employees across all operators) and Manchester city centre (17 miles) are the other primary employment destinations for Knutsford commuters.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0;">Knutsford's unemployment rate is 1.7%, against a Cheshire East average of 2.5% (NOMIS, 2025). The two major campuses - Radbroke Hall and Booths Park - employ several thousand workers within WA16, providing local employment alongside the Manchester and Manchester Airport commuter corridors.</p>
     </div>
   </section>
 
   <!-- FAQ -->
+
   <section style="background-color: #FFFFFF; border-top: 1px solid #E5E0D8; border-bottom: 1px solid #E5E0D8; padding: clamp(32px, 5vw, 56px) 24px;">
     <div style="max-width: 800px; margin: 0 auto;">
       <span style="display: inline-block; font-family: Inter, Arial, sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #3D5A3E; margin-bottom: 12px;">Knutsford buyer FAQ</span>
       <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 12px 0;">What do buyers ask about living in Knutsford?</h2>
-      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 28px 0;">Knutsford property ranges from £206,000 for a flat to £946,156 average for a detached home (Land Registry, 2025). Six questions cover the most common comparisons, budgets, and lifestyle considerations.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 24px 0;">Knutsford buyers most frequently ask about house prices, commute times, school options, and brine subsidence risk. The seven questions below cover the due diligence points that consistently arise during WA16 property searches.</p>
       <div style="display: flex; flex-direction: column; gap: 0;">
         {faqs.map((faq) => (
           <details style="border-bottom: 1px solid #E5E0D8; padding: 20px 0;">
@@ -341,8 +363,9 @@ const breadcrumbSchema = {
   <!-- Related Pages -->
   <section style="padding: clamp(32px, 5vw, 56px) 24px;">
     <div style="max-width: 800px; margin: 0 auto;">
-      <span style="display: inline-block; font-family: Inter, Arial, sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #3D5A3E; margin-bottom: 12px;">Explore more Cheshire areas</span>
-      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 20px 0;">Where else in Cheshire should buyers consider?</h2>
+      <span style="display: inline-block; font-family: Inter, Arial, sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #3D5A3E; margin-bottom: 12px;">Knutsford's Golden Triangle neighbours</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 12px 0;">Where else should Knutsford buyers consider in Cheshire?</h2>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 20px 0;">Knutsford sits within the Golden Triangle alongside Wilmslow and Alderley Edge. Buyers comparing these three towns - or exploring Cheshire's wider property market - can use these guides.</p>
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px;">
         {relatedSpokes.map((spoke) => (
           <a href={spoke.href} style="display: block; background-color: #F9F7F4; border: 1px solid #E5E0D8; padding: 20px; text-decoration: none; transition: border-color 0.2s;">

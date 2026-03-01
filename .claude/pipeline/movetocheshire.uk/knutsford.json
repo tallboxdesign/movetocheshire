@@ -1,0 +1,42 @@
+{
+  "contentType": "guide",
+  "mapPosition": "core-node",
+  "steps": {
+    "heading-alignment": {
+      "status": "done",
+      "score": 78,
+      "issues": 8,
+      "lastRun": "2026-02-28T20:10:00Z"
+    },
+    "semantic-density": {
+      "status": "done",
+      "score": 87,
+      "issues": 9,
+      "lastRun": "2026-02-28T21:45:00Z"
+    },
+    "passage-fixer": {
+      "status": "done",
+      "score": 85,
+      "issues": 8,
+      "lastRun": "2026-02-28T22:40:00Z"
+    },
+    "seo-page": {
+      "status": "done",
+      "score": 85,
+      "issues": 6,
+      "lastRun": "2026-03-01T08:00:00Z"
+    },
+    "seo-content": {
+      "status": "done",
+      "score": 87,
+      "issues": 5,
+      "lastRun": "2026-03-01T08:30:00Z"
+    },
+    "seo-geo": {
+      "status": "done",
+      "score": 70,
+      "issues": 6,
+      "lastRun": "2026-03-01T08:30:00Z"
+    }
+  }
+}
