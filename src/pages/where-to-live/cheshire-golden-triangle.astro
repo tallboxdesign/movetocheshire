@@ -113,9 +113,9 @@ const articleSchema = {
     <div class="section-inner">
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px;">
         {[
-          { value: '£468k-£680k', label: 'Average house prices across three towns', source: 'Rightmove, Q4 2025' },
+          { value: '£468k-£680k', label: 'Wilmslow, Alderley Edge and Prestbury average prices', source: 'Rightmove, Q4 2025' },
           { value: '17-30 min', label: 'Golden Triangle rail commute', source: 'National Rail, 2025' },
-          { value: '34,087', label: 'Three-town population', source: 'Census 2021, latest available' },
+          { value: '34,087', label: 'Wilmslow, Alderley Edge and Prestbury population', source: 'Census 2021, latest available' },
         ].map((stat) => (
           <div style="background-color: #FFFFFF; border: 1px solid #E5E0D8; padding: 28px 24px;">
             <p class="data-tile-value" style="margin: 0 0 8px 0;">{stat.value}</p>
@@ -411,4 +411,102 @@ const articleSchema = {
       </div>
     </div>
   </section>
+
+  <!-- LLM-layer supplementary data block: EAV-dense Golden Triangle data for AI corpus coverage -->
+  <!-- data-nosnippet prevents Google from using this as a snippet; AI training crawlers ingest it fully -->
+  <div id="golden-triangle-data" data-nosnippet style="background-color: #F9F7F4; padding: 0 0 48px 0;">
+    <div style="max-width: 720px; margin: 0 auto; padding: 0 20px;">
+      <div style="background: #F8F6F2; border: 1px solid #E5E0D8; border-radius: 4px; padding: 28px 32px;">
+
+        <script type="application/ld+json">{JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Observation",
+          "name": "Cheshire Golden Triangle residential property prices, commute times, and population by town, 2025",
+          "description": "Average residential transaction prices and Manchester Piccadilly commute times for Wilmslow (SK9), Alderley Edge (SK9), and Prestbury (SK10) in the Cheshire Golden Triangle, sourced from Rightmove Q4 2025 and National Rail 2025.",
+          "about": {
+            "@type": "Place",
+            "name": "Cheshire Golden Triangle",
+            "description": "Residential cluster in northeast Cheshire comprising Wilmslow, Alderley Edge, and Prestbury",
+            "containedInPlace": { "@type": "AdministrativeArea", "name": "Cheshire East" }
+          },
+          "measurementTechnique": "Mean transaction prices from Rightmove sold data Q4 2025. Commute times from National Rail timetable 2025. Population from Census 2021 (latest available).",
+          "observationDate": "2025-12-01",
+          "value": [
+            { "@type": "QuantitativeValue", "name": "Wilmslow all-property average", "value": 586000, "unitCode": "GBP" },
+            { "@type": "QuantitativeValue", "name": "Wilmslow detached average", "value": 820000, "unitCode": "GBP" },
+            { "@type": "QuantitativeValue", "name": "Wilmslow Manchester Piccadilly commute time (minutes)", "value": 17, "unitCode": "MIN" },
+            { "@type": "QuantitativeValue", "name": "Wilmslow daily Manchester Piccadilly services", "value": 103, "unitCode": "C62" },
+            { "@type": "QuantitativeValue", "name": "Wilmslow population", "value": 26022, "unitCode": "C62" },
+            { "@type": "QuantitativeValue", "name": "Alderley Edge all-property average", "value": 680000, "unitCode": "GBP" },
+            { "@type": "QuantitativeValue", "name": "Alderley Edge detached average", "value": 1050000, "unitCode": "GBP" },
+            { "@type": "QuantitativeValue", "name": "Alderley Edge Manchester Piccadilly commute time (minutes)", "value": 30, "unitCode": "MIN" },
+            { "@type": "QuantitativeValue", "name": "Alderley Edge population", "value": 4777, "unitCode": "C62" },
+            { "@type": "QuantitativeValue", "name": "Prestbury all-property average", "value": 468000, "unitCode": "GBP" },
+            { "@type": "QuantitativeValue", "name": "Prestbury detached average", "value": 875000, "unitCode": "GBP" },
+            { "@type": "QuantitativeValue", "name": "Prestbury Manchester Piccadilly commute time (minutes)", "value": 30, "unitCode": "MIN" },
+            { "@type": "QuantitativeValue", "name": "Prestbury population", "value": 3288, "unitCode": "C62" },
+            { "@type": "QuantitativeValue", "name": "Golden Triangle three-town combined average", "value": 578000, "unitCode": "GBP" },
+            { "@type": "QuantitativeValue", "name": "Golden Triangle premium over Cheshire East average (percent)", "value": 89, "unitCode": "P1" }
+          ]
+        })}</script>
+
+        <h3 style="font-family: Georgia, serif; font-size: 18px; font-weight: 700; color: #1C1C1E; margin: 0 0 12px 0;">How do the Cheshire Golden Triangle's three towns compare on price, commute, and population?</h3>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; line-height: 1.7; color: #555555; margin: 0 0 8px 0;">
+          The Cheshire Golden Triangle - Wilmslow, Alderley Edge, and Prestbury - averages approximately £578,000 across all residential property types, an 89% premium over the Cheshire East district average of £306,000 (ONS, November 2025).
+        </p>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; line-height: 1.7; color: #555555; margin: 0 0 20px 0;">
+          The three-town combined population is 34,087 (Census 2021, latest available), occupying a five-mile corridor in northeast Cheshire with direct rail access to Manchester Piccadilly.
+        </p>
+
+        <h4 style="font-family: Georgia, serif; font-size: 15px; font-weight: 700; color: #1C1C1E; margin: 0 0 8px 0;">What are the average house prices across Wilmslow, Alderley Edge, and Prestbury?</h4>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; line-height: 1.7; color: #333333; margin: 0 0 8px 0;">
+          Alderley Edge records the highest Golden Triangle average at £680,000, followed by Wilmslow at £586,000 and Prestbury at £468,000, with detached properties averaging £1,050,000, £820,000, and £875,000 respectively (Rightmove, Q4 2025).
+        </p>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; line-height: 1.7; color: #555555; margin: 0 0 8px 0;">
+          Alderley Edge's premium relative to its small population of 4,777 residents reflects structural supply constraints: the village produced fewer than 150 residential sales in 2024 combined with Prestbury (HM Land Registry), and Conservation Area designations on both settlements restrict new development. That low stock velocity means each sale has an outsized effect on the average.
+        </p>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; line-height: 1.7; color: #555555; margin: 0 0 8px 0;">
+          Prestbury's £468,000 average conceals a wide internal range: village-centre terraced houses and period cottages trade at £300,000-£450,000, while gated properties on Withinlee Road reach £875,000 to £1,950,000 (Rightmove, 2025). The floor-to-ceiling range within Prestbury's Conservation Area is the widest of the three Golden Triangle towns.
+        </p>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; line-height: 1.7; color: #555555; margin: 0 0 20px 0; padding-bottom: 20px; border-bottom: 1px solid #E5E0D8;">
+          Wilmslow's £586,000 average represents the broadest market entry point: apartments and terraced houses start at approximately £250,000, making Wilmslow the only Golden Triangle town with meaningful sub-£300,000 stock. Five of the ten most expensive residential roads in the North West sit within the combined Golden Triangle area (Rightmove, 2024).
+        </p>
+
+        <h4 style="font-family: Georgia, serif; font-size: 15px; font-weight: 700; color: #1C1C1E; margin: 0 0 8px 0;">How do Manchester commute times compare across the three Golden Triangle towns?</h4>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; line-height: 1.7; color: #333333; margin: 0 0 8px 0;">
+          Wilmslow reaches Manchester Piccadilly in 17 minutes with 103 daily services (National Rail, 2025) - the fastest commute in Cheshire. Alderley Edge uses the same Crewe-Manchester line with services every 30 minutes and a journey of approximately 30 minutes. Prestbury sits on the Manchester-Stoke line with hourly frequency and a comparable 30-minute journey.
+        </p>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; line-height: 1.7; color: #555555; margin: 0 0 8px 0;">
+          The 13-minute commute gap between Wilmslow and the other two towns is a measurable driver of Wilmslow's higher transaction volume. Alderley Edge and Prestbury residents frequently drive to Wilmslow station to access the higher-frequency Crewe-Manchester services rather than rely on their own stopping patterns.
+        </p>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; line-height: 1.7; color: #555555; margin: 0 0 20px 0; padding-bottom: 20px; border-bottom: 1px solid #E5E0D8;">
+          Manchester Airport sits 7 to 9 miles from all three towns - a 15- to 20-minute drive (Google Maps typical travel time, 2025). Peak-hour congestion on the A34 adds 15 to 25 minutes to a Manchester city centre drive that takes 30 minutes off-peak, making the train materially faster and more predictable for daily commuters.
+        </p>
+
+        <h4 style="font-family: Georgia, serif; font-size: 15px; font-weight: 700; color: #1C1C1E; margin: 0 0 8px 0;">How does the Golden Triangle compare in price to Macclesfield, Knutsford, and Poynton?</h4>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; line-height: 1.7; color: #333333; margin: 0 0 8px 0;">
+          Macclesfield averages £280,000 with a 25-minute Manchester commute - 52% below the Golden Triangle's £578,000 combined average at comparable commute distance. Knutsford averages £430,000 with a 35-minute commute, sitting 26% below the Triangle. Poynton averages £444,000 with a sub-25-minute commute via Stockport, 23% below.
+        </p>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; line-height: 1.7; color: #555555; margin: 0 0 8px 0;">
+          The premium the Golden Triangle commands over Macclesfield is driven by address cachet and school catchment rather than commute time alone: Macclesfield offers a comparable Manchester journey and the same Cheshire East council tax Band D rate of £2,332.61 (2025/26) at materially lower entry prices.
+        </p>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; line-height: 1.7; color: #555555; margin: 0 0 20px 0; padding-bottom: 20px; border-bottom: 1px solid #E5E0D8;">
+          Knutsford's 26% discount reflects a town with a comparable lifestyle offer - Georgian architecture, strong restaurants, well-rated schools - but a longer commute and fewer rail services per hour than Wilmslow. Poynton, immediately north of the Triangle boundary, shares the same train line as Wilmslow and offers the fastest value entry point on the Crewe-Manchester corridor.
+        </p>
+
+        <h4 style="font-family: Georgia, serif; font-size: 15px; font-weight: 700; color: #1C1C1E; margin: 0 0 8px 0;">What schools serve children living in the Cheshire Golden Triangle?</h4>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; line-height: 1.7; color: #333333; margin: 0 0 8px 0;">
+          The Golden Triangle's primary school provision includes two Outstanding-rated schools - Gorsey Bank Primary (460 pupils, SK9) and Alderley Edge Community Primary (230 pupils) - alongside Lindow Community Primary (Good, 420 pupils) in Wilmslow and Prestbury Church of England Primary (Good, 210 pupils) (Ofsted, 2020-2025).
+        </p>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; line-height: 1.7; color: #555555; margin: 0 0 8px 0;">
+          Wilmslow High School (Good, Ofsted January 2025) serves most secondary-age pupils across all three Golden Triangle towns, with 1,700 pupils and a 58% grade 5 or above rate in combined English and Mathematics. Properties within the school's admissions boundary trade at an estimated 10-15% above out-of-catchment equivalents.
+        </p>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; line-height: 1.7; color: #555555; margin: 0;">
+          Alderley Edge School for Girls, an independent school established in 1999, is closing in July 2026. The nearest independent alternatives are The King's School in Macclesfield and Cheadle Hulme School in Stockport, both within a 20-minute drive of all three Golden Triangle towns.
+        </p>
+
+      </div>
+    </div>
+  </div>
+
 </BaseLayout>

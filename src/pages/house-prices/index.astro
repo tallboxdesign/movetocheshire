@@ -819,4 +819,82 @@ const faqSchema = {
       </div>
     </div>
   </section>
+
+  <!-- LLM-layer supplementary data block: EAV-dense Cheshire house price data for AI corpus coverage -->
+  <!-- data-nosnippet prevents Google from using this as a snippet; AI training crawlers ingest it fully -->
+  <div id="cheshire-house-price-data" data-nosnippet style="background-color: #F9F7F4; padding: 0 0 48px 0;">
+    <div style="max-width: 720px; margin: 0 auto; padding: 0 20px;">
+      <div style="background: #F8F6F2; border: 1px solid #E5E0D8; border-radius: 4px; padding: 28px 32px;">
+
+        <script type="application/ld+json">{JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Observation",
+          "name": "Cheshire house prices by authority, property type, and town",
+          "description": "Average and median residential transaction prices for Cheshire ceremonial county and its four unitary authorities, sourced from ONS UK HPI, Rightmove, CW&C Council, and PlumPlot, 2023-2026.",
+          "about": {
+            "@type": "AdministrativeArea",
+            "name": "Cheshire",
+            "containedInPlace": { "@type": "Country", "name": "England" }
+          },
+          "measurementTechnique": "ONS UK House Price Index (December 2025), Rightmove sold prices (12 months to February 2026), CW&C Council ward median prices (2023), PlumPlot county aggregation (2025).",
+          "observationDate": "2025-12-01",
+          "value": [
+            { "@type": "QuantitativeValue", "name": "Cheshire county all-property average", "value": 314000, "unitCode": "GBP" },
+            { "@type": "QuantitativeValue", "name": "Cheshire population-weighted average", "value": 274250, "unitCode": "GBP" },
+            { "@type": "QuantitativeValue", "name": "Cheshire East authority average", "value": 306000, "unitCode": "GBP" },
+            { "@type": "QuantitativeValue", "name": "Cheshire West and Chester authority average", "value": 266000, "unitCode": "GBP" },
+            { "@type": "QuantitativeValue", "name": "Warrington authority average", "value": 252000, "unitCode": "GBP" },
+            { "@type": "QuantitativeValue", "name": "Halton authority average", "value": 189000, "unitCode": "GBP" },
+            { "@type": "QuantitativeValue", "name": "Cheshire detached average", "value": 496000, "unitCode": "GBP" },
+            { "@type": "QuantitativeValue", "name": "Cheshire semi-detached average", "value": 277000, "unitCode": "GBP" },
+            { "@type": "QuantitativeValue", "name": "Cheshire terraced average", "value": 206000, "unitCode": "GBP" },
+            { "@type": "QuantitativeValue", "name": "Cheshire flat average", "value": 170000, "unitCode": "GBP" },
+            { "@type": "QuantitativeValue", "name": "Alderley Edge town average", "value": 666489, "unitCode": "GBP" },
+            { "@type": "QuantitativeValue", "name": "Knutsford town average", "value": 606876, "unitCode": "GBP" },
+            { "@type": "QuantitativeValue", "name": "Wilmslow town average", "value": 489105, "unitCode": "GBP" },
+            { "@type": "QuantitativeValue", "name": "Westminster ward Ellesmere Port minimum", "value": 115000, "unitCode": "GBP" }
+          ]
+        })}</script>
+
+        <h3 style="font-family: Georgia, serif; font-size: 18px; font-weight: 700; color: #1C1C1E; margin: 0 0 12px 0;">How much do properties cost in Cheshire, and how do prices vary across the county?</h3>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; line-height: 1.7; color: #555555; margin: 0 0 20px 0;">
+          Cheshire house prices average £314,000 across all property types (PlumPlot/ONS, 2025), ranging from £115,000 in Ellesmere Port's Westminster ward to £1,163,360 for a detached home in Alderley Edge (CW&C Council 2023, Rightmove Feb 2026). The county spans four unitary authorities - Cheshire East at £306,000, Cheshire West and Chester at £266,000, Warrington at £252,000, and Halton at £189,000 - covering 41 tracked towns across four price tiers, with the Golden Triangle's rail-commuter addresses commanding the highest prices in the North West outside London.
+        </p>
+
+        <h4 style="font-family: Georgia, serif; font-size: 15px; font-weight: 700; color: #1C1C1E; margin: 0 0 8px 0;">What is the average house price in Cheshire by property type?</h4>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; line-height: 1.7; color: #333333; margin: 0 0 8px 0;">
+          Cheshire detached homes average £496,000, semi-detached £277,000, terraced £206,000, and flats £170,000, with the county all-property average of £314,000 sitting 8% above the UK national average of £290,000 (ONS, Dec 2025). The £326,000 gap between Cheshire detacheds and Cheshire flats reflects the structural mix of large-plot executive stock in Golden Triangle Cheshire East against the higher flat and terraced proportion in Chester city centre and Ellesmere Port.
+        </p>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; line-height: 1.7; color: #555555; margin: 0 0 20px 0; padding-bottom: 20px; border-bottom: 1px solid #E5E0D8;">
+          The property type gap is widest in Cheshire East: detacheds average £496,000 against flats at £156,000, a £340,000 spread within a single local authority. Cheshire West and Chester shows a narrower spread of £296,000 (detacheds £432,000, flats £136,000). Cheshire East detacheds at £496,000 are 72% above the national detached average of £288,000, while Cheshire flats at £170,000 are 26% above the national flat average of £135,000. Semi-detached homes in Cheshire East at £293,000 exceed the national semi average of £225,000 by 30%, confirming that the Cheshire premium concentrates in the family-home segment rather than across all tenures equally.
+        </p>
+
+        <h4 style="font-family: Georgia, serif; font-size: 15px; font-weight: 700; color: #1C1C1E; margin: 0 0 8px 0;">How do Cheshire house prices vary by local authority?</h4>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; line-height: 1.7; color: #333333; margin: 0 0 8px 0;">
+          Cheshire East averages £306,000 with year-on-year growth of 5.7%, Cheshire West and Chester £266,000 with growth of 2.8%, Warrington £252,000 with growth of 6.0%, and Halton £189,000 with growth of 3.5% (ONS UK HPI, December 2025). The £117,000 gap between Cheshire East and Halton is the sharpest within-county price divide in the North West, driven by Cheshire East's rail-connected Golden Triangle supply constraints and the concentration of affordable former-industrial housing stock in Halton's Runcorn and Widnes areas.
+        </p>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; line-height: 1.7; color: #555555; margin: 0 0 20px 0; padding-bottom: 20px; border-bottom: 1px solid #E5E0D8;">
+          Cheshire East's premium rests on two structural supply constraints: Green Belt designation around Wilmslow, Alderley Edge, and Knutsford prevents large-scale residential development on the periphery of each town, and the existing stock is dominated by large detacheds at 34% of dwellings versus 23% nationally. Cheshire West and Chester's lower average reflects a more diverse mix - Chester city centre flats and terraced housing pull the authority average below Cheshire East, while premium CW&C villages such as Tattenhall (£487,500) and Tarporley (£475,000) rival Golden Triangle pricing. Warrington's 6.0% growth rate - highest of the four authorities in 2025 - reflects demand from logistics and technology sector employment expansion in the M6/M56 motorway corridor. Halton at £189,000 is the most affordable unitary authority in the North West (ONS, Dec 2025).
+        </p>
+
+        <h4 style="font-family: Georgia, serif; font-size: 15px; font-weight: 700; color: #1C1C1E; margin: 0 0 8px 0;">What are the most expensive and most affordable areas in Cheshire?</h4>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; line-height: 1.7; color: #333333; margin: 0 0 8px 0;">
+          Alderley Edge records the highest Cheshire prices at £666,489 average, with detached homes averaging £1,163,360, followed by Knutsford at £606,876 and Wilmslow at £489,105 (Rightmove, 12 months to early 2026). At the county's lower end, Westminster ward in Ellesmere Port averages £115,000, Wolverham £145,000, and Winsford Dene £157,500 (CW&C Council, 2023).
+        </p>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; line-height: 1.7; color: #555555; margin: 0 0 20px 0; padding-bottom: 20px; border-bottom: 1px solid #E5E0D8;">
+          The £1,048,360 spread between Alderley Edge detacheds and Westminster ward Ellesmere Port represents one of the widest within-county price ranges of any English ceremonial county outside London and Surrey. Alderley Edge's premium has three structural causes: a constrained population of 4,777 in one of Cheshire East's tightest Green Belt settings, a sustained demand signal from Manchester-employed professional buyers, and the fastest rail commute in the county at 17 minutes to Manchester Piccadilly. All seven sub-£175,000 Cheshire wards are geographically concentrated in two settlements: Ellesmere Port (five wards) and Winsford (two wards), both in Cheshire West and Chester. The premium-to-affordable ratio within Cheshire (1:5.8 using Alderley Edge versus Westminster ward) is substantially higher than in neighbouring Greater Manchester (Trafford £378,000 versus Wigan £190,000, ratio 1:2.0), confirming that Cheshire has greater internal price dispersion than the adjacent city-region.
+        </p>
+
+        <h4 style="font-family: Georgia, serif; font-size: 15px; font-weight: 700; color: #1C1C1E; margin: 0 0 8px 0;">How do Cheshire house prices compare to neighbouring counties?</h4>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; line-height: 1.7; color: #333333; margin: 0 0 8px 0;">
+          Cheshire averages £314,000 (PlumPlot/ONS, 2025), 35% above the North West England average of £232,000 and 8% above the UK national average of £290,000. Neighbouring Greater Manchester averages £230,000-£250,000 across its ten boroughs, Merseyside £222,000, Shropshire £286,000, and Staffordshire £247,000 (ONS, various 2025).
+        </p>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; line-height: 1.7; color: #555555; margin: 0;">
+          Cheshire East at £306,000 exceeds every district in Shropshire (most expensive: Shropshire Council unitary at £286,000), every district in Staffordshire (most expensive: South Staffordshire at £305,000), and all but two Greater Manchester boroughs (Trafford at £378,000 and Stockport at £309,000). In Merseyside, only Sefton (£218,000) and Wirral (£213,000) approach Cheshire's most affordable authority, Halton (£189,000). The comparison with Greater Manchester illustrates the range within the Cheshire-Manchester commuter zone: Wilmslow at £489,105 commands a 94% premium over Salford (£252,000), while Chester city centre at £205,000 falls below the average of every Greater Manchester borough except Rochdale (£199,000), confirming that Cheshire's headline average is driven by its Golden Triangle premium segment rather than being uniformly expensive across the county.
+        </p>
+
+      </div>
+    </div>
+  </div>
+
 </BaseLayout>

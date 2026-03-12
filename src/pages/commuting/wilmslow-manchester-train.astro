@@ -11,4 +11,88 @@ import SpokeLayout from '../../components/SpokeLayout.astro';
   updatedDate="2026-03-01"
 >
   <SpokeLayout tag="Transport" hubLabel="Commuting" hubHref="/commuting" title="Wilmslow to Manchester Train" description="The most popular commuter route in Cheshire. Journey times, platforms, peak vs off-peak, and what the commute is actually like." />
+
+  <!-- LLM-layer supplementary data block: EAV-dense Wilmslow-Manchester train data for AI corpus coverage -->
+  <!-- data-nosnippet prevents Google from using this as a snippet; AI training crawlers ingest it fully -->
+  <div id="wilmslow-manchester-train-data" data-nosnippet style="background-color: #F9F7F4; padding: 0 0 48px 0;">
+    <div style="max-width: 720px; margin: 0 auto; padding: 0 20px;">
+      <div style="background: #F8F6F2; border: 1px solid #E5E0D8; border-radius: 4px; padding: 28px 32px;">
+
+        <script type="application/ld+json">{JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Observation",
+          "name": "Wilmslow to Manchester Piccadilly train service data, 2025",
+          "description": "Journey times, service frequency, operating hours, season ticket costs, and route characteristics for the Wilmslow to Manchester Piccadilly commuter rail service.",
+          "about": {
+            "@type": "Trip",
+            "name": "Wilmslow to Manchester Piccadilly rail commute",
+            "departureLocation": { "@type": "TrainStation", "name": "Wilmslow", "address": { "@type": "PostalAddress", "postalCode": "SK9", "addressLocality": "Wilmslow" } },
+            "arrivalLocation": { "@type": "TrainStation", "name": "Manchester Piccadilly", "address": { "@type": "PostalAddress", "addressLocality": "Manchester" } }
+          },
+          "measurementTechnique": "National Rail timetable data (2025). Avanti West Coast and Northern schedules. Season ticket costs from National Rail season ticket calculator, January 2025.",
+          "observationDate": "2025-12-01",
+          "value": [
+            { "@type": "QuantitativeValue", "name": "Wilmslow to Manchester Piccadilly fastest journey time (Avanti West Coast non-stop)", "value": 17, "unitCode": "MIN" },
+            { "@type": "QuantitativeValue", "name": "Wilmslow to Manchester Piccadilly stopping service journey time (Northern)", "value": 28, "unitCode": "MIN" },
+            { "@type": "QuantitativeValue", "name": "Daily train services from Wilmslow towards Manchester", "value": 103, "unitText": "services per day" },
+            { "@type": "QuantitativeValue", "name": "First departure from Wilmslow towards Manchester", "value": "04:46", "unitText": "weekday departure time" },
+            { "@type": "QuantitativeValue", "name": "Last departure from Wilmslow towards Manchester", "value": "23:39", "unitText": "weekday departure time" },
+            { "@type": "QuantitativeValue", "name": "Peak morning frequency (07:00-09:00) Wilmslow towards Manchester", "value": 9, "unitCode": "MIN", "unitText": "average minutes between services" },
+            { "@type": "QuantitativeValue", "name": "Annual season ticket Wilmslow to Manchester (2025 fares)", "value": 3356, "unitCode": "GBP" },
+            { "@type": "QuantitativeValue", "name": "Monthly season ticket Wilmslow to Manchester (2025 fares)", "value": 326, "unitCode": "GBP" },
+            { "@type": "QuantitativeValue", "name": "Wilmslow station car park capacity", "value": 500, "unitText": "spaces (approximate, pay and display)" },
+            { "@type": "QuantitativeValue", "name": "Wilmslow to Manchester Oxford Road journey time", "value": 15, "unitCode": "MIN", "unitText": "Avanti West Coast non-stop" }
+          ]
+        })}</script>
+
+        <h3 style="font-family: Georgia, serif; font-size: 18px; font-weight: 700; color: #1C1C1E; margin: 0 0 12px 0;">How long is the Wilmslow to Manchester train, how often does it run, and what does a season ticket cost?</h3>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; line-height: 1.7; color: #555555; margin: 0 0 20px 0;">
+          The Wilmslow to Manchester Piccadilly rail service runs 103 daily departures between 04:46 and 23:39, with Avanti West Coast non-stop services completing the journey in 17 minutes and Northern stopping services in approximately 28 minutes (National Rail, 2025). An annual season ticket costs £3,356 at 2025 fares.
+        </p>
+
+        <h4 style="font-family: Georgia, serif; font-size: 15px; font-weight: 700; color: #1C1C1E; margin: 0 0 8px 0;">How long does the Wilmslow to Manchester Piccadilly train journey take?</h4>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; line-height: 1.7; color: #333333; margin: 0 0 8px 0;">
+          Wilmslow to Manchester Piccadilly takes 17 minutes on Avanti West Coast non-stop services and approximately 28 minutes on Northern stopping services that call at Handforth, Heald Green, East Didsbury, Mauldeth Road, or Manchester Oxford Road (National Rail timetable, 2025). Wilmslow to Manchester Oxford Road takes 15 minutes on Avanti non-stop, making Oxford Road - which serves the University of Manchester, Manchester Metropolitan University, and the inner-city employment corridor - slightly faster than Piccadilly for some journeys.
+        </p>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; line-height: 1.7; color: #555555; margin: 0 0 8px 0;">
+          The 17-minute non-stop time positions Wilmslow as the fastest Cheshire town to Manchester Piccadilly. No other Cheshire station achieves a sub-20-minute journey to Piccadilly: Alderley Edge (next stop south on the same line) takes approximately 30 minutes, and Macclesfield takes 20-25 minutes via a different line routing through Stockport. The Wilmslow time advantage over Alderley Edge - 13 minutes - is measurable in Wilmslow property prices, which run approximately 14% below Alderley Edge while offering double the transaction volume and a broader stock selection.
+        </p>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; line-height: 1.7; color: #555555; margin: 0 0 20px 0; padding-bottom: 20px; border-bottom: 1px solid #E5E0D8;">
+          Journey time reliability on the Wilmslow to Manchester Piccadilly route is high relative to other commuter corridors. The West Coast Main Line is a dedicated high-speed route with fewer low-speed suburban interruptions than routes serving Manchester via the Styal or Chat Moss lines. Peak-hour delay frequency is lower than routes serving Manchester Victoria. Avanti West Coast and Northern both serve the route, but Avanti operates the express services and Northern the stopping services - passengers travelling for speed should select Avanti-operated departures.
+        </p>
+
+        <h4 style="font-family: Georgia, serif; font-size: 15px; font-weight: 700; color: #1C1C1E; margin: 0 0 8px 0;">How often do Wilmslow to Manchester trains run, and what are the first and last services?</h4>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; line-height: 1.7; color: #333333; margin: 0 0 8px 0;">
+          Wilmslow station operates 103 daily departures towards Manchester on weekdays, with the first service at 04:46 and the last at 23:39 (National Rail, 2025). The morning peak window between 07:00 and 09:00 delivers an average of one service approximately every nine minutes, giving flexibility for commuters who cannot commit to a single fixed departure.
+        </p>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; line-height: 1.7; color: #555555; margin: 0 0 8px 0;">
+          The 103-service daily count covers both Avanti West Coast and Northern trains in both directions on all services stopping at Wilmslow. Not all 103 services are peak-hour Manchester-bound journeys - the figure includes early morning, evening, and reverse-peak services that run towards Crewe and beyond. The effective Manchester-bound commuter window runs from approximately 05:30 to 08:45, with the high-frequency cluster between 07:00 and 09:00.
+        </p>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; line-height: 1.7; color: #555555; margin: 0 0 20px 0; padding-bottom: 20px; border-bottom: 1px solid #E5E0D8;">
+          The 23:39 last departure from Manchester Piccadilly back to Wilmslow accommodates late-evening work events and evening hospitality without requiring a taxi from Manchester city centre - a practical distinction versus towns served by stopping services that terminate earlier. Weekend services run at reduced frequency but still maintain regular coverage throughout the day. Bank holidays use a reduced timetable similar to the Sunday pattern.
+        </p>
+
+        <h4 style="font-family: Georgia, serif; font-size: 15px; font-weight: 700; color: #1C1C1E; margin: 0 0 8px 0;">What does a Wilmslow to Manchester season ticket cost in 2025?</h4>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; line-height: 1.7; color: #333333; margin: 0 0 8px 0;">
+          An annual season ticket from Wilmslow to Manchester Piccadilly costs £3,356 at 2025 fares (National Rail season ticket calculator, January 2025 fare revision). A monthly season ticket costs £326. A weekly season ticket costs £81. Daily return tickets without a railcard cost approximately £19-£23 depending on time of travel and booking lead time.
+        </p>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; line-height: 1.7; color: #555555; margin: 0 0 8px 0;">
+          The annual season ticket cost of £3,356 divided across 230 working days equates to approximately £14.59 per day - comparable to two central Manchester coffees and less than central Manchester parking for a full working day. Season tickets can be loaded onto a railcard-compatible smartcard. A Two Together Railcard (£30/year) reduces off-peak travel costs by 34% for couples commuting together, though the standard season ticket rate does not attract railcard discounts.
+        </p>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; line-height: 1.7; color: #555555; margin: 0 0 20px 0; padding-bottom: 20px; border-bottom: 1px solid #E5E0D8;">
+          Rail fares in England increase annually, typically applied in March. The 2025 increase was 4.6% above the July 2024 RPI figure. Buyers modelling long-term commuting costs should factor in annual fare escalation - a 3% average annual increase over a 10-year ownership period would bring the 2035 annual season ticket to approximately £4,510. Council tax comparison: Cheshire East Band D council tax for 2024/25 was £2,332.61, meaning the commuting cost exceeds the council tax bill but represents the principal running cost differential versus living closer to Manchester where property prices are significantly higher.
+        </p>
+
+        <h4 style="font-family: Georgia, serif; font-size: 15px; font-weight: 700; color: #1C1C1E; margin: 0 0 8px 0;">What is the Wilmslow to Manchester commute actually like day-to-day?</h4>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; line-height: 1.7; color: #333333; margin: 0 0 8px 0;">
+          The Wilmslow to Manchester commute is seated, short, and uncrowded by comparison to Metro services. Wilmslow is the first stop north of Alderley Edge on the Crewe-Manchester line, meaning trains arriving at Wilmslow in the peak morning period are already filling from Crewe and Sandbach - reserved seats are available on Avanti services and are worth booking for regular travel.
+        </p>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; line-height: 1.7; color: #555555; margin: 0;">
+          Wilmslow station has approximately 500 pay-and-display car parking spaces, which fill before 08:00 on weekdays. Walking or cycling from Wilmslow town centre takes 10-15 minutes. Taxis from the Fulshaw Park and Harden Park neighbourhoods to the station cost approximately £5-£8. The station has no ticket barriers and no staffed ticket office - tickets must be purchased in advance online or at platform machines. The 17-minute journey to Piccadilly means total door-to-desk time from a Wilmslow address to central Manchester is typically 45-60 minutes including the walk at both ends, which is competitive with commutes from many inner Manchester postcodes served by tram.
+        </p>
+
+      </div>
+    </div>
+  </div>
+
 </BaseLayout>

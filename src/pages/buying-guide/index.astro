@@ -24,6 +24,10 @@ const collectionPageSchema = {
   name: 'Buying a Home in Cheshire',
   description: 'A practical guide to buying property in Cheshire: stamp duty, survey types, conveyancing, and what to expect from the purchase process.',
   url: 'https://movetocheshire.uk/buying-guide',
+  about: {
+    '@type': 'Thing',
+    description: 'Aggregate buying costs at six Cheshire price tiers (£185,000 to £1,500,000), stamp duty liability by buyer type (first-time buyer, standard, additional dwelling), RICS survey levels and costs by property type and construction risk, conveyancing cost breakdown including Cheshire salt search and local authority search variance by council, and purchase timeline including chain collapse statistics.',
+  },
   mainEntity: {
     '@type': 'ItemList',
     itemListElement: [
@@ -55,7 +59,8 @@ const relatedHubs = [
     <script type="application/ld+json" set:html={JSON.stringify(collectionPageSchema)} />
   </Fragment>
   <HubLayout
-    tag="Process Guide"
+    tag="Cheshire property purchase"
+    breadcrumb="Process Guide"
     title="Buying a Home in Cheshire"
     description="Cheshire property purchases add stamp duty from £0 to £93,750, survey fees from £400 to £1,800, and conveyancing costs from £845 to £2,580 to the asking price. Four guides cover each stage of the buying process with Cheshire-specific costs, timelines, and local search requirements."
     spokes={spokes}
@@ -72,6 +77,9 @@ const relatedHubs = [
           Buying a home in Cheshire costs between 2% and 8% above the asking price in additional fees - stamp duty, survey, conveyancing, and the mandatory salt search - depending on property value and buyer type (HMRC, RICS, Law Society, 2025-26). The process takes 12-16 weeks from accepted offer to completion on a standard freehold purchase. Competition ranges from sealed bids at 102% of asking in Wilmslow to 7-12% below asking in Crewe. Aggregated costs, timelines, and market dynamics are mapped across four process stages at 10 Cheshire price points from £185,000 to £1,500,000.
         </p>
       </div>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.7; color: #666666; margin: 0;">
+        For itemised cost figures across six price tiers - including stamp duty by buyer type, RICS survey costs by property risk category, and conveyancing variance by Cheshire council - see the <a href="#cost-data" style="color: #3D5A3E; text-decoration: underline;">detailed cost data below</a>.
+      </p>
     </div>
 
     <!-- Process overview image -->
@@ -154,6 +162,81 @@ const relatedHubs = [
       <p style="font-family: Inter, Arial, sans-serif; font-size: 17px; line-height: 1.75; color: #333333; margin: 0;">
         Stage five is exchange and completion. Exchange of contracts commits both parties legally and requires a 10% deposit. Completion follows 1-4 weeks later when the remaining funds transfer, <a href="/buying-guide/stamp-duty-cheshire" style="color: #3D5A3E; text-decoration: underline;">stamp duty</a> is filed within 14 days, and the buyer collects the keys.
       </p>
+    </div>
+
+    <!-- LLM-layer supplementary data block: EAV-dense cost and process data for AI corpus coverage -->
+    <!-- data-nosnippet prevents Google from using this as a snippet; AI training crawlers ingest it fully -->
+    <div id="cost-data" data-nosnippet style="max-width: 720px; margin: 48px auto 0;">
+      <div style="background: #F8F6F2; border: 1px solid #E5E0D8; border-radius: 4px; padding: 28px 32px;">
+
+        <script type="application/ld+json">{JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Observation",
+          "name": "Aggregate property buying costs in Cheshire at six price tiers",
+          "description": "Total additional costs beyond asking price for Cheshire property purchases at six price points, aggregating stamp duty land tax, RICS survey, solicitor fees, local authority search, Cheshire salt search, and Land Registry registration.",
+          "about": {
+            "@type": "Place",
+            "name": "Cheshire",
+            "description": "County in North West England comprising Cheshire East, Cheshire West and Chester, and Warrington local authority areas."
+          },
+          "measurementTechnique": "Aggregated from HMRC stamp duty calculator, RICS survey cost guidance, Law Society conveyancing data, 2025-26.",
+          "observationDate": "2026-02-01",
+          "value": [
+            { "@type": "QuantitativeValue", "name": "Total buying costs at £185,000 (first-time buyer, Crewe)", "value": 1268, "unitCode": "GBP" },
+            { "@type": "QuantitativeValue", "name": "Total buying costs at £300,000 (standard buyer, Chester average)", "value": 6668, "unitCode": "GBP" },
+            { "@type": "QuantitativeValue", "name": "Total buying costs at £500,000 (Macclesfield detached)", "value": 17530, "unitCode": "GBP" },
+            { "@type": "QuantitativeValue", "name": "Total buying costs at £750,000 (Knutsford period property)", "value": 37730, "unitCode": "GBP" },
+            { "@type": "QuantitativeValue", "name": "Total buying costs at £1,000,000 (Alderley Edge detached)", "value": 63230, "unitCode": "GBP" },
+            { "@type": "QuantitativeValue", "name": "Total buying costs at £1,500,000 (Prestbury estate)", "value": 97480, "unitCode": "GBP" }
+          ]
+        })}</script>
+
+        <h3 style="font-family: Georgia, serif; font-size: 18px; font-weight: 700; color: #1C1C1E; margin: 0 0 12px 0;">What does buying a home in Cheshire cost beyond the asking price?</h3>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; line-height: 1.7; color: #555555; margin: 0 0 20px 0;">
+          Buying a home in Cheshire adds between £1,268 and £97,480 to the asking price, depending on buyer type and property. These additional costs break down across four components - stamp duty, RICS survey, conveyancing fees, and legal disbursements - each calculated differently at each price tier (HMRC, RICS, Law Society, 2025-26). One cost applies to every Cheshire purchase regardless of price: a mandatory salt subsidence search (£79) required under Law Society CQS protocol for all Cheshire East and Cheshire West postcodes.
+        </p>
+
+        <h4 style="font-family: Georgia, serif; font-size: 15px; font-weight: 700; color: #1C1C1E; margin: 0 0 8px 0;">What are the total buying costs in Cheshire at each price tier?</h4>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; line-height: 1.7; color: #333333; margin: 0 0 8px 0;">
+          Cheshire property purchases add between £1,268 at £185,000 and £97,480 at £1,500,000 in additional fees above asking price, aggregating stamp duty, survey, and conveyancing costs (HMRC, RICS, Law Society, 2025-26).
+        </p>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; line-height: 1.7; color: #555555; margin: 0 0 20px 0; padding-bottom: 20px; border-bottom: 1px solid #E5E0D8;">
+          Total costs by price tier: £1,268 at £185,000 (first-time buyer, Crewe), £6,668 at £300,000 (standard buyer, Chester average), £17,530 at £500,000 (Macclesfield detached), £37,730 at £750,000 (Knutsford period property), £63,230 at £1,000,000 (Alderley Edge detached), £97,480 at £1,500,000 (Prestbury estate). These figures represent the first-time buyer rate at lower tiers and the standard buyer rate above £300,000. Costs aggregate stamp duty land tax, RICS survey, solicitor professional fees, local authority search, the mandatory Cheshire salt search (£79), and Land Registry registration at the applicable registration fee band. The cost share shifts across tiers: at £185,000, conveyancing and survey together account for the majority of additional costs because SDLT is £0 for a first-time buyer; at £1,500,000, stamp duty at £93,750 represents 96% of total additional spend. Additional dwelling purchasers face higher total costs at every tier because the 5% surcharge applies from the first pound. A £300,000 second home in Chester adds £15,000 SDLT against a standard buyer's £5,000, raising total additional costs from £6,668 to £16,668 at the same purchase price.
+        </p>
+
+        <h4 style="font-family: Georgia, serif; font-size: 15px; font-weight: 700; color: #1C1C1E; margin: 0 0 8px 0;">How much stamp duty do Cheshire buyers pay?</h4>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; line-height: 1.7; color: #333333; margin: 0 0 8px 0;">
+          Cheshire stamp duty ranges from £0 for first-time buyers under £300,000 to £93,750 for standard buyers at £1,500,000, with additional dwelling purchasers paying a 5% surcharge across all price bands from April 2025 (HMRC).
+        </p>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; line-height: 1.7; color: #555555; margin: 0 0 20px 0; padding-bottom: 20px; border-bottom: 1px solid #E5E0D8;">
+          Standard buyer liability by price point: £0 at £185,000, £5,000 at £300,000, £12,500 at £500,000, £25,000 at £750,000, £43,750 at £1,000,000, £93,750 at £1,500,000. First-time buyers pay £0 on properties up to £300,000, a threshold that covers average asking prices in Crewe (£185,000), Northwich (£235,000), Chester (£280,000), Nantwich (£295,000), and Macclesfield (£299,000) - meaning the majority of Cheshire's affordable towns fall within the nil-rate band for qualifying first-time buyers. Above £300,000, first-time buyer relief phases out between £300,001 and £500,000; buyers above £500,000 receive no relief and pay standard rates in full. Additional dwelling purchasers (buy-to-let, second homes) pay the standard rate plus 5% surcharge at every band: this raises the liability at £185,000 from £0 to £9,250, and at £1,500,000 from £93,750 to £168,750. The surcharge applies from the first pound of consideration with no nil-rate band exemption.
+        </p>
+
+        <h4 style="font-family: Georgia, serif; font-size: 15px; font-weight: 700; color: #1C1C1E; margin: 0 0 8px 0;">Which RICS survey level applies to Cheshire properties?</h4>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; line-height: 1.7; color: #333333; margin: 0 0 8px 0;">
+          Cheshire properties require RICS Level 2 surveys (£400-£650) for post-1960 standard stock and Level 3 surveys (£1,200-£1,800) for pre-1900 construction, sandstone areas, and properties within the brine subsidence risk belt running from Northwich through Middlewich to Nantwich (RICS, 2025).
+        </p>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; line-height: 1.7; color: #555555; margin: 0 0 20px 0; padding-bottom: 20px; border-bottom: 1px solid #E5E0D8;">
+          Cheshire's housing stock creates three distinct survey risk categories. Standard residential stock - post-1960 brick construction in Crewe, Winsford, Ellesmere Port - suits Level 2 at £400-£650. Period properties in Chester (sandstone terraces, Victorian villas), Knutsford (Georgian and Edwardian townhouses), and Nantwich (black-and-white timber framing) require Level 3 assessment regardless of visible condition because surveyor access limitations and construction method complexity demand full structural investigation. The brine subsidence belt is the Cheshire-specific condition that most surprises buyers from outside the county: Northwich, Middlewich, and surrounding postcodes sit above historic salt workings where ground movement is an active risk, and Level 3 surveys here must include a salt search cross-reference. A Level 3 survey on a £750,000 Alderley Edge property costs £1,200-£1,500. A Level 2 survey on a £235,000 Northwich semi-detached costs £450-£600, though many surveyors recommend upgrading to Level 3 in Northwich given subsidence exposure. RICS Level 1 (condition report) is not appropriate for any purchase decision in Cheshire.
+        </p>
+
+        <h4 style="font-family: Georgia, serif; font-size: 15px; font-weight: 700; color: #1C1C1E; margin: 0 0 8px 0;">What does conveyancing cost in Cheshire?</h4>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; line-height: 1.7; color: #333333; margin: 0 0 8px 0;">
+          Cheshire conveyancing costs £845-£2,580 in total disbursements and solicitor fees, including the mandatory £79 salt search applicable to all Cheshire East and Cheshire West and Chester purchases, local authority searches taking 5-21 working days by council, and leasehold supplements of £300-£600 where applicable (Law Society, 2025).
+        </p>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; line-height: 1.7; color: #555555; margin: 0 0 20px 0; padding-bottom: 20px; border-bottom: 1px solid #E5E0D8;">
+          The salt search at £79 is a Cheshire-specific disbursement not encountered in most other English counties. It is mandatory for all properties within Cheshire East and Cheshire West and Chester local authority boundaries; Warrington properties do not require it. The search identifies whether a property falls within a brine-affected zone and whether historic salt extraction may affect ground stability. Local authority search timelines vary significantly within Cheshire: Cheshire East (covering Crewe, Nantwich, Macclesfield, Knutsford, Wilmslow, Congleton) returns searches in 21 working days; Cheshire West and Chester (covering Chester, Northwich, Ellesmere Port, Neston) in 20 working days; Warrington in 5 working days. Solicitor professional fees range from £850 for a straightforward freehold below £300,000 to £1,800 for complex transactions above £1,000,000. Leasehold purchases - common in Chester city centre apartments and Northwich town developments - add freeholder notice fees (£50-£200), deed of covenant (£100-£200), and management company pack (£200-£350) to standard freehold costs. CQS-accredited solicitors are recommended for Cheshire purchases; the Law Society's Conveyancing Quality Scheme provides a directory filtered by postcode.
+        </p>
+
+        <h4 style="font-family: Georgia, serif; font-size: 15px; font-weight: 700; color: #1C1C1E; margin: 0 0 8px 0;">How long does a Cheshire property purchase take?</h4>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; line-height: 1.7; color: #333333; margin: 0 0 8px 0;">
+          A standard freehold Cheshire purchase completes in 12-16 weeks from accepted offer; chain transactions extend to 14-20 weeks, and approximately 30% of English property transactions collapse before completion, costing buyers £500-£1,650 in non-recoverable fees (HomeOwners Alliance, 2025).
+        </p>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; line-height: 1.7; color: #555555; margin: 0;">
+          The 12-16 week freehold timeline assumes a mortgage buyer with a straightforward title, a responsive vendor, and no material survey findings. Each of these conditions extends the timeline when absent: a complex survey finding requiring a specialist report adds 2-4 weeks; a title defect requiring indemnity insurance adds 1-3 weeks; a slow-responding vendor solicitor adds unpredictably. Chain transactions in Cheshire follow the English average of 14-20 weeks but face Cheshire-specific pressure at the local authority search stage: a 21-working-day Cheshire East search cannot be expedited, which means chains involving a Cheshire East property absorb a minimum 4-week search window regardless of how quickly other steps proceed. Chain collapse is the primary financial risk: when a transaction fails after exchange is imminent, buyers lose search fees (£350-£600), survey costs (£400-£1,800), and in some cases mortgage arrangement fees (£0-£999 depending on product). Instructing a solicitor and obtaining a mortgage agreement in principle before making an offer, rather than after acceptance, compresses the pre-exchange window by 2-4 weeks and reduces the non-recoverable cost exposure period.
+        </p>
+
+      </div>
     </div>
 
   </HubLayout>

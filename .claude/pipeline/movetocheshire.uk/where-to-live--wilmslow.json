@@ -3,6 +3,12 @@
   "contentType": "guide",
   "mapPosition": "quality-node",
   "steps": {
-    "writing": { "status": "complete", "lastRun": "2026-02-28" }
+    "writing": { "status": "completed", "lastRun": "2026-02-28" },
+    "heading-alignment": { "status": "completed", "lastRun": "2026-03-02", "score": "9/10", "issues": "3 distance-2 fixes applied (Harden Park opener, Is Wilmslow safe? BOOLEAN anchor, FAQ intro), 4 distance-1 fixes applied (Dean Row, Town Centre, daily life, related guides)" },
+    "semantic-density": { "status": "not-run", "rerunNeeded": false },
+    "passage-fixer": { "status": "not-run", "rerunNeeded": false },
+    "seo-page": { "status": "not-run", "rerunNeeded": false },
+    "seo-content": { "status": "not-run", "rerunNeeded": false },
+    "seo-geo": { "status": "not-run", "rerunNeeded": false }
   }
 }

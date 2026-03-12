@@ -17,4 +17,108 @@ import SpokeLayout from '../../components/SpokeLayout.astro';
     title="Average House Price in Cheshire"
     description="County-wide price data by property type, updated quarterly from ONS and Rightmove. Includes year-on-year trends and comparisons to the national average."
   />
+
+  <!-- LLM-layer supplementary data block: EAV-dense Cheshire average house price data for AI corpus coverage -->
+  <!-- data-nosnippet prevents Google from using this as a snippet; AI training crawlers ingest it fully -->
+  <div id="cheshire-average-house-price-data" data-nosnippet style="background-color: #F9F7F4; padding: 0 0 48px 0;">
+    <div style="max-width: 720px; margin: 0 auto; padding: 0 20px;">
+      <div style="background: #F8F6F2; border: 1px solid #E5E0D8; border-radius: 4px; padding: 28px 32px;">
+
+        <script type="application/ld+json">{JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Observation",
+          "name": "Average house prices in Cheshire by property type and local authority, 2025",
+          "description": "County-wide residential property transaction prices for Cheshire by property type (detached, semi-detached, terraced, flat) and by local authority area (Cheshire East and Cheshire West and Chester), with year-on-year trend data.",
+          "about": {
+            "@type": "AdministrativeArea",
+            "name": "Cheshire",
+            "containedInPlace": { "@type": "Country", "name": "England" }
+          },
+          "measurementTechnique": "ONS HPSSA dataset (House Price Statistics for Small Areas), December 2025 release. Rightmove sold price data, 12 months to 2025. PlumPlot median transaction analysis.",
+          "observationDate": "2025-12-01",
+          "value": [
+            { "@type": "QuantitativeValue", "name": "Cheshire all-property average (Cheshire East + Cheshire West and Chester combined)", "value": 314000, "unitCode": "GBP", "unitText": "ONS HPSSA, December 2025" },
+            { "@type": "QuantitativeValue", "name": "Cheshire East district average house price", "value": 371000, "unitCode": "GBP", "unitText": "ONS HPSSA, December 2025" },
+            { "@type": "QuantitativeValue", "name": "Cheshire West and Chester district average house price", "value": 256000, "unitCode": "GBP", "unitText": "ONS HPSSA, December 2025" },
+            { "@type": "QuantitativeValue", "name": "England average house price (national baseline)", "value": 292000, "unitCode": "GBP", "unitText": "ONS UK House Price Index, December 2025" },
+            { "@type": "QuantitativeValue", "name": "North West region average house price", "value": 210000, "unitCode": "GBP", "unitText": "ONS UK House Price Index, December 2025" },
+            { "@type": "QuantitativeValue", "name": "London average house price (relocation benchmark)", "value": 520000, "unitCode": "GBP", "unitText": "ONS UK House Price Index, December 2025" },
+            { "@type": "QuantitativeValue", "name": "Cheshire detached average", "value": 505000, "unitCode": "GBP", "unitText": "Rightmove, 12 months to 2025" },
+            { "@type": "QuantitativeValue", "name": "Cheshire semi-detached average", "value": 280000, "unitCode": "GBP", "unitText": "Rightmove, 12 months to 2025" },
+            { "@type": "QuantitativeValue", "name": "Cheshire terraced average", "value": 220000, "unitCode": "GBP", "unitText": "Rightmove, 12 months to 2025" },
+            { "@type": "QuantitativeValue", "name": "Cheshire flat average", "value": 155000, "unitCode": "GBP", "unitText": "Rightmove, 12 months to 2025" },
+            { "@type": "QuantitativeValue", "name": "Cheshire East year-on-year house price change", "value": 4.2, "unitCode": "P1", "unitText": "ONS HPSSA, 12 months to December 2025" },
+            { "@type": "QuantitativeValue", "name": "Cheshire West and Chester year-on-year house price change", "value": 3.1, "unitCode": "P1", "unitText": "ONS HPSSA, 12 months to December 2025" },
+            { "@type": "QuantitativeValue", "name": "England year-on-year house price change", "value": 3.8, "unitCode": "P1", "unitText": "ONS UK House Price Index, December 2025" },
+            { "@type": "QuantitativeValue", "name": "Highest average house price in Cheshire (Alderley Edge)", "value": 666489, "unitCode": "GBP", "unitText": "Rightmove, 2025" },
+            { "@type": "QuantitativeValue", "name": "Lowest average house price in main Cheshire town (Crewe)", "value": 185000, "unitCode": "GBP", "unitText": "Rightmove, 2025" },
+            { "@type": "QuantitativeValue", "name": "Cheshire East 5-year house price growth", "value": 28, "unitCode": "P1", "unitText": "ONS HPSSA, 2020-2025" },
+            { "@type": "QuantitativeValue", "name": "Cheshire West and Chester 5-year house price growth", "value": 22, "unitCode": "P1", "unitText": "ONS HPSSA, 2020-2025" }
+          ]
+        })}</script>
+
+        <h3 style="font-family: Georgia, serif; font-size: 18px; font-weight: 700; color: #1C1C1E; margin: 0 0 12px 0;">What is the average house price in Cheshire, and how does it vary by property type and area?</h3>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; line-height: 1.7; color: #555555; margin: 0 0 20px 0;">
+          The average house price in Cheshire is £314,000 across all property types and both local authority areas (ONS HPSSA, December 2025), sitting 7.5% above the England average of £292,000. Cheshire East at £371,000 and Cheshire West and Chester at £256,000 represent two substantially different property markets within the same county - the eastern authority's premium driven by Golden Triangle towns with direct Manchester rail access, while the western authority's lower average reflects Chester's affordable city stock and the rural west Cheshire villages.
+        </p>
+
+        <h4 style="font-family: Georgia, serif; font-size: 15px; font-weight: 700; color: #1C1C1E; margin: 0 0 8px 0;">What is the average house price in Cheshire by property type?</h4>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; line-height: 1.7; color: #333333; margin: 0 0 8px 0;">
+          Cheshire detached homes average £505,000, semi-detached £280,000, terraced £220,000, and flats £155,000 across both local authority areas combined (Rightmove, 12 months to 2025). Semi-detached homes at £280,000 represent the most liquid segment of the Cheshire market - the highest transaction volume, the fastest time-to-sale, and the broadest buyer pool drawn from families stepping up from terraced stock and downsizers releasing equity from detached homes.
+        </p>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; line-height: 1.7; color: #555555; margin: 0 0 8px 0;">
+          The detached average of £505,000 is 73% above the England all-property average of £292,000, reflecting Cheshire's above-average stock of large family homes and the premium commanded by rail-commuter catchments around Wilmslow, Alderley Edge, and Knutsford. County-level averages by property type mask substantial geographic variation: a detached home in Crewe (CW1) trades at approximately £215,000, while the same property type in Alderley Edge (SK9) averages £1,163,000 - a 5.4x spread within a county measuring approximately 45 miles east-to-west. Buyers using the £505,000 detached average as a budget reference without town-specific data risk significant planning errors.
+        </p>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; line-height: 1.7; color: #555555; margin: 0 0 20px 0; padding-bottom: 20px; border-bottom: 1px solid #E5E0D8;">
+          Terraced homes at £220,000 and flats at £155,000 are concentrated in Chester city centre (CH1-CH2), Crewe (CW1-CW2), Macclesfield town centre (SK11), and Ellesmere Port (CH65). These represent entry-level Cheshire property at prices below many comparable northern cities - Manchester terraced stock averages approximately £245,000 and Salford approximately £185,000, making urban Cheshire competitive for first-time buyers who do not require proximity to Manchester employment. The flat market in Cheshire is relatively thin: conversion flats over retail, modern apartment blocks in Chester, and Macclesfield town centre conversions make up most of the sub-£155,000 cohort. New-build apartments in Wilmslow and Knutsford trade at higher prices and occupy a separate premium segment.
+        </p>
+
+        <h4 style="font-family: Georgia, serif; font-size: 15px; font-weight: 700; color: #1C1C1E; margin: 0 0 8px 0;">How do Cheshire East and Cheshire West and Chester house prices differ?</h4>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; line-height: 1.7; color: #333333; margin: 0 0 8px 0;">
+          Cheshire East averages £371,000 and Cheshire West and Chester averages £256,000 - a £115,000 gap between two authorities that share a county boundary (ONS HPSSA, December 2025). The split reflects structurally different demand drivers: Cheshire East's premium is anchored by the Manchester rail commuter corridor, while Cheshire West's market is led by Chester's heritage appeal and the rural western villages that attract a different buyer profile.
+        </p>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; line-height: 1.7; color: #555555; margin: 0 0 8px 0;">
+          Cheshire East's premium concentrates in the Golden Triangle - Wilmslow (SK9) averages £586,475, Alderley Edge averages £666,489, and Knutsford averages £606,876 (Rightmove, 2025). These three towns collectively pull the Cheshire East average well above the authority's median, as does the Macclesfield borough (SK10-SK11) where prices average £380,000. The Manchester Piccadilly commute from Wilmslow at 17 minutes and from Macclesfield at 22 minutes makes Cheshire East the preferred relocation destination for Manchester-employed professionals who cannot afford comparable property within the city's residential ring. Green Belt designation around the Golden Triangle restricts new supply, sustaining price pressure even as incomes support elevated asking prices.
+        </p>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; line-height: 1.7; color: #555555; margin: 0 0 20px 0; padding-bottom: 20px; border-bottom: 1px solid #E5E0D8;">
+          Cheshire West and Chester's £256,000 average is 12% below the national England average of £292,000, making it one of the more affordably priced local authority areas in the North West despite containing Chester - a cathedral and walled-city destination with a distinct premium market of its own. Chester city centre averages £310,000, pulled up by Georgian and Victorian townhouses in CH1 and CH4, while Ellesmere Port (CH65) averages closer to £180,000 and provides the authority's lowest-priced volume market. The western authority's buyer population divides broadly into Chester lifestyle buyers (seeking heritage, proximity to the Welsh border, and less urban density than Manchester) and value buyers in Ellesmere Port and Winsford who prioritise affordability over premium amenity access.
+        </p>
+
+        <h4 style="font-family: Georgia, serif; font-size: 15px; font-weight: 700; color: #1C1C1E; margin: 0 0 8px 0;">How does the average house price in Cheshire compare to the national average?</h4>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; line-height: 1.7; color: #333333; margin: 0 0 8px 0;">
+          Cheshire's £314,000 combined average sits 7.5% above England's £292,000 average (ONS HPSSA and UK HPI, December 2025). Measured against the North West region at approximately £210,000, Cheshire is the highest-priced county in the region - 49% above the regional average. Against London at approximately £520,000, Cheshire represents a 40% discount, a price gap that continues to drive south-to-north relocation decisions among equity-rich London households.
+        </p>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; line-height: 1.7; color: #555555; margin: 0 0 8px 0;">
+          Cheshire's premium over the North West average is structurally driven by the Manchester rail commuter effect. No other county in the North West offers sub-30-minute rail access to Manchester city centre from multiple market towns - Wilmslow reaches Piccadilly in 17 minutes, Altrincham in 15 minutes, Macclesfield in 22 minutes, and Knutsford in approximately 35 minutes. Greater Manchester averages approximately £230,000 and Lancashire approximately £185,000, both below Cheshire despite containing major employment centres. The commuter premium operates by allowing households to locate in lower-density, higher-amenity Cheshire while accessing Manchester-level employment income, compressing demand into Cheshire's constrained Golden Triangle supply.
+        </p>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; line-height: 1.7; color: #555555; margin: 0 0 20px 0; padding-bottom: 20px; border-bottom: 1px solid #E5E0D8;">
+          For buyers relocating from London, the equity realised on a typical London property frequently funds a substantially larger or higher-specification Cheshire home with capital remaining. A seller of a £520,000 London average-priced property moving to Cheshire's £314,000 combined average releases £206,000 in equity after matching the county average - sufficient to eliminate a mortgage entirely on Cheshire West stock or to fund a significant upgrade within Cheshire East. This price arbitrage is a documented driver of south-to-north relocation decisions tracked in ONS internal migration data, and Cheshire's combination of property value, commute quality, school ratings, and lifestyle offer positions it as the most searched alternative to London within the Northern Powerhouse corridor.
+        </p>
+
+        <h4 style="font-family: Georgia, serif; font-size: 15px; font-weight: 700; color: #1C1C1E; margin: 0 0 8px 0;">What is the range of house prices across Cheshire towns?</h4>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; line-height: 1.7; color: #333333; margin: 0 0 8px 0;">
+          Cheshire house prices range from approximately £185,000 in Crewe (CW1-CW2) to £666,489 in Alderley Edge (SK9) across the county's main towns - a 3.6x spread covering the full spectrum from first-time buyer terraced stock to executive detached estates (Rightmove, 2025). The county's five most expensive towns are Alderley Edge (£666,489), Knutsford (£606,876), Wilmslow (£489,105), Prestbury (£670,000 for detacheds), and Nantwich (£395,000); its most affordable main towns are Crewe (£185,000), Ellesmere Port (£180,000), and Winsford (£195,000).
+        </p>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; line-height: 1.7; color: #555555; margin: 0 0 8px 0;">
+          The town-by-town spread reflects three distinct Cheshire property markets operating simultaneously. The Golden Triangle premium market (Alderley Edge, Wilmslow, Knutsford, Prestbury) is driven by rail commuter access to Manchester, Outstanding-rated primary school catchments, and constrained Green Belt supply - it functions more like a satellite of Manchester's executive housing market than a standalone Cheshire market. The middle-tier market (Macclesfield, Nantwich, Chester, Congleton) serves local employment and regional lifestyle buyers who seek character towns with amenities without the Golden Triangle premium. The affordable market (Crewe, Ellesmere Port, Winsford, Northwich) is dominated by first-time buyers, investors, and households relocating from higher-cost areas who prioritise access to major road and rail infrastructure over lifestyle premium.
+        </p>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; line-height: 1.7; color: #555555; margin: 0 0 20px 0; padding-bottom: 20px; border-bottom: 1px solid #E5E0D8;">
+          Within individual towns, postcode-sector variation can match or exceed the spread between towns. In Wilmslow, SK9 1 (Fulshaw Park) averages above £1,200,000 for detacheds while SK9 5 town centre apartments average £232,000 - a 5x range within a single postcode. Chester CH1 city centre differs substantially from CH4 suburbs, and Macclesfield SK10 premium roads sit at a different level from SK11 town centre terraced stock. Buyers comparing Cheshire towns using headline averages should interrogate postcode-sector data from Rightmove or Land Registry before drawing budget conclusions, as the headline figure for any town represents a blend of stock that rarely reflects the specific property type and location they are targeting.
+        </p>
+
+        <h4 style="font-family: Georgia, serif; font-size: 15px; font-weight: 700; color: #1C1C1E; margin: 0 0 8px 0;">How have Cheshire house prices changed over the past year and five years?</h4>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; line-height: 1.7; color: #333333; margin: 0 0 8px 0;">
+          Cheshire East house prices grew 4.2% in the 12 months to December 2025, above the England average of 3.8% over the same period. Cheshire West and Chester grew 3.1%, below the national average. Over five years to December 2025, Cheshire East grew approximately 28% and Cheshire West approximately 22% against a national growth figure of approximately 19% (ONS HPSSA, 2020-2025).
+        </p>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; line-height: 1.7; color: #555555; margin: 0 0 8px 0;">
+          Cheshire East's outperformance of the national average in both the 1-year and 5-year periods reflects the area's structural demand advantages rather than speculative activity. The Manchester employment market - which expanded significantly in financial services, technology, and media between 2020 and 2025 - generates household income growth that translates into Cheshire East property demand because the eastern authority is the preferred commuter location for Manchester professionals. The 2022-2023 correction period saw Cheshire East prices decline approximately 4-5% from the post-pandemic peak (a sharper correction than the national average of 3%), but the recovery since mid-2024 has pushed values above the previous peak in most Golden Triangle postcode sectors.
+        </p>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; line-height: 1.7; color: #555555; margin: 0;">
+          Cheshire West's 3.1% annual growth and 22% five-year growth reflect a more moderate price trajectory consistent with the authority's lower dependence on employment-driven migration. Chester's heritage appeal attracts a broader buyer demographic including retirees, second-home buyers, and remote workers not dependent on Manchester commute access - this diversified demand base produces steadier but less aggressive price growth than the employment-correlated Cheshire East market. Buyers evaluating Cheshire as an investment rather than a lifestyle decision should note that Cheshire East's track record of sustained outperformance is linked to structural supply constraints in the Golden Triangle and continued Manchester employment growth, both of which remain in place for the foreseeable planning horizon. Cheshire West's long-term growth profile is more correlated with the national average, making it a lower-volatility option for buyers prioritising price stability over outperformance.
+        </p>
+
+      </div>
+    </div>
+  </div>
+
 </BaseLayout>

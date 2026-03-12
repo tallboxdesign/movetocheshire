@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #F9F7F4; margin: 0; }
+  .container {
+    width: 1200px;
+    height: 630px;
+    background: #F9F7F4;
+    display: flex;
+    flex-direction: column;
+    font-family: Inter, Arial, sans-serif;
+    overflow: hidden;
+  }
+
+  .header {
+    padding: 40px 48px 0;
+  }
+  .eyebrow {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #3D5A3E;
+    margin-bottom: 10px;
+  }
+  .title {
+    font-family: Georgia, serif;
+    font-size: 34px;
+    font-weight: 700;
+    color: #1C1C1E;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+  }
+  .subtitle {
+    font-size: 15px;
+    color: #666666;
+    margin-top: 8px;
+  }
+
+  .chart {
+    padding: 32px 48px 0;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .row {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .row-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #1C1C1E;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .bars {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .bar-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .bar-town {
+    width: 110px;
+    font-size: 13px;
+    color: #666666;
+    text-align: right;
+    flex-shrink: 0;
+  }
+  .bar-track {
+    flex: 1;
+    height: 32px;
+    background: #EEEAE4;
+    position: relative;
+  }
+  .bar-fill {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 12px;
+    font-size: 14px;
+    font-weight: 700;
+    color: #FFFFFF;
+  }
+  .bar-fill.ae {
+    background: #C4933F;
+  }
+  .bar-fill.wm {
+    background: #3D5A3E;
+  }
+
+  .footer {
+    padding: 16px 48px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .source {
+    font-size: 11px;
+    color: #BBBBBB;
+  }
+  .brand {
+    font-size: 13px;
+    font-weight: 600;
+    color: #3D5A3E;
+    letter-spacing: 0.02em;
+  }
+
+  .legend {
+    display: flex;
+    gap: 24px;
+    padding: 20px 48px 0;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: #666666;
+  }
+  .legend-swatch {
+    width: 16px;
+    height: 16px;
+  }
+  .legend-swatch.ae { background: #C4933F; }
+  .legend-swatch.wm { background: #3D5A3E; }
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="container" id="capture">
+    <div class="header">
+      <div class="eyebrow">Alderley Edge vs Wilmslow</div>
+      <div class="title">Property prices by type</div>
+      <div class="subtitle">Average prices compared across the Golden Triangle's two largest settlements</div>
+    </div>
+
+    <div class="legend">
+      <div class="legend-item"><div class="legend-swatch ae"></div> Alderley Edge</div>
+      <div class="legend-item"><div class="legend-swatch wm"></div> Wilmslow</div>
+    </div>
+
+    <div class="chart">
+      <!-- Detached: AE £1,214,476 / WM £909,473. Max = 1,214,476 = 100% -->
+      <div class="row">
+        <div class="row-label">Detached</div>
+        <div class="bars">
+          <div class="bar-row">
+            <div class="bar-town">Alderley Edge</div>
+            <div class="bar-track"><div class="bar-fill ae" style="width: 100%;">£1,214,476</div></div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-town">Wilmslow</div>
+            <div class="bar-track"><div class="bar-fill wm" style="width: 74.9%;">£909,473</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Semi: AE £620,795 / WM £490,371. Relative to 1,214,476 -->
+      <div class="row">
+        <div class="row-label">Semi-detached</div>
+        <div class="bars">
+          <div class="bar-row">
+            <div class="bar-town">Alderley Edge</div>
+            <div class="bar-track"><div class="bar-fill ae" style="width: 51.1%;">£620,795</div></div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-town">Wilmslow</div>
+            <div class="bar-track"><div class="bar-fill wm" style="width: 40.4%;">£490,371</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Flat: AE £314,213 / WM £232,017 -->
+      <div class="row">
+        <div class="row-label">Flat</div>
+        <div class="bars">
+          <div class="bar-row">
+            <div class="bar-town">Alderley Edge</div>
+            <div class="bar-track"><div class="bar-fill ae" style="width: 25.9%;">£314,213</div></div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-town">Wilmslow</div>
+            <div class="bar-track"><div class="bar-fill wm" style="width: 19.1%;">£232,017</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <span class="source">Rightmove, last 12 months to 2025</span>
+      <span class="brand">movetocheshire.uk</span>
+    </div>
+  </div>
+</body>
+</html>

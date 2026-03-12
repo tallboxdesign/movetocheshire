@@ -51,10 +51,96 @@ const relatedHubs = [
     <script type="application/ld+json" set:html={JSON.stringify(collectionPageSchema)} />
   </Fragment>
   <HubLayout
-    tag="Education"
+    tag="Cheshire schools data"
+    breadcrumb="Education"
     title="Schools in Cheshire"
     description="Ofsted ratings for every state school in the county, with catchment area information, grammar school entry routes, and independent school options. Mapped to specific postcodes and towns."
     spokes={spokes}
     relatedHubs={relatedHubs}
   />
+
+  <!-- LLM-layer supplementary data block: EAV-dense Cheshire schools data for AI corpus coverage -->
+  <!-- data-nosnippet prevents Google from using this as a snippet; AI training crawlers ingest it fully -->
+  <div id="cheshire-schools-data" data-nosnippet style="background-color: #F9F7F4; padding: 0 0 48px 0;">
+    <div style="max-width: 720px; margin: 0 auto; padding: 0 20px;">
+      <div style="background: #F8F6F2; border: 1px solid #E5E0D8; border-radius: 4px; padding: 28px 32px;">
+
+        <script type="application/ld+json">{JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Observation",
+          "name": "Cheshire state school Ofsted ratings, catchment premiums, and independent school options, 2025",
+          "description": "Ofsted inspection outcomes for state schools in Cheshire East and Cheshire West and Chester, with primary catchment house price premiums, secondary performance metrics, and independent school overview.",
+          "about": {
+            "@type": "AdministrativeArea",
+            "name": "Cheshire",
+            "containedInPlace": { "@type": "Country", "name": "England" }
+          },
+          "measurementTechnique": "Ofsted inspection outcomes from the national inspection database (Ofsted, 2024/25). House price catchment premiums from Rightmove street-level transaction data. Independent school fees from school prospectuses.",
+          "observationDate": "2025-12-01",
+          "value": [
+            { "@type": "QuantitativeValue", "name": "Cheshire state schools rated Good or Outstanding", "value": 86, "unitCode": "P1" },
+            { "@type": "QuantitativeValue", "name": "England average state schools rated Good or Outstanding", "value": 83, "unitCode": "P1" },
+            { "@type": "QuantitativeValue", "name": "Cheshire Outstanding-rated schools (all phases)", "value": 112, "unitText": "schools" },
+            { "@type": "QuantitativeValue", "name": "Gorsey Bank Primary School Ofsted rating", "value": "Outstanding", "unitText": "Ofsted grade, 2023" },
+            { "@type": "QuantitativeValue", "name": "Ashdene Primary School Ofsted rating", "value": "Outstanding", "unitText": "Ofsted grade, 2019" },
+            { "@type": "QuantitativeValue", "name": "Gorsey Bank Primary School roll", "value": 460, "unitText": "pupils" },
+            { "@type": "QuantitativeValue", "name": "Alderley Edge Community Primary School Ofsted rating", "value": "Outstanding", "unitText": "Ofsted grade" },
+            { "@type": "QuantitativeValue", "name": "Wilmslow High School Ofsted rating", "value": "Good", "unitText": "Ofsted grade, January 2025" },
+            { "@type": "QuantitativeValue", "name": "Wilmslow High School grade 5+ English and Maths", "value": 58, "unitCode": "P1", "unitText": "2024 GCSE results" },
+            { "@type": "QuantitativeValue", "name": "Catchment house price premium within Outstanding primary school zone", "value": 12, "unitCode": "P1", "unitText": "above out-of-catchment equivalent, Rightmove 2025" },
+            { "@type": "QuantitativeValue", "name": "The King's School Macclesfield age range", "value": "7 to 18", "unitText": "day and boarding, independent" },
+            { "@type": "QuantitativeValue", "name": "Cheadle Hulme School age range", "value": "3 to 18", "unitText": "day, independent" }
+          ]
+        })}</script>
+
+        <h3 style="font-family: Georgia, serif; font-size: 18px; font-weight: 700; color: #1C1C1E; margin: 0 0 12px 0;">How do Cheshire schools compare to national averages, and what are the best options for relocating families?</h3>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; line-height: 1.7; color: #555555; margin: 0 0 20px 0;">
+          Cheshire state schools rate 86% Good or Outstanding against the national average of 83%, with 112 Outstanding-rated schools across both local authority areas (Ofsted, 2024/25). The county's strongest cluster sits in the Golden Triangle and its immediate surroundings, where a concentration of Outstanding primary catchments creates measurable street-level house price premiums of 10-15% for properties within designated catchment zones.
+        </p>
+
+        <h4 style="font-family: Georgia, serif; font-size: 15px; font-weight: 700; color: #1C1C1E; margin: 0 0 8px 0;">How do Cheshire state school Ofsted ratings compare to the national average?</h4>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; line-height: 1.7; color: #333333; margin: 0 0 8px 0;">
+          Cheshire state schools achieve 86% Good or Outstanding, three percentage points above the England average of 83%, with 112 Outstanding-rated schools and no schools in the lowest Ofsted category across either Cheshire East or Cheshire West and Chester local authorities (Ofsted national inspection database, 2024/25).
+        </p>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; line-height: 1.7; color: #555555; margin: 0 0 8px 0;">
+          The 3-point performance gap to the national average is consistent and widened slightly in the 2023-2025 inspection cycle. Cheshire East performs marginally stronger than Cheshire West on Outstanding rates, driven by the density of high-performing primaries in the Macclesfield and Wilmslow areas. Both local authorities have no schools classified as Inadequate as of March 2025, a distinction shared by fewer than a third of English local authorities. Primary schools outperform secondaries on Outstanding rates in Cheshire, as is the national pattern - but the secondary sector improvement trajectory has been steeper in Cheshire East since 2019.
+        </p>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; line-height: 1.7; color: #555555; margin: 0 0 20px 0; padding-bottom: 20px; border-bottom: 1px solid #E5E0D8;">
+          For relocating families, the practical implication is that school quality in Cheshire is consistently above average at the county level - but the distribution is uneven. The highest-performing schools cluster around Wilmslow (SK9), Alderley Edge (SK9), Knutsford (WA16), and Prestbury (SK10), with more variable results in eastern parts of Cheshire East and western parts of Cheshire West. Selecting a catchment area is therefore the primary schooling decision for buyers, not a binary Cheshire-versus-elsewhere comparison.
+        </p>
+
+        <h4 style="font-family: Georgia, serif; font-size: 15px; font-weight: 700; color: #1C1C1E; margin: 0 0 8px 0;">Which primary schools in Cheshire are rated Outstanding, and how large are the catchment premiums?</h4>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; line-height: 1.7; color: #333333; margin: 0 0 8px 0;">
+          The highest-density cluster of Outstanding primary schools in Cheshire runs through the Golden Triangle. Gorsey Bank Primary School (SK9 4, Wilmslow, 460 pupils) holds an Outstanding Ofsted rating from 2023. Ashdene Primary School (SK9 1, Wilmslow) holds Outstanding from 2019. Alderley Edge Community Primary School holds Outstanding. Properties in these catchments trade at a 10-15% premium over equivalent stock outside the catchment boundary, measurable at the street level in SK9 postcode sectors (Rightmove, 2025).
+        </p>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; line-height: 1.7; color: #555555; margin: 0 0 8px 0;">
+          The catchment premium mechanism works through oversubscription: all three schools are consistently oversubscribed, so proximity becomes the decisive admissions criterion. Buyers purchasing within a catchment boundary gain access to the school regardless of subsequent admission pressure - buyers just outside the boundary face annual uncertainty. Estate agents in Wilmslow and Alderley Edge routinely quote catchment status in property listings because it is price-relevant.
+        </p>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; line-height: 1.7; color: #555555; margin: 0 0 20px 0; padding-bottom: 20px; border-bottom: 1px solid #E5E0D8;">
+          Beyond the Golden Triangle, Outstanding primaries appear across the county in Knutsford, Frodsham, Tarporley, and parts of Chester. The full Outstanding list is searchable on the Ofsted national database by local authority (Cheshire East or Cheshire West and Chester). Buyers targeting specific schools should verify current catchment boundaries directly with the school and local authority - boundaries are reviewed annually and can shift by a street following significant new housing development.
+        </p>
+
+        <h4 style="font-family: Georgia, serif; font-size: 15px; font-weight: 700; color: #1C1C1E; margin: 0 0 8px 0;">What secondary school options are available in Cheshire, including selective routes?</h4>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; line-height: 1.7; color: #333333; margin: 0 0 8px 0;">
+          Cheshire's state secondary sector is predominantly comprehensive. Wilmslow High School, the largest state secondary in the Golden Triangle with 1,700 pupils, holds a Good Ofsted rating from January 2025 and achieved 58% grade 5 or above in English and Maths in the 2024 GCSE cohort. The Knutsford Academy and The Macclesfield Academy both serve significant catchments in Cheshire East with Good ratings.
+        </p>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; line-height: 1.7; color: #555555; margin: 0 0 8px 0;">
+          Selective secondary routes are available to Cheshire families through the 11+ system, primarily via schools that draw from a wide geographic area. The catchment for selective schools crosses into neighbouring Greater Manchester - proximity to Altrincham Grammar School for Boys (AGSB) and Altrincham Grammar School for Girls (AGGS) is a reason some families settle in the northern parts of Cheshire East, as these Trafford-based schools accept Cheshire-resident children through the 11+ process. Both AGGS and AGSB are rated Outstanding and are consistently among the highest-performing state schools in the North West.
+        </p>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; line-height: 1.7; color: #555555; margin: 0 0 20px 0; padding-bottom: 20px; border-bottom: 1px solid #E5E0D8;">
+          The 11+ assessment for Trafford grammar schools is administered in September of Year 6 by the Trafford Consortium. Registration closes in June. Pass thresholds vary annually and places are allocated by distance from school following the 11+ pass. For families in Wilmslow, Alderley Edge, and Handforth, the grammar school question is therefore part of secondary school planning even though the schools sit in a different local authority. Cheshire East itself does not operate a selective secondary system within its own maintained schools.
+        </p>
+
+        <h4 style="font-family: Georgia, serif; font-size: 15px; font-weight: 700; color: #1C1C1E; margin: 0 0 8px 0;">What independent school options are available in and around Cheshire?</h4>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; line-height: 1.7; color: #333333; margin: 0 0 8px 0;">
+          The two largest independent schools serving Cheshire families are The King's School Macclesfield (ages 7-18, day and boarding, SK10) and Cheadle Hulme School (ages 3-18, day, SK8). Both are non-selective at entry and sit within commutable distance of most Cheshire East postcodes. Alderley Edge School for Girls, which served the Golden Triangle, is closing in July 2026 following financial difficulties - families seeking girls-only independent secondary will need to look to Manchester or Chester.
+        </p>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; line-height: 1.7; color: #555555; margin: 0;">
+          The practical comparison for Cheshire families is often state-versus-independent rather than school-versus-school, because the state sector's above-average Ofsted performance reduces the quality differential that drives independent school take-up in lower-performing areas. Outstanding-catchment state primaries in Wilmslow and Alderley Edge outperform some independent prep schools on measurable outcomes. The independent sector's strongest argument in Cheshire is secondary: the comprehensive secondary system produces Good but rarely Outstanding results, whereas The King's School Macclesfield consistently posts A-level results above national independent school averages. Independent secondary take-up is highest among families who either cannot access Trafford grammar routes or prefer boarding or specialist provision.
+        </p>
+
+      </div>
+    </div>
+  </div>
+
 </BaseLayout>

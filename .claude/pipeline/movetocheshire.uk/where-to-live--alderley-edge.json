@@ -1,0 +1,12 @@
+{
+  "contentType": "guide",
+  "mapPosition": "quality-node",
+  "steps": {
+    "heading-alignment": { "status": "completed", "score": 85, "completedAt": "2026-03-11" },
+    "conversion-copy": { "status": "completed", "score": 92, "completedAt": "2026-03-11" },
+    "passage-fixer": { "status": "completed", "score": 78, "completedAt": "2026-03-11" },
+    "seo-page": { "status": "completed", "score": 82, "completedAt": "2026-03-11" },
+    "seo-eeat": { "status": "completed", "score": 80, "completedAt": "2026-03-11", "isYmyl": true, "ymylLevel": "medium", "ymylCategory": "property/relocation", "authorshipModel": "organization-as-author", "perspectiveDensity": 42, "experienceScore": 7 },
+    "seo-content": { "status": "completed", "score": 81, "completedAt": "2026-03-11", "issues": ["Added outbound source attribution block with 6 primary source links (Rightmove, Zoopla, HouseMetric, police.uk, Ofsted, National Rail)"] }
+  }
+}

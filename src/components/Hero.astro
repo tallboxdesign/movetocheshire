@@ -14,8 +14,8 @@ const quickLinks = [
   class="section-pad"
   style="background-color: #F9F7F4; overflow: hidden;"
 >
-  <div style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 400px), 1fr)); gap: 48px; align-items: center;">
+  <div style="max-width: 1200px; margin: 0 auto; padding: 48px 20px 0 20px;">
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 400px), 1fr)); gap: 48px; align-items: flex-start;">
       <!-- LEFT COLUMN: Text and Value Prop -->
       <div style="max-width: 600px;">
         <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 24px;">
@@ -75,6 +75,44 @@ const quickLinks = [
             );
           })}
         </nav>
+
+        <!-- VALUE PROPOSITION CHECKLIST -->
+        <div style="margin-top: 48px; border-top: 1px solid #E5E0D8; padding-top: 32px;">
+          <p style="font-family: Inter, Arial, sans-serif; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #888; margin-bottom: 16px; margin-top: 0;">
+            Why use our intelligence?
+          </p>
+          <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 16px;">
+            <li style="display: flex; align-items: flex-start; gap: 12px;">
+              <svg style="color: #3D5A3E; width: 18px; height: 18px; flex-shrink: 0; margin-top: 1px;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>
+              <span style="font-family: Inter, Arial, sans-serif; font-size: 14px; color: #444; line-height: 1.4;"><strong>Instantly match</strong> your budget to realistic properties across 10 premium Cheshire towns.</span>
+            </li>
+            <li style="display: flex; align-items: flex-start; gap: 12px;">
+              <svg style="color: #3D5A3E; width: 18px; height: 18px; flex-shrink: 0; margin-top: 1px;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>
+              <span style="font-family: Inter, Arial, sans-serif; font-size: 14px; color: #444; line-height: 1.4;"><strong>Bypass estate agent spin</strong> with hard facts on school catchments and actual commute times.</span>
+            </li>
+            <li style="display: flex; align-items: flex-start; gap: 12px;">
+              <svg style="color: #3D5A3E; width: 18px; height: 18px; flex-shrink: 0; margin-top: 1px;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>
+              <span style="font-family: Inter, Arial, sans-serif; font-size: 14px; color: #444; line-height: 1.4;"><strong>Save 40+ hours</strong> of stressful Rightmove scrolling and spreadsheets.</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- TRUST SIGNAL / EXPERT QUOTE -->
+        <blockquote style="margin-top: 48px; position: relative; padding-left: 20px;">
+          <div style="position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background-color: #C4933F;"></div>
+          <svg style="color: rgba(196,147,63,0.3); width: 28px; height: 28px; position: absolute; left: 16px; top: -10px; z-index: -1;" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" /></svg>
+          <p style="font-family: Georgia, serif; font-size: 15px; font-style: italic; color: #555555; line-height: 1.6; margin: 0 0 12px 0;">
+            "The Cheshire market is driven by fundamentals: quality of life, access to good schools, and strong transport links. Flexible working has been a game-changer [for the region]."
+          </p>
+          <cite style="display: flex; align-items: center; gap: 10px; font-style: normal;">
+            <div style="width: 32px; height: 32px; background-color: #1C1C1E; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-family: Inter, Arial, sans-serif; font-size: 12px; font-weight: 700;">CK</div>
+            <div>
+              <div style="font-family: Inter, Arial, sans-serif; font-size: 13px; font-weight: 700; color: #1C1C1E;">Charlie Kannreuther</div>
+              <div style="font-family: Inter, Arial, sans-serif; font-size: 11px; color: #888888; text-transform: uppercase; letter-spacing: 0.05em;">Head of North West Residential, Savills</div>
+            </div>
+          </cite>
+        </blockquote>
+
       </div>
 
       <!-- RIGHT COLUMN: Interactive Tool (Slot) -->

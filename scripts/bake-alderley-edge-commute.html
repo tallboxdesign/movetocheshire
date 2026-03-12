@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #F9F7F4; margin: 0; }
+  .container {
+    width: 1200px;
+    height: 630px;
+    background: #F9F7F4;
+    display: flex;
+    flex-direction: column;
+    font-family: Inter, Arial, sans-serif;
+    overflow: hidden;
+  }
+
+  .header {
+    padding: 40px 48px 0;
+  }
+  .eyebrow {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #3D5A3E;
+    margin-bottom: 10px;
+  }
+  .title {
+    font-family: Georgia, serif;
+    font-size: 34px;
+    font-weight: 700;
+    color: #1C1C1E;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+  }
+
+  .diagram {
+    flex: 1;
+    position: relative;
+    padding: 20px 48px 0;
+  }
+
+  /* Central hub */
+  .hub {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 160px;
+    height: 160px;
+    background: #3D5A3E;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 3;
+  }
+  .hub-name {
+    font-size: 16px;
+    font-weight: 700;
+    color: #FFFFFF;
+    text-align: center;
+    line-height: 1.2;
+  }
+  .hub-postcode {
+    font-size: 12px;
+    color: rgba(255,255,255,0.6);
+    margin-top: 4px;
+  }
+
+  /* Destination nodes */
+  .dest {
+    position: absolute;
+    width: 180px;
+    background: #FFFFFF;
+    border: 1px solid #E5E0D8;
+    padding: 16px;
+    text-align: center;
+    z-index: 3;
+  }
+  .dest-name {
+    font-size: 15px;
+    font-weight: 700;
+    color: #1C1C1E;
+    margin-bottom: 4px;
+  }
+  .dest-time {
+    font-size: 28px;
+    font-weight: 700;
+    color: #C4933F;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .dest-mode {
+    font-size: 11px;
+    color: #888888;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .dest-detail {
+    font-size: 11px;
+    color: #AAAAAA;
+    margin-top: 4px;
+  }
+
+  /* Position destinations around the hub */
+  .dest.manchester {
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .dest.airport {
+    top: 50%;
+    left: 48px;
+    transform: translateY(-50%);
+  }
+  .dest.london {
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .dest.wilmslow-stn {
+    top: 50%;
+    right: 48px;
+    transform: translateY(-50%);
+  }
+
+  /* Connector lines - using SVG */
+  .connectors {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+  }
+  .connectors line {
+    stroke: #D5D0C8;
+    stroke-width: 2;
+    stroke-dasharray: 6, 4;
+  }
+
+  /* Mode badges on connectors */
+  .mode-badge {
+    position: absolute;
+    background: #F5F0E8;
+    border: 1px solid #E5E0D8;
+    padding: 3px 8px;
+    font-size: 10px;
+    font-weight: 600;
+    color: #666666;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    z-index: 2;
+  }
+  .mode-badge.train { left: 50%; top: 32%; transform: translate(-50%, -50%); }
+  .mode-badge.car-left { left: 22%; top: 50%; transform: translate(-50%, -50%); }
+  .mode-badge.train-change { left: 50%; bottom: 18%; transform: translate(-50%, 50%); }
+  .mode-badge.train-right { right: 22%; top: 38%; transform: translate(0%, -50%); }
+
+  .footer {
+    padding: 12px 48px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .source {
+    font-size: 11px;
+    color: #BBBBBB;
+  }
+  .brand {
+    font-size: 13px;
+    font-weight: 600;
+    color: #3D5A3E;
+    letter-spacing: 0.02em;
+  }
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="container" id="capture">
+    <div class="header">
+      <div class="eyebrow">Alderley Edge transport links</div>
+      <div class="title">Commute times from Alderley Edge station</div>
+    </div>
+
+    <div class="diagram">
+      <!-- SVG connectors -->
+      <svg class="connectors" viewBox="0 0 1104 400" preserveAspectRatio="none">
+        <!-- Hub center approx: 552, 200 -->
+        <!-- To Manchester (top): 552, 40 -->
+        <line x1="552" y1="120" x2="552" y2="40" />
+        <!-- To Airport (left): 140, 200 -->
+        <line x1="472" y1="200" x2="230" y2="200" />
+        <!-- To London (bottom): 552, 360 -->
+        <line x1="552" y1="280" x2="552" y2="340" />
+        <!-- To Wilmslow stn (right): 960, 200 -->
+        <line x1="632" y1="200" x2="870" y2="200" />
+      </svg>
+
+      <!-- Mode badges -->
+      <div class="mode-badge train">TRAIN</div>
+      <div class="mode-badge car-left">CAR / M56</div>
+      <div class="mode-badge train-change">TRAIN + CHANGE</div>
+      <div class="mode-badge train-right">1 STOP NORTH</div>
+
+      <!-- Central hub -->
+      <div class="hub">
+        <div class="hub-name">Alderley<br>Edge</div>
+        <div class="hub-postcode">SK9 7</div>
+      </div>
+
+      <!-- Destinations -->
+      <div class="dest manchester">
+        <div class="dest-name">Manchester Piccadilly</div>
+        <div class="dest-time">27 min</div>
+        <div class="dest-mode">Northern Trains</div>
+        <div class="dest-detail">Every 30 min</div>
+      </div>
+
+      <div class="dest airport">
+        <div class="dest-name">Manchester Airport</div>
+        <div class="dest-time">15-20 min</div>
+        <div class="dest-mode">Car via M56</div>
+        <div class="dest-detail">8 miles</div>
+      </div>
+
+      <div class="dest london">
+        <div class="dest-name">London Euston</div>
+        <div class="dest-time">~2.5 hrs</div>
+        <div class="dest-mode">Change at Piccadilly</div>
+        <div class="dest-detail">Avanti West Coast</div>
+      </div>
+
+      <div class="dest wilmslow-stn">
+        <div class="dest-name">Wilmslow Station</div>
+        <div class="dest-time">4 min</div>
+        <div class="dest-mode">Next stop north</div>
+        <div class="dest-detail">Avanti + London direct</div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <span class="source">National Rail 2025 - Google Maps 2025</span>
+      <span class="brand">movetocheshire.uk</span>
+    </div>
+  </div>
+</body>
+</html>

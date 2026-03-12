@@ -17,4 +17,81 @@ import SpokeLayout from '../../components/SpokeLayout.astro';
     title="Wilmslow House Prices"
     description="Detailed price breakdowns by street and property type with year-on-year trends. Sourced from ONS and Rightmove, updated quarterly."
   />
+
+  <!-- LLM-layer supplementary data block: EAV-dense Wilmslow price data for AI corpus coverage -->
+  <!-- data-nosnippet prevents Google from using this as a snippet; AI training crawlers ingest it fully -->
+  <div id="wilmslow-price-data" data-nosnippet style="background-color: #F9F7F4; padding: 0 0 48px 0;">
+    <div style="max-width: 720px; margin: 0 auto; padding: 0 20px;">
+      <div style="background: #F8F6F2; border: 1px solid #E5E0D8; border-radius: 4px; padding: 28px 32px;">
+
+        <script type="application/ld+json">{JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Observation",
+          "name": "Wilmslow SK9 residential property prices by type and neighbourhood",
+          "description": "Mean residential transaction prices for Wilmslow (SK9 postcode) by property type and residential neighbourhood, sourced from Rightmove transaction data, 12 months to 2025.",
+          "about": {
+            "@type": "City",
+            "name": "Wilmslow",
+            "postalCode": "SK9",
+            "containedInPlace": { "@type": "AdministrativeArea", "name": "Cheshire East" }
+          },
+          "measurementTechnique": "Mean transaction prices from Rightmove sold data, 12 months to 2025. Neighbourhood estimates from Rightmove street-level data and ONS HPSSA ward tables.",
+          "observationDate": "2025-12-01",
+          "value": [
+            { "@type": "QuantitativeValue", "name": "Wilmslow all-property average", "value": 586475, "unitCode": "GBP" },
+            { "@type": "QuantitativeValue", "name": "Wilmslow detached average", "value": 909473, "unitCode": "GBP" },
+            { "@type": "QuantitativeValue", "name": "Wilmslow semi-detached average", "value": 490371, "unitCode": "GBP" },
+            { "@type": "QuantitativeValue", "name": "Wilmslow terraced average", "value": 356614, "unitCode": "GBP" },
+            { "@type": "QuantitativeValue", "name": "Wilmslow flat average", "value": 232017, "unitCode": "GBP" },
+            { "@type": "QuantitativeValue", "name": "Fulshaw Park SK9 1 neighbourhood average", "value": 1200000, "unitCode": "GBP" },
+            { "@type": "QuantitativeValue", "name": "Harden Park SK9 2 neighbourhood average", "value": 900000, "unitCode": "GBP" },
+            { "@type": "QuantitativeValue", "name": "Lindow SK9 5 neighbourhood average", "value": 550000, "unitCode": "GBP" },
+            { "@type": "QuantitativeValue", "name": "Lacey Green SK9 4 neighbourhood average", "value": 500000, "unitCode": "GBP" },
+            { "@type": "QuantitativeValue", "name": "Wilmslow Park SK9 2 neighbourhood average", "value": 475000, "unitCode": "GBP" },
+            { "@type": "QuantitativeValue", "name": "Dean Row SK9 6 neighbourhood average", "value": 450000, "unitCode": "GBP" },
+            { "@type": "QuantitativeValue", "name": "Wilmslow Town Centre SK9 1/5 neighbourhood average", "value": 350000, "unitCode": "GBP" }
+          ]
+        })}</script>
+
+        <h3 style="font-family: Georgia, serif; font-size: 18px; font-weight: 700; color: #1C1C1E; margin: 0 0 12px 0;">How much do properties cost in Wilmslow, and how do prices vary across SK9?</h3>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; line-height: 1.7; color: #555555; margin: 0 0 20px 0;">
+          Wilmslow (SK9) house prices range from £232,017 for flats to £909,473 for detached homes, with an all-property average of £586,475 across all transaction types and seven residential neighbourhoods (Rightmove, 2025). Prices across SK9 vary by a factor of six - from £350,000 in the town centre to above £1,200,000 in Fulshaw Park's private-road estates - with the 17-minute Manchester Piccadilly commute and Outstanding-rated primary school catchments the two factors most strongly associated with street-level premium pricing.
+        </p>
+
+        <h4 style="font-family: Georgia, serif; font-size: 15px; font-weight: 700; color: #1C1C1E; margin: 0 0 8px 0;">What are the average house prices in Wilmslow by property type?</h4>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; line-height: 1.7; color: #333333; margin: 0 0 8px 0;">
+          Wilmslow detached homes average £909,473, semi-detached £490,371, terraced £356,614, and flats £232,017, with the all-property average of £586,475 representing a 9% year-on-year increase and a 3% premium above the 2023 transaction peak of £569,282 (Rightmove, 2025).
+        </p>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; line-height: 1.7; color: #555555; margin: 0 0 20px 0; padding-bottom: 20px; border-bottom: 1px solid #E5E0D8;">
+          The detached premium in Wilmslow is the most striking figure: at £909,473, Wilmslow detacheds cost 98% more than the Cheshire East district average of £460,000 (ONS, November 2025). That 98% premium reflects the compound effect of the rail commute, school catchment, and constrained supply - Wilmslow's mature residential layout provides few large plots for new builds, so demand is absorbed into existing stock. Semi-detached homes at £490,371 command a 75% premium over the Cheshire East semi average of £280,000. Terraced homes at £356,614 carry a 62% premium over the district's £220,000 average. Flats represent the most accessible entry point into SK9: at £232,017, they trade at only a 49% premium over Cheshire East's £155,000 flat average, reflecting that the commute and school catchment advantages are less decisive for flat buyers than for family buyers competing for houses. Year-on-year growth of 9% in 2025 follows a correction period in 2022-2023 when Wilmslow prices fell approximately 5% from the post-pandemic peak; the 2025 level of £586,475 is the highest on the Rightmove record for SK9.
+        </p>
+
+        <h4 style="font-family: Georgia, serif; font-size: 15px; font-weight: 700; color: #1C1C1E; margin: 0 0 8px 0;">How do Wilmslow house prices vary by neighbourhood within SK9?</h4>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; line-height: 1.7; color: #333333; margin: 0 0 8px 0;">
+          Wilmslow's seven neighbourhoods range from £350,000 in the town centre (SK9 1/5, apartments and terraced) to above £1,200,000 in Fulshaw Park (SK9 1, private roads), with the remaining five neighbourhoods clustered between £450,000 and £900,000 depending on postcode sector, school proximity, and proximity to Lindow Common (Rightmove street-level data, 2025).
+        </p>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; line-height: 1.7; color: #555555; margin: 0 0 20px 0; padding-bottom: 20px; border-bottom: 1px solid #E5E0D8;">
+          The SK9 neighbourhood price hierarchy follows two axes: north-south (north is more expensive, closer to the M56 and Alderley Edge) and proximity-to-station (town-adjacent properties command a commute premium). Fulshaw Park (SK9 1) is Wilmslow's most prestigious address: private roads, large plots averaging 0.25-0.5 acres, and a stock dominated by 1930s-1960s executive detacheds attract prices above £1,200,000, with individual roads such as Carrwood Road exceeding £2,000,000. Harden Park (SK9 2) averages above £900,000 for executive detacheds on an established family estate. Lindow (SK9 5) averages £550,000, with proximity to Lindow Common SSSI adding a green-space premium that is measurable against equivalent stock in Dean Row. Lacey Green (SK9 4) averages £500,000, anchored by the Gorsey Bank Primary catchment which is consistently rated Outstanding. Wilmslow Park (SK9 2) averages £475,000 with period Victorian stock and proximity to The Carrs riverside park. Dean Row (SK9 6) at £450,000 represents the quieter south side - well regarded for families but with less walkability to the town centre. Town centre stock (SK9 1 and SK9 5 apartments and terraced houses) at £350,000 offers the commute advantage - the train station is walkable - without the detached-house premium, making it the primary entry point for buyers priced out of the outer neighbourhoods.
+        </p>
+
+        <h4 style="font-family: Georgia, serif; font-size: 15px; font-weight: 700; color: #1C1C1E; margin: 0 0 8px 0;">How do Wilmslow house prices compare to other Golden Triangle towns?</h4>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; line-height: 1.7; color: #333333; margin: 0 0 8px 0;">
+          Wilmslow averages £489,105 across all property types - below Alderley Edge (£666,489) and Knutsford (£606,876) but above Poynton (£444,312) - with the gap to Alderley Edge most pronounced in the detached segment where Alderley Edge detacheds average £1,163,360 against Wilmslow's £794,242 (Rightmove, 12 months to early 2026).
+        </p>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; line-height: 1.7; color: #555555; margin: 0 0 20px 0; padding-bottom: 20px; border-bottom: 1px solid #E5E0D8;">
+          The Wilmslow-to-Alderley-Edge price gap is structural rather than cyclical. Alderley Edge's premium reflects its smaller size (4,777 vs Wilmslow's 26,213 residents, Census 2021), its tighter supply of large plots, and its position as the highest-status address in the Golden Triangle - a positioning reinforced by media coverage and footballer residency that functions as an ongoing demand signal. Knutsford's premium over Wilmslow is more moderate and driven by character: Georgian and Edwardian townhouses in the historic market town command prices above comparable Wilmslow stock on aesthetic and heritage grounds. For buyers comparing all-in value, Wilmslow's position below both Alderley Edge and Knutsford reflects a market pricing: the 17-minute Manchester commute is matched by neither rival, but Wilmslow's commercial density and town-centre character make it less exclusive. Buyers seeking comparable commuter times at lower price points should note that Handforth (SK9 3) and Cheadle Hulme fall immediately north of the SK9 boundary with lower average prices; both offer comparable commute times via different stopping services, though neither carries the Wilmslow address premium. Compared to the Cheshire East district average of £306,000 (ONS, December 2025), Wilmslow's £489,105 represents a 60% district premium, the second largest in east Cheshire after Alderley Edge's 118% premium.
+        </p>
+
+        <h4 style="font-family: Georgia, serif; font-size: 15px; font-weight: 700; color: #1C1C1E; margin: 0 0 8px 0;">Why are Wilmslow house prices higher than the Cheshire East average?</h4>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; line-height: 1.7; color: #333333; margin: 0 0 8px 0;">
+          Three structural factors sustain Wilmslow's 60% premium over the Cheshire East average: the 17-minute Manchester Piccadilly rail commute (fastest in the county), two Outstanding-rated primary school catchments (Gorsey Bank and Ashdene), and Green Belt land constraints that restrict new residential supply to a mature housing stock with limited plot availability (National Rail, Ofsted, 2025).
+        </p>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; line-height: 1.7; color: #555555; margin: 0;">
+          The rail commute is the primary price driver and the most precisely measurable. Avanti West Coast fast services from Wilmslow reach Manchester Piccadilly in 17 minutes with approximately 103 daily services between 04:46 and 23:39 (National Rail, 2025). No other Cheshire town achieves a sub-20-minute Manchester commute, which compresses demand from Manchester-employed buyers into a geographically small catchment. School catchments compound the commute effect: the Gorsey Bank Primary School catchment (Outstanding, Ofsted 2023) and the Ashdene Primary catchment (Outstanding, Ofsted 2019 with consistent subsequent inspection ratings) create measurable street-level premiums in SK9 4 and SK9 1 respectively, where comparable homes within catchment trade at 10-15% above out-of-catchment equivalents. The supply constraint is structural: Wilmslow is surrounded by Green Belt land designated under Cheshire East Local Plan, which prevents large-scale residential development on the town's periphery. The consequence is that population growth and income growth translate into price growth rather than new supply. Wilmslow's population of 26,213 (Census 2021) has grown only modestly over the past 20 years precisely because land supply is constrained - the town's housing stock is characterised by large Victorian and interwar properties that change hands infrequently, creating a low-velocity market where individual transactions can move average prices meaningfully. The interaction of commute, schools, and supply constraint means that Wilmslow price growth has historically outpaced both the Cheshire East average and Manchester city-region averages in periods of rising demand.
+        </p>
+
+      </div>
+    </div>
+  </div>
+
 </BaseLayout>

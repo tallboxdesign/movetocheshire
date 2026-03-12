@@ -56,6 +56,7 @@ function formatDate(iso: string): string {
     <meta name="twitter:card" content={ogImage ? "summary_large_image" : "summary"} />
     <meta name="twitter:title" content={resolvedOgTitle} />
     <meta name="twitter:description" content={resolvedOgDescription} />
+    {ogImage && <meta name="twitter:image" content={ogImage.startsWith('http') ? ogImage : `https://movetocheshire.uk${ogImage}`} />}
     {publishDate && <meta property="article:published_time" content={publishDate} />}
     {updatedDate && <meta property="article:modified_time" content={updatedDate} />}
     <slot name="head" />

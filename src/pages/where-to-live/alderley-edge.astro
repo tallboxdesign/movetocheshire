@@ -1,0 +1,403 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const faqs = [
+  { question: 'Is Alderley Edge a good place to live?', answer: 'Yes. Alderley Edge (SK9 7) combines Golden Triangle prestige with a 27-minute train to Manchester Piccadilly, an Ofsted Good primary school with Outstanding early years, and National Trust woodland on the doorstep. The trade-off is price - the average property sells for £680,000-£780,000 depending on source (Rightmove/Zoopla, 2025), with detached homes averaging £1.21 million.' },
+  { question: 'What is the average house price in Alderley Edge?', answer: 'The average house price in Alderley Edge is approximately £680,000-£780,000 (Rightmove reports £679,849; Zoopla reports £780,910, last 12 months to 2025). Detached homes average £1,214,476, semi-detached £620,795, and flats £314,213. The median price per square metre is £4,740 (HouseMetric, 2025).' },
+  { question: 'How long is the commute from Alderley Edge to Manchester?', answer: 'Northern Trains runs services from Alderley Edge station to Manchester Piccadilly in approximately 27 minutes, departing every 30 minutes on the Crewe-Manchester line. For London, change at Manchester Piccadilly for Avanti West Coast services reaching Euston in approximately 2 hours - total journey around 2.5-3 hours.' },
+  { question: 'How does Alderley Edge compare to Wilmslow?', answer: 'Alderley Edge is roughly six times smaller than Wilmslow (4,777 vs 26,213 residents) with a more concentrated dining scene on London Road. Detached homes average £1.21 million in Alderley Edge vs £909,000 in Wilmslow. Wilmslow has a faster Manchester commute (17 minutes vs 27 minutes), more frequent trains, and Avanti West Coast direct to London. Alderley Edge suits buyers prioritising village exclusivity and The Edge escarpment; Wilmslow suits those wanting broader amenities and faster city access.' },
+  { question: 'Is Alderley Edge safe?', answer: 'The village-wide crime rate of 76.2 per 1,000 is inflated by the concentration of bars and restaurants on London Road. Residential areas of Alderley Edge record approximately 30-31 crimes per 1,000 - well below the national average. Cheshire has the lowest crime rate in the North West at 69.8 per 1,000 (Cheshire Constabulary, year to March 2025).' },
+  { question: 'What schools serve Alderley Edge?', answer: 'Alderley Edge Community Primary School is the village state primary, rated Good by Ofsted (December 2024) with Outstanding for behaviour, personal development, and early years. For secondary, Wilmslow High School (Ofsted Good) serves Alderley Edge but is heavily oversubscribed - places are allocated by distance from the school gates, not a fixed catchment boundary. Alderley Edge School for Girls (ISI Excellent) closes permanently in July 2026.' },
+  { question: 'What is the salt search requirement when buying in Alderley Edge?', answer: 'Alderley Edge sits within the Cheshire salt field where historical brine extraction caused ground movement. Solicitors conducting conveyancing on SK9 properties commission a salt search (approximately £30-£50) to confirm whether the plot falls within a Cheshire Brine Subsidence Compensation Board claim area. Most Alderley Edge residential properties pass without issues.' },
+];
+
+const neighbourhoods = [
+  { name: 'Chorley Hall Lane', postcode: 'SK9 7', avgPrice: '£1,500,000+', type: 'Premium detached', character: 'Large plots, private drives, most exclusive addresses' },
+  { name: 'Woodbrook Road area', postcode: 'SK9 7', avgPrice: '£1,200,000+', type: 'Executive detached', character: 'Established family homes, generous gardens' },
+  { name: 'Mottram Road corridor', postcode: 'SK9 7', avgPrice: '£800,000+', type: 'Mixed detached/semi', character: 'Period and modern homes, close to The Edge' },
+  { name: 'Village centre', postcode: 'SK9 7', avgPrice: '£400,000-£600,000', type: 'Apartments, terraced', character: 'London Road, walkable dining and shopping' },
+  { name: 'Heyes Lane area', postcode: 'SK9 7', avgPrice: '£700,000+', type: 'Family detached', character: 'Near primary school, quiet residential streets' },
+];
+
+const schools = [
+  { name: 'Alderley Edge Community Primary', type: 'State primary', rating: 'Good (Dec 2024)', note: '~203 pupils, Outstanding early years' },
+  { name: 'Wilmslow High School', type: 'State secondary', rating: 'Good', note: 'Distance-based admissions, oversubscribed' },
+  { name: 'Alderley Edge School for Girls', type: 'Independent', rating: 'ISI Excellent (2021)', note: 'Ages 3-18, closing July 2026' },
+  { name: 'The Ryleys School', type: 'Independent prep', rating: 'ISI inspected', note: 'Ages 1-11, Ryleys Lane' },
+];
+
+const relatedSpokes = [
+  { label: 'Where to Live in Cheshire', href: '/where-to-live', tag: 'Hub' },
+  { label: 'The Cheshire Golden Triangle', href: '/where-to-live/cheshire-golden-triangle', tag: 'Area Guide' },
+  { label: 'Wilmslow Area Guide', href: '/where-to-live/wilmslow', tag: 'Area Guide' },
+  { label: 'Knutsford Area Guide', href: '/where-to-live/knutsford', tag: 'Area Guide' },
+  { label: 'Best Places to Live in Cheshire', href: '/where-to-live/best-places-cheshire', tag: 'Area Guide' },
+];
+
+const placeSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'City',
+  name: 'Alderley Edge',
+  url: 'https://movetocheshire.uk/where-to-live/alderley-edge',
+  description: 'Affluent village in Cheshire East (SK9 7 postcode), part of the Golden Triangle, average house prices £680,000-£780,000, 27-minute train to Manchester Piccadilly, home to the National Trust Edge escarpment.',
+  postalCode: 'SK9 7',
+  population: 4777,
+  image: 'https://movetocheshire.uk/images/where-to-live/alderley-edge-escarpment.webp',
+  sameAs: [
+    'https://en.wikipedia.org/wiki/Alderley_Edge_(village)',
+    'https://www.wikidata.org/wiki/Q2349453',
+  ],
+  geo: { '@type': 'GeoCoordinates', latitude: 53.3042, longitude: -2.2365 },
+  containedInPlace: { '@type': 'AdministrativeArea', name: 'Cheshire East' },
+};
+
+const neighbourhoodListSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: 'Neighbourhoods in Alderley Edge',
+  description: 'Key residential areas in Alderley Edge compared by average house price and character.',
+  numberOfItems: neighbourhoods.length,
+  itemListElement: neighbourhoods.map((n, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    item: { '@type': 'Place', name: n.name, description: `Average price ${n.avgPrice}. ${n.character}.`, containedInPlace: { '@type': 'City', name: 'Alderley Edge' } },
+  })),
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://movetocheshire.uk' },
+    { '@type': 'ListItem', position: 2, name: 'Where to Live', item: 'https://movetocheshire.uk/where-to-live' },
+    { '@type': 'ListItem', position: 3, name: 'Alderley Edge', item: 'https://movetocheshire.uk/where-to-live/alderley-edge' },
+  ],
+};
+
+const webPageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: 'Where to Live in Alderley Edge',
+  description: 'Alderley Edge (SK9) area guide: property prices from £314k to £1.21m, 27-minute Manchester commute, National Trust escarpment, Alderley Park life science campus, and what buyers need to know about the Golden Triangle village.',
+  url: 'https://movetocheshire.uk/where-to-live/alderley-edge',
+  datePublished: '2026-03-10',
+  dateModified: '2026-03-10',
+  inLanguage: 'en-GB',
+  author: { '@type': 'Person', '@id': 'https://movetocheshire.uk/#person-tom-cairns', name: 'Tom Cairns' },
+  isPartOf: { '@type': 'WebSite', name: 'movetocheshire.uk', url: 'https://movetocheshire.uk' },
+  about: { '@type': 'City', name: 'Alderley Edge', sameAs: 'https://www.wikidata.org/wiki/Q2349453' },
+  breadcrumb: { '@type': 'BreadcrumbList', itemListElement: breadcrumbSchema.itemListElement },
+};
+---
+
+<BaseLayout
+  title="Where to Live in Alderley Edge | movetocheshire.uk"
+  description="Alderley Edge (SK9) area guide: prices from £314k to £1.21m, 27-min Manchester commute, National Trust woodland, Alderley Park campus, and Golden Triangle village life explained."
+  ogImage="/images/where-to-live/alderley-edge-escarpment.webp"
+  publishDate="2026-03-10"
+  updatedDate="2026-03-10"
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(webPageSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(placeSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(neighbourhoodListSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+  </Fragment>
+
+  <!-- Hero -->
+  <section style="background-color: #F5F0E8; padding: clamp(48px, 8vw, 96px) 24px clamp(32px, 4vw, 48px);">
+    <div style="max-width: 800px; margin: 0 auto;">
+      <nav style="font-family: Inter, Arial, sans-serif; font-size: 13px; color: #888888; margin-bottom: 20px;">
+        <a href="/" style="color: #888888; text-decoration: none;">Home</a>
+        <span style="margin: 0 6px;">/</span>
+        <a href="/where-to-live" style="color: #888888; text-decoration: none;">Where to Live</a>
+        <span style="margin: 0 6px;">/</span>
+        <span style="color: #444444;">Alderley Edge</span>
+      </nav>
+      <span style="display: inline-block; font-family: Inter, Arial, sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #3D5A3E; background-color: rgba(61, 90, 62, 0.08); padding: 4px 10px; margin-bottom: 16px;">Golden Triangle village</span>
+      <h1 style="font-family: Georgia, serif; font-size: clamp(28px, 5vw, 44px); font-weight: 700; color: #1C1C1E; line-height: 1.15; margin: 0 0 20px 0;">Where to live in Alderley Edge?</h1>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 17px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">Alderley Edge is a village of 4,777 residents in Cheshire East, 12 miles south of Manchester. The SK9 7 postcode covers the village and its five residential areas, from premium Chorley Hall Lane (£1.5 million+ detached) to village centre apartments from £314,000. Alderley Edge averages £680,000-£780,000 across all property types (Rightmove/Zoopla, 2025) and forms one third of the Cheshire Golden Triangle alongside Wilmslow and Prestbury.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 17px; line-height: 1.75; color: #444444; margin: 0 0 32px 0;">Northern Trains connects Alderley Edge station to Manchester Piccadilly in 27 minutes. The National Trust manages 250 acres of sandstone escarpment woodland directly above the village. Cheshire Constabulary records approximately 30 crimes per 1,000 residents in Alderley Edge's residential streets (police.uk, 2025).</p>
+
+      <!-- Tier 2: Thematic image + CSS overlay -->
+      <figure style="margin: 0 auto 32px; max-width: 720px; position: relative; overflow: hidden;">
+        <img src="/images/where-to-live/alderley-edge-escarpment.webp"
+          alt="The Edge sandstone escarpment above Alderley Edge village with National Trust woodland trail through ancient beech and pine trees at golden hour"
+          width="1200" height="655"
+          loading="eager"
+          style="width: 720px; max-width: 100%; aspect-ratio: 1200/655; display: block; object-fit: cover;" />
+        <div style="position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(28,28,30,0.85)); padding: clamp(32px, 4vw, 48px) clamp(16px, 3vw, 24px) clamp(16px, 2vw, 24px);">
+          <p style="font-family: Inter, Arial, sans-serif; font-size: clamp(13px, 1.6vw, 16px); line-height: 1.6; color: #FFFFFF; margin: 0;">
+            <strong style="color: #C4933F;">£680k-£780k average</strong> -
+            <strong style="color: #C4933F;">27 min</strong> to Manchester -
+            <strong style="color: #C4933F;">250 acres</strong> National Trust escarpment -
+            <strong style="color: #C4933F;">~30/1k</strong> residential crime rate
+          </p>
+          <p style="font-family: Inter, Arial, sans-serif; font-size: 10px; color: rgba(255,255,255,0.5); margin: 6px 0 0 0; text-align: right;">movetocheshire.uk</p>
+        </div>
+      </figure>
+
+      <!-- Stat tiles -->
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin-top: 8px;">
+        {[
+          { value: 'SK9 7', label: 'Alderley Edge postcode' },
+          { value: '£680k-£780k', label: 'Alderley Edge avg. price' },
+          { value: '27 min', label: 'Alderley Edge to Manchester' },
+          { value: '~30/1k', label: 'Alderley Edge crime rate' },
+          { value: '4,777', label: 'Alderley Edge population' },
+        ].map((stat) => (
+          <div style="background: #FFFFFF; border: 1px solid #E5E0D8; padding: 16px; text-align: center;">
+            <p style="font-family: Georgia, serif; font-size: 22px; font-weight: 700; color: #1C1C1E; margin: 0;">{stat.value}</p>
+            <p style="font-family: Inter, Arial, sans-serif; font-size: 12px; color: #888888; margin: 4px 0 0 0;">{stat.label}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- TLDR: Golden Triangle Context -->
+  <section style="padding: clamp(32px, 5vw, 56px) 24px;">
+    <div style="max-width: 800px; margin: 0 auto;">
+      <span style="display: inline-block; font-family: Inter, Arial, sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #C4933F; margin-bottom: 12px;">Alderley Edge vs Golden Triangle</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 16px 0;">Alderley Edge and the Golden Triangle</h2>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">Alderley Edge is the Golden Triangle's smallest and most exclusive village. <a href="/where-to-live/wilmslow" style="color: #3D5A3E; text-decoration: underline;">Wilmslow</a> (26,213 residents) offers a broader town centre with Hoopers department store, multiple supermarkets, and a 17-minute Manchester commute via Avanti West Coast. Prestbury (3,460 residents) is quieter and even more expensive, with no train station. Alderley Edge occupies the middle ground - small enough to feel exclusive, large enough to sustain a concentrated dining and social scene on London Road.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">Alderley Edge commands the highest detached house average in the triangle at £1.21 million (Rightmove, 2025), ahead of Wilmslow's £909,000. The premium reflects two assets the other villages lack: the National Trust escarpment rising directly above the village, and London Road's concentration of upmarket restaurants and designer shops within a single walkable street.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0;">Premier League footballers from Manchester United and Manchester City established Alderley Edge as the triangle's most visible address through the 2000s and 2010s. ITVBe's Real Housewives of Cheshire, filmed at London Road venues, reinforced the village's national profile from 2015 onward.</p>
+    </div>
+  </section>
+
+  <!-- Property Prices -->
+  <section style="background-color: #FFFFFF; border-top: 1px solid #E5E0D8; border-bottom: 1px solid #E5E0D8; padding: clamp(32px, 5vw, 56px) 24px;">
+    <div style="max-width: 800px; margin: 0 auto;">
+      <span style="display: inline-block; font-family: Inter, Arial, sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #3D5A3E; margin-bottom: 12px;">Alderley Edge SK9 property market</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 12px 0;">How much do houses cost in Alderley Edge?</h2>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 24px 0;">Alderley Edge averages £680,000-£780,000 across all property types (Rightmove £679,849; Zoopla £780,910, last 12 months to 2025). The median price per square metre is £4,740, with the middle 50% of transactions falling between £3,880 and £5,510/sqm (HouseMetric, 2025). Detached homes dominate the village's housing stock and drive the overall average upward.</p>
+
+      <!-- Price table -->
+      <div style="overflow-x: auto; margin-bottom: 24px;">
+        <table style="width: 100%; border-collapse: collapse; font-family: Inter, Arial, sans-serif; font-size: 14px;">
+          <thead>
+            <tr style="background-color: #F5F0E8;">
+              <th style="text-align: left; padding: 12px 16px; font-weight: 600; color: #1C1C1E; border-bottom: 2px solid #E5E0D8;">Alderley Edge property type</th>
+              <th style="text-align: right; padding: 12px 16px; font-weight: 600; color: #1C1C1E; border-bottom: 2px solid #E5E0D8;">Average price</th>
+              <th style="text-align: right; padding: 12px 16px; font-weight: 600; color: #1C1C1E; border-bottom: 2px solid #E5E0D8;">Wilmslow comparison</th>
+            </tr>
+          </thead>
+          <tbody>
+            {[
+              { type: 'Detached', price: '£1,214,476', wilmslow: '£909,473' },
+              { type: 'Semi-detached', price: '£620,795', wilmslow: '£490,371' },
+              { type: 'Flat', price: '£314,213', wilmslow: '£232,017' },
+            ].map((row) => (
+              <tr style="border-bottom: 1px solid #E5E0D8;">
+                <td style="padding: 12px 16px; color: #444444;">{row.type}</td>
+                <td style="padding: 12px 16px; color: #1C1C1E; font-weight: 600; text-align: right;">{row.price}</td>
+                <td style="padding: 12px 16px; color: #888888; text-align: right;">{row.wilmslow}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 13px; color: #888888; margin: 0 0 24px 0;">Source: Rightmove, last 12 months to 2025. Wilmslow data from <a href="/where-to-live/wilmslow" style="color: #888888;">Wilmslow area guide</a>.</p>
+
+      <figure style="margin: 0 auto 24px; max-width: 720px;">
+        <img src="/images/where-to-live/alderley-edge-prices.webp"
+          alt="Alderley Edge vs Wilmslow property prices by type showing detached, semi-detached and flat averages with proportional bars"
+          width="1200" height="630"
+          loading="lazy"
+          style="width: 720px; max-width: 100%; aspect-ratio: 1200/630; display: block; border: 1px solid #E5E0D8;" />
+        <figcaption style="font-family: Inter, Arial, sans-serif; font-size: 12px; color: #999999; margin-top: 8px;">
+          Alderley Edge detached homes cost 34% more than Wilmslow equivalents - the widest gap across all property types in the Golden Triangle.
+        </figcaption>
+      </figure>
+
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">Alderley Edge property prices were 18% down on the previous year and 14% below the 2022 peak of £792,835 as of early 2025 (Rightmove). At these price levels, buyers face <a href="/buying-guide/stamp-duty-cheshire" style="color: #3D5A3E; text-decoration: underline;">stamp duty</a> in the higher residential bands - see the buying checklist below for exact figures.</p>
+
+      <h3 style="font-family: Georgia, serif; font-size: 20px; font-weight: 700; color: #1C1C1E; margin: 32px 0 12px 0;">Golden Triangle price per square metre</h3>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0;">Alderley Edge's median of £4,740/sqm places it above <a href="/where-to-live/knutsford" style="color: #3D5A3E; text-decoration: underline;">Knutsford</a>'s £4,370/sqm and close to Wilmslow's upper sectors (SK9 1 Fulshaw Park commands £4,870/sqm). The premium reflects the village's constrained housing supply - conservation area restrictions and Green Belt designation limit new development, concentrating demand into a small pool of existing stock.</p>
+    </div>
+  </section>
+
+  <!-- Neighbourhoods -->
+  <section style="padding: clamp(32px, 5vw, 56px) 24px;">
+    <div style="max-width: 800px; margin: 0 auto;">
+      <span style="display: inline-block; font-family: Inter, Arial, sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #3D5A3E; margin-bottom: 12px;">Alderley Edge residential areas</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 12px 0;">Which Alderley Edge streets suit different budgets?</h2>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 28px 0;">Alderley Edge's five residential areas divide by price tier more than character - the entire village falls within SK9 7, and most streets share the same quiet, tree-lined feel. Chorley Hall Lane and Woodbrook Road command the highest premiums for plot size and privacy. The village centre offers the lowest entry point for buyers who want a London Road address without a detached price tag. Heyes Lane sits between these extremes, near the primary school.</p>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px;">
+        {neighbourhoods.map((n) => (
+          <div style="background-color: #F9F7F4; border-left: 3px solid #3D5A3E; padding: 20px;">
+            <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px;">
+              <h3 style="font-family: Georgia, serif; font-size: 18px; font-weight: 700; color: #1C1C1E; margin: 0;">{n.name}</h3>
+              <span style="font-family: Inter, Arial, sans-serif; font-size: 11px; font-weight: 600; color: #3D5A3E; background-color: rgba(61, 90, 62, 0.08); padding: 2px 8px;">{n.postcode}</span>
+            </div>
+            <p style="font-family: Georgia, serif; font-size: 20px; font-weight: 700; color: #C4933F; margin: 0 0 8px 0;">{n.avgPrice}</p>
+            <p style="font-family: Inter, Arial, sans-serif; font-size: 13px; color: #888888; margin: 0 0 4px 0;">{n.type}</p>
+            <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; color: #444444; line-height: 1.6; margin: 0;">{n.character}</p>
+          </div>
+        ))}
+      </div>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 28px 0 0 0;">Buyers prioritising proximity to Alderley Edge Community Primary School should focus on the Heyes Lane area and Mottram Road corridor, both within comfortable walking distance of the school on Ryleys Lane.</p>
+    </div>
+  </section>
+
+  <!-- Commute -->
+  <section style="background-color: #FFFFFF; border-top: 1px solid #E5E0D8; border-bottom: 1px solid #E5E0D8; padding: clamp(32px, 5vw, 56px) 24px;">
+    <div style="max-width: 800px; margin: 0 auto;">
+      <span style="display: inline-block; font-family: Inter, Arial, sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #3D5A3E; margin-bottom: 12px;">Alderley Edge transport links</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 12px 0;">How do Alderley Edge residents commute to Manchester?</h2>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 20px 0;">Northern Trains operates services from Alderley Edge station to Manchester Piccadilly in approximately 27 minutes, departing every 30 minutes on the Crewe-Manchester line (National Rail, 2025). Alderley Edge station sits on London Road, within walking distance of the village centre.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 20px 0;">Wilmslow station - one stop north on the same line - offers more frequent services and Avanti West Coast direct trains to London Euston in approximately 2 hours. Commuters who need regular London access may prefer to board at <a href="/where-to-live/wilmslow" style="color: #3D5A3E; text-decoration: underline;">Wilmslow</a> rather than changing at Manchester Piccadilly.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 20px 0;">By road, the A34 bypass (completed November 2010) connects Alderley Edge to the M56 and M6 motorways, relieving through-traffic from the village. Manchester city centre is approximately 30-40 minutes by car. Manchester Airport sits 8 miles west via the M56.</p>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-top: 16px;">
+        {[
+          { destination: 'Manchester Piccadilly', mode: 'Train', time: '27 min', detail: 'Northern, every 30 min' },
+          { destination: 'Manchester city centre', mode: 'Car', time: '30-40 min', detail: 'A34/M56, 12 miles' },
+          { destination: 'Manchester Airport', mode: 'Car', time: '15-20 min', detail: 'M56, 8 miles' },
+          { destination: 'London Euston', mode: 'Train', time: '~2.5 hrs', detail: 'Change at Piccadilly' },
+        ].map((route) => (
+          <div style="background: #F5F0E8; padding: 16px; text-align: center;">
+            <p style="font-family: Georgia, serif; font-size: 20px; font-weight: 700; color: #1C1C1E; margin: 0;">{route.time}</p>
+            <p style="font-family: Inter, Arial, sans-serif; font-size: 13px; font-weight: 600; color: #444444; margin: 4px 0 2px 0;">{route.destination}</p>
+            <p style="font-family: Inter, Arial, sans-serif; font-size: 12px; color: #888888; margin: 0;">{route.mode} - {route.detail}</p>
+          </div>
+        ))}
+      </div>
+
+      <figure style="margin: 24px auto 0; max-width: 720px;">
+        <img src="/images/where-to-live/alderley-edge-commute.webp"
+          alt="Alderley Edge commute connectivity diagram showing 27 minutes to Manchester Piccadilly, 15-20 minutes to Manchester Airport, and 2.5 hours to London Euston"
+          width="1200" height="630"
+          loading="lazy"
+          style="width: 720px; max-width: 100%; aspect-ratio: 1200/630; display: block; border: 1px solid #E5E0D8;" />
+        <figcaption style="font-family: Inter, Arial, sans-serif; font-size: 12px; color: #999999; margin-top: 8px;">
+          Wilmslow station sits one stop north and adds Avanti West Coast direct services to London - a key factor for buyers choosing between the two villages.
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- Schools -->
+  <section style="padding: clamp(32px, 5vw, 56px) 24px;">
+    <div style="max-width: 800px; margin: 0 auto;">
+      <span style="display: inline-block; font-family: Inter, Arial, sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #3D5A3E; margin-bottom: 12px;">Alderley Edge schools</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 12px 0;">What schools serve Alderley Edge families?</h2>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">Alderley Edge Community Primary School is the village's only state primary, rated Good by Ofsted (December 2024) with Outstanding for behaviour and attitudes, personal development, and early years provision. The school admits approximately 203 pupils aged 4-11 from the village and surrounding area.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">At secondary level, Wilmslow High School (Ofsted Good) serves Alderley Edge, Wilmslow, and Handforth. The school is heavily oversubscribed and allocates places by distance from the school gates - not a fixed catchment boundary. Families buying at the eastern or southern edges of Alderley Edge face a higher risk of missing out on a place than those closer to Wilmslow.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">Buyers with secondary-age children should verify their prospective address against the school's last published admission distance before committing to a purchase.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 24px 0;"><strong>Time-sensitive:</strong> Alderley Edge School for Girls (ISI Excellent, 2021) closes permanently on 7 July 2026. Families relocating after this date lose the village's only independent secondary option. The Ryleys School on Ryleys Lane continues to operate as an independent prep for ages 1-11. The <a href="/schools" style="color: #3D5A3E; text-decoration: underline;">Cheshire schools hub</a> covers county-wide options including <a href="/schools/best-primary-schools" style="color: #3D5A3E; text-decoration: underline;">best primary schools</a> and <a href="/schools/best-secondary-schools" style="color: #3D5A3E; text-decoration: underline;">best secondary schools</a>.</p>
+
+      <div style="overflow-x: auto;">
+        <table style="width: 100%; border-collapse: collapse; font-family: Inter, Arial, sans-serif; font-size: 14px;">
+          <thead>
+            <tr style="background-color: #F5F0E8;">
+              <th style="text-align: left; padding: 12px 16px; font-weight: 600; color: #1C1C1E; border-bottom: 2px solid #E5E0D8;">Alderley Edge school</th>
+              <th style="text-align: left; padding: 12px 16px; font-weight: 600; color: #1C1C1E; border-bottom: 2px solid #E5E0D8;">Type</th>
+              <th style="text-align: left; padding: 12px 16px; font-weight: 600; color: #1C1C1E; border-bottom: 2px solid #E5E0D8;">Rating</th>
+              <th style="text-align: left; padding: 12px 16px; font-weight: 600; color: #1C1C1E; border-bottom: 2px solid #E5E0D8;">Note</th>
+            </tr>
+          </thead>
+          <tbody>
+            {schools.map((s) => (
+              <tr style="border-bottom: 1px solid #E5E0D8;">
+                <td style="padding: 12px 16px; color: #1C1C1E; font-weight: 500;">{s.name}</td>
+                <td style="padding: 12px 16px; color: #444444;">{s.type}</td>
+                <td style="padding: 12px 16px; color: #444444;">{s.rating}</td>
+                <td style="padding: 12px 16px; color: #888888;">{s.note}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Safety -->
+  <section style="background-color: #FFFFFF; border-top: 1px solid #E5E0D8; border-bottom: 1px solid #E5E0D8; padding: clamp(32px, 5vw, 56px) 24px;">
+    <div style="max-width: 800px; margin: 0 auto;">
+      <span style="display: inline-block; font-family: Inter, Arial, sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #3D5A3E; margin-bottom: 12px;">Alderley Edge crime and safety</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 12px 0;">Is Alderley Edge safe?</h2>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">Alderley Edge's overall crime rate of 76.2 per 1,000 population requires context. The village centre's concentration of bars, restaurants, and late-night venues on London Road inflates the village-wide statistic. Residential postcodes within SK9 7 record approximately 30-31 crimes per 1,000 - described as "Low" by police.uk and well below the national average of 88.1 per 1,000 (ONS, 2024).</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0;">Cheshire Constabulary records the lowest crime rate in the North West at 69.8 offences per 1,000 people (year to March 2025). Within the Golden Triangle, Alderley Edge's residential rate sits below <a href="/where-to-live/wilmslow" style="color: #3D5A3E; text-decoration: underline;">Wilmslow</a>'s 51.4 per 1,000 when comparing like-for-like residential areas - though Wilmslow's overall figure is lower because the nightlife effect is diluted across a larger population.</p>
+    </div>
+  </section>
+
+  <!-- Lifestyle -->
+  <section style="padding: clamp(32px, 5vw, 56px) 24px;">
+    <div style="max-width: 800px; margin: 0 auto;">
+      <span style="display: inline-block; font-family: Inter, Arial, sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #3D5A3E; margin-bottom: 12px;">Alderley Edge lifestyle</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 12px 0;">What defines daily life in Alderley Edge?</h2>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">London Road is Alderley Edge's social and commercial centre - a single walkable street where Victors, Alderley Bar and Grill, the Bubble Room, Piccolino, and YU Chinese draw diners from across the Golden Triangle. Coggles designer fashion store and independent retailers (cheese, meat, cakes) line the same stretch. The Wizard Restaurant on Macclesfield Road offers a dining option closer to The Edge escarpment.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">The Edge itself - a red sandstone escarpment managed by the National Trust since 1948 - rises directly above the village. Themed walks pass through pine and beech woodland to Stormy Point, Wizard's Well, and the remnants of copper mines dating to the Bronze Age. The highest point served as both a burial mound and a fire beacon in antiquity.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">Alderley Edge is the only Golden Triangle village where National Trust countryside sits within a five-minute walk of the dining scene - a proximity that directly sustains the village's price premium over Wilmslow and Prestbury.</p>
+
+      <h3 style="font-family: Georgia, serif; font-size: 20px; font-weight: 700; color: #1C1C1E; margin: 32px 0 12px 0;">What heritage shapes Alderley Edge's identity?</h3>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">Alderley Edge hosts the oldest known metal-mining site in England (Derbyshire Caving Club/National Trust archaeological survey). Stone hammers and mauls recovered from the escarpment date to the Bronze Age, and an oak shovel found in the 1870s was carbon-dated to approximately 1750 BC. A Roman mineshaft with a 4th-century AD coin pot confirms continuous extraction spanning over 4,000 years.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">The Wizard legend - a 19th-century tale of a sleeping army guarded beneath The Edge - inspired Alan Garner's 1960 novel The Weirdstone of Brisingamen. The legend permeates village naming: the Wizard pub, the Wizard Restaurant, and Wizard's Well on the escarpment trail.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0;">The Pilkington family donated the escarpment woodland to the National Trust in 1948, establishing the conservation framework that now constrains residential development on the village's western boundary and sustains the Green Belt designation protecting Alderley Edge's setting.</p>
+    </div>
+  </section>
+
+  <!-- Employment -->
+  <section style="background-color: #FFFFFF; border-top: 1px solid #E5E0D8; border-bottom: 1px solid #E5E0D8; padding: clamp(32px, 5vw, 56px) 24px;">
+    <div style="max-width: 800px; margin: 0 auto;">
+      <span style="display: inline-block; font-family: Inter, Arial, sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #3D5A3E; margin-bottom: 12px;">Alderley Edge employment</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 12px 0;">Where do Alderley Edge residents work?</h2>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">Alderley Edge residents predominantly commute to Manchester city centre for professional services, media, and finance roles. A 27-minute Northern Trains journey from Alderley Edge station to Manchester Piccadilly makes the village a practical base for daily commuters. Manchester Airport (8 miles, 15-20 minutes by car) employs 25,000+ across all operators and is accessible via the M56.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">Alderley Park - a 400-acre life science campus in neighbouring Nether Alderley - provides a local employment alternative that no other Golden Triangle village can match. The former AstraZeneca site (departed 2014) is now operated by Bruntwood SciTech and hosts over 200 businesses across 1 million+ square feet of laboratory and office space. Key tenants include the Medicines Discovery Catapult (government-funded drug discovery accelerator), the Cancer Research UK Manchester Institute, and the AMR Centre for antimicrobial resistance research.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0;">Researchers, scientists, and pharma professionals relocating to Alderley Park typically settle in Alderley Edge - the nearest village to the campus at under 2 miles. Alderley Park occupies a comparable role for life science recruitment that <a href="/where-to-live/knutsford" style="color: #3D5A3E; text-decoration: underline;">Knutsford</a>'s Barclays Radbroke Hall fills for banking professionals.</p>
+    </div>
+  </section>
+
+  <!-- Buying Practicalities -->
+  <section style="padding: clamp(32px, 5vw, 56px) 24px;">
+    <div style="max-width: 800px; margin: 0 auto;">
+      <span style="display: inline-block; font-family: Inter, Arial, sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #C4933F; margin-bottom: 12px;">Alderley Edge buyer checklist</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 12px 0;">What should buyers check before purchasing in Alderley Edge?</h2>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">Alderley Edge sits within the Cheshire salt field, where historical brine extraction caused ground movement across the Cheshire Plain. Solicitors conducting <a href="/buying-guide/conveyancing-cheshire" style="color: #3D5A3E; text-decoration: underline;">conveyancing on Cheshire properties</a> commission a salt search (approximately £30-£50) to confirm whether the plot falls within a Cheshire Brine Subsidence Compensation Board claim area. Most Alderley Edge residential properties pass without issues, but the search is standard practice for SK9 transactions.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">The village centre sits within a conservation area, restricting external modifications to properties - replacement windows, extensions, and demolitions require additional planning consent from Cheshire East Council. Buyers of period properties in the conservation area should factor in these restrictions when assessing renovation potential.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 24px 0;">At Alderley Edge price levels, <a href="/buying-guide/stamp-duty-cheshire" style="color: #3D5A3E; text-decoration: underline;">stamp duty</a> represents a significant upfront cost. A property at the £750,000 average incurs approximately £27,500 in SDLT for a primary residence (2025-26 rates). Buyers purchasing a second home or buy-to-let face a 5% surcharge on top of standard rates. The <a href="/buying-guide/survey-types-cheshire" style="color: #3D5A3E; text-decoration: underline;">survey types guide</a> covers the appropriate survey level for Alderley Edge's predominantly period housing stock.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 13px; line-height: 1.6; color: #999999; margin: 0;"><strong style="color: #888888;">Sources:</strong> Property prices from <a href="https://www.rightmove.co.uk/house-prices/Alderley-Edge.html" rel="nofollow noopener" target="_blank" style="color: #999999;">Rightmove</a> and <a href="https://www.zoopla.co.uk/house-prices/alderley-edge/" rel="nofollow noopener" target="_blank" style="color: #999999;">Zoopla</a> (last 12 months to 2025). Price per sqm from <a href="https://www.housemetric.co.uk/" rel="nofollow noopener" target="_blank" style="color: #999999;">HouseMetric</a>. Crime data from <a href="https://www.police.uk/" rel="nofollow noopener" target="_blank" style="color: #999999;">police.uk</a> and Cheshire Constabulary (year to March 2025). School ratings from <a href="https://reports.ofsted.gov.uk/" rel="nofollow noopener" target="_blank" style="color: #999999;">Ofsted</a>. Train times from <a href="https://www.nationalrail.co.uk/" rel="nofollow noopener" target="_blank" style="color: #999999;">National Rail</a>.</p>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section style="background-color: #FFFFFF; border-top: 1px solid #E5E0D8; border-bottom: 1px solid #E5E0D8; padding: clamp(32px, 5vw, 56px) 24px;">
+    <div style="max-width: 800px; margin: 0 auto;">
+      <span style="display: inline-block; font-family: Inter, Arial, sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #3D5A3E; margin-bottom: 12px;">Alderley Edge buyer FAQ</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 12px 0;">What do buyers ask about living in Alderley Edge?</h2>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 24px 0;">Alderley Edge property searches consistently raise the same due diligence questions - from whether the village justifies its Golden Triangle premium to how school admissions work when no secondary school sits within the SK9 7 boundary.</p>
+      <div style="display: flex; flex-direction: column; gap: 0;">
+        {faqs.map((faq) => (
+          <details style="border-bottom: 1px solid #E5E0D8; padding: 20px 0;">
+            <summary style="font-family: Inter, Arial, sans-serif; font-size: 16px; font-weight: 600; color: #1C1C1E; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center;">
+              {faq.question}
+              <span style="font-size: 20px; color: #888888; flex-shrink: 0; margin-left: 16px;">+</span>
+            </summary>
+            <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.75; color: #444444; margin: 16px 0 0 0;">{faq.answer}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Related Pages -->
+  <section style="padding: clamp(32px, 5vw, 56px) 24px;">
+    <div style="max-width: 800px; margin: 0 auto;">
+      <span style="display: inline-block; font-family: Inter, Arial, sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #3D5A3E; margin-bottom: 12px;">Alderley Edge's Cheshire neighbours</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 12px 0;">Where else should Alderley Edge buyers consider in Cheshire?</h2>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 20px 0;">Buyers shortlisting Alderley Edge typically compare it against Wilmslow for commute speed, Knutsford for market-town character, and Prestbury for rural seclusion. Each guide below covers prices, schools, and transport for a direct comparison.</p>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px;">
+        {relatedSpokes.map((spoke) => (
+          <a href={spoke.href} style="display: block; background-color: #F9F7F4; border: 1px solid #E5E0D8; padding: 20px; text-decoration: none; transition: border-color 0.2s;">
+            <span style="display: inline-block; font-family: Inter, Arial, sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #3D5A3E; background-color: rgba(61, 90, 62, 0.08); padding: 2px 8px; margin-bottom: 8px;">{spoke.tag}</span>
+            <p style="font-family: Georgia, serif; font-size: 17px; font-weight: 700; color: #1C1C1E; margin: 0;">{spoke.label}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>

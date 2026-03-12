@@ -187,23 +187,25 @@ const investmentSchema = {
   <Hero>
     <PurchasingPowerCalculator client:load />
   </Hero>
-  <section style="background-color: #F9F7F4; padding: 0;">
-    <div style="max-width: 720px; margin: 0 auto; padding: 0 20px;">
-      <figure style="margin: 0;">
+  
+  <section style="background-color: #F9F7F4; padding: 0 0 48px 0; border-bottom: 1px solid #E5E0D8;">
+    <div style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
+      <figure style="margin: 0; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);">
         <img
           src="/images/cheshire-hero-baked.webp"
           alt="Aerial watercolor of Cheshire countryside showing 10 residential towns across 3 price tiers from £175,000 to £700,000+ with 17 to 60 minute commutes to Manchester"
           width="1440"
           height="500"
           loading="eager"
-          style="width: 100%; height: auto; border: 1px solid #E5E0D8;"
+          style="width: 100%; height: auto; display: block;"
         />
-        <figcaption style="font-family: Inter, Arial, sans-serif; font-size: 12px; color: #888888; margin-top: 8px; margin-bottom: 20px; line-height: 1.5;">
-          Cheshire's residential landscape spans from the premium Golden Triangle to accessible market towns. (Sources: ONS, November 2025; National Rail, 2025)
-        </figcaption>
       </figure>
+      <figcaption style="font-family: Inter, Arial, sans-serif; font-size: 13px; color: #666; margin-top: 16px; text-align: center;">
+        Cheshire's residential landscape spans from the premium Golden Triangle to accessible market towns. (Sources: ONS, November 2025; National Rail, 2025)
+      </figcaption>
     </div>
   </section>
+
   <DataStrip />
   <TownQuiz client:load />
   <QuickAnswer />
