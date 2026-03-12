@@ -1,20 +1,396 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import SpokeLayout from '../../components/SpokeLayout.astro';
+
+const faqs = [
+  {
+    question: 'Are there grammar schools in Cheshire?',
+    answer: 'No. Cheshire East and Cheshire West & Chester are both non-selective authorities. There are no state grammar schools within either council boundary. Buyers targeting grammar school places must look to neighbouring authorities: Trafford Grammar Schools (Altrincham Grammar for Boys, Altrincham Grammar for Girls, Sale Grammar, Urmston Grammar, Stretford Grammar) are the primary route for families in the Golden Triangle and Macclesfield, all within the SK9, SK10, and WA16 postcode areas. Wirral Grammar Schools (Wirral Grammar School for Boys, Wirral Grammar School for Girls) are accessible from Chester-area postcodes.'
+  },
+  {
+    question: 'What is Progress 8 and why does it matter for secondary school choice?',
+    answer: 'Progress 8 is the DfE\'s headline accountability measure for state secondary schools in England. It measures how much academic progress pupils make between the end of primary school (Key Stage 2) and their GCSEs, compared with pupils of similar starting points nationally. A score of 0.0 means pupils progressed exactly in line with the national average; +0.5 means half a grade better across 8 subjects; -0.5 means half a grade behind. Ofsted Outstanding schools in Cheshire typically score between +0.3 and +0.8. When comparing two Good-rated schools, Progress 8 is the single most reliable differentiator of educational outcomes for your child.'
+  },
+  {
+    question: 'How do Trafford Grammar Schools work for Cheshire families?',
+    answer: 'Trafford Grammar Schools are selective state schools in Greater Manchester, administered by Trafford Council. They admit pupils based purely on performance in the 11+ entrance examination, with no catchment area requirement - any child in England can sit the test. This makes them accessible to families in Wilmslow (SK9), Alderley Edge (SK9 7), Knutsford (WA16), and Macclesfield (SK10). The most competitive is Altrincham Grammar for Boys (AGBS), which received approximately 2,000 applications for 150 places in 2024. Families in Cheshire East typically prepare via private tutors or independent prep schools such as The Ryleys. The test is administered in September of Year 5 (age 10), with results in October.'
+  },
+  {
+    question: 'Which secondary school serves the Wilmslow SK9 catchment?',
+    answer: 'Wilmslow High School is the main state secondary serving the SK9 postcode, located on Styal Road. It holds Ofsted Good and serves Wilmslow, Handforth, and parts of the Alderley Edge SK9 7 catchment. Pupils in SK9 7 (Alderley Edge village) are not guaranteed a place at Wilmslow High - distance criteria apply, and the school draws from a wide catchment. Families in SK9 7 who do not secure a grammar school place typically apply to Wilmslow High, The Ryleys pre-transition programme, or independent secondaries including King\'s School Macclesfield.'
+  },
+  {
+    question: 'What are the best independent secondary schools near Cheshire?',
+    answer: 'The strongest independent secondaries accessible from Cheshire are: The King\'s School Chester (ISI Excellent, co-ed day and boarding, CH1), The Queen\'s School Chester (ISI Excellent, girls, CH1), The Grange School Hartford (ISI Excellent, co-ed, near Northwich), and King\'s School Macclesfield (ISI Excellent, co-ed, SK10). Families in the Golden Triangle also access Manchester Grammar School (MGS) and Withington Girls\' School in Manchester, both reachable within 40-45 minutes by car or train from Wilmslow and Alderley Edge. Independent fees at these schools typically range from £15,000 to £22,000 per year for day pupils.'
+  },
+];
+
+const goldenTriangleSecondaries = [
+  { name: 'Wilmslow High School', postcode: 'SK9 5', ofsted: 'Good', progress8: '+0.20 (est)', note: 'Main state secondary for SK9 - serves Wilmslow and parts of SK9 7' },
+  { name: 'Knutsford Academy', postcode: 'WA16 6', ofsted: 'Good', progress8: '+0.10 (est)', note: 'Only state secondary in WA16 - serves all of Knutsford postcode' },
+];
+
+const macclesfieldSecondaries = [
+  { name: 'Fallibroome Academy', postcode: 'SK10 4', ofsted: 'Good', progress8: '+0.30', note: 'High-performing comprehensive - best state secondary in Macclesfield area' },
+  { name: 'Macclesfield Academy', postcode: 'SK11 8', ofsted: 'Good', progress8: '0.00 (est)', note: 'Town-centre secondary, serves central Macclesfield postcodes' },
+  { name: 'Poynton High School', postcode: 'SK12 1', ofsted: 'Good', progress8: '+0.20 (est)', note: 'Serves Poynton village and Hazel Grove border - 12 miles from Manchester' },
+];
+
+const chesterSecondaries = [
+  { name: 'Christleton High School', postcode: 'CH3 7', ofsted: 'Outstanding', progress8: '+0.40', note: 'Top state secondary in Cheshire West - feeds directly from Christleton Primary' },
+  { name: 'Tarporley High School', postcode: 'CW6 0', ofsted: 'Outstanding', progress8: '+0.50', note: 'Outstanding comprehensive in south Cheshire - feeds from Tarporley and Bunbury primaries' },
+  { name: 'Bishop Heber High School', postcode: 'SY14 8', ofsted: 'Good', progress8: '+0.10', note: 'Malpas area, south Cheshire West - rural comprehensive with strong sixth form' },
+  { name: 'Helsby High School', postcode: 'WA6 0', ofsted: 'Good', progress8: '+0.20 (est)', note: 'Helsby village, north Cheshire West - serves Frodsham and surrounding areas' },
+];
+
+const grammarOptions = [
+  { name: 'Altrincham Grammar School for Boys (AGBS)', authority: 'Trafford', postcode: 'WA14 2', distance: '8 miles from Wilmslow', notes: 'Most competitive Trafford grammar - ~2,000 applicants for 150 places (2024)' },
+  { name: 'Altrincham Grammar School for Girls (AGGS)', authority: 'Trafford', postcode: 'WA14 2', distance: '8 miles from Wilmslow', notes: 'Consistently top-performing girls\' grammar in Greater Manchester' },
+  { name: 'Sale Grammar School', authority: 'Trafford', postcode: 'M33 3', distance: '10 miles from Knutsford', notes: 'Co-ed sixth form, Girls only at 11+. Strong results in sciences' },
+  { name: 'Urmston Grammar School', authority: 'Trafford', postcode: 'M41 0', distance: '18 miles from Wilmslow', notes: 'Girls\' grammar, co-ed sixth form - less oversubscribed than Altrincham grammars' },
+  { name: 'Wirral Grammar School for Boys', authority: 'Wirral', postcode: 'CH62 4', distance: '20 miles from Chester', notes: 'Accessible from Chester postcodes - Wirral tunnel route' },
+  { name: 'Wirral Grammar School for Girls', authority: 'Wirral', postcode: 'CH62 4', distance: '20 miles from Chester', notes: 'Sister school to WG Boys - both administered by Wirral Council' },
+];
+
+const independentSecondaries = [
+  { name: 'The King\'s School Chester', location: 'Chester CH1', ages: '7-18', rating: 'ISI Excellent', fees: '~£16,500/yr (day)', note: 'Most prestigious independent in Cheshire West - day and boarding, co-ed, city-centre location' },
+  { name: 'The Queen\'s School Chester', location: 'Chester CH1', ages: '4-18', rating: 'ISI Excellent', fees: '~£15,800/yr (day)', note: 'Leading girls\' independent in Chester - strong GCSE and A-level outcomes' },
+  { name: 'The Grange School', location: 'Hartford CW8', ages: '4-18', rating: 'ISI Excellent', fees: '~£16,200/yr (day)', note: 'Co-ed independent near Northwich - strong alternative for buyers between Manchester and Chester' },
+  { name: 'King\'s School Macclesfield', location: 'Macclesfield SK10', ages: '3-18', rating: 'ISI Excellent', fees: '~£17,400/yr (day)', note: 'Most established independent in east Cheshire - serves Macclesfield, Prestbury, and SK10 buyers' },
+  { name: 'Abbey Gate College', location: 'Chester CH2', ages: '11-18', rating: 'ISI Good', fees: '~£14,500/yr (day)', note: 'Chester independent secondary - feeds from Abbey Gate Preparatory, co-ed' },
+];
+
+const webPageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: 'Best Secondary Schools in Cheshire: Ofsted Ratings, Progress 8, and Grammar Options (2026)',
+  description: 'State secondary schools in Cheshire East and Cheshire West ranked by Ofsted rating and Progress 8, with grammar school access routes from the Golden Triangle and Chester.',
+  url: 'https://movetocheshire.uk/schools/best-secondary-schools',
+  datePublished: '2026-02-01',
+  dateModified: '2026-03-12',
+  inLanguage: 'en-GB',
+  isPartOf: { '@type': 'WebSite', name: 'movetocheshire.uk', url: 'https://movetocheshire.uk' },
+  about: { '@type': 'Thing', name: 'Secondary schools in Cheshire' },
+  author: { '@type': 'Person', '@id': 'https://movetocheshire.uk/#person-tom-cairns', name: 'Tom Cairns' },
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://movetocheshire.uk' },
+    { '@type': 'ListItem', position: 2, name: 'Schools', item: 'https://movetocheshire.uk/schools' },
+    { '@type': 'ListItem', position: 3, name: 'Best Secondary Schools', item: 'https://movetocheshire.uk/schools/best-secondary-schools' },
+  ],
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map(f => ({
+    '@type': 'Question',
+    name: f.question,
+    acceptedAnswer: { '@type': 'Answer', text: f.answer },
+  })),
+};
 ---
 
 <BaseLayout
-  title="Best Secondary Schools in Cheshire | Education Guide | movetocheshire.uk"
-  description="State secondary schools in Cheshire ranked by Ofsted rating, Progress 8, and Attainment 8. Includes grammar school options near Cheshire."
-
+  title="Best Secondary Schools in Cheshire | Ofsted, Progress 8 and Grammar Options | movetocheshire.uk"
+  description="State and independent secondary schools in Cheshire ranked by Ofsted and Progress 8, with grammar school access from Wilmslow, Knutsford, and Chester. Updated 2026."
   publishDate="2026-02-01"
-  updatedDate="2026-03-01"
+  updatedDate="2026-03-12"
 >
-  <SpokeLayout
-    tag="Education"
-    hubLabel="Schools"
-    hubHref="/schools"
-    title="Best Secondary Schools in Cheshire"
-    description="State secondary schools in Cheshire ranked by Ofsted rating, Progress 8, and Attainment 8. Includes grammar school options."
-  />
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(webPageSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  </Fragment>
+
+  <!-- Hero -->
+  <section style="background-color: #F5F0E8; padding: clamp(48px, 8vw, 96px) 24px clamp(32px, 4vw, 48px);">
+    <div style="max-width: 800px; margin: 0 auto;">
+      <nav style="font-family: Inter, Arial, sans-serif; font-size: 13px; color: #888888; margin-bottom: 20px;">
+        <a href="/" style="color: #888888; text-decoration: none;">Home</a>
+        <span style="margin: 0 6px;">/</span>
+        <a href="/schools" style="color: #888888; text-decoration: none;">Schools</a>
+        <span style="margin: 0 6px;">/</span>
+        <span style="color: #444444;">Best Secondary Schools</span>
+      </nav>
+      <span style="display: inline-block; font-family: Inter, Arial, sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #3D5A3E; background-color: rgba(61, 90, 62, 0.08); padding: 4px 10px; margin-bottom: 16px;">Education guide</span>
+      <h1 style="font-family: Georgia, serif; font-size: clamp(28px, 5vw, 44px); font-weight: 700; color: #1C1C1E; line-height: 1.15; margin: 0 0 20px 0;">Best Secondary Schools in Cheshire: Ofsted Ratings, Progress 8, and Grammar Options (2026)</h1>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 17px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">Cheshire has two Outstanding state comprehensives (Christleton High and Tarporley High), a cluster of Good-rated schools covering the Golden Triangle, and no grammar schools within either council boundary. Buyers targeting selective state education must access Trafford Grammar Schools from the SK9/WA16 postcodes or Wirral Grammars from Chester - both require the 11+ entrance exam with no postcode preference.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 17px; line-height: 1.75; color: #444444; margin: 0 0 32px 0;">Progress 8 is the most reliable indicator of educational outcomes in the absence of selective provision. Fallibroome Academy in Macclesfield and Christleton High consistently post the strongest Progress 8 scores among state secondaries in Cheshire East and Cheshire West respectively - both significantly above the national average. Buyers who use Ofsted rating alone as a proxy for school quality will miss meaningful differences between Good-rated schools in the same postcode.</p>
+
+      <!-- Stat tiles -->
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-top: 8px;">
+        {[
+          { value: '0', label: 'Grammar schools in Cheshire' },
+          { value: '2', label: 'Outstanding state comprehensives' },
+          { value: '5', label: 'Trafford grammars accessible from SK9' },
+          { value: 'Progress 8', label: 'Key measure beyond Ofsted' },
+        ].map((stat) => (
+          <div style="background: #FFFFFF; border: 1px solid #E5E0D8; padding: 16px; text-align: center;">
+            <p style="font-family: Georgia, serif; font-size: 22px; font-weight: 700; color: #1C1C1E; margin: 0;">{stat.value}</p>
+            <p style="font-family: Inter, Arial, sans-serif; font-size: 12px; color: #888888; margin: 4px 0 0 0;">{stat.label}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Golden Triangle Secondaries -->
+  <section style="padding: clamp(32px, 5vw, 56px) 24px;">
+    <div style="max-width: 800px; margin: 0 auto;">
+      <span style="display: inline-block; font-family: Inter, Arial, sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #3D5A3E; margin-bottom: 12px;">Golden Triangle secondary schools</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 16px 0;">Golden Triangle Secondary Schools: Wilmslow and Knutsford</h2>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">The Golden Triangle has two state secondaries - Wilmslow High School (SK9) and Knutsford Academy (WA16). Both hold Ofsted Good. Neither is Outstanding, and neither offers selective provision. This is the structural reality that drives a significant proportion of Golden Triangle buyers toward either the Trafford Grammar route (via 11+) or independent secondaries including King's School Macclesfield and Manchester-area independents.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 24px 0;">Buyers in SK9 7 (Alderley Edge village) sit outside Wilmslow High's guaranteed catchment and must apply under distance criteria. In years of high in-migration - which Alderley Edge has experienced since 2020 - distance cutoffs can tighten unexpectedly. Families who purchased in SK9 7 for state secondary access should verify current cutoff distances with Cheshire East admissions (published annually each September).</p>
+
+      <div style="overflow-x: auto; margin-bottom: 12px;">
+        <table style="width: 100%; border-collapse: collapse; font-family: Inter, Arial, sans-serif; font-size: 14px;">
+          <thead>
+            <tr style="background-color: #F5F0E8;">
+              <th style="text-align: left; padding: 12px 16px; font-weight: 600; color: #1C1C1E; border-bottom: 2px solid #E5E0D8;">School</th>
+              <th style="text-align: left; padding: 12px 16px; font-weight: 600; color: #1C1C1E; border-bottom: 2px solid #E5E0D8;">Postcode</th>
+              <th style="text-align: left; padding: 12px 16px; font-weight: 600; color: #1C1C1E; border-bottom: 2px solid #E5E0D8;">Ofsted</th>
+              <th style="text-align: left; padding: 12px 16px; font-weight: 600; color: #1C1C1E; border-bottom: 2px solid #E5E0D8;">Progress 8</th>
+              <th style="text-align: left; padding: 12px 16px; font-weight: 600; color: #1C1C1E; border-bottom: 2px solid #E5E0D8;">Buyer note</th>
+            </tr>
+          </thead>
+          <tbody>
+            {goldenTriangleSecondaries.map((s) => (
+              <tr style="border-bottom: 1px solid #E5E0D8;">
+                <td style="padding: 12px 16px; color: #1C1C1E; font-weight: 500;">{s.name}</td>
+                <td style="padding: 12px 16px; color: #444444;">{s.postcode}</td>
+                <td style="padding: 12px 16px; color: #3D5A3E; font-weight: 600;">{s.ofsted}</td>
+                <td style="padding: 12px 16px; color: #444444;">{s.progress8}</td>
+                <td style="padding: 12px 16px; color: #888888; font-size: 13px;">{s.note}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 13px; color: #888888; margin: 0 0 24px 0;">Source: Ofsted inspection reports, DfE School Performance Tables. Progress 8 estimates based on available DfE data. Verify current status at find-school-performance-data.service.gov.uk.</p>
+
+      <h3 style="font-family: Georgia, serif; font-size: 20px; font-weight: 700; color: #1C1C1E; margin: 32px 0 12px 0;">Knutsford Academy: sole secondary in WA16</h3>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">Knutsford Academy holds Ofsted Good and is the only state secondary serving the entire WA16 postcode. Unlike Wilmslow High, it does not face distance-cutoff pressure from adjacent postcode competition - WA16 buyers are within its natural catchment. The school's sixth form covers A-level and vocational pathways. Buyers in Knutsford who are weighing state secondary access against the Trafford Grammar route should factor in the 14-mile distance to Altrincham: accessible by train (Knutsford to Altrincham, 20 minutes on the Mid-Cheshire Line) but requiring independent travel from age 11.</p>
+    </div>
+  </section>
+
+  <!-- Macclesfield Secondaries -->
+  <section style="background-color: #FFFFFF; border-top: 1px solid #E5E0D8; border-bottom: 1px solid #E5E0D8; padding: clamp(32px, 5vw, 56px) 24px;">
+    <div style="max-width: 800px; margin: 0 auto;">
+      <span style="display: inline-block; font-family: Inter, Arial, sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #3D5A3E; margin-bottom: 12px;">Macclesfield and Prestbury</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 16px 0;">Macclesfield Secondary Schools: Fallibroome as Standout</h2>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">Fallibroome Academy is the standout state secondary in east Cheshire. Located in Prestbury Road (SK10 4), it consistently posts Progress 8 scores above +0.3 - placing it in the top 25% of state comprehensives nationally by this measure. Buyers in Prestbury (SK10 4) sit within Fallibroome's natural catchment and benefit from the same Good Ofsted rating carrying measurably better outcomes than the national average. This is the case where Progress 8 data adds decisive information that Ofsted rating alone cannot provide.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 24px 0;">Poynton High School serves the SK12 postcode (Poynton village), which sits on the Cheshire East boundary with Stockport. Buyers in SK12 who do not secure a place at Poynton High are within reach of several Stockport state secondaries, including Bramhall High. The SK12 postcode also provides road access to Altrincham Grammar Schools (approximately 12 miles), making it a viable base for the Trafford Grammar route.</p>
+
+      <div style="overflow-x: auto; margin-bottom: 12px;">
+        <table style="width: 100%; border-collapse: collapse; font-family: Inter, Arial, sans-serif; font-size: 14px;">
+          <thead>
+            <tr style="background-color: #F5F0E8;">
+              <th style="text-align: left; padding: 12px 16px; font-weight: 600; color: #1C1C1E; border-bottom: 2px solid #E5E0D8;">School</th>
+              <th style="text-align: left; padding: 12px 16px; font-weight: 600; color: #1C1C1E; border-bottom: 2px solid #E5E0D8;">Postcode</th>
+              <th style="text-align: left; padding: 12px 16px; font-weight: 600; color: #1C1C1E; border-bottom: 2px solid #E5E0D8;">Ofsted</th>
+              <th style="text-align: left; padding: 12px 16px; font-weight: 600; color: #1C1C1E; border-bottom: 2px solid #E5E0D8;">Progress 8</th>
+              <th style="text-align: left; padding: 12px 16px; font-weight: 600; color: #1C1C1E; border-bottom: 2px solid #E5E0D8;">Buyer note</th>
+            </tr>
+          </thead>
+          <tbody>
+            {macclesfieldSecondaries.map((s) => (
+              <tr style="border-bottom: 1px solid #E5E0D8;">
+                <td style="padding: 12px 16px; color: #1C1C1E; font-weight: 500;">{s.name}</td>
+                <td style="padding: 12px 16px; color: #444444;">{s.postcode}</td>
+                <td style="padding: 12px 16px; color: #3D5A3E; font-weight: 600;">{s.ofsted}</td>
+                <td style="padding: 12px 16px; color: #444444;">{s.progress8}</td>
+                <td style="padding: 12px 16px; color: #888888; font-size: 13px;">{s.note}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 13px; color: #888888; margin: 0;">Source: Ofsted inspection reports, DfE School Performance Tables. Verify current ratings at ofsted.gov.uk.</p>
+    </div>
+  </section>
+
+  <!-- Chester and South Cheshire -->
+  <section style="padding: clamp(32px, 5vw, 56px) 24px;">
+    <div style="max-width: 800px; margin: 0 auto;">
+      <span style="display: inline-block; font-family: Inter, Arial, sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #3D5A3E; margin-bottom: 12px;">Chester and south Cheshire</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 16px 0;">Chester and South Cheshire Secondary Schools</h2>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">Cheshire West & Chester's secondary school offer is stronger at the top than Cheshire East. Christleton High School (CH3 7) holds Ofsted Outstanding with a Progress 8 score of approximately +0.4 - making it the highest-performing state comprehensive in either Cheshire authority. Tarporley High School (CW6 0) also holds Outstanding, with Progress 8 around +0.5, and is the anchor secondary for the south Cheshire village corridor including Tarporley and Bunbury Aldersey buyers.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 24px 0;">The Christleton and Tarporley Outstanding ratings represent genuine performance differentiation, not just inspection timing. Buyers who prioritise state comprehensive quality over grammar school access will find south Cheshire and the Chester village belt offer the strongest outcomes within Cheshire's state secondary sector. The trade-off is distance from Manchester: Christleton (CH3) is 40 minutes from Piccadilly by train, versus 30 minutes for Wilmslow (SK9).</p>
+
+      <div style="overflow-x: auto; margin-bottom: 12px;">
+        <table style="width: 100%; border-collapse: collapse; font-family: Inter, Arial, sans-serif; font-size: 14px;">
+          <thead>
+            <tr style="background-color: #F5F0E8;">
+              <th style="text-align: left; padding: 12px 16px; font-weight: 600; color: #1C1C1E; border-bottom: 2px solid #E5E0D8;">School</th>
+              <th style="text-align: left; padding: 12px 16px; font-weight: 600; color: #1C1C1E; border-bottom: 2px solid #E5E0D8;">Postcode</th>
+              <th style="text-align: left; padding: 12px 16px; font-weight: 600; color: #1C1C1E; border-bottom: 2px solid #E5E0D8;">Ofsted</th>
+              <th style="text-align: left; padding: 12px 16px; font-weight: 600; color: #1C1C1E; border-bottom: 2px solid #E5E0D8;">Progress 8</th>
+              <th style="text-align: left; padding: 12px 16px; font-weight: 600; color: #1C1C1E; border-bottom: 2px solid #E5E0D8;">Buyer note</th>
+            </tr>
+          </thead>
+          <tbody>
+            {chesterSecondaries.map((s) => (
+              <tr style="border-bottom: 1px solid #E5E0D8;">
+                <td style="padding: 12px 16px; color: #1C1C1E; font-weight: 500;">{s.name}</td>
+                <td style="padding: 12px 16px; color: #444444;">{s.postcode}</td>
+                <td style="padding: 12px 16px; color: s.ofsted === 'Outstanding' ? '#C4933F' : '#3D5A3E'; font-weight: 600;">{s.ofsted}</td>
+                <td style="padding: 12px 16px; color: #444444;">{s.progress8}</td>
+                <td style="padding: 12px 16px; color: #888888; font-size: 13px;">{s.note}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 13px; color: #888888; margin: 0;">Source: Ofsted inspection reports, DfE School Performance Tables. Verify current ratings at ofsted.gov.uk.</p>
+    </div>
+  </section>
+
+  <!-- Grammar School Access -->
+  <section style="background-color: #FFFFFF; border-top: 1px solid #E5E0D8; border-bottom: 1px solid #E5E0D8; padding: clamp(32px, 5vw, 56px) 24px;">
+    <div style="max-width: 800px; margin: 0 auto;">
+      <span style="display: inline-block; font-family: Inter, Arial, sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #C4933F; margin-bottom: 12px;">Grammar school access</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 16px 0;">Grammar School Access from Cheshire: Trafford and Wirral Routes</h2>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">No grammar schools operate within Cheshire East or Cheshire West boundaries. Selective state education requires accessing neighbouring authorities: Trafford Council administers five grammar schools in Greater Manchester, all accessible from the Golden Triangle without a postcode requirement. The 11+ entrance test is the sole selection criterion - any child in England may apply regardless of home authority.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 24px 0;">Altrincham Grammar School for Boys (AGBS) and Altrincham Grammar School for Girls (AGGS) are 8 miles from Wilmslow and 14 miles from Knutsford. Both consistently rank in the top 5% of state schools nationally for GCSE and A-level results. The test is administered each September with results in October, for Year 7 entry the following September. Approximately 2,000 children sat the 2024 AGBS test for 150 places - a 13:1 ratio that makes thorough preparation essential rather than optional.</p>
+
+      <div style="overflow-x: auto; margin-bottom: 12px;">
+        <table style="width: 100%; border-collapse: collapse; font-family: Inter, Arial, sans-serif; font-size: 14px;">
+          <thead>
+            <tr style="background-color: #F5F0E8;">
+              <th style="text-align: left; padding: 12px 16px; font-weight: 600; color: #1C1C1E; border-bottom: 2px solid #E5E0D8;">Grammar School</th>
+              <th style="text-align: left; padding: 12px 16px; font-weight: 600; color: #1C1C1E; border-bottom: 2px solid #E5E0D8;">Authority</th>
+              <th style="text-align: left; padding: 12px 16px; font-weight: 600; color: #1C1C1E; border-bottom: 2px solid #E5E0D8;">Distance from Cheshire</th>
+              <th style="text-align: left; padding: 12px 16px; font-weight: 600; color: #1C1C1E; border-bottom: 2px solid #E5E0D8;">Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            {grammarOptions.map((s) => (
+              <tr style="border-bottom: 1px solid #E5E0D8;">
+                <td style="padding: 12px 16px; color: #1C1C1E; font-weight: 500;">{s.name}</td>
+                <td style="padding: 12px 16px; color: #444444;">{s.authority}</td>
+                <td style="padding: 12px 16px; color: #444444;">{s.distance}</td>
+                <td style="padding: 12px 16px; color: #888888; font-size: 13px;">{s.notes}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 13px; color: #888888; margin: 0 0 24px 0;">No postcode preference applies. All children in England may sit the 11+ regardless of home authority. Test registration closes approximately 12 months before secondary entry.</p>
+
+      <h3 style="font-family: Georgia, serif; font-size: 20px; font-weight: 700; color: #1C1C1E; margin: 32px 0 12px 0;">Trafford 11+ preparation from Cheshire</h3>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">State primaries in Cheshire East do not prepare children for the 11+ - the curriculum has no grammar school entry component because no grammar schools exist within the authority. Families targeting Trafford Grammars from Cheshire have three preparation routes: private tutors (the most common), independent prep schools such as The Ryleys School in Alderley Edge (which runs explicit grammar entry preparation), and GL Assessment practice materials. Most families begin preparation in Year 4 (age 8-9), with intensive preparation in Year 5 (the test year). Starting in Year 6 after the test has passed is too late.</p>
+    </div>
+  </section>
+
+  <!-- Independent Secondary Schools -->
+  <section style="padding: clamp(32px, 5vw, 56px) 24px;">
+    <div style="max-width: 800px; margin: 0 auto;">
+      <span style="display: inline-block; font-family: Inter, Arial, sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #3D5A3E; margin-bottom: 12px;">Independent secondary schools</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 16px 0;">Independent Secondary Schools in Cheshire</h2>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 20px 0;">Independent secondary schools fill the gap that the absence of grammar provision creates in Cheshire. The King's School Chester (ISI Excellent) and The Grange School Hartford are the strongest independents in Cheshire West, serving buyers who want academically selective education without relocating to a grammar school area. King's School Macclesfield is the equivalent anchor for east Cheshire - ISI Excellent rated, serving Macclesfield, Prestbury, and the SK10 postcode, with strong A-level and university placement outcomes. Families relocating from London are often surprised by the combination of Cheshire property value and independent school fees - the effective cost of education is significantly lower than comparable London independent schools while property values remain competitive.</p>
+
+      <div style="overflow-x: auto; margin-bottom: 12px;">
+        <table style="width: 100%; border-collapse: collapse; font-family: Inter, Arial, sans-serif; font-size: 14px;">
+          <thead>
+            <tr style="background-color: #F5F0E8;">
+              <th style="text-align: left; padding: 12px 16px; font-weight: 600; color: #1C1C1E; border-bottom: 2px solid #E5E0D8;">School</th>
+              <th style="text-align: left; padding: 12px 16px; font-weight: 600; color: #1C1C1E; border-bottom: 2px solid #E5E0D8;">Location</th>
+              <th style="text-align: left; padding: 12px 16px; font-weight: 600; color: #1C1C1E; border-bottom: 2px solid #E5E0D8;">Ages</th>
+              <th style="text-align: left; padding: 12px 16px; font-weight: 600; color: #1C1C1E; border-bottom: 2px solid #E5E0D8;">ISI Rating</th>
+              <th style="text-align: left; padding: 12px 16px; font-weight: 600; color: #1C1C1E; border-bottom: 2px solid #E5E0D8;">Fees (day)</th>
+            </tr>
+          </thead>
+          <tbody>
+            {independentSecondaries.map((s) => (
+              <tr style="border-bottom: 1px solid #E5E0D8;">
+                <td style="padding: 12px 16px; color: #1C1C1E; font-weight: 500;">{s.name}</td>
+                <td style="padding: 12px 16px; color: #444444;">{s.location}</td>
+                <td style="padding: 12px 16px; color: #444444;">{s.ages}</td>
+                <td style="padding: 12px 16px; color: #3D5A3E; font-weight: 600;">{s.rating}</td>
+                <td style="padding: 12px 16px; color: #888888;">{s.fees}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 13px; color: #888888; margin: 0;">ISI = Independent Schools Inspectorate. Fees approximate, subject to annual increase. Boarding fees significantly higher. Bursaries available at most schools - contact admissions for means-tested support.</p>
+    </div>
+  </section>
+
+  <!-- Progress 8 Explainer -->
+  <section style="background-color: #FFFFFF; border-top: 1px solid #E5E0D8; border-bottom: 1px solid #E5E0D8; padding: clamp(32px, 5vw, 56px) 24px;">
+    <div style="max-width: 800px; margin: 0 auto;">
+      <span style="display: inline-block; font-family: Inter, Arial, sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #C4933F; margin-bottom: 12px;">Buyer guide - data literacy</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 16px 0;">Reading School Performance Data Beyond Ofsted</h2>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">Ofsted ratings are inspected every 4-5 years and can be 3-4 years out of date at the time of purchase. Progress 8 scores are published annually by the DfE, giving a current-year view of performance. Good-rated schools in the same area can differ by 0.5+ Progress 8 points - equivalent to half a grade across every GCSE subject. This difference is not visible in the Ofsted rating alone.</p>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-top: 24px;">
+        {[
+          { label: 'Progress 8 above +0.5', detail: 'Significantly above average - top ~15% of comprehensives nationally (Christleton, Tarporley)', flag: 'Outstanding' },
+          { label: 'Progress 8 +0.2 to +0.5', detail: 'Above average - good comprehensive performance (Fallibroome, Wilmslow High)', flag: 'Good-high' },
+          { label: 'Progress 8 -0.2 to +0.2', detail: 'At or near national average - acceptable but not differentiating', flag: 'Satisfactory' },
+          { label: 'Progress 8 below -0.2', detail: 'Below average - signals underperformance regardless of Ofsted grade', flag: 'Flag' },
+        ].map((item) => (
+          <div style="background: #F5F0E8; padding: 20px;">
+            <p style="font-family: Inter, Arial, sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: #C4933F; margin: 0 0 8px 0;">{item.flag}</p>
+            <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; font-weight: 600; color: #1C1C1E; margin: 0 0 6px 0;">{item.label}</p>
+            <p style="font-family: Inter, Arial, sans-serif; font-size: 13px; color: #888888; margin: 0; line-height: 1.5;">{item.detail}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section style="padding: clamp(32px, 5vw, 56px) 24px;">
+    <div style="max-width: 800px; margin: 0 auto;">
+      <span style="display: inline-block; font-family: Inter, Arial, sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #3D5A3E; margin-bottom: 12px;">Schools FAQs</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 24px 0;">Cheshire Secondary Schools: Buyers' Questions</h2>
+      <div style="display: flex; flex-direction: column; gap: 0;">
+        {faqs.map((faq) => (
+          <div style="border-bottom: 1px solid #E5E0D8; padding: 20px 0;">
+            <p style="font-family: Georgia, serif; font-size: 17px; font-weight: 700; color: #1C1C1E; margin: 0 0 10px 0;">{faq.question}</p>
+            <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.75; color: #444444; margin: 0;">{faq.answer}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Related guides -->
+  <section style="background-color: #FFFFFF; border-top: 1px solid #E5E0D8; padding: clamp(32px, 5vw, 56px) 24px;">
+    <div style="max-width: 800px; margin: 0 auto;">
+      <span style="display: inline-block; font-family: Inter, Arial, sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #3D5A3E; margin-bottom: 12px;">Related guides</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 20px 0;">Cheshire Schools and Area Guides</h2>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px;">
+        {[
+          { label: 'Best Primary Schools in Cheshire', href: '/schools/best-primary-schools', tag: 'Schools' },
+          { label: 'Where to Live in Cheshire', href: '/where-to-live', tag: 'Area Guides' },
+          { label: 'Wilmslow Area Guide (SK9)', href: '/where-to-live/wilmslow', tag: 'Area Guide' },
+          { label: 'Alderley Edge Area Guide (SK9 7)', href: '/where-to-live/alderley-edge', tag: 'Area Guide' },
+          { label: 'Knutsford Area Guide (WA16)', href: '/where-to-live/knutsford', tag: 'Area Guide' },
+          { label: 'Cheshire Golden Triangle Guide', href: '/where-to-live/cheshire-golden-triangle', tag: 'Area Guide' },
+        ].map((spoke) => (
+          <a href={spoke.href} style="display: block; background-color: #F9F7F4; border: 1px solid #E5E0D8; padding: 20px; text-decoration: none;">
+            <span style="display: inline-block; font-family: Inter, Arial, sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #3D5A3E; background-color: rgba(61, 90, 62, 0.08); padding: 2px 8px; margin-bottom: 8px;">{spoke.tag}</span>
+            <p style="font-family: Georgia, serif; font-size: 17px; font-weight: 700; color: #1C1C1E; margin: 0;">{spoke.label}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Sources -->
+  <section style="padding: 24px 24px 48px;">
+    <div style="max-width: 800px; margin: 0 auto;">
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 13px; color: #999999; line-height: 1.7; margin: 0;">
+        Sources: <a href="https://www.ofsted.gov.uk" target="_blank" rel="nofollow noopener" style="color: #999999;">Ofsted inspection reports</a> (ratings as of date shown - verify current status before purchase); <a href="https://www.find-school-performance-data.service.gov.uk" target="_blank" rel="nofollow noopener" style="color: #999999;">DfE School Performance Tables</a> (Progress 8 data); <a href="https://www.cheshireeast.gov.uk/schools" target="_blank" rel="nofollow noopener" style="color: #999999;">Cheshire East Council admissions</a>; <a href="https://www.cheshirewestandchester.gov.uk/schools" target="_blank" rel="nofollow noopener" style="color: #999999;">Cheshire West & Chester admissions</a>; <a href="https://www.trafford.gov.uk/residents/schools/secondary-school-admissions.aspx" target="_blank" rel="nofollow noopener" style="color: #999999;">Trafford Council grammar school admissions</a>; ISI inspection reports for independent schools. Fees approximate based on published 2024-25 prospectuses.
+      </p>
+    </div>
+  </section>
+
 </BaseLayout>
