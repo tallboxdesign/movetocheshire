@@ -1,0 +1,199 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const organizationSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  '@id': 'https://movetocheshire.uk/#organization',
+  name: 'movetocheshire.uk',
+  url: 'https://movetocheshire.uk',
+  description: 'Independent Cheshire relocation research site. Data-cited guides to property, schools, commuting and local life across Cheshire East and Cheshire West.',
+  foundingDate: '2023',
+  areaServed: { '@type': 'AdministrativeArea', name: 'Cheshire' },
+  knowsAbout: [
+    'Cheshire property market',
+    'Cheshire East house prices',
+    'Cheshire West & Chester property',
+    'School catchment areas in Cheshire',
+    'Commuting from Cheshire to Manchester',
+    'Cheshire Golden Triangle relocation',
+    'North West relocation research',
+  ],
+  sameAs: [],
+  contactPoint: {
+    '@type': 'ContactPoint',
+    contactType: 'editorial',
+    url: 'https://movetocheshire.uk/contact',
+  },
+};
+
+const personSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  '@id': 'https://movetocheshire.uk/#person-tom-cairns',
+  name: 'Tom Cairns',
+  description: 'Independent researcher specialising in Cheshire relocation data. Based in the North West, researching since 2023.',
+  url: 'https://movetocheshire.uk/about',
+  worksFor: { '@id': 'https://movetocheshire.uk/#organization' },
+  areaServed: { '@type': 'AdministrativeArea', name: 'Cheshire' },
+  knowsAbout: ['Cheshire property market', 'Cheshire town comparisons', 'North West relocation', 'School catchment areas in Cheshire'],
+};
+
+const webPageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'AboutPage',
+  url: 'https://movetocheshire.uk/about',
+  name: 'About movetocheshire.uk - Independent Cheshire Relocation Research',
+  description: 'About movetocheshire.uk - who writes it, how data is sourced, and editorial standards.',
+  inLanguage: 'en-GB',
+  isPartOf: { '@type': 'WebSite', name: 'movetocheshire.uk', url: 'https://movetocheshire.uk' },
+  about: { '@id': 'https://movetocheshire.uk/#organization' },
+  author: { '@id': 'https://movetocheshire.uk/#person-tom-cairns' },
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://movetocheshire.uk' },
+    { '@type': 'ListItem', position: 2, name: 'About', item: 'https://movetocheshire.uk/about' },
+  ],
+};
+---
+
+<BaseLayout
+  title="About movetocheshire.uk | Independent Cheshire Relocation Research"
+  description="movetocheshire.uk is an independent research site covering Cheshire property, schools, commuting and local life. No estate agent affiliation. Data-cited and independently written."
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(organizationSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(webPageSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+  </Fragment>
+
+  <!-- Hero -->
+  <section style="background-color: #F5F0E8; padding: clamp(48px, 8vw, 96px) 24px clamp(32px, 4vw, 48px);">
+    <div style="max-width: 800px; margin: 0 auto;">
+      <nav style="font-family: Inter, Arial, sans-serif; font-size: 13px; color: #888888; margin-bottom: 20px;">
+        <a href="/" style="color: #888888; text-decoration: none;">Home</a>
+        <span style="margin: 0 6px;">/</span>
+        <span style="color: #444444;">About</span>
+      </nav>
+      <span style="display: inline-block; font-family: Inter, Arial, sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #3D5A3E; background-color: rgba(61, 90, 62, 0.08); padding: 4px 10px; margin-bottom: 16px;">About this site</span>
+      <h1 style="font-family: Georgia, serif; font-size: clamp(28px, 5vw, 44px); font-weight: 700; color: #1C1C1E; line-height: 1.15; margin: 0 0 20px 0;">movetocheshire.uk: Independent Cheshire Relocation Research</h1>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 17px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">movetocheshire.uk is an independent research site. Every page is data-cited and written for people making a real decision about where to live in Cheshire - not for clicks, not for referral fees, not for estate agents.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 17px; line-height: 1.75; color: #444444; margin: 0;">There is no office, no agency behind this, and no financial incentive to recommend one town over another. The goal is to make Cheshire relocation research useful rather than promotional.</p>
+    </div>
+  </section>
+
+  <!-- Why this site exists -->
+  <section style="padding: clamp(32px, 5vw, 56px) 24px;">
+    <div style="max-width: 800px; margin: 0 auto;">
+      <span style="display: inline-block; font-family: Inter, Arial, sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #3D5A3E; margin-bottom: 12px;">Why this site exists</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 16px 0;">Cheshire Relocation Content Has a Problem</h2>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">Most online content about moving to Cheshire falls into one of two categories: estate agent marketing dressed up as editorial, or generic listicles recycling the same "beautiful countryside, good schools, great commuter links" template with no data, no sourcing, and no insight that helps anyone decide anything.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">The specific problems this site tries to fix:</p>
+      <div style="display: flex; flex-direction: column; gap: 0; margin-bottom: 24px;">
+        {[
+          { problem: 'Unsourced price claims', fix: 'All property prices cite Land Registry, Rightmove, or Zoopla with a reference date. Prices change - the date tells you how stale the data is.' },
+          { problem: 'No catchment specificity', fix: 'School catchment guides cite the last-offered distance from Cheshire East admissions data, not just the Ofsted rating.' },
+          { problem: 'No commute honesty', fix: 'Journey times include peak-hour realities, not just the fastest train. Wilmslow car park capacity is mentioned alongside the 21-minute journey time.' },
+          { problem: 'No downsides', fix: 'Every area guide includes a section on who Cheshire is not right for. A guide that only promotes a place is advertising, not research.' },
+        ].map((item, i) => (
+          <div style={`padding: 20px 0; ${i < 3 ? 'border-bottom: 1px solid #E5E0D8;' : ''} display: flex; gap: 20px; align-items: flex-start;`}>
+            <div style="flex-shrink: 0; width: 8px; height: 8px; border-radius: 50%; background-color: #C4933F; margin-top: 8px;"></div>
+            <div>
+              <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; font-weight: 600; color: #1C1C1E; margin: 0 0 4px 0;">{item.problem}</p>
+              <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.7; color: #444444; margin: 0;">{item.fix}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Who writes it -->
+  <section style="background-color: #FFFFFF; border-top: 1px solid #E5E0D8; border-bottom: 1px solid #E5E0D8; padding: clamp(32px, 5vw, 56px) 24px;">
+    <div style="max-width: 800px; margin: 0 auto;">
+      <span style="display: inline-block; font-family: Inter, Arial, sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #3D5A3E; margin-bottom: 12px;">Who writes it</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 20px 0;">Tom Cairns - North West Research</h2>
+
+      <div style="display: flex; align-items: flex-start; gap: 20px; background-color: #F5F0E8; padding: 24px; margin-bottom: 24px;">
+        <div style="width: 52px; height: 52px; border-radius: 50%; background-color: rgba(61, 90, 62, 0.15); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+          <span style="font-family: Georgia, serif; font-size: 16px; font-weight: 700; color: #3D5A3E;">TC</span>
+        </div>
+        <div>
+          <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; font-weight: 700; color: #1C1C1E; margin: 0 0 4px 0;">Tom Cairns</p>
+          <p style="font-family: Inter, Arial, sans-serif; font-size: 13px; color: #888888; margin: 0 0 12px 0;">Based in the North West - Researching Cheshire relocation since 2023</p>
+          <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.75; color: #444444; margin: 0;">Independent researcher covering Cheshire property, schools, and local life. Research draws on Land Registry data, Ofsted reports, Cheshire East and Cheshire West council admissions data, and National Rail timetables - not estate agent briefings or sponsored content.</p>
+        </div>
+      </div>
+
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">The research for this site began in 2023 after a frustrating experience trying to compare Cheshire towns using available online content. Every source either had an obvious commercial interest in the outcome or lacked the specific data (catchment distances, actual journey times, postcode-level price variation) that makes a relocation decision navigable.</p>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0;">The site does not claim local expertise in the sense of having lived in every Cheshire postcode. What it does claim is primary source research: data cited from its origin, not summarised from a third-party article that cited another article that cited an original source that may no longer reflect current conditions.</p>
+    </div>
+  </section>
+
+  <!-- Editorial standards -->
+  <section style="padding: clamp(32px, 5vw, 56px) 24px;">
+    <div style="max-width: 800px; margin: 0 auto;">
+      <span style="display: inline-block; font-family: Inter, Arial, sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #3D5A3E; margin-bottom: 12px;">Editorial standards</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 16px 0;">How Content is Researched and Maintained</h2>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 24px 0;">These are the sourcing and updating standards applied to every page on this site:</p>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-bottom: 32px;">
+        {[
+          { label: 'Primary sources only', detail: 'Property prices cite Land Registry or major portal data with a reference quarter. School ratings cite Ofsted directly with inspection date. Commute times cite National Rail timetables, not travel blog estimates.' },
+          { label: 'Date-stamped data', detail: 'Every statistic includes its reference date. Property prices from Q4 2025 are labelled Q4 2025. Prices from 2023 are not used as if current.' },
+          { label: 'No sponsored content', detail: 'No estate agents, developers, lettings agencies, or mortgage brokers fund or influence content on this site. No referral arrangements exist with any property business.' },
+          { label: 'Corrections welcomed', detail: 'Data changes. If a figure is outdated or incorrect, contact via the contact page. Corrections are applied with a noted update date.' },
+        ].map((item) => (
+          <div style="background-color: #F5F0E8; padding: 20px;">
+            <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; font-weight: 600; color: #1C1C1E; margin: 0 0 8px 0;">{item.label}</p>
+            <p style="font-family: Inter, Arial, sans-serif; font-size: 13px; line-height: 1.6; color: #888888; margin: 0;">{item.detail}</p>
+          </div>
+        ))}
+      </div>
+
+      <div style="border-left: 3px solid #C4933F; background-color: #FDFAF5; padding: 20px 24px;">
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; font-weight: 600; color: #1C1C1E; margin: 0 0 8px 0;">What this site does not provide</p>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; line-height: 1.7; color: #444444; margin: 0;">Financial advice, legal advice, mortgage recommendations, or estate agent services. Content describes market conditions based on published data - it is research, not a recommendation to buy, sell, or invest. Readers making property decisions should engage a qualified solicitor, mortgage broker, and RICS-registered surveyor.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Topics covered -->
+  <section style="background-color: #FFFFFF; border-top: 1px solid #E5E0D8; border-bottom: 1px solid #E5E0D8; padding: clamp(32px, 5vw, 56px) 24px;">
+    <div style="max-width: 800px; margin: 0 auto;">
+      <span style="display: inline-block; font-family: Inter, Arial, sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #3D5A3E; margin-bottom: 12px;">Topics covered</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 16px 0;">Cheshire Research Areas</h2>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 24px 0;">The site covers five topic areas, each with multiple data pages:</p>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px;">
+        {[
+          { area: 'Where to Live', desc: 'Area guides for Wilmslow, Knutsford, Alderley Edge, Chester, and the Golden Triangle', href: '/where-to-live' },
+          { area: 'Schools', desc: 'Primary and secondary schools ranked by Ofsted and Progress 8, with catchment guidance', href: '/schools' },
+          { area: 'House Prices', desc: 'Property price data by area and postcode, with trend context', href: '/house-prices' },
+          { area: 'Commuting', desc: 'Train times, season ticket costs, and route comparisons for Manchester commuters', href: '/commuting' },
+          { area: 'Buying Guide', desc: 'Stamp duty, conveyancing, surveys, and the offer process explained', href: '/buying-guide' },
+        ].map((item) => (
+          <a href={item.href} style="display: block; background-color: #F9F7F4; border: 1px solid #E5E0D8; padding: 20px; text-decoration: none;">
+            <p style="font-family: Georgia, serif; font-size: 16px; font-weight: 700; color: #1C1C1E; margin: 0 0 6px 0;">{item.area}</p>
+            <p style="font-family: Inter, Arial, sans-serif; font-size: 13px; line-height: 1.55; color: #888888; margin: 0;">{item.desc}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section style="padding: clamp(32px, 5vw, 56px) 24px;">
+    <div style="max-width: 800px; margin: 0 auto;">
+      <span style="display: inline-block; font-family: Inter, Arial, sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #3D5A3E; margin-bottom: 12px;">Contact</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 16px 0;">Data Corrections and Enquiries</h2>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 24px 0;">Data corrections, area-specific questions, and press enquiries are welcome via the contact page. Response time is typically 2-3 working days. Estate agent solicitations, link exchange requests, and sponsored content enquiries are not responded to.</p>
+      <a href="/contact" style="display: inline-block; font-family: Inter, Arial, sans-serif; font-size: 14px; font-weight: 600; color: #FFFFFF; background-color: #3D5A3E; padding: 12px 24px; text-decoration: none;">Get in touch</a>
+    </div>
+  </section>
+
+</BaseLayout>
