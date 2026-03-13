@@ -1,14 +1,401 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import SpokeLayout from '../../components/SpokeLayout.astro';
+
+const faqs = [
+  {
+    question: 'How long is the train from Wilmslow to Manchester?',
+    answer: 'The fastest Wilmslow to Manchester Piccadilly service takes 21 minutes on Northern Rail express departures. Typical peak-hour journey time is 28 minutes on stopping services that call at Handforth, Heald Green, and Cheadle Hulme. The station handles around 4 trains per hour during the morning peak. Avanti West Coast also serves Wilmslow, with non-stop services completing the journey in as little as 17-19 minutes (National Rail timetable, 2025-26).'
+  },
+  {
+    question: 'Is Knutsford on the Manchester train line?',
+    answer: 'Yes, but via a different line to Wilmslow and Alderley Edge. Knutsford station is served by the Mid-Cheshire Line, which runs to Manchester Oxford Road - not Manchester Piccadilly. Oxford Road is approximately 800m from Piccadilly on foot, adding around 10 minutes to journeys into the Piccadilly area. Knutsford has 2 trains per hour at peak times, and the fastest journey to Oxford Road is 52 minutes (Northern Rail timetable, 2025-26).'
+  },
+  {
+    question: 'What is the season ticket cost from Cheshire to Manchester?',
+    answer: 'Annual season ticket costs vary by origin. Macclesfield to Manchester Piccadilly costs approximately £3,600 per year. Wilmslow is approximately £3,800. Alderley Edge is approximately £4,100. Chester is the most expensive Cheshire town at approximately £5,200 per year due to the greater distance. Knutsford costs approximately £2,900 per year to Manchester Oxford Road. All figures are approximate based on National Rail 2025-26 fares - verify at nationalrail.co.uk before purchase.'
+  },
+  {
+    question: 'Which Cheshire town has the best train connection to Manchester?',
+    answer: 'Macclesfield (SK10) offers the fastest journey time at 18 minutes to Manchester Piccadilly via Avanti West Coast express services, despite sitting 17 miles from Manchester. Wilmslow (SK9) is the next fastest at 21 minutes with 4 trains per hour and arguably the most flexible timetable. For commuters prioritising frequency and journey time combined, Wilmslow and Macclesfield lead. Knutsford and Chester involve significantly longer journeys. The right answer depends on whether speed, frequency, cost, or property value represents the priority for each buyer.'
+  },
+  {
+    question: 'Can I get to Manchester Airport from Cheshire by train?',
+    answer: 'Yes. Wilmslow to Manchester Airport is 8 minutes on Northern Rail, with 2 trains per hour on the same line used for Manchester Piccadilly services - making Wilmslow one of the most convenient Cheshire towns for regular airport travel. Alderley Edge requires a change at Wilmslow or Styal for airport services. Knutsford has no direct airport service - passengers must change at Manchester Oxford Road or Piccadilly. Macclesfield airport access requires a change, typically at Manchester Piccadilly.'
+  }
+];
+
+const schemaWebPage = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "@id": "https://movetocheshire.uk/commuting/cheshire-manchester-commute",
+  "name": "Cheshire to Manchester Commute: Train Times, Season Ticket Costs and Routes (2026)",
+  "description": "Full commuter guide to Cheshire to Manchester train routes. Journey times, annual season ticket costs, and line-by-line analysis for Wilmslow, Knutsford, Macclesfield, Alderley Edge, Chester and Poynton.",
+  "url": "https://movetocheshire.uk/commuting/cheshire-manchester-commute",
+  "inLanguage": "en-GB",
+  "datePublished": "2026-03-13",
+  "dateModified": "2026-03-13",
+  "author": {
+    "@type": "Person",
+    "@id": "https://movetocheshire.uk/#person-tom-cairns",
+    "name": "Tom Cairns"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "movetocheshire.uk",
+    "url": "https://movetocheshire.uk"
+  },
+  "breadcrumb": {
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://movetocheshire.uk" },
+      { "@type": "ListItem", "position": 2, "name": "Commuting", "item": "https://movetocheshire.uk/commuting" },
+      { "@type": "ListItem", "position": 3, "name": "Cheshire to Manchester Commute", "item": "https://movetocheshire.uk/commuting/cheshire-manchester-commute" }
+    ]
+  }
+};
+
+const schemaBreadcrumb = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://movetocheshire.uk" },
+    { "@type": "ListItem", "position": 2, "name": "Commuting", "item": "https://movetocheshire.uk/commuting" },
+    { "@type": "ListItem", "position": 3, "name": "Cheshire to Manchester Commute", "item": "https://movetocheshire.uk/commuting/cheshire-manchester-commute" }
+  ]
+};
+
+const schemaFAQ = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.answer
+    }
+  }))
+};
 ---
 
 <BaseLayout
-  title="Commuting from Cheshire to Manchester | Transport Guide | movetocheshire.uk"
-  description="Train times, frequencies, and season ticket costs from every Cheshire town to Manchester city centre and Piccadilly."
-
-  publishDate="2026-02-01"
-  updatedDate="2026-03-01"
+  title="Cheshire to Manchester Commute: Train Times, Season Ticket Costs and Routes (2026) | movetocheshire.uk"
+  description="Cheshire to Manchester commute guide covering journey times, annual season ticket costs, and route analysis for Wilmslow, Knutsford, Macclesfield, Alderley Edge, Chester and Poynton."
+  canonical="https://movetocheshire.uk/commuting/cheshire-manchester-commute"
+  publishDate="2026-03-13"
+  updatedDate="2026-03-13"
 >
-  <SpokeLayout tag="Transport" hubLabel="Commuting" hubHref="/commuting" title="Commuting from Cheshire to Manchester" description="Train times, frequencies, and season ticket costs from every Cheshire town to Manchester city centre and Piccadilly." />
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(schemaWebPage)} />
+    <script type="application/ld+json" set:html={JSON.stringify(schemaBreadcrumb)} />
+    <script type="application/ld+json" set:html={JSON.stringify(schemaFAQ)} />
+  </Fragment>
+
+  <!-- Breadcrumb -->
+  <nav aria-label="Breadcrumb" style="background-color: #F9F7F4; border-bottom: 1px solid #E5E0D8; padding: 10px 24px;">
+    <div style="max-width: 800px; margin: 0 auto; font-family: Inter, Arial, sans-serif; font-size: 13px; color: #888888;">
+      <a href="/" style="color: #3D5A3E; text-decoration: none;">Home</a>
+      <span style="margin: 0 8px;">/</span>
+      <a href="/commuting" style="color: #3D5A3E; text-decoration: none;">Commuting</a>
+      <span style="margin: 0 8px;">/</span>
+      <span style="color: #444444;">Cheshire to Manchester Commute</span>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section style="background-color: #F5F0E8; padding: clamp(40px, 6vw, 72px) 24px clamp(32px, 5vw, 56px);">
+    <div style="max-width: 800px; margin: 0 auto;">
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #3D5A3E; margin: 0 0 16px 0;">Commuting Guide</p>
+      <h1 style="font-family: Georgia, serif; font-size: clamp(26px, 4vw, 40px); font-weight: 700; color: #1C1C1E; line-height: 1.2; margin: 0 0 20px 0;">
+        Cheshire to Manchester Commute: Train Times, Season Ticket Costs and Routes (2026)
+      </h1>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 17px; line-height: 1.7; color: #444444; margin: 0 0 36px 0; max-width: 680px;">
+        A line-by-line breakdown of train services from Cheshire to Manchester, with journey times, annual season ticket costs, and the commute quality differences that separate Wilmslow from Knutsford from Macclesfield. Data sourced from National Rail 2025-26 fares and current timetables.
+      </p>
+
+      <!-- Stat tiles -->
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 16px;">
+        <div style="background: #ffffff; border: 1px solid #E5E0D8; border-radius: 6px; padding: 20px 18px;">
+          <div style="font-family: Georgia, serif; font-size: 28px; font-weight: 700; color: #3D5A3E; line-height: 1;">21 mins</div>
+          <div style="font-family: Inter, Arial, sans-serif; font-size: 13px; color: #888888; margin-top: 6px; line-height: 1.4;">Wilmslow to Piccadilly fastest</div>
+        </div>
+        <div style="background: #ffffff; border: 1px solid #E5E0D8; border-radius: 6px; padding: 20px 18px;">
+          <div style="font-family: Georgia, serif; font-size: 28px; font-weight: 700; color: #3D5A3E; line-height: 1;">£3,800/yr</div>
+          <div style="font-family: Inter, Arial, sans-serif; font-size: 13px; color: #888888; margin-top: 6px; line-height: 1.4;">Wilmslow annual season ticket (approx)</div>
+        </div>
+        <div style="background: #ffffff; border: 1px solid #E5E0D8; border-radius: 6px; padding: 20px 18px;">
+          <div style="font-family: Georgia, serif; font-size: 28px; font-weight: 700; color: #3D5A3E; line-height: 1;">4/hr</div>
+          <div style="font-family: Inter, Arial, sans-serif; font-size: 13px; color: #888888; margin-top: 6px; line-height: 1.4;">Peak frequency from Wilmslow</div>
+        </div>
+        <div style="background: #ffffff; border: 1px solid #E5E0D8; border-radius: 6px; padding: 20px 18px;">
+          <div style="font-family: Georgia, serif; font-size: 28px; font-weight: 700; color: #3D5A3E; line-height: 1;">29 mins</div>
+          <div style="font-family: Inter, Arial, sans-serif; font-size: 13px; color: #888888; margin-top: 6px; line-height: 1.4;">Alderley Edge to Piccadilly fastest</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main content -->
+  <article style="padding: clamp(32px, 5vw, 56px) 24px; background-color: #ffffff;">
+    <div style="max-width: 800px; margin: 0 auto;">
+
+      <!-- Section 1: Routes -->
+      <section style="margin-bottom: clamp(40px, 6vw, 64px);">
+        <h2 style="font-family: Georgia, serif; font-size: clamp(20px, 3vw, 28px); font-weight: 700; color: #1C1C1E; margin: 0 0 16px 0; line-height: 1.25;">
+          Cheshire Train Routes to Manchester: Northern and Avanti Lines
+        </h2>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">
+          Two distinct rail corridors connect Cheshire to Manchester. The primary corridor runs from Wilmslow (SK9) and Alderley Edge (SK9 7) via Northern Rail stopping services through Handforth, Heald Green, and Cheadle Hulme to Manchester Piccadilly. Avanti West Coast also serves this corridor with faster non-stop and limited-stop services, giving Wilmslow commuters access to both express and frequent stopping options from the same platforms.
+        </p>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">
+          Macclesfield (SK10) sits on a separate route via Stockport, served by both Northern Rail and Avanti West Coast. The Avanti express stop at Macclesfield compresses journey times to 18-22 minutes - faster than Wilmslow on express services despite Macclesfield sitting further from Manchester by road distance.
+        </p>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">
+          The Mid-Cheshire Line is a third, slower corridor serving Knutsford (WA16) and Northwich, running to Manchester Oxford Road rather than Piccadilly. Chester connects via the Cheshire Lines route through Runcorn, terminating at Manchester Piccadilly after a journey of 55-62 minutes.
+        </p>
+        <div style="background-color: #F5F0E8; border-left: 3px solid #C4933F; padding: 18px 22px; border-radius: 0 4px 4px 0; margin: 24px 0;">
+          <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.7; color: #3D3020; margin: 0;">
+            <strong>What this means for buyers:</strong> buyers in SK9 and SK10 postcodes gain access to express rail services that buyers in WA16 (Knutsford) do not. This is a meaningful quality-of-commute difference that rarely surfaces in Knutsford versus Wilmslow comparisons on property portals. Knutsford's Mid-Cheshire Line operates at half the frequency of Wilmslow, serves a different central Manchester terminus, and posts journey times that are 30 minutes longer. These are structural differences, not timetable quirks.
+          </p>
+        </div>
+      </section>
+
+      <!-- Section 2: Train Times Table -->
+      <section style="margin-bottom: clamp(40px, 6vw, 64px);">
+        <h2 style="font-family: Georgia, serif; font-size: clamp(20px, 3vw, 28px); font-weight: 700; color: #1C1C1E; margin: 0 0 16px 0; line-height: 1.25;">
+          Train Times from Cheshire to Manchester Piccadilly
+        </h2>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 20px 0;">
+          Journey times and season ticket costs by Cheshire town. Fastest times reflect the quickest scheduled departure on each route. Typical peak times reflect average journey times during the 07:00-09:00 morning peak window.
+        </p>
+
+        <!-- Table wrapper for horizontal scroll on mobile -->
+        <div style="overflow-x: auto; -webkit-overflow-scrolling: touch; margin-bottom: 12px;">
+          <table style="width: 100%; min-width: 580px; border-collapse: collapse; font-family: Inter, Arial, sans-serif; font-size: 14px;">
+            <thead>
+              <tr style="background-color: #F5F0E8;">
+                <th style="text-align: left; padding: 12px 14px; color: #1C1C1E; font-weight: 600; border-bottom: 2px solid #E5E0D8; white-space: nowrap;">From</th>
+                <th style="text-align: left; padding: 12px 14px; color: #1C1C1E; font-weight: 600; border-bottom: 2px solid #E5E0D8; white-space: nowrap;">To</th>
+                <th style="text-align: center; padding: 12px 14px; color: #1C1C1E; font-weight: 600; border-bottom: 2px solid #E5E0D8; white-space: nowrap;">Fastest</th>
+                <th style="text-align: center; padding: 12px 14px; color: #1C1C1E; font-weight: 600; border-bottom: 2px solid #E5E0D8; white-space: nowrap;">Typical peak</th>
+                <th style="text-align: center; padding: 12px 14px; color: #1C1C1E; font-weight: 600; border-bottom: 2px solid #E5E0D8; white-space: nowrap;">Frequency (peak)</th>
+                <th style="text-align: right; padding: 12px 14px; color: #1C1C1E; font-weight: 600; border-bottom: 2px solid #E5E0D8; white-space: nowrap;">Annual season</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom: 1px solid #E5E0D8;">
+                <td style="padding: 12px 14px; color: #1C1C1E; font-weight: 500;">Wilmslow</td>
+                <td style="padding: 12px 14px; color: #444444;">Manchester Piccadilly</td>
+                <td style="padding: 12px 14px; text-align: center; color: #3D5A3E; font-weight: 600;">21 min</td>
+                <td style="padding: 12px 14px; text-align: center; color: #444444;">28 min</td>
+                <td style="padding: 12px 14px; text-align: center; color: #444444;">4/hr</td>
+                <td style="padding: 12px 14px; text-align: right; color: #444444;">~£3,800</td>
+              </tr>
+              <tr style="border-bottom: 1px solid #E5E0D8; background-color: #FDFCFA;">
+                <td style="padding: 12px 14px; color: #1C1C1E; font-weight: 500;">Alderley Edge</td>
+                <td style="padding: 12px 14px; color: #444444;">Manchester Piccadilly</td>
+                <td style="padding: 12px 14px; text-align: center; color: #3D5A3E; font-weight: 600;">29 min</td>
+                <td style="padding: 12px 14px; text-align: center; color: #444444;">33 min</td>
+                <td style="padding: 12px 14px; text-align: center; color: #444444;">2-3/hr</td>
+                <td style="padding: 12px 14px; text-align: right; color: #444444;">~£4,100</td>
+              </tr>
+              <tr style="border-bottom: 1px solid #E5E0D8;">
+                <td style="padding: 12px 14px; color: #1C1C1E; font-weight: 500;">Knutsford</td>
+                <td style="padding: 12px 14px; color: #444444;">Manchester Oxford Road</td>
+                <td style="padding: 12px 14px; text-align: center; color: #3D5A3E; font-weight: 600;">52 min</td>
+                <td style="padding: 12px 14px; text-align: center; color: #444444;">58 min</td>
+                <td style="padding: 12px 14px; text-align: center; color: #444444;">2/hr</td>
+                <td style="padding: 12px 14px; text-align: right; color: #444444;">~£2,900</td>
+              </tr>
+              <tr style="border-bottom: 1px solid #E5E0D8; background-color: #FDFCFA;">
+                <td style="padding: 12px 14px; color: #1C1C1E; font-weight: 500;">Macclesfield</td>
+                <td style="padding: 12px 14px; color: #444444;">Manchester Piccadilly</td>
+                <td style="padding: 12px 14px; text-align: center; color: #3D5A3E; font-weight: 600;">18 min</td>
+                <td style="padding: 12px 14px; text-align: center; color: #444444;">22 min</td>
+                <td style="padding: 12px 14px; text-align: center; color: #444444;">4/hr (incl Avanti)</td>
+                <td style="padding: 12px 14px; text-align: right; color: #444444;">~£3,600</td>
+              </tr>
+              <tr style="border-bottom: 1px solid #E5E0D8;">
+                <td style="padding: 12px 14px; color: #1C1C1E; font-weight: 500;">Poynton</td>
+                <td style="padding: 12px 14px; color: #444444;">Manchester Piccadilly</td>
+                <td style="padding: 12px 14px; text-align: center; color: #3D5A3E; font-weight: 600;">28 min</td>
+                <td style="padding: 12px 14px; text-align: center; color: #444444;">32 min</td>
+                <td style="padding: 12px 14px; text-align: center; color: #444444;">2/hr</td>
+                <td style="padding: 12px 14px; text-align: right; color: #444444;">~£3,500</td>
+              </tr>
+              <tr style="border-bottom: 1px solid #E5E0D8; background-color: #FDFCFA;">
+                <td style="padding: 12px 14px; color: #1C1C1E; font-weight: 500;">Chester</td>
+                <td style="padding: 12px 14px; color: #444444;">Manchester Piccadilly</td>
+                <td style="padding: 12px 14px; text-align: center; color: #3D5A3E; font-weight: 600;">55 min</td>
+                <td style="padding: 12px 14px; text-align: center; color: #444444;">62 min</td>
+                <td style="padding: 12px 14px; text-align: center; color: #444444;">2/hr</td>
+                <td style="padding: 12px 14px; text-align: right; color: #444444;">~£5,200</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 12px; color: #888888; margin: 0 0 24px 0; line-height: 1.6;">
+          Season ticket prices are approximate, based on National Rail 2025-26 fares. Verify current prices at <a href="https://www.nationalrail.co.uk" style="color: #3D5A3E;" rel="noopener noreferrer" target="_blank">nationalrail.co.uk</a> before purchase.
+        </p>
+
+        <div style="background-color: #F5F0E8; border-left: 3px solid #C4933F; padding: 18px 22px; border-radius: 0 4px 4px 0; margin: 8px 0 0 0;">
+          <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.7; color: #3D3020; margin: 0;">
+            <strong>Macclesfield vs Wilmslow on commute time:</strong> Macclesfield (SK10) posts the fastest journey time in the table despite sitting 17 miles from Manchester. Avanti West Coast express stops compress the journey to 18 minutes - below Wilmslow's 21-minute best. Buyers comparing SK9 and SK10 on commute alone will find Macclesfield competitive on journey time, with a lower annual season ticket cost. The trade-off is property price: average Macclesfield prices run 25-30% below Wilmslow (Rightmove Q4 2025). For buyers prepared to accept a different town character, the commute numbers alone do not favour Wilmslow over Macclesfield.
+          </p>
+        </div>
+      </section>
+
+      <!-- Section 3: Wilmslow Station -->
+      <section style="margin-bottom: clamp(40px, 6vw, 64px);">
+        <h2 style="font-family: Georgia, serif; font-size: clamp(20px, 3vw, 28px); font-weight: 700; color: #1C1C1E; margin: 0 0 16px 0; line-height: 1.25;">
+          Wilmslow Station: The Express Commuter Base in SK9
+        </h2>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">
+          Wilmslow station is the most service-rich commuter station in Cheshire. With 4 trains per hour during the morning peak and platforms shared by both Northern Rail stopping services and Avanti West Coast express services, it offers a flexibility that no other Cheshire station matches. Commuters can choose between a 21-minute express or a 28-minute stopping service depending on the morning's timing.
+        </p>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">
+          Cycle storage bays at the station are used by a significant portion of regular commuters. Many established Wilmslow commuters walk from nearby residential streets rather than drive, particularly those within a 10-minute radius of the station.
+        </p>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">
+          Handforth station (SK9 3) provides an alternative for buyers in northern Wilmslow. It sits on the same Northern Rail line, operates with fewer passengers at peak times, and adds approximately 3 minutes to the typical journey. For buyers in streets closer to Handforth than to Wilmslow, it is a practical option that avoids the main station's morning congestion.
+        </p>
+        <div style="background-color: #F5F0E8; border-left: 3px solid #C4933F; padding: 18px 22px; border-radius: 0 4px 4px 0; margin: 24px 0;">
+          <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.7; color: #3D3020; margin: 0;">
+            <strong>The car park problem estate agents rarely mention:</strong> Wilmslow station's free car park fills before 07:30 on weekdays. Buyers who plan to drive to the station should factor a 10-15 minute walk from surrounding residential streets or budget for a season parking permit. This is a material consideration for buyers purchasing specifically for the commute - the station's train service is excellent, but arrival by car is not as straightforward as online listings suggest.
+          </p>
+        </div>
+      </section>
+
+      <!-- Section 4: Knutsford -->
+      <section style="margin-bottom: clamp(40px, 6vw, 64px);">
+        <h2 style="font-family: Georgia, serif; font-size: clamp(20px, 3vw, 28px); font-weight: 700; color: #1C1C1E; margin: 0 0 16px 0; line-height: 1.25;">
+          Knutsford to Manchester: Mid-Cheshire Line Realities
+        </h2>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">
+          Knutsford station sits on the Mid-Cheshire Line, a stopping service that terminates at Manchester Oxford Road rather than Piccadilly. Oxford Road is approximately 800 metres from Piccadilly on foot - a 10-minute walk that adds meaningfully to journeys whose final destination is the Piccadilly area, Northern Quarter, or Ancoats. For commuters whose offices sit near Oxford Road, the University campus, or the Deansgate corridor, the difference is negligible.
+        </p>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">
+          The line operates 2 trains per hour at peak times - half the frequency of Wilmslow. Fastest journey time from Knutsford to Oxford Road is 52 minutes, with typical peak journeys running to 58 minutes. Compared to Wilmslow, a typical peak journey from Knutsford takes 30 minutes longer each way.
+        </p>
+        <div style="background-color: #F5F0E8; border-left: 3px solid #C4933F; padding: 18px 22px; border-radius: 0 4px 4px 0; margin: 24px 0;">
+          <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.7; color: #3D3020; margin: 0;">
+            <strong>The cumulative time cost:</strong> over a 220-day working year, the extra 30 minutes each way from Knutsford versus Wilmslow compounds to approximately 220 additional commute hours - roughly 9 full working days per year spent on trains relative to a Wilmslow commuter. For full-time office workers, this is a real and permanent cost of choosing WA16 over SK9. The calculation changes significantly for hybrid workers: at 2-3 office days per week, the same 30-minute gap adds only 60-90 hours annually, a figure that Knutsford's town character, lower season ticket cost, and in some price brackets lower property prices may absorb comfortably.
+          </p>
+        </div>
+      </section>
+
+      <!-- Section 5: Season Ticket Costs -->
+      <section style="margin-bottom: clamp(40px, 6vw, 64px);">
+        <h2 style="font-family: Georgia, serif; font-size: clamp(20px, 3vw, 28px); font-weight: 700; color: #1C1C1E; margin: 0 0 16px 0; line-height: 1.25;">
+          Season Ticket Costs from Cheshire: Annual Outlay by Town
+        </h2>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">
+          Annual season tickets represent the most cost-effective format for commuters travelling 5 days per week. The break-even point versus buying daily return tickets sits at approximately 3.5 days per week - below which daily or weekly tickets become cheaper. Monthly season tickets are calculated at 8.7% of the annual price under the standard National Rail formula, giving a proportional monthly cost for those who prefer not to pay upfront annually.
+        </p>
+
+        <div style="display: grid; gap: 12px; margin: 24px 0;">
+          <div style="border: 1px solid #E5E0D8; border-radius: 6px; padding: 18px 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+            <div>
+              <div style="font-family: Inter, Arial, sans-serif; font-size: 15px; font-weight: 600; color: #1C1C1E;">Macclesfield to Manchester Piccadilly</div>
+              <div style="font-family: Inter, Arial, sans-serif; font-size: 13px; color: #888888; margin-top: 3px;">SK10 - National Rail 2025-26</div>
+            </div>
+            <div style="font-family: Georgia, serif; font-size: 22px; font-weight: 700; color: #3D5A3E;">~£3,600/yr</div>
+          </div>
+          <div style="border: 1px solid #E5E0D8; border-radius: 6px; padding: 18px 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; background-color: #FDFCFA;">
+            <div>
+              <div style="font-family: Inter, Arial, sans-serif; font-size: 15px; font-weight: 600; color: #1C1C1E;">Wilmslow to Manchester Piccadilly</div>
+              <div style="font-family: Inter, Arial, sans-serif; font-size: 13px; color: #888888; margin-top: 3px;">SK9 - National Rail 2025-26</div>
+            </div>
+            <div style="font-family: Georgia, serif; font-size: 22px; font-weight: 700; color: #3D5A3E;">~£3,800/yr</div>
+          </div>
+          <div style="border: 1px solid #E5E0D8; border-radius: 6px; padding: 18px 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+            <div>
+              <div style="font-family: Inter, Arial, sans-serif; font-size: 15px; font-weight: 600; color: #1C1C1E;">Chester to Manchester Piccadilly</div>
+              <div style="font-family: Inter, Arial, sans-serif; font-size: 13px; color: #888888; margin-top: 3px;">CH1 - National Rail 2025-26</div>
+            </div>
+            <div style="font-family: Georgia, serif; font-size: 22px; font-weight: 700; color: #C4933F;">~£5,200/yr</div>
+          </div>
+        </div>
+
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; color: #888888; line-height: 1.6; margin: 0 0 16px 0;">
+          Source: National Rail 2025-26 fares. All figures are approximate. Verify at <a href="https://www.nationalrail.co.uk" style="color: #3D5A3E;" rel="noopener noreferrer" target="_blank">nationalrail.co.uk</a> before purchase.
+        </p>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0;">
+          Chester's season ticket at approximately £5,200 reflects a 37% premium over Macclesfield and a 36% premium over Wilmslow. The longer journey also absorbs more time. For Manchester-focused commuters, Chester's train connection is functional but represents a significantly higher total cost - both in money and in time - than the SK9 and SK10 options.
+        </p>
+      </section>
+
+      <!-- Section 6: Hybrid Working -->
+      <section style="margin-bottom: clamp(40px, 6vw, 64px);">
+        <h2 style="font-family: Georgia, serif; font-size: clamp(20px, 3vw, 28px); font-weight: 700; color: #1C1C1E; margin: 0 0 16px 0; line-height: 1.25;">
+          Hybrid Working and the Cheshire Commute: 2-3 Days Per Week
+        </h2>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">
+          At 2 days per week in the office, daily return tickets are typically cheaper than an annual or monthly season ticket. The break-even against an annual season sits at approximately 3.5 office days per week. Hybrid workers commuting twice weekly should calculate the cost of daily returns - or a weekly season ticket on active weeks - against the annual season price before committing to an upfront purchase.
+        </p>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 16px 0;">
+          Northern Rail and Avanti West Coast both accept contactless payment on many Cheshire routes, removing the need to queue at a ticket machine on variable-frequency days. This flexibility suits hybrid workers whose office days shift week to week.
+        </p>
+        <div style="background-color: #F5F0E8; border-left: 3px solid #C4933F; padding: 18px 22px; border-radius: 0 4px 4px 0; margin: 24px 0;">
+          <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.7; color: #3D3020; margin: 0;">
+            <strong>How hybrid working changes the Knutsford calculation:</strong> before 2020, a 5-day commuter comparing Knutsford to Wilmslow was weighing 30 extra minutes each way against lower property prices. At 5 days per week, Wilmslow's time advantage was concrete and annual. At 2-3 days per week, those 30 minutes translate to 120-180 extra minutes per week rather than 300 - a shift that meaningfully closes the practical gap. Knutsford's historic commuter reputation was built in a pre-hybrid world. For buyers whose office commitment is 2-3 days, Knutsford's town, market, and character may now justify closer comparison with Wilmslow than the raw journey time difference suggests.
+          </p>
+        </div>
+      </section>
+
+      <!-- Section 7: FAQs -->
+      <section style="margin-bottom: clamp(40px, 6vw, 64px);">
+        <h2 style="font-family: Georgia, serif; font-size: clamp(20px, 3vw, 28px); font-weight: 700; color: #1C1C1E; margin: 0 0 24px 0; line-height: 1.25;">
+          Frequently Asked Questions
+        </h2>
+        <div style="display: grid; gap: 0;">
+          {faqs.map((faq, index) => (
+            <div style={`border-top: 1px solid #E5E0D8; padding: 20px 0;${index === faqs.length - 1 ? ' border-bottom: 1px solid #E5E0D8;' : ''}`}>
+              <h3 style="font-family: Georgia, serif; font-size: 17px; font-weight: 700; color: #1C1C1E; margin: 0 0 10px 0; line-height: 1.35;">
+                {faq.question}
+              </h3>
+              <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.75; color: #444444; margin: 0;">
+                {faq.answer}
+              </p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <!-- Sources -->
+      <section style="margin-bottom: clamp(40px, 6vw, 64px); border-top: 1px solid #E5E0D8; padding-top: 28px;">
+        <h2 style="font-family: Georgia, serif; font-size: 18px; font-weight: 700; color: #1C1C1E; margin: 0 0 14px 0;">Sources</h2>
+        <ul style="font-family: Inter, Arial, sans-serif; font-size: 14px; line-height: 1.8; color: #666666; margin: 0; padding-left: 20px;">
+          <li>National Rail, 2025-26 season ticket fares - <a href="https://www.nationalrail.co.uk" style="color: #3D5A3E;" rel="noopener noreferrer" target="_blank">nationalrail.co.uk</a></li>
+          <li>Northern Rail timetable, 2025-26</li>
+          <li>Avanti West Coast timetable, 2025-26</li>
+          <li>Rightmove, average property prices by postcode, Q4 2025</li>
+        </ul>
+      </section>
+
+      <!-- Related guides -->
+      <section style="border-top: 1px solid #E5E0D8; padding-top: 32px;">
+        <h2 style="font-family: Georgia, serif; font-size: 20px; font-weight: 700; color: #1C1C1E; margin: 0 0 20px 0;">Related Guides</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px;">
+          <a href="/where-to-live/wilmslow" style="display: block; border: 1px solid #E5E0D8; border-radius: 6px; padding: 16px 18px; text-decoration: none; background-color: #ffffff;">
+            <div style="font-family: Inter, Arial, sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: #3D5A3E; margin-bottom: 6px;">Area Guide</div>
+            <div style="font-family: Georgia, serif; font-size: 15px; font-weight: 700; color: #1C1C1E; line-height: 1.3;">Wilmslow (SK9)</div>
+          </a>
+          <a href="/where-to-live/knutsford" style="display: block; border: 1px solid #E5E0D8; border-radius: 6px; padding: 16px 18px; text-decoration: none; background-color: #ffffff;">
+            <div style="font-family: Inter, Arial, sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: #3D5A3E; margin-bottom: 6px;">Area Guide</div>
+            <div style="font-family: Georgia, serif; font-size: 15px; font-weight: 700; color: #1C1C1E; line-height: 1.3;">Knutsford (WA16)</div>
+          </a>
+          <a href="/where-to-live/alderley-edge" style="display: block; border: 1px solid #E5E0D8; border-radius: 6px; padding: 16px 18px; text-decoration: none; background-color: #ffffff;">
+            <div style="font-family: Inter, Arial, sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: #3D5A3E; margin-bottom: 6px;">Area Guide</div>
+            <div style="font-family: Georgia, serif; font-size: 15px; font-weight: 700; color: #1C1C1E; line-height: 1.3;">Alderley Edge (SK9 7)</div>
+          </a>
+          <a href="/where-to-live/best-places-cheshire" style="display: block; border: 1px solid #E5E0D8; border-radius: 6px; padding: 16px 18px; text-decoration: none; background-color: #ffffff;">
+            <div style="font-family: Inter, Arial, sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: #3D5A3E; margin-bottom: 6px;">Guide</div>
+            <div style="font-family: Georgia, serif; font-size: 15px; font-weight: 700; color: #1C1C1E; line-height: 1.3;">Where to Live in Cheshire</div>
+          </a>
+        </div>
+      </section>
+
+    </div>
+  </article>
 </BaseLayout>

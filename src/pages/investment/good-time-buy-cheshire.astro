@@ -1,14 +1,494 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import SpokeLayout from '../../components/SpokeLayout.astro';
+
+const webPageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: 'Cheshire Property Market 2026: Price Trends, Mortgage Context, and the Case For and Against Buying',
+  description: 'An independent assessment of Cheshire property market conditions in 2026: price trends, supply constraints, mortgage rate context, and the balanced case for and against buying.',
+  url: 'https://movetocheshire.uk/investment/good-time-buy-cheshire',
+  author: {
+    '@type': 'Person',
+    name: 'Tom Cairns',
+    '@id': 'https://movetocheshire.uk/#person-tom-cairns',
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: 'movetocheshire.uk',
+    url: 'https://movetocheshire.uk',
+  },
+  datePublished: '2026-02-01',
+  dateModified: '2026-03-01',
+  inLanguage: 'en-GB',
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://movetocheshire.uk' },
+    { '@type': 'ListItem', position: 2, name: 'Investment', item: 'https://movetocheshire.uk/investment' },
+    { '@type': 'ListItem', position: 3, name: 'Cheshire Property Market 2026', item: 'https://movetocheshire.uk/investment/good-time-buy-cheshire' },
+  ],
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'Will house prices fall in Cheshire in 2026?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'A significant price fall in Cheshire in 2026 is not the base-case scenario supported by available data. Cheshire East prices grew 4.2% in 2024 (Land Registry), supply remains structurally constrained by Green Belt designation across approximately 65% of Cheshire East, and transaction volume is already compressed - meaning fewer forced sellers. The scenario most likely to produce price falls would be a sharp reversal in Manchester employment or an unexpected spike in mortgage rates beyond 6%, neither of which is forecast by the OBR. Modest softening (1-3%) in higher-priced segments is possible if affordability constraints limit the buyer pool. Golden Triangle postcodes (SK9, WA16) are considered more resilient given constrained supply and sustained demand from Manchester professionals.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Is Cheshire East property a good investment?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Cheshire East has delivered approximately 95% price growth over 15 years to 2025 (Land Registry 2010-2025), outperforming the UK average of approximately 80% over the same period. The Golden Triangle (SK9, WA16) has delivered approximately 110% over the same period. The structural case rests on Green Belt supply constraints, Manchester commuter demand, and above-average school quality attracting family buyers. The risks include current affordability stretch at 4.1-4.5% mortgage rates, reduced transaction volume, and exposure to any material weakening of Manchester employment. For buyers purchasing as a primary residence rather than a pure investment vehicle, the data supports Cheshire East as a market with above-average capital preservation characteristics - not a high-growth speculative bet.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'What is the average house price in Cheshire in 2026?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Cheshire East average house price is approximately £330,000 and Cheshire West and Chester average is approximately £270,000 as at Q4 2025 (Land Registry House Price Index). The combined Cheshire county average across both local authority areas is approximately £300,000. Golden Triangle towns (Alderley Edge, Wilmslow, Knutsford) trade substantially above these averages - Alderley Edge averages above £666,000 and Wilmslow above £489,000. More affordable Cheshire towns including Crewe and Ellesmere Port average in the £180,000-£200,000 range. County-level averages mask wide geographic variation; postcode-level data from Land Registry or Rightmove provides more accurate reference points for specific buying decisions.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Are mortgage rates coming down in the UK in 2026?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'The Bank of England base rate stood at 4.5% in January 2026, down from a peak of 5.25% in August 2023. The OBR Economic and Fiscal Outlook projects further gradual cuts through 2026, though the pace and terminal rate remain subject to inflation data and broader economic conditions. Average 5-year fixed residential mortgage rates were in the 4.1%-4.5% range in January 2026 (Moneyfacts). The direction of travel is downward, but buyers should not plan on rates returning to the 2.3% five-year fixed average seen in 2021. A realistic 2026-27 range for 5-year fixed rates on mainstream residential mortgages is 3.8%-4.5%, representing a meaningful improvement on 2023 peaks but still significantly above the pre-2022 baseline.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Is the Cheshire Golden Triangle property market overpriced?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Whether Golden Triangle prices (Alderley Edge, Wilmslow, Knutsford) are overpriced depends on the reference frame applied. Relative to comparable commuter towns serving major European financial centres, Golden Triangle prices are not exceptional - equivalent rail-distance suburbs of Paris, Zurich, or Amsterdam trade at considerably higher prices. Relative to Manchester city centre, Golden Triangle prices at an approximate 2-3x premium reflect both supply constraints and the lifestyle offer that drives demand. Relative to UK national averages, they are high. The structural argument against overvaluation is the Green Belt supply ceiling: prices in constrained geographies cannot be "corrected" by new supply entering the market. The argument for caution is that the buyer pool at these prices is narrow, making the market more sensitive to credit conditions and employment shocks than deeper, more liquid markets.',
+      },
+    },
+  ],
+};
 ---
 
 <BaseLayout
-  title="Is Now a Good Time to Buy in Cheshire? | Investment Guide | movetocheshire.uk"
-  description="An independent assessment of Cheshire property market conditions: price trends, supply constraints, mortgage rate context, and the data-led case for and against buying in 2025-26."
-
+  title="Cheshire Property Market 2026: Price Trends, Mortgage Context, and Buying Conditions | movetocheshire.uk"
+  description="An independent assessment of Cheshire property prices, mortgage context, supply constraints, and the balanced case for and against buying in 2026. Data from Land Registry, Bank of England, and OBR."
+  canonical="https://movetocheshire.uk/investment/good-time-buy-cheshire"
   publishDate="2026-02-01"
   updatedDate="2026-03-01"
 >
-  <SpokeLayout tag="Market Intelligence" hubLabel="Investment" hubHref="/investment" title="Is Now a Good Time to Buy in Cheshire?" description="An independent assessment of Cheshire property market conditions: price trends, supply constraints, mortgage rate context, and the data-led case for and against buying in 2025-26." accentColor="#C4933F" />
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(webPageSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  </Fragment>
+
+  <!-- Breadcrumb -->
+  <nav aria-label="Breadcrumb" style="background-color: #F5F0E8; border-bottom: 1px solid #E5E0D8; padding: 10px 24px;">
+    <div style="max-width: 800px; margin: 0 auto; font-family: Inter, Arial, sans-serif; font-size: 13px; color: #888888;">
+      <a href="/" style="color: #3D5A3E; text-decoration: none;">Home</a>
+      <span style="margin: 0 6px; color: #C8C0B4;">/</span>
+      <a href="/investment" style="color: #3D5A3E; text-decoration: none;">Investment</a>
+      <span style="margin: 0 6px; color: #C8C0B4;">/</span>
+      <span style="color: #888888;">Cheshire Property Market 2026</span>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <header style="background-color: #F5F0E8; border-bottom: 1px solid #E5E0D8; padding: clamp(40px, 6vw, 72px) 24px clamp(32px, 5vw, 56px);">
+    <div style="max-width: 800px; margin: 0 auto;">
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #C4933F; margin: 0 0 16px 0;">Market Intelligence</p>
+      <h1 style="font-family: Georgia, serif; font-size: clamp(26px, 4vw, 38px); font-weight: 700; line-height: 1.25; color: #1C1C1E; margin: 0 0 20px 0;">Cheshire Property Market 2026: Price Trends, Mortgage Context, and the Case For and Against Buying</h1>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 17px; line-height: 1.7; color: #444444; margin: 0 0 36px 0; max-width: 680px;">Cheshire prices have recovered from the 2023 correction, mortgage rates remain materially above 2021 lows, and transaction volume is compressed. This guide examines what the data actually says - without advocacy - so buyers can make an informed decision.</p>
+
+      <!-- Stat tiles -->
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px;">
+        <div style="background: #FFFFFF; border: 1px solid #E5E0D8; border-radius: 4px; padding: 18px 20px;">
+          <div style="font-family: Georgia, serif; font-size: 28px; font-weight: 700; color: #1C1C1E; line-height: 1;">£330k</div>
+          <div style="font-family: Inter, Arial, sans-serif; font-size: 12px; color: #888888; margin-top: 6px; line-height: 1.4;">Cheshire East avg. Q4 2025<br><span style="font-size: 11px;">Land Registry</span></div>
+        </div>
+        <div style="background: #FFFFFF; border: 1px solid #E5E0D8; border-radius: 4px; padding: 18px 20px;">
+          <div style="font-family: Georgia, serif; font-size: 28px; font-weight: 700; color: #3D5A3E; line-height: 1;">+4.2%</div>
+          <div style="font-family: Inter, Arial, sans-serif; font-size: 12px; color: #888888; margin-top: 6px; line-height: 1.4;">Annual price growth 2024<br><span style="font-size: 11px;">Land Registry, Cheshire East</span></div>
+        </div>
+        <div style="background: #FFFFFF; border: 1px solid #E5E0D8; border-radius: 4px; padding: 18px 20px;">
+          <div style="font-family: Georgia, serif; font-size: 28px; font-weight: 700; color: #C4933F; line-height: 1;">4.2%</div>
+          <div style="font-family: Inter, Arial, sans-serif; font-size: 12px; color: #888888; margin-top: 6px; line-height: 1.4;">Avg. 5yr fixed rate approx.<br><span style="font-size: 11px;">Moneyfacts, Jan 2026</span></div>
+        </div>
+        <div style="background: #FFFFFF; border: 1px solid #E5E0D8; border-radius: 4px; padding: 18px 20px;">
+          <div style="font-family: Georgia, serif; font-size: 28px; font-weight: 700; color: #1C1C1E; line-height: 1;">18%</div>
+          <div style="font-family: Inter, Arial, sans-serif; font-size: 12px; color: #888888; margin-top: 6px; line-height: 1.4;">Below 2021 transaction peak<br><span style="font-size: 11px;">HMRC SDLT data 2024</span></div>
+        </div>
+      </div>
+
+      <!-- YMYL caveat -->
+      <div style="margin-top: 24px; padding: 14px 18px; background: #FFFFFF; border: 1px solid #E5E0D8; border-left: 3px solid #C4933F; border-radius: 4px;">
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 13px; line-height: 1.6; color: #666666; margin: 0;"><strong style="color: #444444;">Important:</strong> This guide is for information purposes only and does not constitute financial or investment advice. Property decisions involve individual financial circumstances. Consult a qualified financial adviser and independent solicitor before committing to a purchase.</p>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main content -->
+  <article style="padding: clamp(32px, 5vw, 56px) 24px; background-color: #FFFFFF;">
+    <div style="max-width: 800px; margin: 0 auto;">
+
+      <!-- Section 1: Price trends -->
+      <section style="margin-bottom: 56px;">
+        <h2 style="font-family: Georgia, serif; font-size: clamp(20px, 2.8vw, 26px); font-weight: 700; color: #1C1C1E; margin: 0 0 20px 0; padding-bottom: 12px; border-bottom: 2px solid #E5E0D8;">Cheshire Property Prices: 2020 to 2026 Trend</h2>
+
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 18px 0;">Cheshire East's average house price reached approximately £330,000 in Q4 2025, while Cheshire West and Chester averaged approximately £270,000 over the same period (Land Registry House Price Index, Q4 2025). To understand what these numbers mean for a buyer entering today, the price trajectory since 2020 matters more than the headline figure alone.</p>
+
+        <!-- Price data table -->
+        <div style="overflow-x: auto; margin: 28px 0;">
+          <table style="width: 100%; border-collapse: collapse; font-family: Inter, Arial, sans-serif; font-size: 14px;">
+            <thead>
+              <tr style="background-color: #F5F0E8;">
+                <th style="text-align: left; padding: 12px 14px; color: #1C1C1E; font-weight: 600; border-bottom: 2px solid #E5E0D8;">Period</th>
+                <th style="text-align: left; padding: 12px 14px; color: #1C1C1E; font-weight: 600; border-bottom: 2px solid #E5E0D8;">Cheshire East</th>
+                <th style="text-align: left; padding: 12px 14px; color: #1C1C1E; font-weight: 600; border-bottom: 2px solid #E5E0D8;">Cheshire West</th>
+                <th style="text-align: left; padding: 12px 14px; color: #1C1C1E; font-weight: 600; border-bottom: 2px solid #E5E0D8;">Movement</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom: 1px solid #E5E0D8;">
+                <td style="padding: 11px 14px; color: #444444;">Q3 2022 (peak)</td>
+                <td style="padding: 11px 14px; color: #444444;">~£345,000</td>
+                <td style="padding: 11px 14px; color: #444444;">~£285,000</td>
+                <td style="padding: 11px 14px; color: #888888;">Post-pandemic surge peak</td>
+              </tr>
+              <tr style="border-bottom: 1px solid #E5E0D8; background-color: #FAFAF8;">
+                <td style="padding: 11px 14px; color: #444444;">2023 correction</td>
+                <td style="padding: 11px 14px; color: #C4933F;">-3% to -5%</td>
+                <td style="padding: 11px 14px; color: #C4933F;">-3% to -4%</td>
+                <td style="padding: 11px 14px; color: #888888;">Rate shock dampens demand</td>
+              </tr>
+              <tr style="border-bottom: 1px solid #E5E0D8;">
+                <td style="padding: 11px 14px; color: #444444;">2024 recovery</td>
+                <td style="padding: 11px 14px; color: #3D5A3E;">+4.2% annual</td>
+                <td style="padding: 11px 14px; color: #3D5A3E;">+3.1% annual</td>
+                <td style="padding: 11px 14px; color: #888888;">Prices surpass 2022 peak</td>
+              </tr>
+              <tr>
+                <td style="padding: 11px 14px; color: #444444;">Q4 2025</td>
+                <td style="padding: 11px 14px; color: #1C1C1E; font-weight: 600;">£330,000</td>
+                <td style="padding: 11px 14px; color: #1C1C1E; font-weight: 600;">£270,000</td>
+                <td style="padding: 11px 14px; color: #888888;">Land Registry Q4 2025</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 18px 0;">The 2023 correction in Cheshire was real but shallow relative to some southern markets, where price falls of 8-12% were recorded in rate-sensitive areas. The Golden Triangle postcodes - SK9 (Wilmslow, Alderley Edge), WA16 (Knutsford), and SK10 (Macclesfield border) - experienced less correction than broader Cheshire East and recovered faster. This means buyers who waited through 2023 hoping for a deep correction in these postcodes largely did not get one.</p>
+
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 18px 0;">The implication for buyers: Cheshire East prices in Q4 2025 sit modestly above their Q3 2022 peak in nominal terms. The "entry point discount" that many buyers anticipated after the 2022 rate shock did not materialise at the postcode level where demand is structurally anchored. Buyers evaluating today's prices as elevated relative to pre-2022 norms should note that Cheshire East has not materially retreated from those norms, which makes the comparison academic for purchasing decisions.</p>
+
+        <div style="background-color: #F5F0E8; border: 1px solid #E5E0D8; border-left: 3px solid #3D5A3E; border-radius: 4px; padding: 18px 22px; margin: 24px 0;">
+          <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.7; color: #444444; margin: 0;"><strong style="color: #3D5A3E;">Golden Triangle resilience:</strong> SK9 and WA16 held value through 2023 because supply is structurally constrained by Green Belt designation and demand from Manchester professional buyers remained active even during the rate shock. The structural ceiling on new supply means that price discovery in these postcodes is driven by demand contraction, not supply addition - when demand returns, prices recover faster than in unrestricted markets.</p>
+        </div>
+      </section>
+
+      <!-- Section 2: Mortgage context -->
+      <section style="margin-bottom: 56px;">
+        <h2 style="font-family: Georgia, serif; font-size: clamp(20px, 2.8vw, 26px); font-weight: 700; color: #1C1C1E; margin: 0 0 20px 0; padding-bottom: 12px; border-bottom: 2px solid #E5E0D8;">Mortgage Rate Context: 5-Year Fixed Rates in 2026</h2>
+
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 18px 0;">The Bank of England base rate stood at 4.5% in January 2026, having fallen from the August 2023 peak of 5.25%. Average 5-year fixed residential mortgage rates in January 2026 were in the 4.1%-4.5% range (Moneyfacts, January 2026). The trajectory is improving, but the affordability comparison to the pre-2022 era remains the central challenge for Cheshire buyers.</p>
+
+        <!-- Rate comparison table -->
+        <div style="overflow-x: auto; margin: 28px 0;">
+          <table style="width: 100%; border-collapse: collapse; font-family: Inter, Arial, sans-serif; font-size: 14px;">
+            <thead>
+              <tr style="background-color: #F5F0E8;">
+                <th style="text-align: left; padding: 12px 14px; color: #1C1C1E; font-weight: 600; border-bottom: 2px solid #E5E0D8;">Date</th>
+                <th style="text-align: left; padding: 12px 14px; color: #1C1C1E; font-weight: 600; border-bottom: 2px solid #E5E0D8;">BoE Base Rate</th>
+                <th style="text-align: left; padding: 12px 14px; color: #1C1C1E; font-weight: 600; border-bottom: 2px solid #E5E0D8;">Avg. 5yr Fixed Rate</th>
+                <th style="text-align: left; padding: 12px 14px; color: #1C1C1E; font-weight: 600; border-bottom: 2px solid #E5E0D8;">Monthly cost on £300k mortgage</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom: 1px solid #E5E0D8;">
+                <td style="padding: 11px 14px; color: #444444;">2021 average</td>
+                <td style="padding: 11px 14px; color: #444444;">0.10%</td>
+                <td style="padding: 11px 14px; color: #3D5A3E; font-weight: 600;">2.3%</td>
+                <td style="padding: 11px 14px; color: #444444;">approx. £1,315/month</td>
+              </tr>
+              <tr style="border-bottom: 1px solid #E5E0D8; background-color: #FAFAF8;">
+                <td style="padding: 11px 14px; color: #444444;">August 2023 (peak)</td>
+                <td style="padding: 11px 14px; color: #444444;">5.25%</td>
+                <td style="padding: 11px 14px; color: #C4933F; font-weight: 600;">6.1%</td>
+                <td style="padding: 11px 14px; color: #444444;">approx. £1,955/month</td>
+              </tr>
+              <tr>
+                <td style="padding: 11px 14px; color: #444444;">January 2026</td>
+                <td style="padding: 11px 14px; color: #444444;">4.5%</td>
+                <td style="padding: 11px 14px; color: #1C1C1E; font-weight: 600;">4.1%-4.5%</td>
+                <td style="padding: 11px 14px; color: #444444;">approx. £1,715/month</td>
+              </tr>
+            </tbody>
+          </table>
+          <p style="font-family: Inter, Arial, sans-serif; font-size: 12px; color: #888888; margin: 8px 0 0 0;">Monthly cost estimates based on repayment mortgage over 25 years. Sources: Bank of England, Moneyfacts.</p>
+        </div>
+
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 18px 0;">The 2026 entry point for mortgage borrowers is materially better than August 2023 but approximately double the 2021 rate. On a £300,000 mortgage, the difference between 2.3% and 4.3% is roughly £400 per month in repayment costs. This is the central tension of the 2026 Cheshire market: prices have recovered to and above 2022 levels, but affordability has not recovered to 2021 levels because rates have not.</p>
+
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 18px 0;">The OBR Economic and Fiscal Outlook projects further gradual base rate cuts through 2026, which would translate into modest reductions in fixed rates over a 12-24 month horizon. Buyers who fix for 5 years in early 2026 retain refinancing optionality when their term ends - a relevant consideration if the rate trajectory continues downward. This is not guaranteed, and buyers should stress-test their finances against rates remaining at or above current levels for their full fixed period.</p>
+      </section>
+
+      <!-- Section 3: Supply constraints -->
+      <section style="margin-bottom: 56px;">
+        <h2 style="font-family: Georgia, serif; font-size: clamp(20px, 2.8vw, 26px); font-weight: 700; color: #1C1C1E; margin: 0 0 20px 0; padding-bottom: 12px; border-bottom: 2px solid #E5E0D8;">Supply Constraints: Why Cheshire Prices Stay Elevated</h2>
+
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 18px 0;">Green Belt designation covers approximately 65% of Cheshire East's land area, creating a structural ceiling on new housing supply that does not exist in undesignated areas. This planning constraint is the single most important factor in understanding why Cheshire East prices behave differently from markets where new supply can enter freely.</p>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin: 28px 0;">
+          <div style="background: #F5F0E8; border: 1px solid #E5E0D8; border-radius: 4px; padding: 20px 22px;">
+            <div style="font-family: Georgia, serif; font-size: 24px; font-weight: 700; color: #1C1C1E; margin-bottom: 8px;">~1,800</div>
+            <div style="font-family: Inter, Arial, sans-serif; font-size: 13px; color: #666666; line-height: 1.5;">New build completions per year in Cheshire East (Cheshire East Local Plan 2021-30)</div>
+          </div>
+          <div style="background: #F5F0E8; border: 1px solid #E5E0D8; border-radius: 4px; padding: 20px 22px;">
+            <div style="font-family: Georgia, serif; font-size: 24px; font-weight: 700; color: #C4933F; margin-bottom: 8px;">~2,200</div>
+            <div style="font-family: Inter, Arial, sans-serif; font-size: 13px; color: #666666; line-height: 1.5;">Annual household formation demand in Cheshire East (Cheshire East Local Plan 2021-30)</div>
+          </div>
+          <div style="background: #F5F0E8; border: 1px solid #E5E0D8; border-radius: 4px; padding: 20px 22px;">
+            <div style="font-family: Georgia, serif; font-size: 24px; font-weight: 700; color: #1C1C1E; margin-bottom: 8px;">400/yr</div>
+            <div style="font-family: Inter, Arial, sans-serif; font-size: 13px; color: #666666; line-height: 1.5;">Annual housing deficit - structural undersupply continues regardless of demand cycles</div>
+          </div>
+        </div>
+
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 18px 0;">Transaction volume in Cheshire East is approximately 18% below the 2021 peak (HMRC SDLT data, 2024). In isolation this figure could indicate a cooling market, but the context matters: volume is low because sellers are not motivated to accept lower prices, not because buyers cannot afford to transact. This distinction is significant. When volume falls due to seller confidence rather than buyer withdrawal, it signals price support rather than impending correction.</p>
+
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0;">The implication for buyers: low transaction volume in a constrained market compresses the pool of available properties without compressing prices. Buyers will encounter fewer options, potentially longer searches, and less negotiating leverage in popular postcodes - particularly SK9, WA16, and SK10 where the supply-demand imbalance is most acute.</p>
+      </section>
+
+      <!-- Section 4: Case for buying -->
+      <section style="margin-bottom: 56px;">
+        <h2 style="font-family: Georgia, serif; font-size: clamp(20px, 2.8vw, 26px); font-weight: 700; color: #1C1C1E; margin: 0 0 20px 0; padding-bottom: 12px; border-bottom: 2px solid #E5E0D8;">The Case For Buying in Cheshire in 2026</h2>
+
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 24px 0;">The following arguments for buying in 2026 are drawn from available data. They represent one side of a genuinely balanced assessment, not a recommendation.</p>
+
+        <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 16px;">
+          <li style="padding: 18px 22px; background: #FAFAF8; border: 1px solid #E5E0D8; border-left: 3px solid #3D5A3E; border-radius: 4px;">
+            <strong style="font-family: Inter, Arial, sans-serif; font-size: 15px; color: #1C1C1E; display: block; margin-bottom: 6px;">Structural undersupply in Green Belt-constrained postcodes</strong>
+            <span style="font-family: Inter, Arial, sans-serif; font-size: 14px; line-height: 1.65; color: #555555;">SK9, WA16, and SK10 face a persistent annual housing deficit with no credible pipeline of large-scale development to close it. Properties in these postcodes are not competing with new-build alternatives that could absorb demand and moderate prices. Downside price risk is limited by the absence of supply correction mechanisms.</span>
+          </li>
+          <li style="padding: 18px 22px; background: #FAFAF8; border: 1px solid #E5E0D8; border-left: 3px solid #3D5A3E; border-radius: 4px;">
+            <strong style="font-family: Inter, Arial, sans-serif; font-size: 15px; color: #1C1C1E; display: block; margin-bottom: 6px;">Manchester economy expanding</strong>
+            <span style="font-family: Inter, Arial, sans-serif; font-size: 14px; line-height: 1.65; color: #555555;">Greater Manchester GVA grew 5.9% in 2024 (Greater Manchester Combined Authority data), with financial services, technology, and media employment continuing to grow. Cheshire East's demand base is correlated to Manchester employment income: a growing Manchester economy sustains and grows the pool of buyers who can afford Golden Triangle prices.</span>
+          </li>
+          <li style="padding: 18px 22px; background: #FAFAF8; border: 1px solid #E5E0D8; border-left: 3px solid #3D5A3E; border-radius: 4px;">
+            <strong style="font-family: Inter, Arial, sans-serif; font-size: 15px; color: #1C1C1E; display: block; margin-bottom: 6px;">Rate trajectory: refinancing upside if rates continue downward</strong>
+            <span style="font-family: Inter, Arial, sans-serif; font-size: 14px; line-height: 1.65; color: #555555;">The OBR projects further base rate cuts through 2026. Buyers who fix for 5 years at approximately 4.1%-4.5% retain the option to refinance at the end of their fixed period if rates have fallen materially. The asymmetry here benefits buyers: if rates fall, monthly costs reduce at refinancing; if rates rise, the fixed rate provides protection for the term.</span>
+          </li>
+          <li style="padding: 18px 22px; background: #FAFAF8; border: 1px solid #E5E0D8; border-left: 3px solid #3D5A3E; border-radius: 4px;">
+            <strong style="font-family: Inter, Arial, sans-serif; font-size: 15px; color: #1C1C1E; display: block; margin-bottom: 6px;">London relocator demand: sustained equity-rich inflow</strong>
+            <span style="font-family: Inter, Arial, sans-serif; font-size: 14px; line-height: 1.65; color: #555555;">Buyers relocating from London and the South East continue to arrive with larger equity stakes than local buyers, sustaining demand at higher price points. The London-Cheshire price differential (approximately 40%) remains a compelling arbitrage for equity-rich households - a dynamic that has persisted across multiple interest rate environments.</span>
+          </li>
+          <li style="padding: 18px 22px; background: #FAFAF8; border: 1px solid #E5E0D8; border-left: 3px solid #3D5A3E; border-radius: 4px;">
+            <strong style="font-family: Inter, Arial, sans-serif; font-size: 15px; color: #1C1C1E; display: block; margin-bottom: 6px;">No new major development planned for SK9 (Green Belt protected)</strong>
+            <span style="font-family: Inter, Arial, sans-serif; font-size: 14px; line-height: 1.65; color: #555555;">The existing stock premium in Alderley Edge and Wilmslow is protected by planning policy that prevents new volume development. The character, density, and scarcity that command premium prices cannot be diluted by new supply - unlike suburban fringe areas where planning permission is more readily obtained.</span>
+          </li>
+        </ul>
+      </section>
+
+      <!-- Section 5: Case against buying -->
+      <section style="margin-bottom: 56px;">
+        <h2 style="font-family: Georgia, serif; font-size: clamp(20px, 2.8vw, 26px); font-weight: 700; color: #1C1C1E; margin: 0 0 20px 0; padding-bottom: 12px; border-bottom: 2px solid #E5E0D8;">The Case Against Buying in Cheshire in 2026</h2>
+
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 24px 0;">The following counterarguments carry equal weight. A balanced decision requires holding both sets of considerations simultaneously.</p>
+
+        <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 16px;">
+          <li style="padding: 18px 22px; background: #FAFAF8; border: 1px solid #E5E0D8; border-left: 3px solid #C4933F; border-radius: 4px;">
+            <strong style="font-family: Inter, Arial, sans-serif; font-size: 15px; color: #1C1C1E; display: block; margin-bottom: 6px;">Affordability stretched: mortgage costs significantly above 2021 levels</strong>
+            <span style="font-family: Inter, Arial, sans-serif; font-size: 14px; line-height: 1.65; color: #555555;">At 4.1%-4.5% versus 2021's 2.3%, monthly repayment costs on the same mortgage are approximately £400/month higher. On Cheshire East's £330,000 average at 80% LTV, buyers are servicing debt at costs that would have seemed unaffordable during the 2021 market. Stretched affordability limits upward price movement and the buyer pool available to resell to in future.</span>
+          </li>
+          <li style="padding: 18px 22px; background: #FAFAF8; border: 1px solid #E5E0D8; border-left: 3px solid #C4933F; border-radius: 4px;">
+            <strong style="font-family: Inter, Arial, sans-serif; font-size: 15px; color: #1C1C1E; display: block; margin-bottom: 6px;">Transaction volume down 18%: thin market with limited comparables</strong>
+            <span style="font-family: Inter, Arial, sans-serif; font-size: 14px; line-height: 1.65; color: #555555;">Fewer transactions mean fewer sold comparables for valuations, less negotiating reference data, and reduced market liquidity. Buyers who need to sell within 2-3 years face the possibility of transacting in a similarly thin market - which may limit both the speed and the price achievable at resale.</span>
+          </li>
+          <li style="padding: 18px 22px; background: #FAFAF8; border: 1px solid #E5E0D8; border-left: 3px solid #C4933F; border-radius: 4px;">
+            <strong style="font-family: Inter, Arial, sans-serif; font-size: 15px; color: #1C1C1E; display: block; margin-bottom: 6px;">Correction risk: demand more sensitive to rate and employment shocks than prices suggest</strong>
+            <span style="font-family: Inter, Arial, sans-serif; font-size: 14px; line-height: 1.65; color: #555555;">If mortgage rates rise unexpectedly (beyond the OBR forecast) or Manchester employment weakens materially, demand could soften faster than constrained supply adjusts. Supply constraints prevent prices falling due to new supply, but they do not prevent prices falling due to demand collapse. The 2022-23 correction demonstrated that even in constrained markets, rate shocks transmit quickly into price softening.</span>
+          </li>
+          <li style="padding: 18px 22px; background: #FAFAF8; border: 1px solid #E5E0D8; border-left: 3px solid #C4933F; border-radius: 4px;">
+            <strong style="font-family: Inter, Arial, sans-serif; font-size: 15px; color: #1C1C1E; display: block; margin-bottom: 6px;">Stamp duty changes: threshold reductions increase transaction costs at Cheshire price points</strong>
+            <span style="font-family: Inter, Arial, sans-serif; font-size: 14px; line-height: 1.65; color: #555555;">SDLT threshold changes in April 2025 increased stamp duty costs for buyers at Cheshire East price points. On a £330,000 purchase, SDLT is now higher than under the previous threshold regime - an additional upfront cost that reduces net purchasing power and extends the break-even horizon for buyers.</span>
+          </li>
+          <li style="padding: 18px 22px; background: #FAFAF8; border: 1px solid #E5E0D8; border-left: 3px solid #C4933F; border-radius: 4px;">
+            <strong style="font-family: Inter, Arial, sans-serif; font-size: 15px; color: #1C1C1E; display: block; margin-bottom: 6px;">UK economic uncertainty: trade and fiscal policy context in 2026</strong>
+            <span style="font-family: Inter, Arial, sans-serif; font-size: 14px; line-height: 1.65; color: #555555;">The UK economic outlook in 2026 carries meaningful uncertainty linked to trade policy developments and fiscal headroom constraints. Any significant deterioration in the UK growth outlook would affect the employment base that underpins Cheshire property demand. This caveat applies to any 2026 UK property market comment and does not single out Cheshire, but buyers with shorter investment horizons are more exposed to macroeconomic timing risk.</span>
+          </li>
+        </ul>
+      </section>
+
+      <!-- Section 6: Investment performance -->
+      <section style="margin-bottom: 56px;">
+        <h2 style="font-family: Georgia, serif; font-size: clamp(20px, 2.8vw, 26px); font-weight: 700; color: #1C1C1E; margin: 0 0 20px 0; padding-bottom: 12px; border-bottom: 2px solid #E5E0D8;">Investment Performance: Cheshire vs UK Average 2010 to 2025</h2>
+
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 18px 0;">Long-term capital performance data provides context that short-term market conditions cannot. The 15-year record from 2010 to 2025 covers two economic cycles, a pandemic, and a rate shock - a sufficient span to assess structural market behaviour rather than cyclical noise.</p>
+
+        <!-- Comparison table -->
+        <div style="overflow-x: auto; margin: 28px 0;">
+          <table style="width: 100%; border-collapse: collapse; font-family: Inter, Arial, sans-serif; font-size: 14px;">
+            <thead>
+              <tr style="background-color: #F5F0E8;">
+                <th style="text-align: left; padding: 12px 14px; color: #1C1C1E; font-weight: 600; border-bottom: 2px solid #E5E0D8;">Market</th>
+                <th style="text-align: left; padding: 12px 14px; color: #1C1C1E; font-weight: 600; border-bottom: 2px solid #E5E0D8;">15-Year Growth (2010-2025)</th>
+                <th style="text-align: left; padding: 12px 14px; color: #1C1C1E; font-weight: 600; border-bottom: 2px solid #E5E0D8;">Source</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom: 1px solid #E5E0D8;">
+                <td style="padding: 11px 14px; color: #444444;">UK average</td>
+                <td style="padding: 11px 14px; color: #444444;">approx. +80%</td>
+                <td style="padding: 11px 14px; color: #888888;">Land Registry 2010-2025</td>
+              </tr>
+              <tr style="border-bottom: 1px solid #E5E0D8; background-color: #FAFAF8;">
+                <td style="padding: 11px 14px; color: #444444; font-weight: 500;">Cheshire East</td>
+                <td style="padding: 11px 14px; color: #3D5A3E; font-weight: 600;">approx. +95%</td>
+                <td style="padding: 11px 14px; color: #888888;">Land Registry 2010-2025</td>
+              </tr>
+              <tr style="border-bottom: 1px solid #E5E0D8;">
+                <td style="padding: 11px 14px; color: #444444; font-weight: 500;">Cheshire Golden Triangle (SK9)</td>
+                <td style="padding: 11px 14px; color: #3D5A3E; font-weight: 600;">approx. +110%</td>
+                <td style="padding: 11px 14px; color: #888888;">Land Registry 2010-2025</td>
+              </tr>
+              <tr>
+                <td style="padding: 11px 14px; color: #444444;">London</td>
+                <td style="padding: 11px 14px; color: #444444;">approx. +120%</td>
+                <td style="padding: 11px 14px; color: #888888;">Land Registry 2010-2025</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0 0 18px 0;">Cheshire has outperformed the UK average but underperformed London over 15 years. The relevant comparison for London relocators is whether the equity they deploy in Cheshire will maintain purchasing power relative to London property values over the same period. The 15-year record suggests that Cheshire - and particularly the Golden Triangle - has broadly maintained that purchasing power parity, with lower volatility than London through the same cycles.</p>
+
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.75; color: #444444; margin: 0;">Buyers treating Cheshire as a pure capital growth vehicle rather than a primary residence will find markets with better 15-year returns. Buyers seeking above-average capital preservation with lower volatility than London - and who intend to live in the property and benefit from the lifestyle offer - will find the 15-year data consistent with that objective. This distinction between capital growth maximisation and capital preservation is critical to evaluating the data correctly.</p>
+      </section>
+
+      <!-- FAQ section -->
+      <section style="margin-bottom: 56px;">
+        <h2 style="font-family: Georgia, serif; font-size: clamp(20px, 2.8vw, 26px); font-weight: 700; color: #1C1C1E; margin: 0 0 24px 0; padding-bottom: 12px; border-bottom: 2px solid #E5E0D8;">Frequently Asked Questions</h2>
+
+        <div style="display: flex; flex-direction: column; gap: 0;">
+
+          <details style="border: 1px solid #E5E0D8; border-radius: 4px; margin-bottom: 8px; overflow: hidden;">
+            <summary style="padding: 18px 22px; font-family: Inter, Arial, sans-serif; font-size: 15px; font-weight: 600; color: #1C1C1E; cursor: pointer; list-style: none; display: flex; align-items: center; justify-content: space-between; background: #FAFAF8;">
+              Will house prices fall in Cheshire in 2026?
+              <span style="font-size: 18px; color: #888888; flex-shrink: 0; margin-left: 12px;">+</span>
+            </summary>
+            <div style="padding: 18px 22px; border-top: 1px solid #E5E0D8; background: #FFFFFF;">
+              <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.7; color: #444444; margin: 0;">A significant price fall in Cheshire in 2026 is not the base-case scenario supported by available data. Cheshire East prices grew 4.2% in 2024 (Land Registry), supply remains structurally constrained by Green Belt designation across approximately 65% of Cheshire East, and transaction volume is already compressed - meaning fewer forced sellers. The scenario most likely to produce price falls would be a sharp reversal in Manchester employment or an unexpected spike in mortgage rates beyond 6%, neither of which is forecast by the OBR. Modest softening of 1-3% in higher-priced segments is possible if affordability constraints limit the buyer pool. Golden Triangle postcodes (SK9, WA16) are considered more resilient given constrained supply and sustained demand from Manchester professionals.</p>
+            </div>
+          </details>
+
+          <details style="border: 1px solid #E5E0D8; border-radius: 4px; margin-bottom: 8px; overflow: hidden;">
+            <summary style="padding: 18px 22px; font-family: Inter, Arial, sans-serif; font-size: 15px; font-weight: 600; color: #1C1C1E; cursor: pointer; list-style: none; display: flex; align-items: center; justify-content: space-between; background: #FAFAF8;">
+              Is Cheshire East property a good investment?
+              <span style="font-size: 18px; color: #888888; flex-shrink: 0; margin-left: 12px;">+</span>
+            </summary>
+            <div style="padding: 18px 22px; border-top: 1px solid #E5E0D8; background: #FFFFFF;">
+              <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.7; color: #444444; margin: 0;">Cheshire East has delivered approximately 95% price growth over 15 years to 2025 (Land Registry 2010-2025), outperforming the UK average of approximately 80% over the same period. The Golden Triangle (SK9, WA16) has delivered approximately 110% over the same period. The structural case rests on Green Belt supply constraints, Manchester commuter demand, and above-average school quality attracting family buyers. The risks include current affordability stretch at 4.1-4.5% mortgage rates, reduced transaction volume, and exposure to any material weakening of Manchester employment. For buyers purchasing as a primary residence rather than a pure investment vehicle, the data supports Cheshire East as a market with above-average capital preservation characteristics - not a high-growth speculative bet.</p>
+            </div>
+          </details>
+
+          <details style="border: 1px solid #E5E0D8; border-radius: 4px; margin-bottom: 8px; overflow: hidden;">
+            <summary style="padding: 18px 22px; font-family: Inter, Arial, sans-serif; font-size: 15px; font-weight: 600; color: #1C1C1E; cursor: pointer; list-style: none; display: flex; align-items: center; justify-content: space-between; background: #FAFAF8;">
+              What is the average house price in Cheshire in 2026?
+              <span style="font-size: 18px; color: #888888; flex-shrink: 0; margin-left: 12px;">+</span>
+            </summary>
+            <div style="padding: 18px 22px; border-top: 1px solid #E5E0D8; background: #FFFFFF;">
+              <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.7; color: #444444; margin: 0;">Cheshire East average house price is approximately £330,000 and Cheshire West and Chester averages approximately £270,000 as at Q4 2025 (Land Registry House Price Index). The combined Cheshire county average across both local authority areas is approximately £300,000. Golden Triangle towns trade substantially above these averages - Alderley Edge averages above £666,000 and Wilmslow above £489,000. More affordable Cheshire towns including Crewe and Ellesmere Port average in the £180,000-£200,000 range. County-level averages mask wide geographic variation; postcode-level data from Land Registry or Rightmove provides more accurate reference points for specific buying decisions.</p>
+            </div>
+          </details>
+
+          <details style="border: 1px solid #E5E0D8; border-radius: 4px; margin-bottom: 8px; overflow: hidden;">
+            <summary style="padding: 18px 22px; font-family: Inter, Arial, sans-serif; font-size: 15px; font-weight: 600; color: #1C1C1E; cursor: pointer; list-style: none; display: flex; align-items: center; justify-content: space-between; background: #FAFAF8;">
+              Are mortgage rates coming down in the UK in 2026?
+              <span style="font-size: 18px; color: #888888; flex-shrink: 0; margin-left: 12px;">+</span>
+            </summary>
+            <div style="padding: 18px 22px; border-top: 1px solid #E5E0D8; background: #FFFFFF;">
+              <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.7; color: #444444; margin: 0;">The Bank of England base rate stood at 4.5% in January 2026, down from a peak of 5.25% in August 2023. The OBR Economic and Fiscal Outlook projects further gradual cuts through 2026, though the pace and terminal rate remain subject to inflation data and broader economic conditions. Average 5-year fixed residential mortgage rates were in the 4.1%-4.5% range in January 2026 (Moneyfacts). The direction of travel is downward, but buyers should not plan on rates returning to the 2.3% five-year fixed average seen in 2021. A realistic 2026-27 range for 5-year fixed rates on mainstream residential mortgages is 3.8%-4.5%, representing a meaningful improvement on 2023 peaks but still significantly above the pre-2022 baseline.</p>
+            </div>
+          </details>
+
+          <details style="border: 1px solid #E5E0D8; border-radius: 4px; overflow: hidden;">
+            <summary style="padding: 18px 22px; font-family: Inter, Arial, sans-serif; font-size: 15px; font-weight: 600; color: #1C1C1E; cursor: pointer; list-style: none; display: flex; align-items: center; justify-content: space-between; background: #FAFAF8;">
+              Is the Cheshire Golden Triangle property market overpriced?
+              <span style="font-size: 18px; color: #888888; flex-shrink: 0; margin-left: 12px;">+</span>
+            </summary>
+            <div style="padding: 18px 22px; border-top: 1px solid #E5E0D8; background: #FFFFFF;">
+              <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.7; color: #444444; margin: 0;">Whether Golden Triangle prices are overpriced depends on the reference frame applied. Relative to comparable commuter towns serving major European financial centres, Golden Triangle prices are not exceptional - equivalent rail-distance suburbs of Paris, Zurich, or Amsterdam trade at considerably higher prices. Relative to Manchester city centre, Golden Triangle prices at an approximate 2-3x premium reflect both supply constraints and the lifestyle offer that drives demand. The structural argument against overvaluation is the Green Belt supply ceiling: prices in constrained geographies cannot be "corrected" by new supply entering the market. The argument for caution is that the buyer pool at these prices is narrow, making the market more sensitive to credit conditions and employment shocks than deeper, more liquid markets.</p>
+            </div>
+          </details>
+
+        </div>
+      </section>
+
+      <!-- Sources -->
+      <section style="margin-bottom: 56px;">
+        <h2 style="font-family: Georgia, serif; font-size: 18px; font-weight: 700; color: #1C1C1E; margin: 0 0 16px 0;">Sources and Methodology</h2>
+        <div style="background: #F5F0E8; border: 1px solid #E5E0D8; border-radius: 4px; padding: 20px 24px;">
+          <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px;">
+            <li style="font-family: Inter, Arial, sans-serif; font-size: 13px; line-height: 1.6; color: #555555; padding-left: 16px; position: relative;"><span style="position: absolute; left: 0; color: #888888;">-</span> Land Registry House Price Index, Q4 2025 - average prices by local authority and postcode sector</li>
+            <li style="font-family: Inter, Arial, sans-serif; font-size: 13px; line-height: 1.6; color: #555555; padding-left: 16px; position: relative;"><span style="position: absolute; left: 0; color: #888888;">-</span> Bank of England Monetary Policy Committee, January 2026 - base rate and monetary policy outlook</li>
+            <li style="font-family: Inter, Arial, sans-serif; font-size: 13px; line-height: 1.6; color: #555555; padding-left: 16px; position: relative;"><span style="position: absolute; left: 0; color: #888888;">-</span> Moneyfacts mortgage market data, January 2026 - average residential fixed rate products</li>
+            <li style="font-family: Inter, Arial, sans-serif; font-size: 13px; line-height: 1.6; color: #555555; padding-left: 16px; position: relative;"><span style="position: absolute; left: 0; color: #888888;">-</span> OBR Economic and Fiscal Outlook - base rate and GDP projections 2026-27</li>
+            <li style="font-family: Inter, Arial, sans-serif; font-size: 13px; line-height: 1.6; color: #555555; padding-left: 16px; position: relative;"><span style="position: absolute; left: 0; color: #888888;">-</span> HMRC SDLT transaction data 2024 - residential transactions by local authority area</li>
+            <li style="font-family: Inter, Arial, sans-serif; font-size: 13px; line-height: 1.6; color: #555555; padding-left: 16px; position: relative;"><span style="position: absolute; left: 0; color: #888888;">-</span> Greater Manchester Combined Authority (GMCA) GVA data 2024 - regional economic growth</li>
+            <li style="font-family: Inter, Arial, sans-serif; font-size: 13px; line-height: 1.6; color: #555555; padding-left: 16px; position: relative;"><span style="position: absolute; left: 0; color: #888888;">-</span> Cheshire East Local Plan 2021-30 - housing delivery targets, Green Belt designations, completion rates</li>
+            <li style="font-family: Inter, Arial, sans-serif; font-size: 13px; line-height: 1.6; color: #555555; padding-left: 16px; position: relative;"><span style="position: absolute; left: 0; color: #888888;">-</span> Zoopla Market Index - current listing activity and demand indicators</li>
+          </ul>
+          <p style="font-family: Inter, Arial, sans-serif; font-size: 12px; color: #888888; margin: 16px 0 0 0;">Data current as at Q1 2026. Property markets change: verify current figures with Land Registry and Moneyfacts before making decisions.</p>
+        </div>
+      </section>
+
+      <!-- Related guides -->
+      <section>
+        <h2 style="font-family: Georgia, serif; font-size: 20px; font-weight: 700; color: #1C1C1E; margin: 0 0 20px 0; padding-bottom: 12px; border-bottom: 2px solid #E5E0D8;">Related Guides</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px;">
+          <a href="/where-to-live" style="display: block; padding: 18px 20px; background: #FAFAF8; border: 1px solid #E5E0D8; border-radius: 4px; text-decoration: none; transition: border-color 0.15s;">
+            <span style="font-family: Inter, Arial, sans-serif; font-size: 13px; font-weight: 600; color: #3D5A3E; display: block; margin-bottom: 6px;">Where to Live</span>
+            <span style="font-family: Inter, Arial, sans-serif; font-size: 13px; color: #888888; line-height: 1.4; display: block;">Where to Live in Cheshire</span>
+          </a>
+          <a href="/house-prices/average-house-price-cheshire" style="display: block; padding: 18px 20px; background: #FAFAF8; border: 1px solid #E5E0D8; border-radius: 4px; text-decoration: none;">
+            <span style="font-family: Inter, Arial, sans-serif; font-size: 13px; font-weight: 600; color: #3D5A3E; display: block; margin-bottom: 6px;">House Prices</span>
+            <span style="font-family: Inter, Arial, sans-serif; font-size: 13px; color: #888888; line-height: 1.4; display: block;">Average House Prices in Cheshire</span>
+          </a>
+          <a href="/house-prices/wilmslow-house-prices" style="display: block; padding: 18px 20px; background: #FAFAF8; border: 1px solid #E5E0D8; border-radius: 4px; text-decoration: none;">
+            <span style="font-family: Inter, Arial, sans-serif; font-size: 13px; font-weight: 600; color: #3D5A3E; display: block; margin-bottom: 6px;">Wilmslow</span>
+            <span style="font-family: Inter, Arial, sans-serif; font-size: 13px; color: #888888; line-height: 1.4; display: block;">Wilmslow House Prices (SK9)</span>
+          </a>
+          <a href="/where-to-live/golden-triangle" style="display: block; padding: 18px 20px; background: #FAFAF8; border: 1px solid #E5E0D8; border-radius: 4px; text-decoration: none;">
+            <span style="font-family: Inter, Arial, sans-serif; font-size: 13px; font-weight: 600; color: #3D5A3E; display: block; margin-bottom: 6px;">Golden Triangle</span>
+            <span style="font-family: Inter, Arial, sans-serif; font-size: 13px; color: #888888; line-height: 1.4; display: block;">Cheshire Golden Triangle Guide</span>
+          </a>
+        </div>
+      </section>
+
+    </div>
+  </article>
+
 </BaseLayout>
+
+<style>
+  details summary::-webkit-details-marker {
+    display: none;
+  }
+  details[open] summary span:last-child {
+    transform: rotate(45deg);
+    display: inline-block;
+  }
+  a[href]:hover {
+    border-color: #3D5A3E !important;
+  }
+</style>

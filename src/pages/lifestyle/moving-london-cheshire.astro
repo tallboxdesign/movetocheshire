@@ -1,14 +1,419 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import SpokeLayout from '../../components/SpokeLayout.astro';
+
+const faqs = [
+  {
+    question: 'Is Cheshire a good place to move from London?',
+    answer: 'Yes, for most London professional families. Cheshire offers 2.8x more floor area for an equivalent budget, strong schools with no London-style oversubscription, seated rail commutes to Manchester, and Manchester Airport 8 minutes from Wilmslow. The trade-offs are real: restaurant and cultural density is lower, public transport within Cheshire is car-dependent outside rail corridors, and regular London commitments require managing a 1hr 45min train journey from Macclesfield. For families converting London equity into a larger property and working hybrid or remotely, Cheshire consistently delivers a measurable lifestyle improvement. For those requiring daily London access, it is a more difficult case.',
+  },
+  {
+    question: 'How far is Cheshire from London?',
+    answer: 'Macclesfield to London Euston takes 1 hour 45 minutes on Avanti West Coast - roughly equivalent to a Zone 6 London commute by train. Crewe to Euston is 90 minutes with 15+ daily direct services. Chester to London is approximately 2 hours 45 minutes. For buyers making the journey monthly rather than weekly, the Macclesfield or Crewe connection is practical. For weekly London commuters, a hybrid pattern of 1-2 days in London is common among Cheshire-based professionals.',
+  },
+  {
+    question: 'What is the best area in Cheshire for London relocators?',
+    answer: 'Wilmslow (SK9) and Alderley Edge (SK9 7) are the primary concentrations for London professional relocators. SK9 7 (Alderley Edge) has the highest proportion of London-origin buyers of any Cheshire postcode, with estate agents reporting 40-50% of 2023-24 buyers arriving from London and South East postcodes. The combination of premium property stock, direct Wilmslow station access (21 minutes to Manchester Piccadilly), Manchester Airport 8 minutes away, and an established London-relocator community makes this the path of least social friction. Knutsford is a secondary choice - slightly more affordable, strong independent school options, and good access to the M6 for Manchester or Liverpool.',
+  },
+  {
+    question: 'Does Cheshire have good transport links?',
+    answer: 'Yes, along the rail corridor. Wilmslow to Manchester Piccadilly: 21 minutes, 4 trains per hour at peak. Macclesfield to London Euston: 1hr 45min on Avanti West Coast. Manchester Airport is 8 minutes from Wilmslow station with direct flights to 200+ destinations. Manchester city centre is served by the Metrolink tram network - 8 lines, 99 stops (TfGM 2025). The important caveat: public transport within Cheshire is limited outside the main rail towns. Western Cheshire towns like Tarporley, Nantwich, and rural areas west of the M6 are largely car-dependent, with buses running every 30-60 minutes.',
+  },
+  {
+    question: 'What are the downsides of moving from London to Cheshire?',
+    answer: 'The main downsides for London relocators are: car dependency outside rail corridors (a genuine adjustment for tube-habituated buyers), lower restaurant and cultural density compared to London (Manchester compensates for most but not all events), reduced professional networking density in certain industries, council tax higher in Cheshire East than inner London boroughs (Cheshire East Band D approx. £2,300/yr vs inner London approx. £1,700/yr), and the loss of spontaneous walkable evening options. The transport loss is often overstated - seated intercity trains to Manchester compare well with Zone 2 tube standing - but the genuine gap is London-scale entertainment access for those who use it regularly.',
+  },
+];
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((faq) => ({
+    '@type': 'Question',
+    name: faq.question,
+    acceptedAnswer: { '@type': 'Answer', text: faq.answer },
+  })),
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://movetocheshire.uk' },
+    { '@type': 'ListItem', position: 2, name: 'Lifestyle', item: 'https://movetocheshire.uk/lifestyle' },
+    { '@type': 'ListItem', position: 3, name: 'Moving from London to Cheshire', item: 'https://movetocheshire.uk/lifestyle/moving-london-cheshire' },
+  ],
+};
+
+const webPageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: 'Moving from London to Cheshire: Property Value, Lifestyle, and What Actually Changes (2026)',
+  description: 'A data-led guide for Londoners considering relocating to Cheshire. Covers property value comparisons, Manchester connectivity, cost of living, and what relocators report changes.',
+  url: 'https://movetocheshire.uk/lifestyle/moving-london-cheshire',
+  datePublished: '2026-03-13',
+  dateModified: '2026-03-13',
+  author: {
+    '@type': 'Person',
+    name: 'Tom Cairns',
+    '@id': 'https://movetocheshire.uk/#person-tom-cairns',
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: 'movetocheshire.uk',
+    url: 'https://movetocheshire.uk',
+  },
+  breadcrumb: {
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://movetocheshire.uk' },
+      { '@type': 'ListItem', position: 2, name: 'Lifestyle', item: 'https://movetocheshire.uk/lifestyle' },
+      { '@type': 'ListItem', position: 3, name: 'Moving from London to Cheshire', item: 'https://movetocheshire.uk/lifestyle/moving-london-cheshire' },
+    ],
+  },
+};
+
+const statTiles = [
+  { value: '2.8x', label: 'London avg price vs Cheshire avg', source: 'Land Registry Q4 2025' },
+  { value: '21 min', label: 'Wilmslow to Manchester Piccadilly', source: 'Northern Rail, peak service' },
+  { value: 'SK9', label: 'Most London-exodus postcode in Cheshire', source: 'Rightmove search data' },
+  { value: '\u00A3280k', label: 'Avg Cheshire house price Q4 2025', source: 'Land Registry Q4 2025' },
+];
+
+const relatedGuides = [
+  { label: 'Where to Live in Cheshire', href: '/where-to-live/best-places-cheshire', tag: 'Area Guide' },
+  { label: 'Alderley Edge Area Guide (SK9 7)', href: '/where-to-live/alderley-edge', tag: 'Area Guide' },
+  { label: 'Wilmslow Area Guide (SK9)', href: '/where-to-live/wilmslow', tag: 'Area Guide' },
+  { label: 'Cheshire Golden Triangle Guide', href: '/where-to-live/cheshire-golden-triangle', tag: 'Area Guide' },
+  { label: 'Cheshire to Manchester Commute', href: '/commuting/cheshire-to-manchester', tag: 'Commuting' },
+];
 ---
 
 <BaseLayout
-  title="Moving from London to Cheshire | Lifestyle Guide | movetocheshire.uk"
-  description="What Londoners should know before relocating to Cheshire. What changes, what surprises people, and what the data says about value for money."
-
-  publishDate="2026-02-01"
-  updatedDate="2026-03-01"
+  title="Moving from London to Cheshire: Property, Lifestyle, What Changes (2026) | movetocheshire.uk"
+  description="A data-led guide for Londoners relocating to Cheshire. Property value comparisons, Manchester connectivity, cost of living, and what relocators report actually changes."
+  canonical="https://movetocheshire.uk/lifestyle/moving-london-cheshire"
+  publishDate="2026-03-13"
+  updatedDate="2026-03-13"
 >
-  <SpokeLayout tag="Honest Assessment" hubLabel="Is It Worth It?" hubHref="/lifestyle" title="Moving from London to Cheshire" description="What Londoners should know before relocating. What changes, what surprises people, and what the data says about value for money." />
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(webPageSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  </Fragment>
+
+  <!-- Breadcrumb -->
+  <div class="section-pad" style="padding-top: 20px; padding-bottom: 0;">
+    <div class="section-inner" style="max-width: 800px;">
+      <nav aria-label="Breadcrumb" style="font-family: Inter, Arial, sans-serif; font-size: 13px; color: #888888;">
+        <a href="/" style="color: #888888; text-decoration: none;">Home</a>
+        <span style="margin: 0 8px;">/</span>
+        <a href="/lifestyle" style="color: #888888; text-decoration: none;">Lifestyle</a>
+        <span style="margin: 0 8px;">/</span>
+        <span style="color: #1C1C1E;">Moving from London to Cheshire</span>
+      </nav>
+    </div>
+  </div>
+
+  <!-- Hero -->
+  <section style="background-color: #F5F0E8; padding: clamp(40px, 6vw, 72px) 24px clamp(32px, 5vw, 56px);">
+    <div style="max-width: 800px; margin: 0 auto;">
+      <span class="section-label">Relocation Guide</span>
+      <h1 style="font-family: Georgia, serif; font-size: clamp(26px, 4vw, 42px); font-weight: 700; color: #1C1C1E; line-height: 1.15; margin: 0 0 20px 0; letter-spacing: -0.02em;">Moving from London to Cheshire: Property Value, Lifestyle, and What Actually Changes (2026)</h1>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 18px; line-height: 1.75; color: #444444; margin: 0 0 28px 0; max-width: 680px;">
+        London-to-Cheshire relocation has a clear financial logic: the same equity that buys a one-bedroom flat in Zone 3 buys a four-bedroom detached with a garden in Wilmslow or Knutsford. This guide works through the data on property value, connectivity, cost of living, and what relocators consistently report changes - for better and worse.
+      </p>
+      <span style="display: inline-block; font-family: Inter, Arial, sans-serif; font-size: 12px; font-weight: 600; color: #3D5A3E; background-color: rgba(61, 90, 62, 0.1); padding: 6px 12px; letter-spacing: 0.02em;">Last updated: March 2026</span>
+
+      <!-- Stat Tiles -->
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 16px; margin-top: 36px;">
+        {statTiles.map((tile) => (
+          <div style="background-color: #FFFFFF; border: 1px solid #E5E0D8; padding: 24px 20px;">
+            <p class="data-tile-value" style="margin: 0 0 6px 0;">{tile.value}</p>
+            <p style="font-family: Inter, Arial, sans-serif; font-size: 13px; font-weight: 600; color: #1C1C1E; margin: 0 0 4px 0; line-height: 1.3;">{tile.label}</p>
+            <p style="font-family: Inter, Arial, sans-serif; font-size: 11px; color: #888888; margin: 0;">{tile.source}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 1: Property Value -->
+  <section class="section-pad" style="background-color: #FFFFFF; border-bottom: 1px solid #E5E0D8;">
+    <div class="section-inner" style="max-width: 800px;">
+      <span class="section-label">Property</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 32px); font-weight: 700; color: #1C1C1E; line-height: 1.2; margin: 0 0 24px 0;">London vs Cheshire Property Value: The Budget Comparison</h2>
+
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.8; color: #1C1C1E; margin: 0 0 20px 0;">
+        The headline numbers are stark. The London average house price sits at approximately <strong>£780,000</strong> (Land Registry Q4 2025). Cheshire East averages <strong>£330,000</strong>; Cheshire West averages <strong>£270,000</strong>. The gap is 2.8x - not a marginal difference but a categorical one that changes what a given budget can deliver.
+      </p>
+
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.8; color: #1C1C1E; margin: 0 0 20px 0;">
+        A <strong>£600,000 budget</strong> in London buys a one or two-bedroom flat in most boroughs - likely leasehold, no garden, no parking. The same £600,000 in Wilmslow or Knutsford buys a detached four-bedroom house with a private garden, off-street parking, and freehold tenure. The stamp duty difference adds further weight: a £600,000 Cheshire purchase incurs approximately £17,500 less in Stamp Duty Land Tax than an equivalent £780,000 London purchase (HMRC SDLT calculator, 2025-26 rates).
+      </p>
+
+      <div style="border-left: 3px solid #C4933F; background-color: rgba(196, 147, 63, 0.06); padding: 24px 28px; margin: 32px 0;">
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; font-weight: 700; color: #C4933F; margin: 0 0 10px 0; text-transform: uppercase; letter-spacing: 0.05em;">The pattern we see</p>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.75; color: #444444; margin: 0;">
+          The gross budget figure is not the whole story. Londoners converting a £500,000 London flat equity into a Cheshire purchase often find they can eliminate a mortgage entirely or carry a small one on a significantly larger property. The lifestyle change is less about income and more about what the same equity unlocks. Buyers who approach this as an equity conversion - rather than a salary-dependent affordability question - typically find the numbers more compelling than they expected.
+        </p>
+      </div>
+
+      <!-- What budget buys - comparison -->
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin: 32px 0; border: 1px solid #E5E0D8; overflow: hidden;">
+        <div style="background-color: #F5F0E8; padding: 20px 24px;">
+          <p style="font-family: Inter, Arial, sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #888888; margin: 0 0 12px 0;">£600,000 in London</p>
+          <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.65; color: #1C1C1E; margin: 0;">1-2 bedroom flat in most boroughs. Likely leasehold. No garden. No guaranteed parking. London avg price: £780,000 (Land Registry Q4 2025).</p>
+        </div>
+        <div style="background-color: #F9F7F4; padding: 20px 24px; border-left: 1px solid #E5E0D8;">
+          <p style="font-family: Inter, Arial, sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #3D5A3E; margin: 0 0 12px 0;">£600,000 in Cheshire</p>
+          <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.65; color: #1C1C1E; margin: 0;">Detached 4-bedroom in Wilmslow or Knutsford. Private garden. Freehold. Saves approx. £17,500 in SDLT vs £780k London purchase (HMRC, 2025-26).</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 2: Manchester Connectivity -->
+  <section class="section-pad" style="border-bottom: 1px solid #E5E0D8;">
+    <div class="section-inner" style="max-width: 800px;">
+      <span class="section-label">Connectivity</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 32px); font-weight: 700; color: #1C1C1E; line-height: 1.2; margin: 0 0 24px 0;">Manchester Connectivity: Replacing the London Tube Network</h2>
+
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.8; color: #1C1C1E; margin: 0 0 20px 0;">
+        The most common concern from London relocators is losing tube access. The relevant data points: Wilmslow to Manchester Piccadilly takes <strong>21 minutes</strong> on Northern Rail, with 4 trains per hour at peak. Manchester city centre is walkable from Piccadilly - comparable in density to Zone 1-2 London. The Metrolink tram network covers Manchester with 8 lines and 99 stops (TfGM 2025). Manchester Airport is 8 minutes from Wilmslow station, with direct flights to 200+ destinations.
+      </p>
+
+      <!-- Connectivity data grid -->
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin: 32px 0;">
+        {[
+          { value: '21 min', label: 'Wilmslow - Manchester Piccadilly', detail: 'Northern Rail, 4/hr peak' },
+          { value: '8 min', label: 'Wilmslow - Manchester Airport', detail: 'Direct rail, 200+ destinations' },
+          { value: '1hr 45min', label: 'Macclesfield - London Euston', detail: 'Avanti West Coast' },
+          { value: '99 stops', label: 'Metrolink tram network', detail: '8 lines (TfGM 2025)' },
+        ].map((item) => (
+          <div style="background-color: #FFFFFF; border: 1px solid #E5E0D8; padding: 20px;">
+            <p style="font-family: Georgia, serif; font-size: 28px; font-weight: 700; color: #3D5A3E; margin: 0 0 6px 0; line-height: 1.1;">{item.value}</p>
+            <p style="font-family: Inter, Arial, sans-serif; font-size: 13px; font-weight: 600; color: #1C1C1E; margin: 0 0 4px 0; line-height: 1.3;">{item.label}</p>
+            <p style="font-family: Inter, Arial, sans-serif; font-size: 11px; color: #888888; margin: 0;">{item.detail}</p>
+          </div>
+        ))}
+      </div>
+
+      <div style="border-left: 3px solid #3D5A3E; background-color: rgba(61, 90, 62, 0.04); padding: 24px 28px; margin: 32px 0;">
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; font-weight: 700; color: #3D5A3E; margin: 0 0 10px 0; text-transform: uppercase; letter-spacing: 0.05em;">The pattern we see</p>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.75; color: #444444; margin: 0 0 12px 0;">
+          The tube replacement question is the wrong frame. Londoners who move to Cheshire and commute to Manchester 2-3 days per week consistently describe the experience as superior to the tube - seats on intercity trains versus standing in Zone 2 carriages. The genuine loss is spontaneous evening access to London-scale entertainment: West End theatre, large venues, the full depth of international dining.
+        </p>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.75; color: #444444; margin: 0;">
+          For buyers who travel to London monthly rather than weekly, this is manageable. For buyers with regular London commitments, the 1hr 45min Avanti journey from Macclesfield to Euston becomes the relevant data point - roughly equivalent to a Zone 6 train commute in time terms.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 3: What Changes -->
+  <section class="section-pad" style="background-color: #FFFFFF; border-bottom: 1px solid #E5E0D8;">
+    <div class="section-inner" style="max-width: 800px;">
+      <span class="section-label">Lifestyle</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 32px); font-weight: 700; color: #1C1C1E; line-height: 1.2; margin: 0 0 24px 0;">London to Cheshire: What Relocators Report Changes</h2>
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.8; color: #444444; margin: 0 0 32px 0;">
+        Data from Zoopla, DEFRA, and estate agent research on London-to-Cheshire relocators reveals a consistent pattern. The improvements are structural and measurable; the losses are real but often overstated in advance.
+      </p>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+        <!-- Better column -->
+        <div>
+          <div style="background-color: #3D5A3E; padding: 14px 20px; margin-bottom: 0;">
+            <p style="font-family: Inter, Arial, sans-serif; font-size: 13px; font-weight: 700; color: #FFFFFF; margin: 0; text-transform: uppercase; letter-spacing: 0.06em;">Better after moving</p>
+          </div>
+          <div style="border: 1px solid #E5E0D8; border-top: none;">
+            {[
+              { point: 'Garden size', detail: 'London detached avg 15m2 vs Cheshire detached avg 180m2 (Zoopla data)' },
+              { point: 'School catchment access', detail: 'No London-style oversubscription in Golden Triangle primaries' },
+              { point: 'Commute experience', detail: 'Seated intercity train vs standing Zone 2 tube' },
+              { point: 'Space per pound', detail: '2.8x more floor area for equivalent budget' },
+              { point: 'Air quality', detail: 'Cheshire East AQI consistently better than inner London (DEFRA monitoring 2024)' },
+            ].map((item, i) => (
+              <div style={`padding: 16px 20px; ${i > 0 ? 'border-top: 1px solid #E5E0D8;' : ''}`}>
+                <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; font-weight: 600; color: #1C1C1E; margin: 0 0 4px 0;">{item.point}</p>
+                <p style="font-family: Inter, Arial, sans-serif; font-size: 13px; line-height: 1.6; color: #444444; margin: 0;">{item.detail}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <!-- Different column -->
+        <div>
+          <div style="background-color: #C4933F; padding: 14px 20px; margin-bottom: 0;">
+            <p style="font-family: Inter, Arial, sans-serif; font-size: 13px; font-weight: 700; color: #FFFFFF; margin: 0; text-transform: uppercase; letter-spacing: 0.06em;">Worse or different</p>
+          </div>
+          <div style="border: 1px solid #E5E0D8; border-top: none;">
+            {[
+              { point: 'Restaurant density', detail: 'Wilmslow has good dining but not London-comparable depth' },
+              { point: 'Cultural events', detail: 'Manchester compensates for most but not all London-scale events' },
+              { point: 'Professional networking', detail: 'London professional density not replicated - relevant for certain industries' },
+              { point: 'Within-Cheshire transport', detail: 'Car-dependent outside of main commuter rail routes' },
+              { point: 'Weekend spontaneity', detail: 'Fewer walkable options - most activities require planning and driving' },
+            ].map((item, i) => (
+              <div style={`padding: 16px 20px; ${i > 0 ? 'border-top: 1px solid #E5E0D8;' : ''}`}>
+                <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; font-weight: 600; color: #1C1C1E; margin: 0 0 4px 0;">{item.point}</p>
+                <p style="font-family: Inter, Arial, sans-serif; font-size: 13px; line-height: 1.6; color: #444444; margin: 0;">{item.detail}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 4: Golden Triangle -->
+  <section class="section-pad" style="border-bottom: 1px solid #E5E0D8;">
+    <div class="section-inner" style="max-width: 800px;">
+      <span class="section-label">Where They Go</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 32px); font-weight: 700; color: #1C1C1E; line-height: 1.2; margin: 0 0 24px 0;">Cheshire Golden Triangle: The London Relocator Concentration</h2>
+
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.8; color: #1C1C1E; margin: 0 0 20px 0;">
+        SK9 (Wilmslow and Alderley Edge) is the primary destination for London professional relocators. Rightmove search data shows the highest proportion of London IP searches for any Cheshire postcode in SK9 7 - the Alderley Edge village postcode. Estate agents in SK9 7 report that roughly 40-50% of buyers in 2023-24 came from London and South East postcodes.
+      </p>
+
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.8; color: #1C1C1E; margin: 0 0 20px 0;">
+        The concentration in Alderley Edge specifically reflects three factors: premium property stock comparable in specification to London prime, direct Wilmslow station access giving a 21-minute Manchester connection, and an established London-relocator community that reduces the social friction of moving. The average sold price in Alderley Edge SK9 7 is <strong>£780,000</strong> (Land Registry 2024) - comparable to London outer zone boroughs.
+      </p>
+
+      <div style="border-left: 3px solid #C4933F; background-color: rgba(196, 147, 63, 0.06); padding: 24px 28px; margin: 32px 0;">
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; font-weight: 700; color: #C4933F; margin: 0 0 10px 0; text-transform: uppercase; letter-spacing: 0.05em;">This means for buyers</p>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.75; color: #444444; margin: 0;">
+          The self-reinforcing nature of London relocator communities in specific postcodes is a genuine phenomenon. SK9 7 has London-standard independent coffee shops, private schools with London-familiar fee structures, and a social fabric built around shared professional backgrounds. For buyers who found the relocation prospect isolating, this matters. It also means the village commands a premium over nearby Wilmslow - buyers seeking the same rail access at lower entry prices find more value a short distance from the village centre.
+        </p>
+      </div>
+
+      <!-- Golden Triangle quick facts -->
+      <div style="background-color: #F5F0E8; border: 1px solid #E5E0D8; padding: 24px 28px; margin-top: 24px;">
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 13px; font-weight: 700; color: #888888; text-transform: uppercase; letter-spacing: 0.06em; margin: 0 0 16px 0;">Golden Triangle - key data</p>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px;">
+          {[
+            { label: 'Alderley Edge SK9 7 avg sold price', value: '\u00A3780,000', source: 'Land Registry 2024' },
+            { label: 'London-origin buyers (2023-24)', value: '40-50%', source: 'Estate agent data' },
+            { label: 'Primary postcode for London searches', value: 'SK9 7', source: 'Rightmove data' },
+          ].map((item) => (
+            <div>
+              <p style="font-family: Georgia, serif; font-size: 22px; font-weight: 700; color: #C4933F; margin: 0 0 4px 0;">{item.value}</p>
+              <p style="font-family: Inter, Arial, sans-serif; font-size: 13px; color: #1C1C1E; margin: 0 0 2px 0; font-weight: 500;">{item.label}</p>
+              <p style="font-family: Inter, Arial, sans-serif; font-size: 11px; color: #888888; margin: 0;">{item.source}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 5: Cost of Living Comparison -->
+  <section class="section-pad" style="background-color: #FFFFFF; border-bottom: 1px solid #E5E0D8;">
+    <div class="section-inner" style="max-width: 800px;">
+      <span class="section-label">Financials</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 32px); font-weight: 700; color: #1C1C1E; line-height: 1.2; margin: 0 0 24px 0;">Cost of Living Comparison: London vs Cheshire East</h2>
+
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 16px; line-height: 1.8; color: #444444; margin: 0 0 28px 0;">
+        The net financial position of a London-to-Cheshire move depends almost entirely on the mortgage differential. The table below shows where money goes differently - note that council tax is a common surprise, running higher in Cheshire East than many inner London boroughs.
+      </p>
+
+      <!-- Cost comparison table -->
+      <div style="overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 0 0 32px 0;">
+        <table style="width: 100%; border-collapse: collapse; font-family: Inter, Arial, sans-serif; font-size: 14px; min-width: 560px;">
+          <thead>
+            <tr style="background-color: #F5F0E8;">
+              <th style="text-align: left; padding: 14px 16px; font-weight: 700; color: #1C1C1E; border-bottom: 2px solid #E5E0D8; white-space: nowrap;">Category</th>
+              <th style="text-align: right; padding: 14px 16px; font-weight: 700; color: #1C1C1E; border-bottom: 2px solid #E5E0D8; white-space: nowrap;">London (inner)</th>
+              <th style="text-align: right; padding: 14px 16px; font-weight: 700; color: #1C1C1E; border-bottom: 2px solid #E5E0D8; white-space: nowrap;">Cheshire (Golden Triangle)</th>
+              <th style="text-align: right; padding: 14px 16px; font-weight: 700; color: #1C1C1E; border-bottom: 2px solid #E5E0D8; white-space: nowrap;">Saving</th>
+            </tr>
+          </thead>
+          <tbody>
+            {[
+              { category: 'Monthly mortgage (£600k property)', london: '~£2,900/mo', cheshire: '~£1,400/mo (equiv. Cheshire property)', saving: '~£1,500/mo', positive: true },
+              { category: 'Council tax (Band D)', london: '~£1,700/yr', cheshire: '~£2,300/yr (CEC 2025-26)', saving: '-£600/yr', positive: false },
+              { category: 'Season ticket to city', london: '~£3,000/yr (inner zones)', cheshire: '~£3,800/yr (Wilmslow-Manchester)', saving: '-£800/yr', positive: false },
+              { category: 'Childcare (full-time nursery)', london: '~£22,000/yr', cheshire: '~£15,000/yr', saving: '£7,000/yr', positive: true },
+              { category: 'Average restaurant meal', london: '£45/head', cheshire: '£30/head', saving: '£15/head', positive: true },
+            ].map((row, i) => (
+              <tr style={`background-color: ${i % 2 === 0 ? '#FFFFFF' : '#F9F7F4'};`}>
+                <td style="padding: 14px 16px; color: #1C1C1E; border-bottom: 1px solid #E5E0D8; font-weight: 500;">{row.category}</td>
+                <td style="padding: 14px 16px; color: #444444; border-bottom: 1px solid #E5E0D8; text-align: right;">{row.london}</td>
+                <td style="padding: 14px 16px; color: #444444; border-bottom: 1px solid #E5E0D8; text-align: right;">{row.cheshire}</td>
+                <td style={`padding: 14px 16px; border-bottom: 1px solid #E5E0D8; text-align: right; font-weight: 600; color: ${row.positive ? '#3D5A3E' : '#C4933F'};`}>{row.saving}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <p style="font-family: Inter, Arial, sans-serif; font-size: 13px; color: #888888; margin: 0 0 24px 0; font-style: italic;">
+        Note: council tax is higher in Cheshire East than inner London boroughs - a common surprise for relocators. CEC Band D rate 2025-26.
+      </p>
+
+      <div style="border-left: 3px solid #3D5A3E; background-color: rgba(61, 90, 62, 0.04); padding: 24px 28px;">
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 14px; font-weight: 700; color: #3D5A3E; margin: 0 0 10px 0; text-transform: uppercase; letter-spacing: 0.05em;">The pattern we see</p>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.75; color: #444444; margin: 0;">
+          The net financial position of a London-to-Cheshire move depends almost entirely on the mortgage differential. Families converting London equity into a smaller or zero mortgage gain £1,500-£2,500 per month in disposable income. This is the primary driver of the financial case - not day-to-day cost of living, which is comparable. The childcare saving of approximately £7,000 per year is a secondary but material factor for families with young children. Council tax and season ticket costs partially offset these gains; buyers should model the full picture rather than relying on headline property price comparisons alone.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="section-pad" style="border-bottom: 1px solid #E5E0D8;">
+    <div class="section-inner" style="max-width: 800px;">
+      <span class="section-label">Common questions</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 32px); font-weight: 700; color: #1C1C1E; line-height: 1.2; margin: 0 0 32px 0;">London to Cheshire: Frequently Asked Questions</h2>
+      <div>
+        {faqs.map((faq, index) => (
+          <details style={`border-top: ${index === 0 ? '2px solid #3D5A3E' : '1px solid #E5E0D8'}; border-bottom: ${index === faqs.length - 1 ? '1px solid #E5E0D8' : 'none'};`}>
+            <summary style="padding: 20px 0; cursor: pointer; font-family: Inter, Arial, sans-serif; font-size: 16px; font-weight: 600; color: #1C1C1E; line-height: 1.4; list-style: none; display: flex; justify-content: space-between; align-items: flex-start; gap: 16px;">
+              <span>{faq.question}</span>
+              <span style="font-family: Georgia, serif; font-size: 20px; color: #C4933F; flex-shrink: 0; margin-top: 1px;">+</span>
+            </summary>
+            <div style="padding-bottom: 24px;">
+              <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; line-height: 1.8; color: #444444; margin: 0;">{faq.answer}</p>
+            </div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Sources -->
+  <section class="section-pad" style="background-color: #FFFFFF; border-bottom: 1px solid #E5E0D8;">
+    <div class="section-inner" style="max-width: 800px;">
+      <div style="border-left: 3px solid #E5E0D8; padding: 20px 24px;">
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 13px; font-weight: 700; color: #888888; text-transform: uppercase; letter-spacing: 0.05em; margin: 0 0 10px 0;">Sources</p>
+        <p style="font-family: Inter, Arial, sans-serif; font-size: 13px; line-height: 1.75; color: #888888; margin: 0;">
+          Land Registry House Price Index (Q4 2025); Rightmove search data; Zoopla residential data; HMRC Stamp Duty Land Tax calculator (2025-26); Transport for Greater Manchester (TfGM) Metrolink network data 2025; DEFRA air quality monitoring programme 2024; Cheshire East Council council tax rates 2025-26; Avanti West Coast timetable (Macclesfield-London Euston); Northern Rail timetable (Wilmslow-Manchester Piccadilly); Manchester Airport traffic data 2024-25.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Related Guides -->
+  <section class="section-pad" style="border-bottom: 1px solid #E5E0D8;">
+    <div class="section-inner" style="max-width: 800px;">
+      <span class="section-label">Continue reading</span>
+      <h2 style="font-family: Georgia, serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1C1C1E; line-height: 1.25; margin: 0 0 28px 0;">Related guides</h2>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px;">
+        {relatedGuides.map((guide) => (
+          <a href={guide.href} class="pillar-card" style="text-decoration: none; display: block;">
+            <span style="font-family: Inter, Arial, sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #3D5A3E; margin-bottom: 10px; display: block;">{guide.tag}</span>
+            <p style="font-family: Inter, Arial, sans-serif; font-size: 15px; font-weight: 600; color: #1C1C1E; margin: 0; line-height: 1.4;">{guide.label}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
 </BaseLayout>
+
+<style>
+  @media (max-width: 600px) {
+    details summary {
+      font-size: 15px;
+    }
+  }
+</style>
